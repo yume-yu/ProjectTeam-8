@@ -129,6 +129,10 @@ div#art-title {
   width:90%;
 }
 
+#art-title h2{
+  font-size: 35px;
+}
+
 section {
   width: 90%;
 }
