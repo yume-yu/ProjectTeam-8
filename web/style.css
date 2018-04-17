@@ -1,0 +1,117 @@
+body {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+  justify-content: center;
+  background-color: #f0f0f0;
+}
+
+div {
+  /* すき */
+  margin: 0 auto;
+}
+
+div#title {
+  display: flex;
+  align-content: space-around;
+  width: 100%;
+  height: 70px;
+  background-color: #ffffff;
+  /*
+  相対位置での下寄せ -> marginがぶっ飛ぶ
+  position: relative;
+  */
+}
+
+#title h1 {
+  padding-top: 10px;
+  margin: auto;
+  width: 90%;
+  /*
+  相対位置での下寄せ -> marginがぶっ飛ぶ
+  position: absolute;
+  bottom: 0;
+  */
+}
+
+div#nav {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 40px;
+}
+
+#nav ul {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  height: 40px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#nav li {
+  /* li要素を横並びに */
+  display: inline-block;
+  background-color: #ffffff;
+  height: 40px;
+  width: 20%;
+}
+
+#nav a{
+  /* <a>はデフォルトでinlineなので大きさがない？ -> blockにする */
+  display: inline-block;
+  /* <li>の大きさと合うように大きさを指定 */
+  height: 100%;
+  width: 100%;
+  /* 横中央揃え */
+  text-align: center;
+  /* 文字修飾 */
+  color: #303030;
+  font-size: 17pt;
+  font-weight: bolder;
+  text-decoration: none;
+  border: 1px dotted #ccc;
+  vertical-align: bottom;
+
+  /* アニメーション用記述 */
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+#nav a:hover {
+  color: #ffffff;
+  background-color: #303030;
+}
+
+div#side_bar{
+  margin-top: 15px;
+  width: 15%;
+  background-color: #ffffff;
+}
+
+#side_bar h3{
+  /*margin: auto;*/
+  width: 90%;
+}
+
+div#main {
+  margin-top: 15px;
+  background-color: #fbfbfb;
+  width: 80%;
+}
+
+footer {
+  margin: 0 auto;
+  width: 90%;
+}
+
+p.copyright {
+  text-align: right;
+}
+
+/*おためし*/
