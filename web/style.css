@@ -88,21 +88,43 @@ div#nav {
   background-color: #303030;
 }
 
-div#side_bar{
+div#sidebar{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
   margin-top: 15px;
   width: 15%;
   background-color: #ffffff;
 }
 
-#side_bar h3{
+div#sidebar-title {
+  width: 90%;
+}
+
+#sidebar-title h3{
   /*margin: auto;*/
+}
+
+div#sidebar-list {
   width: 90%;
 }
 
 div#main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
   margin-top: 15px;
   background-color: #fbfbfb;
   width: 80%;
+}
+div#art-title {
+  width:90%;
+}
+
+section {
+  width: 90%;
 }
 
 footer {
