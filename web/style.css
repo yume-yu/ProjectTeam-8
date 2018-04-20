@@ -1,3 +1,17 @@
+* {
+  /* resetCSS */
+  margin: 0;
+  padding: 0;
+  /* ulのスタイルを消す */
+  list-style: none;
+  /* boxの大きさをmarginまで含めて計算する */
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 body {
   background-color: #f0f0f0;
 }
@@ -7,8 +21,7 @@ header {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  margin: auto;
-  margin-top: 30px;
+  padding-top: 30px;
 }
 
 div#title {
@@ -19,7 +32,7 @@ div#title {
   background-color: #ffffff;
 }
 
-#title h1 {
+header h1 {
   display: inline-flex;
   align-content: flex-end;
   margin: auto;
@@ -99,12 +112,19 @@ aside {
   background-color: #ffffff;
 }
 
-
-
 aside div {
   display: flex;
   width: 90%;
   justify-content: flex-start;
+}
+
+aside h3 {
+  margin-top: 15px;
+  margin-bottom: 13px;
+}
+
+aside ul{
+  padding-left: 13px;
 }
 
 main {
@@ -124,6 +144,9 @@ main div {
 }
 
 main h2 {
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
   font-size: 35px;
 }
 
