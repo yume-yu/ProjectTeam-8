@@ -2,13 +2,10 @@
 #include <termios.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include "termcoor.h"
 
 int* p_ch;
 int* p_flag;
-char coordinate[][3][10] = {
-	{"\033[6;5H","\033[7;5H","\033[8;5H"},
-	{"\033[6;5H","\033[7;5H","\033[8;5H"}
-};
 /**
  * 各キャラクター構造体
  *
@@ -85,15 +82,16 @@ void flush_view_before(int item_flag,int height){
 	printf("└──────────────────────────────────────┘\n");
 	//アイテムがある時の表示
 	if(!item_flag){
-		printf("%s",coordinate[0][0]);
+		mvcur(6,5);
 		printf("┌───────────────────┐\n");
-		printf("%s",coordinate[0][1]);
+		mvcur(7,5);
 		//printf("\033[7;5H");
 		printf("│ > back            │\n");
-		printf("%s",coordinate[0][2]);
+		mvcur(8,5);
 		//printf("\033[8;5H");
 		printf("└───────────────────┘\n");
-		printf("\033[9B");
+		//printf("\033[9B");
+		mvcur(18,0);
 	}
 }
 void flush_view_after(int item_flag,int height){
