@@ -49,7 +49,8 @@ int wait_keyhit(){
 
 
 void flush_view_before(){
-	printf("\033[2J"); 
+	//printf("\033[2J"); 
+	printf("\033[0;0H");
 	printf("┌──────────────────────────────────────┐\n");
 	printf("│                     @outside of Olden│\n");
 	printf("│      /\\                              │\n");
@@ -69,7 +70,8 @@ void flush_view_before(){
 	printf("└──────────────────────────────────────┘\n");
 }
 void flush_view_after(){
-	printf("\033[2J"); 
+	//printf("\033[2J"); 
+	printf("\033[0;0H");
 	printf("┌──────────────────────────────────────┐\n");
 	printf("│                     @outside of Olden│\n");
 	printf("│      /\\                              │\n");
@@ -115,8 +117,7 @@ int main(){
 				break;
 			}*/
 	}
-printf("\n");	
-	wait_keyhit();
+	//wait_keyhit();
 	return 0;
 }
 

@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+int* p_ch;
+int* p_flag;
 /**
  * 各キャラクター構造体
  *
@@ -20,6 +22,9 @@ int kbhit(void){
 	struct termios oldt, newt;
 	int ch;
 	int oldf;
+	int flag;
+	p_ch = &ch;
+	p_flag = &flag;
 
 	tcgetattr(STDIN_FILENO, &oldt);
 	newt = oldt;
@@ -34,7 +39,13 @@ int kbhit(void){
 	fcntl(STDIN_FILENO, F_SETFL, oldf);
 
 	if (ch != EOF) {
-		ungetc(ch, stdin);
+		if(ch == 'i'){
+			flag = 0;
+		}else{
+			flag = 1;
+			ungetc(ch, stdin);
+		}
+
 		return 1;
 	}
 
@@ -48,8 +59,9 @@ int wait_keyhit(){
 }
 
 
-void flush_view_before(){
-	printf("\033[2J"); 
+void flush_view_before(int item_flag,int height){
+	//printf("\033[2J"); 
+	printf("\033[0;0H");
 	printf("┌──────────────────────────────────────┐\n");
 	printf("│                     @outside of Olden│\n");
 	printf("│      /\\                              │\n");
@@ -67,9 +79,20 @@ void flush_view_before(){
 	printf("││ Select destination               ▼ ││\n");
 	printf("│└────────────────────────────────────┘│\n");
 	printf("└──────────────────────────────────────┘\n");
+	//アイテムがある時の表示
+	if(!item_flag){
+		printf("\033[6;5H");
+		printf("┌───────────────────┐\n");
+		printf("\033[7;5H");
+		printf("│ > back            │\n");
+		printf("\033[8;5H");
+		printf("└───────────────────┘\n");
+		printf("\033[9B");
+	}
 }
-void flush_view_after(){
-	printf("\033[2J"); 
+void flush_view_after(int item_flag,int height){
+	//printf("\033[2J"); 
+	printf("\033[0;0H");
 	printf("┌──────────────────────────────────────┐\n");
 	printf("│                     @outside of Olden│\n");
 	printf("│      /\\                              │\n");
@@ -87,6 +110,25 @@ void flush_view_after(){
 	printf("││ Select destination                 ││\n");
 	printf("│└────────────────────────────────────┘│\n");
 	printf("└──────────────────────────────────────┘\n");
+	//アイテムがある時の表示
+	if(!item_flag){
+		printf("\033[6;5H");
+		printf("┌───────────────────┐\n");
+		printf("\033[7;5H");
+		printf("│ > back            │\n");
+		printf("\033[8;5H");
+		printf("└───────────────────┘\n");
+		printf("\033[9B");
+	}
+}
+
+int check_is_item(){
+	if(*p_flag == 0){
+		return 1;
+	}else{
+		return 0;
+	}
+
 }
 
 int main(){
@@ -94,6 +136,7 @@ int main(){
 	 * 行数のマジックナンバー
 	 */
 	int height = 17;
+	int is_item = 1;
 	struct status naoki = {300,0};
 	printf("↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑  →\n");
 	for(int i = 0; i < height - 2; i++){
@@ -106,17 +149,27 @@ int main(){
 	printf("                ここに合わせてください↓→");
 	wait_keyhit();
 	printf("\033[2J\n"); 
-	while(!kbhit()){
-		flush_view_before();	
-		usleep(5 * 100000);
-		flush_view_after();
-		usleep(5 * 100000);
-			/*if(kbhit()){
+	while(1){
+		flush_view_before(is_item,height);	
+		if(kbhit()){
+			if(check_is_item()){
+				is_item = !is_item;
+			}else{
 				break;
-			}*/
+			}
+		}
+		usleep(5 * 100000);
+		flush_view_after(is_item,height);
+		if(kbhit()){
+			if(check_is_item()){
+				is_item = !is_item;
+			}else{
+				break;
+			}
+		}
+		usleep(5 * 100000);
 	}
-printf("\n");	
-	wait_keyhit();
+	//wait_keyhit();
 	return 0;
 }
 
