@@ -5,6 +5,10 @@
 
 int* p_ch;
 int* p_flag;
+char coordinate[][3][10] = {
+	{"\033[6;5H","\033[7;5H","\033[8;5H"},
+	{"\033[6;5H","\033[7;5H","\033[8;5H"}
+};
 /**
  * 各キャラクター構造体
  *
@@ -81,11 +85,13 @@ void flush_view_before(int item_flag,int height){
 	printf("└──────────────────────────────────────┘\n");
 	//アイテムがある時の表示
 	if(!item_flag){
-		printf("\033[6;5H");
+		printf("%s",coordinate[0][0]);
 		printf("┌───────────────────┐\n");
-		printf("\033[7;5H");
+		printf("%s",coordinate[0][1]);
+		//printf("\033[7;5H");
 		printf("│ > back            │\n");
-		printf("\033[8;5H");
+		printf("%s",coordinate[0][2]);
+		//printf("\033[8;5H");
 		printf("└───────────────────┘\n");
 		printf("\033[9B");
 	}
