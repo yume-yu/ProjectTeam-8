@@ -8,8 +8,6 @@
  * 標準出力の初期化
  */
 void init_term(){
-	//標準出力を流す
-	printf("\033[2J");
 	//カーソル位置を(1,1)に移動
 	mvcur(1,1);
 }
@@ -36,7 +34,7 @@ void make_flame(int width, int height, int offset_x, int offset_y){
 		mvcur(offset_x,offset_y + 1 + i);
 		printf("│");
 		for(int j = 0; j < print_width; j++){
-			printf("　");
+			printf(" ");
 		}
 		printf("│");
 	}
@@ -75,7 +73,7 @@ void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x
 			if(j == split_x){
 				printf("│");
 			}else{
-				printf("　");
+				printf(" ");
 			}
 		}
 		printf("│");
