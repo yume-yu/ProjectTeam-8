@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include "gconio.h"
 #define WIDTH 60
 #define HEIGHT 25
 #define MAIN_FLAME_X_OFFSET 1
@@ -21,4 +21,6 @@ int main(){
 	//print_line("aasdasdas",16,8);
 	char string[][100] = {"","*決意を抱いた"};
 	print_lines(string,16,8,2);
+	while(!kbhit()){
+	}
 }
