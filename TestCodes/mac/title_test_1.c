@@ -21,7 +21,7 @@
 #define CHAR_FLAME_Y_OFFSET 15
 
 //星の数
-#define STAR_AMOUNT 30
+#define STAR_AMOUNT 50
 
 long get_rand(){
 	return rand();
@@ -75,7 +75,7 @@ int main(){
 		{"                         "},
 		{"                         "},
 	};
-	
+
 	for(int i = 0; i < 9; i++){
 		for(int j = 0; j < i; j++){
 			print_line(title[8 - j],15,i - j + 1);
@@ -100,18 +100,29 @@ int main(){
 
 	print_lines(title_space,15,4,9);
 	print_lines(title,15,5,9);
+	print_line("Press Enter",25,HEIGHT - 4);
 	fflush(stdout);
 	//星の描画
-	/*
 	int star_x[STAR_AMOUNT];// ={10,15,20};
 	int star_y[STAR_AMOUNT];// ={20,15,10}; 
 	srand(time(NULL));
-	while(1){
-		for(int i = 0; i< STAR_AMOUNT;i++){
-			star_x[i] = get_rand() % (WIDTH - 2) + 2;
-			star_y[i] = get_rand() % (HEIGHT - 2) + 2;
+	int numtmp;
+	for(int i = 0; i< STAR_AMOUNT;i++){
+		star_x[i] = get_rand() % (WIDTH - 2) + 2;
+		star_y[i] = get_rand() % (HEIGHT - 2) + 2;
+		if(star_y[i] >= 5 && star_y[i] < 14){
+			if(star_x[i] >= 15 && star_x[i] <= 46){
+				mvcur(1,HEIGHT+1);
+				//printf("false:(%d,%d)",star_x[i],star_y[i]);
+				i--;
+			}
+		}else if(star_y[i] >= HEIGHT - 5 && star_y[i] <= HEIGHT - 3){
+			if(star_x[i] >= 24 && star_x[i] <= 37){
+				i--;
+			}
 		}
+	}
+	while(1){
 		stars(star_x,star_y,STAR_AMOUNT);
 	}
-	*/
 }
