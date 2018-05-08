@@ -1,4 +1,4 @@
-nclude <stdio.h>
+#include <stdio.h>
 //randのためにインクルード
 #include <stdlib.h>
 #include <time.h>
@@ -21,7 +21,7 @@ nclude <stdio.h>
 #define CHAR_FLAME_Y_OFFSET 15
 
 //星の数
-#define STAR_AMOUNT 20
+#define STAR_AMOUNT 30
 
 long get_rand(){
 	return rand();
@@ -54,34 +54,55 @@ int main(){
 	make_flame(WIDTH,HEIGHT,MAIN_FLAME_X_OFFSET,MAIN_FLAME_Y_OFFSET);
 
 	char title[][100] = {
-		{"The"},
-		{"Beautiful"},
-		{"World"}
+		{"╔╦╗┬ ┬┌─┐                       "},                
+		{" ║ ├─┤├┤                        "},                 
+		{" ╩ ┴ ┴└─┘                       "},                
+		{"   ╔╗ ┌─┐┌─┐┬ ┬┌┬┐┬┌─┐┬ ┬┬      "},
+		{"   ╠╩╗├┤ ├─┤│ │ │ │├┤ │ ││      "},  
+		{"   ╚═╝└─┘┴ ┴└─┘ ┴ ┴└  └─┘┴─┘    "},
+		{"                 ┬ ┬┌─┐┬─┐┬  ┌┬┐"},
+		{"                 ││││ │├┬┘│   ││"},
+		{"                 └┴┘└─┘┴└─┴─┘─┴┘"}
 	};
 	char title_space[][100] = {
-		{"                 "},
-		{"                 "},
-		{"                 "}
+		{"                         "},
+		{"                         "},
+		{"                         "},
+		{"                         "},
+		{"                         "},
+		{"                         "},
+		{"                         "},
+		{"                         "},
+		{"                         "},
 	};
-
-	print_lines(title,20,3,3);
+	
+	for(int i = 0; i < 9; i++){
+		for(int j = 0; j < i; j++){
+			print_line(title[8 - j],15,i - j + 1);
+		}
+		fflush(stdout);
+		usleep(0.2 * 1000000);
+		print_lines(title_space,15,2,9);
+	}
+	print_lines(title,15,2,9);
 	fflush(stdout);
-	usleep(0.1 * 1000000);
+	usleep(0.2 * 1000000);
 
-	print_lines(title_space,20,3,3);
-	print_lines(title,20,4,3);
+	print_lines(title_space,15,2,9);
+	print_lines(title,15,3,9);
 	fflush(stdout);
-	usleep(0.1 * 1000000);
+	usleep(0.2 * 1000000);
 
-	print_lines(title_space,20,4,3);
-	print_lines(title,20,5,3);
+	print_lines(title_space,15,3,9);
+	print_lines(title,15,4,9);
 	fflush(stdout);
-	usleep(0.1 * 1000000);
+	usleep(0.2 * 1000000);
 
-	print_lines(title_space,20,5,3);
-	print_lines(title,20,6,3);
+	print_lines(title_space,15,4,9);
+	print_lines(title,15,5,9);
 	fflush(stdout);
-
+	//星の描画
+	/*
 	int star_x[STAR_AMOUNT];// ={10,15,20};
 	int star_y[STAR_AMOUNT];// ={20,15,10}; 
 	srand(time(NULL));
@@ -92,4 +113,5 @@ int main(){
 		}
 		stars(star_x,star_y,STAR_AMOUNT);
 	}
+	*/
 }
