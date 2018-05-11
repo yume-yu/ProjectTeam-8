@@ -10,9 +10,10 @@
 #define MAIN_FLAME_X_OFFSET 1
 #define MAIN_FLAME_Y_OFFSET 1
 
-#include "termcoor.h"
-#include "pstring.h"
-#include "flame.h"
+#include "for_make_game.h"
+//#include "termcoor.h"
+//#include "pstring.h"
+//#include "flame.h"
 
 //文字パレット枠の大きさ/オフセットの定義
 #define CHAR_FLAME_W 33
