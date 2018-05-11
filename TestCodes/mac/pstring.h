@@ -30,3 +30,16 @@ void print_lines(char string[][100], int x, int y, int num_lines){
 	}
 	mvcur(0,HEIGHT + 1);
 }
+
+void string_march(char string[4], int x, int y, int width, int height){
+	int line_num = 0;
+	int chara_count = 0;
+	char *p_str = string;
+	printf("%s",string);
+	/*while(line_num < height){
+		while((chara_count % width) != 0){
+			
+		}
+		printf("\n");
+	}*/
+}

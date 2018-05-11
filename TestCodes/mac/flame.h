@@ -53,6 +53,14 @@ void make_flame(int width, int height, int offset_x, int offset_y){
 	mvcur(1,HEIGHT+1);
 }
 
+/**
+ * 横分割フレームの作成関数
+ * width    作成するフレームの幅
+ * height   作成するフレームの高さ
+ * offset_x 作成するフレームの開始位置のx座標
+ * offset_y 作成するフレームの開始位置のy座標
+ * split_x  フレームの区切り線を入れるx座標
+ */
 void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x){
 	int print_width = width - 2;
 	int print_height = height - 2;
@@ -90,11 +98,20 @@ void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x
 			printf("─");
 		}
 	}
-
-
 	printf("┘\n");
-
 	//カーソル位置の初期化
 	mvcur(1,HEIGHT+1);
+}
 
+/**
+ * フレーム内をスペース埋めにする関数
+ */
+void flame_flush(){	
+	for(int i = 2; i < HEIGHT; i++){
+		for(int j = 2; j < WIDTH; j++){
+			print_line(" ",j,i);
+		}
+		fflush(stdout);
+		usleep(2 * 10000);
+	}
 }
