@@ -102,9 +102,8 @@ void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x
 	//カーソル位置の初期化
 	mvcur(1,HEIGHT+1);
 }
-
 /**
- * フレーム内をスペース埋めにする関数
+ * メインフレーム内をアニメーションでスペース埋めにする関数
  */
 void flame_flush(){	
 	for(int i = 2; i < HEIGHT; i++){
@@ -115,3 +114,16 @@ void flame_flush(){
 		usleep(2 * 10000);
 	}
 }
+
+/**
+ * メインフレーム内をスペース埋めにする関数
+ */
+void flame_clean(){	
+	for(int i = 2; i < HEIGHT; i++){
+		for(int j = 2; j < WIDTH; j++){
+			print_line(" ",j,i);
+		}
+		fflush(stdout);
+	}
+}
+
