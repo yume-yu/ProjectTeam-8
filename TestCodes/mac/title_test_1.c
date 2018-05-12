@@ -145,7 +145,7 @@ int main(){
 	//星の点滅開始 Enter入力を待機し、押されたらループ脱出
 	do{
 		stars(star_x,star_y,STAR_AMOUNT);
-	}while((kbhit().input_char) == '\0');
+	}while((kbhit().input_char) != '\n');
 	
 	//フレーム内スペース埋め開始
 	flame_flush();

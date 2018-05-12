@@ -37,7 +37,7 @@ struct input_assort kbhit(){
 			reply.kbhit_flag = 1;
 		return reply;
 	}
-	reply.input_char = '\0';
+	//reply.input_char = '\0';
 	reply.kbhit_flag = 0;
 	return reply;
 }
