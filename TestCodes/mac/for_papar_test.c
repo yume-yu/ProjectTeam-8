@@ -42,6 +42,14 @@ void set_ch_stat(char name[10], struct charactor *tmpch, int hp, int min_atk, in
 	tmpch->min_atk = min_atk;
 }
 
+void change_hp(struct charactor *tmpch, int damage){
+	tmpch->hp -= damage;
+	if(tmpch->hp < 0){
+		tmpch->hp = 0;
+	}else if(tmpch->hp > tmpch->max_hp){
+		tmpch->hp = tmpch->max_hp;
+	}
+}
 //必要キャラクタの定義
 struct charactor naoki;
 struct charactor lirel;
@@ -60,18 +68,18 @@ void initchara(){
 
 //各キャラクターのステータス設定を表示
 void show_ch_stat(int x,int y){
-	make_flame(30,8,x,y);
+	make_flame(32,8,x,y);
 	print_line("Now status list",x+5,y+1);
 	mvcur(x+1,y+2);
-	printf("naoki - HP:%3d  ATK:%d 〜%d\n",naoki.max_hp,naoki.min_atk,naoki.max_atk);
+	printf("naoki - HP:%4d  ATK:%3d 〜%3d\n",naoki.max_hp,naoki.min_atk,naoki.max_atk);
 	mvcur(x+1,y+3);
-	printf("lirel - HP:%3d  ATK:%d 〜%d\n",lirel.max_hp,lirel.min_atk,lirel.max_atk);
+	printf("lirel - HP:%4d  ATK:%3d 〜%3d\n",lirel.max_hp,lirel.min_atk,lirel.max_atk);
 	mvcur(x+1,y+4);
-	printf("arist - HP:%3d  HEAL:%d\n",arist.max_hp,arist.max_atk);
+	printf("arist - HP:%4d  HEAL:%d\n",arist.max_hp,arist.max_atk);
 	mvcur(x+1,y+5);
-	printf("boss1 - HP:%3d  ATK:%d 〜%d\n",boss1.max_hp,boss1.min_atk,boss1.max_atk);
+	printf("boss1 - HP:%4d  ATK:%3d 〜%3d\n",boss1.max_hp,boss1.min_atk,boss1.max_atk);
 	mvcur(x+1,y+6);
-	printf("boss2 - HP:%3d  ATK:%d 〜%d\n",boss2.max_hp,boss2.min_atk,boss2.max_atk);
+	printf("boss2 - HP:%4d  ATK:%3d 〜%3d\n",boss2.max_hp,boss2.min_atk,boss2.max_atk);
 	mvcur(0,HEIGHT + 1);
 }
 
@@ -93,10 +101,26 @@ void main_window_init(){
 	//フレーム内スペース埋め
 	flame_flush();
 
-	show_ch_stat(WIDTH - 31,HEIGHT - 8);
+	show_ch_stat(WIDTH - 34,HEIGHT - 8);
 	sel_mode_window(2);
 }
 
+//2対1用戦闘モード
+void battle2v1(struct charactor *front){
+	int finish_flag = 1;
+	while(finish_flag){
+		
+	}
+	
+}
+
+//2対2用戦闘モード2
+void battle2v2(struct charactor *front){
+	int finish_flag = 1;	
+	
+}
+
+//ステータス設定モード
 void set_ch_stat_mode(){
 	int y = 2;
 	int c;
@@ -106,7 +130,7 @@ void set_ch_stat_mode(){
 	draft.name = draft_name;
 	flame_flush();
 	make_flame(WIDTH - 4,10,3,y);
-	show_ch_stat(WIDTH - 33,3);
+	show_ch_stat(WIDTH - 35,3);
 	print_line("Select Charactor",5,y+1);
 	print_line(" 1:naoki",5,y+3);
 	print_line(" 2:arist",5,y+4);
@@ -153,7 +177,7 @@ void set_ch_stat_mode(){
 			printf("    HP : %3d",now_edit->max_hp);
 			mvcur(6,15);
 			if(now_edit == &arist){
-				printf("  HEAL : %d",now_edit->max_atk);
+				printf("  HEAL : %3d",now_edit->max_atk);
 			}else{
 				printf("   ATK : %3d 〜 %3d",now_edit->min_atk,now_edit->max_atk);
 			}
@@ -187,7 +211,7 @@ void set_ch_stat_mode(){
 					break;
 			}
 			sub_flame_clean(WIDTH - 6,HEIGHT - 14,4,13);	
-			show_ch_stat(WIDTH - 33,3);
+			show_ch_stat(WIDTH - 35,3);
 		}
 		mvcur(0,HEIGHT + 1);
 	}
