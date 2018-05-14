@@ -1,8 +1,8 @@
 /**
-  * Writtenby yume_yu
-  * "ターミナル上のカーソル位置を指定する文字"が存在するが、それらを呼び出す時に変数が使えない
-  * それらを変数で呼び出すために自作関数を使うためのヘッダ
-  */
+ * Writtenby yume_yu
+ * "ターミナル上のカーソル位置を指定する文字"が存在するが、それらを呼び出す時に変数が使えない
+ * それらを変数で呼び出すために自作関数を使うためのヘッダ
+ */
 
 /**
  * 左上を頂点(1,1)として(100,100)までの座標を配列指定
@@ -114,20 +114,20 @@ char coordinate[][100][100] = {
 
 
 /**
-	* 任意の箇所へカーソルを移動する関数
-	* x 移動するカーソルのx座標
-	* y 移動するカーソルのy座標	
-	*/
+ * 任意の箇所へカーソルを移動する関数
+ * x 移動するカーソルのx座標
+ * y 移動するカーソルのy座標	
+ */
 void mvcur(int x,int y){
 	printf("%s",coordinate[x][y]);
 }
 
 /**
-	* 指定箇所への1行の文字出力を行う関数
-	* string 出力する文字列
-	* x      出力するx座標
-	* y      出力するy座標
-	*/
+ * 指定箇所への1行の文字出力を行う関数
+ * string 出力する文字列
+ * x      出力するx座標
+ * y      出力するy座標
+ */
 void print_line(char string[], int x, int y){
 	mvcur(x,y);
 	printf("%s",string);
@@ -135,12 +135,12 @@ void print_line(char string[], int x, int y){
 }
 
 /**
-	* 指定箇所への複数行行の文字出力を行う関数
-	* string    出力する文字列配列
-	* x         出力を開始するx座標
-	* y         出力を開始するy座標
-	* num_lines 出力する行数
-	*/
+ * 指定箇所への複数行行の文字出力を行う関数
+ * string    出力する文字列配列
+ * x         出力を開始するx座標
+ * y         出力を開始するy座標
+ * num_lines 出力する行数
+ */
 void print_lines(char string[][100], int x, int y, int num_lines){
 	for(int i = 0; i < num_lines; i++){
 		mvcur(x,y+i);
@@ -156,10 +156,10 @@ void string_march(char string[4], int x, int y, int width, int height){
 	printf("%s",string);
 	/*while(line_num < height){
 		while((chara_count % width) != 0){
-			
+
 		}
 		printf("\n");
-	}*/
+		}*/
 }
 
 /** 
@@ -273,3 +273,15 @@ void flame_flush(){
 		usleep(2 * 10000);
 	}
 }
+/**
+ * メインフレーム内をスペース埋めにする関数
+ */
+void sub_flame_clean(int width, int height, int x, int y){	
+	for(int i = y; i < y + height; i++){
+		for(int j = x; j < x + width;j++){
+			print_line(" ",j,i);
+		}
+	}	
+	fflush(stdout);
+}
+

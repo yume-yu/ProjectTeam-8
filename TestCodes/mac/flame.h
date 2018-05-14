@@ -114,7 +114,6 @@ void flame_flush(){
 		usleep(2 * 10000);
 	}
 }
-
 /**
  * メインフレーム内をスペース埋めにする関数
  */
@@ -126,4 +125,18 @@ void flame_clean(){
 		fflush(stdout);
 	}
 }
+
+/**
+ * メインフレーム内をスペース埋めにする関数
+ */
+void sub_flame_clean(int width, int height, int x, int y){	
+	for(int i = y; i < height; i++){
+		for(int j = x; j < width;j++){
+			print_line(" ",j,i);
+		}
+	}	
+	fflush(stdout);
+
+}
+
 
