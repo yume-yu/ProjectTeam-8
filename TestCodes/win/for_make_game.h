@@ -29,8 +29,13 @@ struct input_assort{
 
 struct input_assort mykbhit(){
 	struct input_assort temp;
-	temp.input_char = _getch();
-	temp.kbhit_flag = 1;
+	if(kbhit()){
+		temp.input_char =  _getch();
+		temp.kbhit_flag = 1;
+	}else{
+		temp.input_char = 0;
+		temp.kbhit_flag = 0;
+	}
 	return temp;
 }
 

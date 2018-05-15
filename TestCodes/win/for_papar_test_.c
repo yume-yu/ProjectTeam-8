@@ -4,7 +4,7 @@
 #include <time.h>
 
 //unix‚Åkbhit‚ğg‚¤‚½‚ß‚Ìƒwƒbƒ_
-//#include "mconio.h"
+#include "mconio.h"
 #define WIDTH 60
 #define HEIGHT 25
 #define MAIN_FLAME_X_OFFSET 1
@@ -87,15 +87,15 @@ void show_ch_stat(int x,int y){
 	make_flame(32,8,x,y);
 	print_line("Now status list",x+5,y+1);
 	mvcur(x+1,y+2);
-	printf("naoki - HP:%4d  ATK:%3d `%3d\n",naoki.max_hp,naoki.min_atk,naoki.max_atk);
+	printf("naoki - HP:%4d  ATK:%3d `%3d_n",naoki.max_hp,naoki.min_atk,naoki.max_atk);
 	mvcur(x+1,y+3);
-	printf("lirel - HP:%4d  ATK:%3d `%3d\n",lirel.max_hp,lirel.min_atk,lirel.max_atk);
+	printf("lirel - HP:%4d  ATK:%3d `%3d_n",lirel.max_hp,lirel.min_atk,lirel.max_atk);
 	mvcur(x+1,y+4);
-	printf("arist - HP:%4d  HEAL:%d\n",arist.max_hp,arist.max_atk);
+	printf("arist - HP:%4d  HEAL:%d_n",arist.max_hp,arist.max_atk);
 	mvcur(x+1,y+5);
-	printf("boss1 - HP:%4d  ATK:%3d `%3d\n",boss1.max_hp,boss1.min_atk,boss1.max_atk);
+	printf("boss1 - HP:%4d  ATK:%3d `%3d_n",boss1.max_hp,boss1.min_atk,boss1.max_atk);
 	mvcur(x+1,y+6);
-	printf("boss2 - HP:%4d  ATK:%3d `%3d\n",boss2.max_hp,boss2.min_atk,boss2.max_atk);
+	printf("boss2 - HP:%4d  ATK:%3d `%3d_n",boss2.max_hp,boss2.min_atk,boss2.max_atk);
 	mvcur(0,HEIGHT + 1);
 }
 
@@ -153,7 +153,7 @@ int select_from_list(struct arrow_pos tmp_pos[10], int length){
 	struct input_assort tmp_input_list;
 	print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
 	while(1){
-		while(!(tmp_input_list = mykbhit()).kbhit_flag);
+		while(!(tmp_input_list = kbhit()).kbhit_flag);
 		switch(tmp_input_list.input_char){
 			case 'w':
 				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
@@ -175,7 +175,7 @@ int select_from_list(struct arrow_pos tmp_pos[10], int length){
 				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
 				continue;
 				break;
-			case 0x0d:
+			case '_n':
 				break;
 			default:
 				continue;
@@ -207,7 +207,7 @@ void battle2v1(struct charactor *front,struct charactor *enemy){
 		switch(command){
 			case 0:
 				mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-				printf("%s\n",enemy->name);
+				printf("%s_n",enemy->name);
 				select_from_list(battle_menu_arrow,1);
 				sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 				damage = front->min_atk + get_rand() % (front->max_atk - front->min_atk - 1);
@@ -216,7 +216,7 @@ void battle2v1(struct charactor *front,struct charactor *enemy){
 				change_hp(enemy,damage);
 				mvcur(0,HEIGHT + 1);
 				fflush(stdout);
-				while(!mykbhit().kbhit_flag);
+				while(!kbhit().kbhit_flag);
 				break;
 			case 1:
 				break;
@@ -226,7 +226,7 @@ void battle2v1(struct charactor *front,struct charactor *enemy){
 				printf("%s is ready to protect!¥",front->name);
 				mvcur(0,HEIGHT + 1);
 				fflush(stdout);
-				while(!mykbhit().kbhit_flag);
+				while(!kbhit().kbhit_flag);
 				break;
 			case 3:
 				break;
@@ -241,7 +241,7 @@ void battle2v1(struct charactor *front,struct charactor *enemy){
 			finish_flag = 0;
 			mvcur(0,HEIGHT + 1);
 			fflush(stdout);
-			while(!mykbhit().kbhit_flag);
+			while(!kbhit().kbhit_flag);
 			continue;
 		}
 		//”»’èI‚í‚è
@@ -251,16 +251,16 @@ void battle2v1(struct charactor *front,struct charactor *enemy){
 				print_line("Arist was terrified...¥",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 				mvcur(0,HEIGHT + 1);
 				fflush(stdout);
-				while(!mykbhit().kbhit_flag);
+				while(!kbhit().kbhit_flag);
 				break;
 			default:
 				change_hp(front,-1 * arist.max_atk);
 				change_hp(&arist,-1 * arist.max_atk);
-				print_line("Arist cast \"heal\"!¥",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+				print_line("Arist cast _"heal_"!¥",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 				print_bt_status(front,&arist);
 				mvcur(0,HEIGHT + 1);
 				fflush(stdout);
-				while(!mykbhit().kbhit_flag);
+				while(!kbhit().kbhit_flag);
 				break;
 		}
 		sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
@@ -288,7 +288,7 @@ void battle2v1(struct charactor *front,struct charactor *enemy){
 		protect_flag = 0;
 		mvcur(0,HEIGHT + 1);
 		fflush(stdout);
-					while(!mykbhit().kbhit_flag);
+					while(!kbhit().kbhit_flag);
 		print_bt_status(front,&arist);
 		//“G‚Ìs“®I‚í‚è
 		sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
@@ -298,7 +298,7 @@ void battle2v1(struct charactor *front,struct charactor *enemy){
 }
 
 //2‘Î2—pí“¬ƒ‚[ƒh2
-void battle2v2(struct charactor *front){
+void battle2v2(struct charactor *front,struct charactor *enemy1,struct charactor *enemy2){
 	int finish_flag = 1;	
 	
 }
@@ -322,14 +322,13 @@ void set_ch_stat_mode(){
 	print_line(" 5:boss2",5,y+7);
 	print_line(" 9:exit",5,y+8);
 	fflush(stdout);
-	mvcur(0,HEIGHT + 1);
 	make_flame(WIDTH - 4,HEIGHT - 12,3,12);
 	mvcur(0,HEIGHT + 1);
 	int flag = 1;
 	struct input_assort tmp_input_ch;
 	struct input_assort continue_check;
 	while(flag){
-		while(!(tmp_input_ch = mykbhit()).kbhit_flag);
+		while(!(tmp_input_ch = kbhit()).kbhit_flag);
 		switch(tmp_input_ch.input_char){
 			case '1':
 				now_edit = &naoki;
@@ -379,10 +378,10 @@ void set_ch_stat_mode(){
 			mvcur(15,20);
 			scanf("%d",&draft.max_atk);
 			mvcur(6,23);
-			printf("HP:%3d ATK:%3d ` %3d\n",draft.hp,draft.min_atk,draft.max_atk);
+			printf("HP:%3d ATK:%3d ` %3d_n",draft.hp,draft.min_atk,draft.max_atk);
 			print_line("Admit Change? [y/n]",5,22);
-			//while((c = getchar()) != 0x0d);
-			while(!(continue_check = mykbhit()).kbhit_flag);
+			while((c = getchar()) != '_n');
+			while(!(continue_check = kbhit()).kbhit_flag);
 			switch(continue_check.input_char){
 				case 'y':
 					set_ch_stat(now_edit->name,now_edit,draft.hp,draft.min_atk,draft.max_atk);
@@ -401,6 +400,7 @@ void set_ch_stat_mode(){
 	main_window_init();
 }
 
+
 //¯‚ªu‚­ŠÖ”
 void stars(int x[],int y[],int amount){
 	//for(int i = 0; i < 10; i++){
@@ -408,12 +408,12 @@ void stars(int x[],int y[],int amount){
 		print_line("+",x[j],y[j]);
 	}
 	fflush(stdout);
-	Sleep(2 * 100);
+	usleep(1 * 100000);
 	for(int j = 0;j < amount; j++){
 		print_line("*",x[j],y[j]);
 	}
 	fflush(stdout);
-	Sleep(2 * 100);
+	usleep(1 * 100000);
 }
 
 int main(){
@@ -431,7 +431,7 @@ int main(){
 		{"   „¥„¨„¢„¥„§ „¥„Ÿ„§„  „  „  „ „¥„§ „  „ „       "},  
 		{"   „¤„Ÿ„£„¤„Ÿ„£„¨ „¨„¤„Ÿ„£ „¨ „¨„¤  „¤„Ÿ„£„¨„Ÿ„£    "},
 		{"                      „¡„Ÿ„¢„¦„¡„Ÿ„¦ „¦"},
-		{"	                     „¤„Ÿ„¢„¥„¨„¢„¤„¦„£"},
+		{"	                    „¤„Ÿ„¢„¥„¨„¢„¤„¦„£"},
 		{"                      „¤„Ÿ„£„¨ „¨ „¨ "}
 	};
 	//ƒƒSˆÚ“®’†‚Ì•Ğ•t‚¯éŒ¾
@@ -456,26 +456,23 @@ int main(){
 			print_line(title[8 - j],15,i - j + 1);
 		}
 		fflush(stdout);
-		Sleep(0.2 * 1000);
+		usleep(0.2 * 1000000);
 		print_lines(title_space,15,2,9);
 	}
 
 	print_lines(title,15,2,9);
 	fflush(stdout);
-	Sleep(0.2 * 1000);
-	//usleep(0.2 * 1000000);
+	usleep(0.2 * 1000000);
 
 	print_lines(title_space,15,2,9);
 	print_lines(title,15,3,9);
 	fflush(stdout);
-	Sleep(0.2 * 1000);
-	//usleep(0.2 * 1000000);
+	usleep(0.2 * 1000000);
 
 	print_lines(title_space,15,3,9);
 	print_lines(title,15,4,9);
 	fflush(stdout);
-	Sleep(0.2 * 1000);
-	//usleep(0.2 * 1000000);
+	usleep(0.2 * 1000000);
 
 	print_lines(title_space,15,4,9);
 	print_lines(title,15,5,9);
@@ -514,8 +511,7 @@ int main(){
 	//¯‚Ì“_–ÅŠJn Enter“ü—Í‚ğ‘Ò‹@‚µA‰Ÿ‚³‚ê‚½‚çƒ‹[ƒv’Eo
 	do{
 		stars(star_x,star_y,STAR_AMOUNT);
-	}while(mykbhit().input_char != 0x0d);
-	//}while(!kbhit() && getch() != 0x0d);
+	}while((kbhit().input_char) != '_n');
 
 	initchara();
 	main_window_init();
@@ -523,7 +519,7 @@ int main(){
 	int flag = 1;
 	struct input_assort tmp_input;
 	while(flag){
-		while(!(tmp_input = mykbhit()).kbhit_flag);
+		while(!(tmp_input = kbhit()).kbhit_flag);
 		switch(tmp_input.input_char){
 			case '1':
 				battle2v1(&naoki,&boss1);
