@@ -11,15 +11,20 @@
 #define MAIN_FLAME_Y_OFFSET 1
 
 #include "for_make_game.h"
-//#include "termcoor.h"
-//#include "pstring.h"
-//#include "flame.h"
 
 //文字パレット枠の大きさ/オフセットの定義
 #define CHAR_FLAME_W 33
 #define CHAR_FLAME_H 7
 #define CHAR_FLAME_X_OFFSET 4 
 #define CHAR_FLAME_Y_OFFSET 15
+
+//戦闘画面でのウィンドウサイズ/配置設定
+#define BATTLE_MODE_STATUS_FLAME_WIDTH WIDTH-2
+#define BATTLE_MODE_STATUS_FLAME_HEIGHT 6
+#define BATTLE_MODE_STATUS_FLAME_X 2
+#define BATTLE_MODE_STATUS_FLAME_SPLIT_X 2*(WIDTH-2)/3-1
+#define BATTLE_MODE_COMMAND_POS 7
+#define BATTLE_MODE_STATUS_HP_POS BATTLE_MODE_STATUS_FLAME_SPLIT_X+5
 
 //星の数
 #define STAR_AMOUNT 50
@@ -32,6 +37,17 @@ struct charactor{
 	int max_atk;
 	int min_atk;
 };
+
+//矢印の位置関数
+struct arrow_pos{
+	int x;
+	int y;
+};
+
+//乱数取得
+long get_rand(){
+	return rand();
+}
 
 //キャラクターの変数設定関数
 void set_ch_stat(char name[10], struct charactor *tmpch, int hp, int min_atk, int max_atk){
@@ -105,17 +121,184 @@ void main_window_init(){
 	sel_mode_window(2);
 }
 
-//2対1用戦闘モード
-void battle2v1(struct charactor *front){
-	int finish_flag = 1;
-	while(finish_flag){
-		
+struct arrow_pos battle_menu_arrow[] = {{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4}};
+
+void print_bt_commands(){
+	//コマンド部分表示
+	print_line("Attack",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+	print_line("Magic",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
+	print_line("Protect",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3);
+	print_line("Item",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4);
+}
+
+
+void print_bt_status(struct charactor *front,struct charactor *back){
+	//ステータス部分表示
+	char spaces[][100] = {
+		{"               "},
+		{"               "}
+	};
+	print_lines(spaces,BATTLE_MODE_STATUS_HP_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,2);
+	print_line("HP",BATTLE_MODE_STATUS_HP_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+	mvcur(BATTLE_MODE_STATUS_HP_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
+	printf("%s:%4d/%4d",front->name,front->hp,front->max_hp);
+	mvcur(BATTLE_MODE_STATUS_HP_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3);
+	printf("%s:%4d/%4d",back->name,back->hp,back->max_hp);
+	mvcur(0,HEIGHT + 1);
+	fflush(stdout);
+}
+
+int select_from_list(struct arrow_pos tmp_pos[10], int length){
+	int arrow_pos_label = 0;
+	struct input_assort tmp_input_list;
+	print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+	while(1){
+		while(!(tmp_input_list = kbhit()).kbhit_flag);
+		switch(tmp_input_list.input_char){
+			case 'w':
+				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				if(arrow_pos_label <= 0){
+					arrow_pos_label = length - 1;
+				}else{
+					arrow_pos_label--;
+				}
+				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				continue;
+				break;
+			case 's':
+				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				if(arrow_pos_label >= length - 1){
+					arrow_pos_label = 0;
+				}else{
+					arrow_pos_label++;
+				}
+				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				continue;
+				break;
+			case '\n':
+				break;
+			default:
+				continue;
+				break;
+		}
+		break;
 	}
+	return arrow_pos_label;
+}
+
+//2対1用戦闘モード
+void battle2v1(struct charactor *front,struct charactor *enemy){
+	change_hp(front,-10000);
+	change_hp(enemy,-10000);
+	change_hp(&arist,-10000);
+	int finish_flag = 1;
+	int protect_flag = 0;
+	int damage = 0;
+	flame_flush();
+	make_vsflame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_SPLIT_X);
 	
+	print_bt_status(front,&arist);
+
+	while(finish_flag){
+		print_bt_commands();
+		int command = select_from_list(battle_menu_arrow,4);
+		//コマンド部分フレームクリーン
+		sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+		switch(command){
+			case 0:
+				mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+				printf("%s\n",enemy->name);
+				select_from_list(battle_menu_arrow,1);
+				sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+				damage = front->min_atk + get_rand() % (front->max_atk - front->min_atk - 1);
+				mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+				printf("%s got %3d damaged!▼",enemy->name,damage);
+				change_hp(enemy,damage);
+				mvcur(0,HEIGHT + 1);
+				fflush(stdout);
+				while(!kbhit().kbhit_flag);
+				break;
+			case 1:
+				break;
+			case 2:
+				protect_flag = 1;
+				mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+				printf("%s is ready to protect!▼",front->name);
+				mvcur(0,HEIGHT + 1);
+				fflush(stdout);
+				while(!kbhit().kbhit_flag);
+				break;
+			case 3:
+				break;
+			default:
+				break;
+		}
+		sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+		//プレイヤーの行動終わり
+		//勝利判定
+		if(enemy->hp <= 0){
+			print_line("Win!▼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+			finish_flag = 0;
+			mvcur(0,HEIGHT + 1);
+			fflush(stdout);
+			while(!kbhit().kbhit_flag);
+			continue;
+		}
+		//判定終わり
+		//後衛の行動
+		switch(get_rand() % 3){
+			case 0:
+				print_line("Arist was terrified...▼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+				mvcur(0,HEIGHT + 1);
+				fflush(stdout);
+				while(!kbhit().kbhit_flag);
+				break;
+			default:
+				change_hp(front,-1 * arist.max_atk);
+				change_hp(&arist,-1 * arist.max_atk);
+				print_line("Arist cast \"heal\"!▼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+				print_bt_status(front,&arist);
+				mvcur(0,HEIGHT + 1);
+				fflush(stdout);
+				while(!kbhit().kbhit_flag);
+				break;
+		}
+		sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+		//後衛の行動終わり
+		//敵の行動
+		damage = enemy->min_atk + get_rand() % (enemy->max_atk - enemy->min_atk - 1);
+		if(protect_flag){
+			mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+			printf("%s get %3d damaged by %s!▼",front->name,damage,enemy->name);
+			change_hp(front,damage);
+		}else{
+			switch((int)(get_rand() % 2)){
+				case 0:
+					mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+					printf("%s get %3d damaged by %s!▼",arist.name,damage,enemy->name);
+					change_hp(&arist,damage);
+					break;
+				default:
+					mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+					printf("%s get %3d damaged by %s!▼",front->name,damage,enemy->name);
+					change_hp(front,damage);
+					break;
+			}
+		}
+		protect_flag = 0;
+		mvcur(0,HEIGHT + 1);
+		fflush(stdout);
+					while(!kbhit().kbhit_flag);
+		print_bt_status(front,&arist);
+		//敵の行動終わり
+		sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+
+	}
+	main_window_init();
 }
 
 //2対2用戦闘モード2
-void battle2v2(struct charactor *front){
+void battle2v2(struct charactor *front,struct charactor *enemy1,struct charactor *enemy2){
 	int finish_flag = 1;	
 	
 }
@@ -139,7 +322,6 @@ void set_ch_stat_mode(){
 	print_line(" 5:boss2",5,y+7);
 	print_line(" 9:exit",5,y+8);
 	fflush(stdout);
-	mvcur(0,HEIGHT + 1);
 	make_flame(WIDTH - 4,HEIGHT - 12,3,12);
 	mvcur(0,HEIGHT + 1);
 	int flag = 1;
@@ -218,10 +400,6 @@ void set_ch_stat_mode(){
 	main_window_init();
 }
 
-//乱数取得
-long get_rand(){
-	return rand();
-}
 
 //星が瞬く関数
 void stars(int x[],int y[],int amount){
@@ -246,12 +424,12 @@ int main(){
 
 	//タイトルロゴ宣言
 	char title[][100] = {
-		{"╔╦╗┬ ┬┌─┐                       "},                
-		{" ║ ├─┤├┤                        "},                 
-		{" ╩ ┴ ┴└─┘                       "},                
-		{"   ╔╗ ┌─┐┌─┐┬ ┬┌┬┐┬┌─┐┬ ┬┬      "},
-		{"   ╠╩╗├┤ ├─┤│ │ │ │├┤ │ ││      "},  
-		{"   ╚═╝└─┘┴ ┴└─┘ ┴ ┴└  └─┘┴─┘    "},
+		{"┌┬┐┬ ┬┌─┐                       "},                
+		{" │ ├─┤├┤                        "},                 
+		{" ┴ ┴ ┴└─┘                       "},                
+		{"   ┌┐ ┌─┐┌─┐┬ ┬┌┬┐┬┌─┐┬ ┬┬      "},
+		{"   ├┴┐├┤ ├─┤│ │ │ │├┤ │ ││      "},  
+		{"   └─┘└─┘┴ ┴└─┘ ┴ ┴└  └─┘┴─┘    "},
 		{"                      ┌─┐┬┌─┬ ┬"},
 		{"	                    └─┐├┴┐└┬┘"},
 		{"                      └─┘┴ ┴ ┴ "}
@@ -344,6 +522,7 @@ int main(){
 		while(!(tmp_input = kbhit()).kbhit_flag);
 		switch(tmp_input.input_char){
 			case '1':
+				battle2v1(&naoki,&boss1);
 				break;
 			case '2':
 				break;

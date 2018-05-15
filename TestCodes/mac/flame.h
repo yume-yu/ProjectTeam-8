@@ -91,7 +91,7 @@ void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x
 	//最終行部分の描画
 	mvcur(offset_x,offset_y + height - 1);
 	printf("└");
-	for(int i = 0; i < print_width; i++){
+	for(int i = 1; i <= print_width; i++){
 		if(i == split_x){
 			printf("┴");
 		}else{
