@@ -6,6 +6,17 @@
 #include <windows.h>
 #include <conio.h>
 
+//WindowsとUNIXでEnterキーの入力が異なるのでプログラム上の表記を統一
+#define ENTERKEY 0x0d
+
+//
+/** 
+  * Windowsにはマイクロ秒でsleepするusleep(int)がないので
+  * time 処理を停止する時間[ms]
+  */
+void usleep(int time){
+	Sleep(time/1000);
+}
 /** 
   * 左上を(1,1)としてカーソルを指定位置へ移動させる関数
   * x カーソルのx座標
@@ -300,4 +311,14 @@ int select_from_list(struct arrow_pos tmp_pos[10], int length){
 		break;
 	}
 	return arrow_pos_label;
+}
+
+
+/**
+  *  Enter入力の待機をする関数
+  */
+void wait_anyinput(){
+	mvcur(0,HEIGHT + 1);
+	fflush(stdout);
+	while(!mykbhit().kbhit_flag);
 }
