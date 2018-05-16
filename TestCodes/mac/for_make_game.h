@@ -353,7 +353,7 @@ struct arrow_pos{
 };
 
 /**
-  * リストを表示した際にカーソルの移動と決定した項目を管理する関数
+  * リストを表示した際にカーソルの縦移動と決定した項目を管理する関数
   * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
   * length      リスト項目の数
   * 戻り値 length/Enterが押されたときの項目のラベル(何個目のメニューだったか)
@@ -385,7 +385,7 @@ int select_from_list(struct arrow_pos tmp_pos[10], int length){
 				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
 				continue;
 				break;
-			case '\n':
+			case ENTERKEY:
 				break;
 			default:
 				continue;
@@ -394,6 +394,62 @@ int select_from_list(struct arrow_pos tmp_pos[10], int length){
 		break;
 	}
 	return arrow_pos_label;
+}
+
+/**
+  * リストを表示した際にカーソルの横移動と決定した項目を管理する関数
+  * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
+  * length      リスト項目の数
+  * 戻り値 length/Enterが押されたときの項目のラベル(何個目のメニューだったか)
+  */
+int select_from_hlist(struct arrow_pos tmp_pos[10], int length){
+	int arrow_pos_label = 0;
+	struct input_assort tmp_input_list;
+	print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+	while(1){
+		while(!(tmp_input_list = mykbhit()).kbhit_flag);
+		switch(tmp_input_list.input_char){
+			case 'a':
+				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				if(arrow_pos_label <= 0){
+					arrow_pos_label = length - 1;
+				}else{
+					arrow_pos_label--;
+				}
+				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				continue;
+				break;
+			case 'd':
+				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				if(arrow_pos_label >= length - 1){
+					arrow_pos_label = 0;
+				}else{
+					arrow_pos_label++;
+				}
+				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				continue;
+				break;
+			case ENTERKEY:
+				break;
+			default:
+				continue;
+				break;
+		}
+		break;
+	}
+	return arrow_pos_label;
+}
+
+int check_window(int width, int height, int x, int y, char *string){
+	struct arrow_pos yesno_pos[2] = {
+		{x + width / 2 + 2,y+3},
+		{x + width / 2 - 3,y+3}
+		};
+	make_flame(width,height,x,y);
+	mvcur(x+2,y+1);
+	printf("%s",string);
+	print_line("y /  n",x + width / 2 - 2,y+3);
+	return select_from_hlist(yesno_pos,2);
 }
 
 /**

@@ -4,15 +4,15 @@
 
 /** 
   * メインフレーム(大枠)関連定数
-  * WIDTH                 メインフレームの幅
-  * HEIGHT                メインフレームの高さ
-  * MAIN_FLAME_X_OFFSET   メインフレームの開始位置のX座標
-  * MAIN_FLAME_Y_OFFSET   メインフレームの開始位置のY座標
+  * WIDTH          メインフレームの幅
+  * HEIGHT         メインフレームの高さ
+  * MAIN_FLAME_X   メインフレームの開始位置のX座標
+  * MAIN_FLAME_Y   メインフレームの開始位置のY座標
   */
 #define WIDTH 60
 #define HEIGHT 25
-#define MAIN_FLAME_X_OFFSET 1
-#define MAIN_FLAME_Y_OFFSET 1
+#define MAIN_FLAME_X 1
+#define MAIN_FLAME_Y 1
 
 //汎用関数を定義したヘッダ
 #include "for_make_game.h"
@@ -32,6 +32,21 @@
 #define BATTLE_MODE_STATUS_FLAME_SPLIT_X 2*(WIDTH-2)/3-1
 #define BATTLE_MODE_COMMAND_POS 7
 #define BATTLE_MODE_STATUS_HP_POS BATTLE_MODE_STATUS_FLAME_SPLIT_X+5
+
+#define EDIT_MODE_SELECT_FLAME_Y 2
+#define EDIT_MODE_EDIT_FLAME_CHAR_X 6
+#define EDIT_MODE_EDIT_FLAME_CHAR_Y 14
+#define ECHECK_SELECT_FLAME_WIDTH  WIDTH / 4 + 3
+#define ECHECK_SELECT_FLAME_HEIGHT HEIGHT / 4
+#define ECHECK_SELECT_FLAME_X      WIDTH / 4 + 8
+#define ECHECK_SELECT_FLAME_Y      3 * HEIGHT / 4
+
+#define SELECT_MODE_FLAME_HEIGHT_OFFSET 2
+
+#define SCHECK_SELECT_FLAME_WIDTH  WIDTH / 4
+#define SCHECK_SELECT_FLAME_HEIGHT HEIGHT / 4
+#define SCHECK_SELECT_FLAME_X      WIDTH / 4 + 8
+#define SCHECK_SELECT_FLAME_Y      HEIGHT / 2 - 6
 
 //タイトル画面の星の数
 #define STAR_AMOUNT 50
@@ -80,24 +95,35 @@ void show_ch_stat(int x,int y){
 int sel_mode_window(int y){
 	make_flame(WIDTH - 4,HEIGHT / 2,3,y);
 	print_line("Select mode",5,y+1);
-	print_line(" 1:battle - naoki&arist vs boss1",5,y+2);
-	print_line(" 2:battle - naoki&arist vs boss1&boss2",5,y+3);
-	print_line(" 3:battle - lirel&arist vs boss1",5,y+4);
-	print_line(" 4:battle - lirel&arist vs boss1&boss2",5,y+5);
-	print_line(" 5:edit status",5,y+6);
-	print_line(" 9:exit",5,y+7);
+	print_line("battle - naoki&arist vs boss1",8,y+2);
+	print_line("battle - naoki&arist vs boss1&boss2",8,y+3);
+	print_line("battle - lirel&arist vs boss1",8,y+4);
+	print_line("battle - lirel&arist vs boss1&boss2",8,y+5);
+	print_line("edit status",8,y+6);
+	print_line("exit",8,y+7);
 	fflush(stdout);
 	mvcur(0,HEIGHT + 1);
 	return 0;
 }
 
-void main_window_init(){
+int main_window_init(){
 	//フレーム内スペース埋め
 	flame_flush();
 	//ステータスフレーム表示
 	show_ch_stat(WIDTH - 34,HEIGHT - 8);
-	//
-	sel_mode_window(2);
+	//モード選択フレームのカーゾル座標変数
+	struct arrow_pos main_menu_arrow[] = {
+		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+2},
+		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+3},
+		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+4},
+		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+5},
+		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+6},
+		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+7}
+	};
+	//モード選択フレームの表示
+	sel_mode_window(SELECT_MODE_FLAME_HEIGHT_OFFSET);
+	//モード選択
+	return select_from_list(main_menu_arrow,6);
 }
 
 //戦闘モードの時にコマンド部分表示する関数
@@ -205,15 +231,6 @@ void battle(struct charactor *front,struct charactor *enemies[3], int enemy_amou
 			wait_anyinput();
 			continue;
 		}
-		/*
-		if(enemies[0]->hp <= 0){
-			print_line("Win!▼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-			finish_flag = 1;
-			mvcur(0,HEIGHT + 1);
-			fflush(stdout);
-			while(!mykbhit().kbhit_flag);
-			continue;
-		}*/
 		//判定終わり
 		
 		//後衛の行動
@@ -227,7 +244,7 @@ void battle(struct charactor *front,struct charactor *enemies[3], int enemy_amou
 			default:
 				change_hp(front,-1 * arist.max_atk);
 				change_hp(&arist,-1 * arist.max_atk);
-				print_line("Arist cast \"heal\"!▼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+				print_line("Arist cast 'heal'!▼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 				print_bt_status(front,&arist);
 				mvcur(0,HEIGHT + 1);
 				fflush(stdout);
@@ -268,52 +285,65 @@ void battle(struct charactor *front,struct charactor *enemies[3], int enemy_amou
 		sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 
 	}
-	main_window_init();
 }
 
 //ステータス設定モード
 void set_ch_stat_mode(){
-	int y = 2;
-	int c;
 	struct charactor *now_edit;
 	struct charactor draft;
+	//モード選択フレームのカーゾル座標変数
+	struct arrow_pos set_ch_arrow[] = {
+		{6,EDIT_MODE_SELECT_FLAME_Y+3},
+		{6,EDIT_MODE_SELECT_FLAME_Y+4},
+		{6,EDIT_MODE_SELECT_FLAME_Y+5},
+		{6,EDIT_MODE_SELECT_FLAME_Y+6},
+		{6,EDIT_MODE_SELECT_FLAME_Y+7},
+		{6,EDIT_MODE_SELECT_FLAME_Y+8}
+	};
 	char draft_name[] = "hoge";
 	draft.name = draft_name;
 	flame_flush();
-	make_flame(WIDTH - 4,10,3,y);
+	make_flame(WIDTH - 4,10,3,EDIT_MODE_SELECT_FLAME_Y);
 	show_ch_stat(WIDTH - 35,3);
-	print_line("Select Charactor",5,y+1);
-	print_line(" 1:naoki",5,y+3);
-	print_line(" 2:arist",5,y+4);
-	print_line(" 3:lirel",5,y+5);
-	print_line(" 4:boss1",5,y+6);
-	print_line(" 5:boss2",5,y+7);
-	print_line(" 9:exit",5,y+8);
+	print_line("Select Charactor",5,EDIT_MODE_SELECT_FLAME_Y+1);
+	print_line("naoki",8,EDIT_MODE_SELECT_FLAME_Y+3);
+	print_line("arist",8,EDIT_MODE_SELECT_FLAME_Y+4);
+	print_line("lirel",8,EDIT_MODE_SELECT_FLAME_Y+5);
+	print_line("boss1",8,EDIT_MODE_SELECT_FLAME_Y+6);
+	print_line("boss2",8,EDIT_MODE_SELECT_FLAME_Y+7);
+	print_line("exit",8,EDIT_MODE_SELECT_FLAME_Y+8);
 	fflush(stdout);
 	make_flame(WIDTH - 4,HEIGHT - 12,3,12);
 	mvcur(0,HEIGHT + 1);
 	int flag = 1;
+	int target = 0;
 	struct input_assort tmp_input_ch;
 	struct input_assort continue_check;
 	while(flag){
-		while(!(tmp_input_ch = mykbhit()).kbhit_flag);
-		switch(tmp_input_ch.input_char){
+		target = select_from_list(set_ch_arrow,6);
+		switch(target){
 			case '1':
+			case 0:
 				now_edit = &naoki;
 				break;
 			case '2':
+			case 1:
 				now_edit = &arist;
 				break;
 			case '3':
+			case 2:
 				now_edit = &lirel;
 				break;
 			case '4':
+			case 3:
 				now_edit = &boss1;
 				break;
 			case '5':
+			case 4:
 				now_edit = &boss2;
 				break;
 			case '9':
+			case 5:
 				flag = 0;
 				break;
 			default:
@@ -321,33 +351,40 @@ void set_ch_stat_mode(){
 		}
 		
 		if(flag){
-			mvcur(5,13);
+			mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X,EDIT_MODE_EDIT_FLAME_CHAR_Y);
 			printf("Selected Charactor: %s",now_edit->name);
-			mvcur(6,14);
+			mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 1);
 			printf("    HP : %3d",now_edit->max_hp);
-			mvcur(6,15);
+			mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 2);
 			if(now_edit == &arist){
 				printf("  HEAL : %3d",now_edit->max_atk);
 			}else{
 				printf("   ATK : %3d 〜 %3d",now_edit->min_atk,now_edit->max_atk);
 			}
-			mvcur(5,17);
+			mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X,EDIT_MODE_EDIT_FLAME_CHAR_Y + 5);
 			printf("New Status:");
-			mvcur(6,18);
+			mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 6);
 			printf("    HP : ");
-			mvcur(6,19);
+			mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 7);
 			printf("MINATK : ");
-			mvcur(6,20);
+			mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 8);
 			printf("MAXATK : ");
-			mvcur(15,18);
+			mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X + 10,EDIT_MODE_EDIT_FLAME_CHAR_Y + 6);
 			scanf("%d",&draft.hp);	
-			mvcur(15,19);
+			mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X + 10,EDIT_MODE_EDIT_FLAME_CHAR_Y + 7);
 			scanf("%d",&draft.min_atk);	
-			mvcur(15,20);
+			mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X + 10,EDIT_MODE_EDIT_FLAME_CHAR_Y + 8);
 			scanf("%d",&draft.max_atk);
-			mvcur(6,23);
-			printf("HP:%3d ATK:%3d 〜 %3d",draft.hp,draft.min_atk,draft.max_atk);
-			print_line("Admit Change? [y/n]",5,22);
+			//mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X + 1,23);
+			//printf("HP:%3d ATK:%3d 〜 %3d",draft.hp,draft.min_atk,draft.max_atk);
+			//print_line("Admit Change? [y/n]",5,22);
+			
+			//scanfで漏れたEnterを受け流す
+			getchar();
+			if(check_window(ECHECK_SELECT_FLAME_WIDTH, ECHECK_SELECT_FLAME_HEIGHT, ECHECK_SELECT_FLAME_X, ECHECK_SELECT_FLAME_Y,"Admit Change?")){
+				set_ch_stat(now_edit->name,now_edit,draft.hp,draft.min_atk,draft.max_atk);
+			}
+			/*
 			int input_complete_flag = 0;
 			while(!input_complete_flag){
 				while(!(continue_check = mykbhit()).kbhit_flag);
@@ -362,12 +399,14 @@ void set_ch_stat_mode(){
 				default:
 					break;
 				}
-			}			sub_flame_clean(WIDTH - 6,HEIGHT - 14,4,13);	
+			}
+			*/
+			sub_flame_clean(WIDTH - 6,HEIGHT - 14,4,13);	
 			show_ch_stat(WIDTH - 35,3);
 		}
 		mvcur(0,HEIGHT + 1);
+		print_line(" ",set_ch_arrow[target].x,set_ch_arrow[target].y);
 	}
-	main_window_init();
 }
 
 
@@ -390,7 +429,7 @@ int main(){
 	//ターミナルの文字を流してカーソル位置を(1,1)にする
 	init_term();
 	//大枠ウィンドウフレームの作成
-	make_flame(WIDTH,HEIGHT,MAIN_FLAME_X_OFFSET,MAIN_FLAME_Y_OFFSET);
+	make_flame(WIDTH,HEIGHT,MAIN_FLAME_X,MAIN_FLAME_Y);
 
 	/**
 	 * ここからロゴのスクロール開始
@@ -459,37 +498,41 @@ int main(){
 	}while((mykbhit().input_char) != ENTERKEY);
 
 	initchara();
-	main_window_init();
 
-	int flag = 1;
-	struct input_assort tmp_input;
+	int exit_flag = 1;
+	int mode = 0;
+	struct input_assort check_select;
 	struct charactor *enemies[4]= {&dummy,&dummy,&dummy,&dummy};
-	while(flag){
-		while(!(tmp_input = mykbhit()).kbhit_flag);
-		switch(tmp_input.input_char){
-			case '1':
+	while(exit_flag){
+		mode = main_window_init();
+		//入力がミスでないかを確認
+		if(!check_window(SCHECK_SELECT_FLAME_WIDTH, SCHECK_SELECT_FLAME_HEIGHT, SCHECK_SELECT_FLAME_X, SCHECK_SELECT_FLAME_Y,"Continue?")){
+			continue;
+		}
+		switch(mode){
+			case 0:
 				enemies[0] = &boss1;
 				battle(&naoki,enemies,1);
 				break;
-			case '2':
+			case 1:
 				enemies[0] = &boss1;
 				enemies[1] = &boss2;
 				battle(&naoki,enemies,2);
 				break;
-			case '3':
+			case 2:
 				enemies[0] = &boss1;
 				battle(&lirel,enemies,1);
 				break;
-			case '4':
+			case 3:
 				enemies[0] = &boss1;
 				enemies[1] = &boss2;
 				battle(&lirel,enemies,2);
 				break;
-			case '5':
+			case 4:
 				set_ch_stat_mode();
 				break;
-			case '9':
-				flag = 0;
+			case 5:
+				exit_flag = 0;
 				break;
 		}
 	}
