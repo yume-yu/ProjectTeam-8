@@ -230,6 +230,21 @@ struct charactor{
 };
 
 /**
+  * 武器の基本ステータス構造体
+  */
+struct weapon{
+	int atk;
+	int isGun;
+};
+
+/**
+  * 防具の基本ステータス構造体
+  */
+struct protector{
+	int def;
+};
+
+/**
   * キャラクターのステータス設定をする関数
   * name[10] キャラクターの名前
   * tmpch    ステータスを設定するキャラクター構造体のアドレス
@@ -366,7 +381,7 @@ int check_window(int width, int height, int x, int y, char *string){
 	mvcur(x+2,y+1);
 	printf("%s",string);
 	print_line("y /  n",x + width / 2 - 2,y+3);
-	return !select_from_hlist(yesno_pos,2);
+	return select_from_hlist(yesno_pos,2);
 }
 
 /**

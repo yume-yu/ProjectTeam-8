@@ -313,6 +313,21 @@ struct charactor{
 };
 
 /**
+  * 武器の基本ステータス構造体
+  */
+struct weapon{
+	int atk;
+	int isGun;
+};
+
+/**
+  * 防具の基本ステータス構造体
+  */
+struct protector{
+	int def;
+};
+
+/**
   * キャラクターのステータス設定をする関数
   * name[10] キャラクターの名前
   * tmpch    ステータスを設定するキャラクター構造体のアドレス
