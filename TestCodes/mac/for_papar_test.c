@@ -29,43 +29,11 @@
 //星の数
 #define STAR_AMOUNT 50
 
-//キャラクターの基本ステータス構造体
-struct charactor{
-	char *name;
-	int hp;
-	int max_hp;
-	int max_atk;
-	int min_atk;
-};
-
-//矢印の位置関数
-struct arrow_pos{
-	int x;
-	int y;
-};
-
 //乱数取得
 long get_rand(){
 	return rand();
 }
 
-//キャラクターの変数設定関数
-void set_ch_stat(char name[10], struct charactor *tmpch, int hp, int min_atk, int max_atk){
-	tmpch->name = name;
-	tmpch->hp = hp;
-	tmpch->max_hp = hp;
-	tmpch->max_atk = max_atk;
-	tmpch->min_atk = min_atk;
-}
-
-void change_hp(struct charactor *tmpch, int damage){
-	tmpch->hp -= damage;
-	if(tmpch->hp < 0){
-		tmpch->hp = 0;
-	}else if(tmpch->hp > tmpch->max_hp){
-		tmpch->hp = tmpch->max_hp;
-	}
-}
 //必要キャラクタの定義
 struct charactor naoki;
 struct charactor lirel;
@@ -123,14 +91,13 @@ void main_window_init(){
 
 struct arrow_pos battle_menu_arrow[] = {{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4}};
 
+//戦闘モードの時にコマンド部分表示する関数
 void print_bt_commands(){
-	//コマンド部分表示
 	print_line("Attack",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 	print_line("Magic",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
 	print_line("Protect",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3);
 	print_line("Item",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4);
 }
-
 
 void print_bt_status(struct charactor *front,struct charactor *back){
 	//ステータス部分表示
@@ -146,44 +113,6 @@ void print_bt_status(struct charactor *front,struct charactor *back){
 	printf("%s:%4d/%4d",back->name,back->hp,back->max_hp);
 	mvcur(0,HEIGHT + 1);
 	fflush(stdout);
-}
-
-int select_from_list(struct arrow_pos tmp_pos[10], int length){
-	int arrow_pos_label = 0;
-	struct input_assort tmp_input_list;
-	print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
-	while(1){
-		while(!(tmp_input_list = kbhit()).kbhit_flag);
-		switch(tmp_input_list.input_char){
-			case 'w':
-				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
-				if(arrow_pos_label <= 0){
-					arrow_pos_label = length - 1;
-				}else{
-					arrow_pos_label--;
-				}
-				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
-				continue;
-				break;
-			case 's':
-				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
-				if(arrow_pos_label >= length - 1){
-					arrow_pos_label = 0;
-				}else{
-					arrow_pos_label++;
-				}
-				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
-				continue;
-				break;
-			case '\n':
-				break;
-			default:
-				continue;
-				break;
-		}
-		break;
-	}
-	return arrow_pos_label;
 }
 
 //2対1用戦闘モード

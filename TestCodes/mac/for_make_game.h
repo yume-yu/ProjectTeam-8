@@ -162,6 +162,11 @@ void string_march(char string[4], int x, int y, int width, int height){
 		}*/
 }
 
+/**
+  * フレーム関連関数
+  */
+
+
 /** 
  * 標準出力の初期化
  */
@@ -264,6 +269,7 @@ void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x
 /**
  * フレーム内をスペース埋めにする関数
  */
+ 
 void flame_flush(){	
 	for(int i = 2; i < HEIGHT; i++){
 		for(int j = 2; j < WIDTH; j++){
@@ -273,9 +279,10 @@ void flame_flush(){
 		usleep(2 * 10000);
 	}
 }
+
 /**
- * メインフレーム内をスペース埋めにする関数
- */
+  * 指定フレーム内をスペース埋めにする関数
+  */
 void sub_flame_clean(int width, int height, int x, int y){	
 	for(int i = y; i < y + height; i++){
 		for(int j = x; j < x + width;j++){
@@ -285,3 +292,101 @@ void sub_flame_clean(int width, int height, int x, int y){
 	fflush(stdout);
 }
 
+/**
+  *  ステータス関連関数
+  */
+
+/**
+  * キャラクターの基本ステータス構造体
+  */
+struct charactor{
+	char *name;
+	int hp;
+	int max_hp;
+	int max_atk;
+	int min_atk;
+};
+
+/**
+  * キャラクターのステータス設定をする関数
+  * name[10] キャラクターの名前
+  * tmpch    ステータスを設定するキャラクター構造体のアドレス
+  * hp       設定するhp
+  * min_atk  与ダメージの下限
+  * max_atk  与ダメージの上限
+  */
+void set_ch_stat(char name[10], struct charactor *tmpch, int hp, int min_atk, int max_atk){
+	tmpch->name = name;
+	tmpch->hp = hp;
+	tmpch->max_hp = hp;
+	tmpch->max_atk = max_atk;
+	tmpch->min_atk = min_atk;
+}
+
+/**
+  * キャラクターのHPを変動させる関数
+  * tmpch    hpが変動するキャラクター構造体のアドレス
+  * damage   ダメージ量 正なら減算/負なら加算される ex.damageが-20 → 20回復
+  */
+void change_hp(struct charactor *tmpch, int damage){
+	tmpch->hp -= damage;
+	if(tmpch->hp < 0){
+		tmpch->hp = 0;
+	}else if(tmpch->hp > tmpch->max_hp){
+		tmpch->hp = tmpch->max_hp;
+	}
+}
+
+/**
+  *  UI関連関数
+  */
+  
+//矢印の位置を定義するための構造体。リスト表示の際に座標配列として使う
+struct arrow_pos{
+	int x;
+	int y;
+};
+
+/**
+  * リストを表示した際にカーソルの移動と決定した項目を管理する関数
+  * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
+  * length      リスト項目の数
+  * 戻り値 length/Enterが押されたときの項目のラベル(何個目のメニューだったか)
+  */
+int select_from_list(struct arrow_pos tmp_pos[10], int length){
+	int arrow_pos_label = 0;
+	struct input_assort tmp_input_list;
+	print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+	while(1){
+		while(!(tmp_input_list = kbhit()).kbhit_flag);
+		switch(tmp_input_list.input_char){
+			case 'w':
+				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				if(arrow_pos_label <= 0){
+					arrow_pos_label = length - 1;
+				}else{
+					arrow_pos_label--;
+				}
+				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				continue;
+				break;
+			case 's':
+				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				if(arrow_pos_label >= length - 1){
+					arrow_pos_label = 0;
+				}else{
+					arrow_pos_label++;
+				}
+				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				continue;
+				break;
+			case '\n':
+				break;
+			default:
+				continue;
+				break;
+		}
+		break;
+	}
+	return arrow_pos_label;
+}
