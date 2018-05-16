@@ -12,7 +12,7 @@ struct input_assort{
  *
  */
 //int kbhit(void){
-struct input_assort kbhit(){
+struct input_assort mykbhit(){
 	struct termios oldt, newt;
 	struct input_assort reply;
 	int ch;

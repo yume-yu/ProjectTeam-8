@@ -4,6 +4,11 @@
  * それらを変数で呼び出すために自作関数を使うためのヘッダ
  */
 
+//unixでkbhitを使うためのヘッダ
+#include "mconio.h"
+//WindowsとUNIXでEnterキーの入力が異なるのでプログラム上の表記を統一
+#define ENTERKEY '\n'
+
 /**
  * 左上を頂点(1,1)として(100,100)までの座標を配列指定
  *
@@ -358,7 +363,7 @@ int select_from_list(struct arrow_pos tmp_pos[10], int length){
 	struct input_assort tmp_input_list;
 	print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
 	while(1){
-		while(!(tmp_input_list = kbhit()).kbhit_flag);
+		while(!(tmp_input_list = mykbhit()).kbhit_flag);
 		switch(tmp_input_list.input_char){
 			case 'w':
 				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
@@ -397,5 +402,5 @@ int select_from_list(struct arrow_pos tmp_pos[10], int length){
 void wait_anyinput(){
 	mvcur(0,HEIGHT + 1);
 	fflush(stdout);
-	while(!kbhit().kbhit_flag);
+	while(!mykbhit().kbhit_flag);
 }
