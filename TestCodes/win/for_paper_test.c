@@ -348,17 +348,20 @@ void set_ch_stat_mode(){
 			mvcur(6,23);
 			printf("HP:%3d ATK:%3d ～ %3d",draft.hp,draft.min_atk,draft.max_atk);
 			print_line("Admit Change? [y/n]",5,22);
-			while((c = getchar()) != ENTERKEY);
-			while(!(continue_check = mykbhit()).kbhit_flag);
-			switch(continue_check.input_char){
+			int input_complete_flag = 0;
+			while(!input_complete_flag){
+				while(!(continue_check = mykbhit()).kbhit_flag);
+				switch(continue_check.input_char){
 				case 'y':
 					set_ch_stat(now_edit->name,now_edit,draft.hp,draft.min_atk,draft.max_atk);
+					input_complete_flag = 1;
 					break;
 				case 'n':
+					input_complete_flag = 1;
 					break;
 				default:
-					continue;
 					break;
+				}
 			}
 			sub_flame_clean(WIDTH - 6,HEIGHT - 14,4,13);	
 			show_ch_stat(WIDTH - 35,3);
@@ -389,31 +392,6 @@ int main(){
 	init_term();
 	//大枠ウィンドウフレームの作成
 	make_flame(WIDTH,HEIGHT,MAIN_FLAME_X_OFFSET,MAIN_FLAME_Y_OFFSET);
-
-	//タイトルロゴ宣言
-	char title[][100] = {
-		{"┌┬┐┬ ┬┌─┐                       "},                
-		{" │ ├─┤├┤                        "},                 
-		{" ┴ ┴ ┴└─┘                       "},                
-		{"   ┌┐ ┌─┐┌─┐┬ ┬┌┬┐┬┌─┐┬ ┬┬      "},
-		{"   ├┴┐├┤ ├─┤│ │ │ │├┤ │ ││      "},  
-		{"   └─┘└─┘┴ ┴└─┘ ┴ ┴└  └─┘┴─┘    "},
-		{"                      ┌─┐┬┌─┬ ┬ "},
-		{"	                     └─┐├┴┐└┬┘ "},
-		{"                      └─┘┴ ┴ ┴  "}
-	};
-	//ロゴ移動中の片付け宣言
-	char title_space[][100] = {
-		{"                                "},
-		{"                                "},
-		{"                                "},
-		{"                                "},
-		{"                                "},
-		{"                                "},
-		{"                                "},
-		{"                                "},
-		{"                                "}
-	};
 
 	/**
 	 * ここからロゴのスクロール開始
