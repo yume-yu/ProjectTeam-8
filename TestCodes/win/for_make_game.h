@@ -233,15 +233,34 @@ struct charactor{
   * 武器の基本ステータス構造体
   */
 struct weapon{
+	char *name;
 	int atk;
-	int isGun;
+	int is_gun;
+};
+
+#define WEPONS_AMOUNT 4
+
+struct weapon all_weapons[7] = {
+	{"No weapon",0,0},
+	{"HandGun",10,1},
+	{"Knife",20,0},
+	{"bow",15,1}
 };
 
 /**
   * 防具の基本ステータス構造体
   */
 struct protector{
+	char *name;
 	int def;
+};
+
+#define PROTECTORS_AMOUNT 3
+
+struct protector all_protectors[7] = {
+	{"No protector",0},
+	{"Shield",10},
+	{"Protective Suit",30}
 };
 
 /**
