@@ -390,3 +390,12 @@ int select_from_list(struct arrow_pos tmp_pos[10], int length){
 	}
 	return arrow_pos_label;
 }
+
+/**
+  *  Enter入力の待機をする関数
+  */
+void wait_anyinput(){
+	mvcur(0,HEIGHT + 1);
+	fflush(stdout);
+	while(!kbhit().kbhit_flag);
+}
