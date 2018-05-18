@@ -272,7 +272,7 @@ void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x
 }
 
 /**
- * フレーム内をスペース埋めにする関数
+ * フレーム内をアニメーションでスペース埋めにする関数
  */
  
 void flame_flush(){	
@@ -283,6 +283,21 @@ void flame_flush(){
 		fflush(stdout);
 		usleep(2 * 10000);
 	}
+}
+
+/**
+ * フレーム内をスペース埋めにする関数
+ */
+ 
+void flame_clean(){	
+	for(int i = 2; i < HEIGHT; i++){
+		for(int j = 2; j < WIDTH; j++){
+			mvcur(j,i);
+			printf(" ");
+		}
+		//usleep(2 * 10000);
+	}
+		fflush(stdout);
 }
 
 /**
@@ -304,7 +319,7 @@ void sub_flame_clean(int width, int height, int x, int y){
 /**
   * キャラクターの基本ステータス構造体
   */
-struct charactor{
+struct character{
 	char *name;
 	int hp;
 	int max_hp;
@@ -321,13 +336,13 @@ struct weapon{
 	int is_gun;
 };
 
-#define WEPONS_AMOUNT 4
+#define WEPONS_AMOUNT 3
 
 struct weapon all_weapons[7] = {
 	{"No weapon",0,0},
-	{"HandGun",10,1},
+	{"HandGun",35,1},
 	{"Knife",20,0},
-	{"bow",15,1}
+	//{"Bow",30,1}
 };
 
 /**
@@ -342,8 +357,8 @@ struct protector{
 
 struct protector all_protectors[7] = {
 	{"No protector",0},
-	{"Shield",10},
-	{"Protective Suit",30}
+	{"Shield",40},
+	{"Protective Suit",55}
 };
 
 /**
@@ -354,7 +369,7 @@ struct protector all_protectors[7] = {
   * min_atk  与ダメージの下限
   * max_atk  与ダメージの上限
   */
-void set_ch_stat(char name[10], struct charactor *tmpch, int hp, int min_atk, int max_atk){
+void set_ch_stat(char name[10], struct character *tmpch, int hp, int min_atk, int max_atk){
 	tmpch->name = name;
 	tmpch->hp = hp;
 	tmpch->max_hp = hp;
@@ -367,7 +382,7 @@ void set_ch_stat(char name[10], struct charactor *tmpch, int hp, int min_atk, in
   * tmpch    hpが変動するキャラクター構造体のアドレス
   * damage   ダメージ量 正なら減算/負なら加算される ex.damageが-20 → 20回復
   */
-void change_hp(struct charactor *tmpch, int damage){
+void change_hp(struct character *tmpch, int damage){
 	tmpch->hp -= damage;
 	if(tmpch->hp < 0){
 		tmpch->hp = 0;
@@ -482,7 +497,7 @@ int check_window(int width, int height, int x, int y, char *string){
 	make_flame(width,height,x,y);
 	mvcur(x+2,y+1);
 	printf("%s",string);
-	print_line("y /  n",x + width / 2 - 2,y+3);
+	print_line("Y /  N",x + width / 2 - 2,y+3);
 	return select_from_hlist(yesno_pos,2);
 }
 
@@ -493,6 +508,7 @@ void wait_anyinput(){
 	mvcur(0,HEIGHT + 1);
 	fflush(stdout);
 	while(!mykbhit().kbhit_flag);
+	while(mykbhit().kbhit_flag);
 }
 
 /**

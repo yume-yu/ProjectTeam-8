@@ -244,7 +244,7 @@ struct weapon all_weapons[7] = {
 	{"No weapon",0,0},
 	{"HandGun",10,1},
 	{"Knife",20,0},
-	{"bow",15,1}
+	{"Bow",15,1}
 };
 
 /**
