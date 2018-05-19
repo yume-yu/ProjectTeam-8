@@ -10,18 +10,28 @@
  * MAIN_FLAME_X   メインフレームの開始位置のX座標
  * MAIN_FLAME_Y   メインフレームの開始位置のY座標
  */
-#define WIDTH 60
-#define HEIGHT 25
-#define MAIN_FLAME_X 1
-#define MAIN_FLAME_Y 1
+#define WIDTH					60
+#define HEIGHT 				25
+#define MAIN_FLAME_X	1
+#define MAIN_FLAME_Y 	1
 
-//汎用関数を定義したヘッダ
+/*
+ * 汎用関数を定義したヘッダ
+ * 必ずメインフレームサイズ定義の後ろでincludeすること
+ */
 #include "for_make_game.h"
 
-#define SELECT_STAGE_FLAME_WIDTH  25
-#define SELECT_STAGE_FLAME_HEIGHT 11
-#define SELECT_STAGE_FLAME_X      (WIDTH  - SELECT_STAGE_FLAME_WIDTH) / 2
-#define SELECT_STAGE_FLAME_Y      (HEIGHT - SELECT_STAGE_FLAME_HEIGHT) / 2
+/*
+ * ステージセレクトフレーム関連定数
+ * SELECT_STAGE_FLAME_WIDTH  フレームの幅
+ * SELECT_STAGE_FLAME_HEIGHT フレームの高さ
+ * SELECT_STAGE_FLAME_X      フレームの開始位置のX座標
+ * SELECT_STAGE_FLAME_Y      フレームの開始位置のY座標
+ */
+#define SELECT_STAGE_FLAME_WIDTH  				25
+#define SELECT_STAGE_FLAME_HEIGHT 				11
+#define SELECT_STAGE_FLAME_X      				(WIDTH  - SELECT_STAGE_FLAME_WIDTH) / 2
+#define SELECT_STAGE_FLAME_Y      				(HEIGHT - SELECT_STAGE_FLAME_HEIGHT) / 2
 
 /** 
  * 戦闘画面でのウィンドウサイズ/配置関連定数
@@ -29,45 +39,61 @@
  * BATTLE_MODE_STATUS_FLAME_HEIGHT  下分割フレームの高さ
  * BATTLE_MODE_STATUS_FLAME_X       下分割フレームの開始位置のX座標
  * BATTLE_MODE_STATUS_FLAME_SPLIT_X 下分割フレームの分割位置
- * BATTLE_MODE_COMMAND_POS          戦闘コマンドブレームの1行目のX座標
- * BATTLE_MODE_STATUS_HP_POS        ステータスフレームの1行目のX座標
+ * BATTLE_MODE_COMMAND_POS          戦闘コマンドブレーム(下左)の1行目のX座標
+ * BATTLE_MODE_STATUS_HP_POS        ステータスフレーム(下右)の1行目のX座標
  */
-#define BATTLE_MODE_STATUS_FLAME_WIDTH WIDTH-2
-#define BATTLE_MODE_STATUS_FLAME_HEIGHT 6
-#define BATTLE_MODE_STATUS_FLAME_X 2
-#define BATTLE_MODE_STATUS_FLAME_SPLIT_X 2*(WIDTH-2)/3-1
-#define BATTLE_MODE_COMMAND_POS 7
-#define BATTLE_MODE_STATUS_HP_POS BATTLE_MODE_STATUS_FLAME_SPLIT_X+5
+#define BATTLE_MODE_STATUS_FLAME_WIDTH		WIDTH-2
+#define BATTLE_MODE_STATUS_FLAME_HEIGHT		6
+#define BATTLE_MODE_STATUS_FLAME_X				2
+#define BATTLE_MODE_STATUS_FLAME_SPLIT_X 	2*(WIDTH-2)/3-1
+#define BATTLE_MODE_COMMAND_POS 					7
+#define BATTLE_MODE_STATUS_HP_POS 				BATTLE_MODE_STATUS_FLAME_SPLIT_X+5
 
-#define EDIT_MODE_SELECT_FLAME_Y 2
-#define EDIT_MODE_EDIT_FLAME_CHAR_X 6
-#define EDIT_MODE_EDIT_FLAME_CHAR_Y 14
-#define ECHECK_SELECT_FLAME_WIDTH  WIDTH / 4 + 3
-#define ECHECK_SELECT_FLAME_HEIGHT HEIGHT / 4
-#define ECHECK_SELECT_FLAME_X      WIDTH / 4 + 8
-#define ECHECK_SELECT_FLAME_Y      3 * HEIGHT / 4
-#define ECHECK_TEMPLATE_FLAME_WIDTH  WIDTH / 4 + 10
-#define ECHECK_TEMPLATE_FLAME_HEIGHT HEIGHT / 4
-#define ECHECK_TEMPLATE_FLAME_X      WIDTH / 4 + 3
-#define ECHECK_TEMPLATE_FLAME_Y      HEIGHT / 2 + 3
+/*
+ * キャラクターステータス設定モード関連定数
+ * EDIT_MODE_SELECT_FLAME_WIDTH
+ * EDIT_MODE_SELECT_FLAME_HEIGHT
+ * EDIT_MODE_SELECT_FLAME_X
+ * EDIT_MODE_SELECT_FLAME_Y
+ * EDIT_MODE_EDIT_FLAME_CHAR_X
+ * EDIT_MODE_EDIT_FLAME_CHAR_Y 
+ */
+#define EDIT_MODE_SELECT_FLAME_WIDTH			WIDTH - 4
+#define EDIT_MODE_SELECT_FLAME_HEIGHT			10
+#define EDIT_MODE_SELECT_FLAME_X					3
+#define EDIT_MODE_SELECT_FLAME_Y					2
+#define EDIT_MODE_EDIT_FLAME_WIDTH				WIDTH - 4
+#define EDIT_MODE_EDIT_FLAME_HEIGHT				HEIGHT - 12
+#define EDIT_MODE_EDIT_FLAME_X						3
+#define EDIT_MODE_EDIT_FLAME_Y						12
+#define EDIT_MODE_EDIT_FLAME_CHAR_X				6
+#define EDIT_MODE_EDIT_FLAME_CHAR_Y 			14
+#define ECHECK_SELECT_FLAME_WIDTH  				WIDTH / 4 + 3
+#define ECHECK_SELECT_FLAME_HEIGHT 				HEIGHT / 4
+#define ECHECK_SELECT_FLAME_X							WIDTH / 4 + 8
+#define ECHECK_SELECT_FLAME_Y      				3 * HEIGHT / 4
+#define ECHECK_TEMPLATE_FLAME_WIDTH  			WIDTH / 4 + 10
+#define ECHECK_TEMPLATE_FLAME_HEIGHT 			HEIGHT / 4
+#define ECHECK_TEMPLATE_FLAME_X      			WIDTH / 4 + 3
+#define ECHECK_TEMPLATE_FLAME_Y      			HEIGHT / 2 + 3
 
-#define SELECT_MODE_FLAME_HEIGHT_OFFSET 2
-#define SCHECK_SELECT_FLAME_WIDTH  WIDTH / 4
-#define SCHECK_SELECT_FLAME_HEIGHT HEIGHT / 4
-#define SCHECK_SELECT_FLAME_X      WIDTH / 4 + 8
-#define SCHECK_SELECT_FLAME_Y      HEIGHT / 2 - 6
+#define SELECT_MODE_FLAME_HEIGHT_OFFSET 	2
+#define SCHECK_SELECT_FLAME_WIDTH  				WIDTH / 4
+#define SCHECK_SELECT_FLAME_HEIGHT 				HEIGHT / 4
+#define SCHECK_SELECT_FLAME_X      				WIDTH / 4 + 8
+#define SCHECK_SELECT_FLAME_Y      				HEIGHT / 2 - 6
 
-#define CHARACTER_STATUS_ATK_DIFF 10
-#define CHARACTER_STATUS_HP_DIFF 20
+#define CHARACTER_STATUS_ATK_DIFF 				10
+#define CHARACTER_STATUS_HP_DIFF 					20
 
-#define SET_WEAPON_MODE_FLAME_Y 3
-#define SET_WEAPON_MODE_FLAME_HEIGHT 5
-#define SET_WEAPON_EDIT_FLAME_CHAR_X 5
-#define SET_WEAPON_EDIT_FLAME_CHAR_Y 13
+#define SET_WEAPON_MODE_FLAME_Y 					3
+#define SET_WEAPON_MODE_FLAME_HEIGHT 			5
+#define SET_WEAPON_EDIT_FLAME_CHAR_X 			5
+#define SET_WEAPON_EDIT_FLAME_CHAR_Y 			13
 
-#define ARIST_ATTACK 35
+#define ARIST_ATTACK		35
 //タイトル画面の星の数
-#define STAR_AMOUNT 50
+#define STAR_AMOUNT 		50
 
 //乱数取得
 long get_rand(){
@@ -254,9 +280,15 @@ void battle(struct character *front,struct character *back,struct character *ene
 	int damage = 0;
 	int target_label = 0;
 	int turn_count = 0;
+	int sp_count = 0;
 	int enemies_dead_flag[enemy_amount];
 	int enemies_dead_check = 0;
 	int player_can_act = 1;
+	int enemy_amount_for_bar = enemy_amount;
+	struct character *for_bar[enemy_amount];
+	for(int i = 0;i < enemy_amount;i++){
+		for_bar[i] = enemies[i];
+	}
 	struct arrow_pos battle_menu_arrow[] = {{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4}};
 
 	//敵のHPと生存フラグを初期化
@@ -268,8 +300,8 @@ void battle(struct character *front,struct character *back,struct character *ene
 	make_vsflame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_SPLIT_X);
 
 	print_bt_status(front,&arist);
-	print_health_bar(enemies,enemy_amount);
-	
+	print_health_bar(for_bar,enemy_amount_for_bar);
+
 	while(!finish_flag){
 		turn_count++;
 		if(player_can_act){
@@ -287,19 +319,12 @@ void battle(struct character *front,struct character *back,struct character *ene
 							printf("back");
 						}
 					}
-						fflush(stdout);
+					fflush(stdout);
 					target_label = select_from_list(battle_menu_arrow,enemy_amount + 1);
 					sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					if(target_label == enemy_amount){
 						continue;
-					}else if(enemies[target_label]->hp <= 0){
-						mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-						printf("%s was already down▼",enemies[target_label]->name);
-						wait_anyinput();
-						sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-						continue;
 					}
-					//damage = front->min_atk + get_rand() % (front->max_atk - front->min_atk - 1);
 					damage = front->min_atk + get_rand() % (front->max_atk - front->min_atk - 1) + using_weapon->atk;
 					mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					printf("%s got %3d damaged!▼",enemies[target_label]->name,damage);
@@ -310,12 +335,16 @@ void battle(struct character *front,struct character *back,struct character *ene
 						printf("%s got %3d damaged!▼",enemies[target_label]->name,damage);
 						change_hp(enemies[target_label],damage);
 					}
+					print_health_bar(for_bar,enemy_amount_for_bar);
 					wait_anyinput();
 					if(enemies[target_label]->hp <= 0){
-						enemies_dead_flag[target_label] = 0;
 						sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 						printf("%s was down!▼",enemies[target_label]->name);
+						for(int i = target_label; i + 1 < enemy_amount;i++){
+							enemies[i] = enemies[i + 1];
+						}
+						enemy_amount--;
 						wait_anyinput();
 					}
 					break;
@@ -357,12 +386,12 @@ void battle(struct character *front,struct character *back,struct character *ene
 			}
 			sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 			//プレイヤーの行動終わり
-			print_health_bar(enemies,enemy_amount);
+			print_health_bar(for_bar,enemy_amount_for_bar);
 
 			//勝利判定
 			enemies_dead_check = 0;
-			for(int i = 0; i <  enemy_amount; i++){
-				enemies_dead_check += enemies_dead_flag[i];
+			for(int i = 0; i <  enemy_amount_for_bar; i++){
+				enemies_dead_check += for_bar[i]->hp;
 			}
 			if(enemies_dead_check <= 0){
 				print_line("Win!▼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
@@ -388,15 +417,16 @@ void battle(struct character *front,struct character *back,struct character *ene
 						change_hp(enemies[target_label],damage);
 						mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 						printf("%s got %3d damaged!▼ ",enemies[target_label]->name,damage);
+						print_health_bar(for_bar,enemy_amount_for_bar);
 						wait_anyinput();
+						break;
 					}
-					break;
 				default:
 					change_hp(front,-1 * arist.max_atk);
 					change_hp(back,-1 * arist.max_atk);
+					print_bt_status(front,back);
 					mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					printf("Arist cast 'heal'!▼ ");
-					print_bt_status(front,back);
 					wait_anyinput();
 					break;
 			}
@@ -405,12 +435,20 @@ void battle(struct character *front,struct character *back,struct character *ene
 		}else{
 			print_line("Can't Action...▼ ",BATTLE_MODE_COMMAND_POS - 2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 			wait_anyinput();
+			sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 			for(int i = 0; i < enemy_amount; i++){
 				if(!strcmp(enemies[i]->name,"St3Bs")){
 					player_can_act = 1;
+				}else if(!strcmp(enemies[i]->name,"St5Bs")){
+					sp_count++;
+					if(sp_count >= 3){
+						player_can_act = 1;
+						sp_count = 0;
+					}
 				}
 			}
 		}
+		print_health_bar(for_bar,enemy_amount_for_bar);
 		//勝利判定
 		enemies_dead_check = 0;
 		for(int i = 0; i <  enemy_amount; i++){
@@ -426,22 +464,45 @@ void battle(struct character *front,struct character *back,struct character *ene
 
 		//敵の行動
 		for(int i = 0; i < enemy_amount; i++){
-			if(!strcmp(enemies[i]->name,"St3Bs") && turn_count == 6){
-				char string[][100] = {
-					"Ancient Gear Golem's action!",
-					"Ultimate bound!"	
-				};
-				print_line("Ancient Gear Golem's action!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
-				wait_anyinput();
-				print_line("Ultimate bound!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);		
-				wait_anyinput();
-				sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-				mvcur(BATTLE_MODE_COMMAND_POS - 2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
-				printf("Next turn,Players can't action...▼ ");	
-				fflush(stdout);
-				wait_anyinput();
-				player_can_act = !player_can_act;
-			}else{
+			if(enemies[i]->hp > 0){
+				if(!strcmp(enemies[i]->name,"St3Bs") && turn_count == 6){
+					print_line("Ancient Gear Golem's action!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
+					wait_anyinput();
+					print_line("Ultimate bound!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);		
+					wait_anyinput();
+					sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+					mvcur(BATTLE_MODE_COMMAND_POS - 2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
+					printf("Next turn,Players can't action...▼ ");	
+					fflush(stdout);
+					wait_anyinput();
+					player_can_act = !player_can_act;
+				}else if(!strcmp(enemies[i]->name,"St4Bs") && get_rand() % 10 == 5){
+					change_hp(enemies[i],-500);
+					print_line("Stage4 Boss cast 'Curala'!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
+					wait_anyinput();
+				}else if(!strcmp(enemies[i]->name,"St5Bs") && turn_count != 0 && turn_count % 4 == 0){
+					print_line("Stage5 Boss's action!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
+					wait_anyinput();
+					print_line("The Gaia!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
+					wait_anyinput();
+					sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+					char string[][100] = {
+						"in 3 turn,",
+						"        Players can't action...▼ "
+					};
+					print_lines(string,BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,2);
+					fflush(stdout);
+					wait_anyinput();
+					player_can_act = !player_can_act;
+				} else if(!strcmp(enemies[i]->name,"St5Bs") && get_rand() % 10 == 5){
+					char string[][100] = {
+						"Stage5 Boss cast ",
+						"              'Tetragrammaton'!▼ "
+					};
+					change_hp(enemies[i],-1500);
+					print_lines(string,BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,2);
+					wait_anyinput();
+				} else {
 					damage = enemies[i]->min_atk + get_rand() % (enemies[i]->max_atk - enemies[i]->min_atk - 1);
 					if(protect_flag){
 						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
@@ -461,11 +522,11 @@ void battle(struct character *front,struct character *back,struct character *ene
 								break;
 						}
 					}
-			
-
-			protect_flag = 0;
-			wait_anyinput();
+					protect_flag = 0;
+					wait_anyinput();
+				}
 			}
+			print_health_bar(for_bar,enemy_amount_for_bar);
 			print_bt_status(front,&arist);
 			if(front->hp <= 0 || arist.hp <= 0){
 				sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
@@ -578,27 +639,27 @@ void set_member_stat_mode(){
 	struct character draft;
 	//モード選択フレームのカーゾル座標変数
 	struct arrow_pos set_ch_arrow[] = {
-		{6,EDIT_MODE_SELECT_FLAME_Y+3},
-		{6,EDIT_MODE_SELECT_FLAME_Y+4},
-		{6,EDIT_MODE_SELECT_FLAME_Y+5},
-		{6,EDIT_MODE_SELECT_FLAME_Y+6},
-		{6,EDIT_MODE_SELECT_FLAME_Y+7},
-		{6,EDIT_MODE_SELECT_FLAME_Y+8}
+		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+3},
+		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+4},
+		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+5},
+		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+6},
+		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+7},
+		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+8}
 	};
 	char draft_name[] = "hoge";
 	draft.name = draft_name;
 	flame_flush();
-	make_flame(WIDTH - 4,10,3,EDIT_MODE_SELECT_FLAME_Y);
+	make_flame(EDIT_MODE_SELECT_FLAME_WIDTH,EDIT_MODE_SELECT_FLAME_HEIGHT,EDIT_MODE_SELECT_FLAME_X,EDIT_MODE_SELECT_FLAME_Y);
 	show_ch_stat(WIDTH - 36,3);
-	print_line("Select Character",5,EDIT_MODE_SELECT_FLAME_Y+1);
-	print_line("naoki",8,EDIT_MODE_SELECT_FLAME_Y+3);
-	print_line("arist",8,EDIT_MODE_SELECT_FLAME_Y+4);
-	print_line("lirel",8,EDIT_MODE_SELECT_FLAME_Y+5);
-	print_line("boss1",8,EDIT_MODE_SELECT_FLAME_Y+6);
-	print_line("boss2",8,EDIT_MODE_SELECT_FLAME_Y+7);
-	print_line("exit",8,EDIT_MODE_SELECT_FLAME_Y+8);
+	print_line("Select Character",EDIT_MODE_SELECT_FLAME_X + 2,EDIT_MODE_SELECT_FLAME_Y+1);
+	print_line("naoki",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+3);
+	print_line("arist",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+4);
+	print_line("lirel",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+5);
+	print_line("boss1",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+6);
+	print_line("boss2",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+7);
+	print_line("exit",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+8);
 	fflush(stdout);
-	make_flame(WIDTH - 4,HEIGHT - 12,3,12);
+	make_flame(EDIT_MODE_EDIT_FLAME_WIDTH,EDIT_MODE_EDIT_FLAME_HEIGHT,EDIT_MODE_EDIT_FLAME_X,EDIT_MODE_EDIT_FLAME_Y);
 	mvcur(0,HEIGHT + 1);
 	int flag = 1;
 	int target = 0;
@@ -637,7 +698,7 @@ void set_member_stat_mode(){
 		//テンプレートから選択するかを確認
 		if(target != 5){
 			if(check_window(ECHECK_TEMPLATE_FLAME_WIDTH,ECHECK_TEMPLATE_FLAME_HEIGHT,ECHECK_TEMPLATE_FLAME_X,ECHECK_TEMPLATE_FLAME_Y,"Choose from tamplate?")){
-				sub_flame_clean(WIDTH - 6,HEIGHT - 14,4,13);
+				sub_flame_clean(EDIT_MODE_EDIT_FLAME_WIDTH - 2,EDIT_MODE_EDIT_FLAME_HEIGHT - 2,EDIT_MODE_EDIT_FLAME_X + 1,EDIT_MODE_EDIT_FLAME_Y + 1);
 				switch(target){
 					case 0:
 					case 1:
@@ -650,7 +711,7 @@ void set_member_stat_mode(){
 						break;
 				}
 			}else{
-				sub_flame_clean(WIDTH - 6,HEIGHT - 14,4,13);
+				sub_flame_clean(EDIT_MODE_EDIT_FLAME_WIDTH - 2,EDIT_MODE_EDIT_FLAME_HEIGHT - 2,EDIT_MODE_EDIT_FLAME_X + 1,EDIT_MODE_EDIT_FLAME_Y + 1);
 				mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X,EDIT_MODE_EDIT_FLAME_CHAR_Y);
 				printf("Selected Character: %s",now_edit->name);
 				mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 1);
@@ -695,7 +756,7 @@ void set_member_stat_mode(){
 				}
 			}
 		}
-		sub_flame_clean(WIDTH - 6,HEIGHT - 14,4,13);	
+		sub_flame_clean(EDIT_MODE_EDIT_FLAME_WIDTH - 2,EDIT_MODE_EDIT_FLAME_HEIGHT - 2,EDIT_MODE_EDIT_FLAME_X + 1,EDIT_MODE_EDIT_FLAME_Y + 1);
 		show_ch_stat(WIDTH - 36,3);
 		mvcur(0,HEIGHT + 1);
 		print_line(" ",set_ch_arrow[target].x,set_ch_arrow[target].y);
@@ -861,7 +922,7 @@ int main(){
 	do{
 		stars(star_x,star_y,STAR_AMOUNT);
 	}while((mykbhit().input_char) != ENTERKEY);
-	
+
 	flame_flush();
 	initchara();
 
@@ -897,6 +958,11 @@ int main(){
 						battle(&naoki,&arist,enemies,1);
 						break;
 					case 4://stage4 vs weakenemy
+						enemies[0] = &boss1;
+						enemies[1] = &boss2;
+						set_ch_stat("boss1",&boss1,100,10,20);
+						set_ch_stat("boss2",&boss2,100,10,20);
+						battle(&naoki,&arist,enemies,2);
 						break;
 					case 5:
 						enemies[0] = &boss1;
