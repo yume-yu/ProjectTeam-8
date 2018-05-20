@@ -9,7 +9,6 @@
 //WindowsとUNIXでEnterキーの入力が異なるのでプログラム上の表記を統一
 #define ENTERKEY 0x0d
 
-//
 /** 
   * Windowsにはマイクロ秒でsleepするusleep(int)がないので
   * time 処理を停止する時間[ms]
@@ -170,36 +169,32 @@ void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x
 
 }
 /**
- * メインフレーム内をアニメーションでスペース埋めにする関数
+ * フレーム内をアニメーションでスペース埋めにする関数
  */
+ 
 void flame_flush(){	
 	for(int i = 2; i < HEIGHT; i++){
 		for(int j = 2; j < WIDTH; j++){
 			print_line(" ",j,i);
 		}
 		fflush(stdout);
-		Sleep(2 * 10);
+		usleep(2 * 10000);
 	}
 }
 
 /**
-  * Writtenby yume_yu
-  * 標準出力の任意の場所に文字列を出力する自作関数を扱うためのヘッダ
-  */
-
-
-
-
-/**
- * メインフレーム内をスペース埋めにする関数
+ * フレーム内をスペース埋めにする関数
  */
+ 
 void flame_clean(){	
 	for(int i = 2; i < HEIGHT; i++){
 		for(int j = 2; j < WIDTH; j++){
-			print_line(" ",j,i);
+			mvcur(j,i);
+			printf(" ");
 		}
-		fflush(stdout);
+		//usleep(2 * 10000);
 	}
+		fflush(stdout);
 }
 
 /**
@@ -238,13 +233,13 @@ struct weapon{
 	int is_gun;
 };
 
-#define WEPONS_AMOUNT 4
+#define WEPONS_AMOUNT 3
 
 struct weapon all_weapons[7] = {
 	{"No weapon",0,0},
 	{"HandGun",10,1},
 	{"Knife",20,0},
-	{"Bow",15,1}
+	//{"Bow",15,1}
 };
 
 /**
@@ -410,6 +405,7 @@ void wait_anyinput(){
 	mvcur(0,HEIGHT + 1);
 	fflush(stdout);
 	while(!mykbhit().kbhit_flag);
+	while(mykbhit().kbhit_flag);
 }
 
 /**
