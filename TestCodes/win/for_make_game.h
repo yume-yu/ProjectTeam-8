@@ -216,7 +216,7 @@ void sub_flame_clean(int width, int height, int x, int y){
 /**
   * キャラクターの基本ステータス構造体
   */
-struct charactor{
+struct character{
 	char *name;
 	int hp;
 	int max_hp;
@@ -233,7 +233,8 @@ struct weapon{
 	int is_gun;
 };
 
-#define WEPONS_AMOUNT 3
+#define WEPONS_AMOUNT				3
+#define WEPONS_AMOUNT_BACK	2
 
 struct weapon all_weapons[7] = {
 	{"No weapon",0,0},
@@ -242,6 +243,10 @@ struct weapon all_weapons[7] = {
 	//{"Bow",15,1}
 };
 
+struct weapon all_weapons4back[7] = {
+	{"No weapon",0,0},
+	{"Bow",35,1}
+};
 /**
   * 防具の基本ステータス構造体
   */
@@ -266,7 +271,7 @@ struct protector all_protectors[7] = {
   * min_atk  与ダメージの下限
   * max_atk  与ダメージの上限
   */
-void set_ch_stat(char name[10], struct charactor *tmpch, int hp, int min_atk, int max_atk){
+void set_ch_stat(char name[10], struct character *tmpch, int hp, int min_atk, int max_atk){
 	tmpch->name = name;
 	tmpch->hp = hp;
 	tmpch->max_hp = hp;
@@ -279,7 +284,7 @@ void set_ch_stat(char name[10], struct charactor *tmpch, int hp, int min_atk, in
   * tmpch    hpが変動するキャラクター構造体のアドレス
   * damage   ダメージ量 正なら減算/負なら加算される ex.damageが-20 → 20回復
   */
-void change_hp(struct charactor *tmpch, int damage){
+void change_hp(struct character *tmpch, int damage){
 	tmpch->hp -= damage;
 	if(tmpch->hp < 0){
 		tmpch->hp = 0;
@@ -434,4 +439,12 @@ char title_space[][100] = {
 	{"                                "},
 	{"                                "},
 	{"                                "}
+};
+
+/**
+  *  操作説明の出方が違うのでヘッダで定義
+  */
+char control_explain[][100] = {
+	"  w            ↑   ",
+	"a s d   as  ← ↓ →"	
 };

@@ -4,175 +4,290 @@
 #include <string.h>
 
 /** 
- * „É°„Ç§„É≥„Éï„É¨„Éº„É†(Â§ßÊû†)Èñ¢ÈÄ£ÂÆöÊï∞
- * WIDTH          „É°„Ç§„É≥„Éï„É¨„Éº„É†„ÅÆÂπÖ
- * HEIGHT         „É°„Ç§„É≥„Éï„É¨„Éº„É†„ÅÆÈ´ò„Åï
- * MAIN_FLAME_X   „É°„Ç§„É≥„Éï„É¨„Éº„É†„ÅÆÈñãÂßã‰ΩçÁΩÆ„ÅÆXÂ∫ßÊ®ô
- * MAIN_FLAME_Y   „É°„Ç§„É≥„Éï„É¨„Éº„É†„ÅÆÈñãÂßã‰ΩçÁΩÆ„ÅÆYÂ∫ßÊ®ô
+ * ÉÅÉCÉìÉtÉåÅ[ÉÄ(ëÂòg)ä÷òAíËêî
+ * WIDTH          ÉÅÉCÉìÉtÉåÅ[ÉÄÇÃïù
+ * HEIGHT         ÉÅÉCÉìÉtÉåÅ[ÉÄÇÃçÇÇ≥
+ * MAIN_FLAME_X   ÉÅÉCÉìÉtÉåÅ[ÉÄÇÃäJénà íuÇÃXç¿ïW
+ * MAIN_FLAME_Y   ÉÅÉCÉìÉtÉåÅ[ÉÄÇÃäJénà íuÇÃYç¿ïW
  */
-#define WIDTH 60
-#define HEIGHT 25
-#define MAIN_FLAME_X 1
-#define MAIN_FLAME_Y 1
+#define WIDTH					60
+#define HEIGHT 				25
+#define MAIN_FLAME_X	1
+#define MAIN_FLAME_Y 	1
 
-//Ê±éÁî®Èñ¢Êï∞„ÇíÂÆöÁæ©„Åó„Åü„Éò„ÉÉ„ÉÄ
+/*
+ * îƒópä÷êîÇíËã`ÇµÇΩÉwÉbÉ_
+ * ïKÇ∏ÉÅÉCÉìÉtÉåÅ[ÉÄÉTÉCÉYíËã`ÇÃå„ÇÎÇ≈includeÇ∑ÇÈÇ±Ç∆
+ */
 #include "for_make_game.h"
 
-/** 
- * Êà¶ÈóòÁîªÈù¢„Åß„ÅÆ„Ç¶„Ç£„É≥„Éâ„Ç¶„Çµ„Ç§„Ç∫/ÈÖçÁΩÆÈñ¢ÈÄ£ÂÆöÊï∞
- * BATTLE_MODE_STATUS_FLAME_WIDTH   ‰∏ãÂàÜÂâ≤„Éï„É¨„Éº„É†„ÅÆÂπÖ
- * BATTLE_MODE_STATUS_FLAME_HEIGHT  ‰∏ãÂàÜÂâ≤„Éï„É¨„Éº„É†„ÅÆÈ´ò„Åï
- * BATTLE_MODE_STATUS_FLAME_X       ‰∏ãÂàÜÂâ≤„Éï„É¨„Éº„É†„ÅÆÈñãÂßã‰ΩçÁΩÆ„ÅÆXÂ∫ßÊ®ô
- * BATTLE_MODE_STATUS_FLAME_SPLIT_X ‰∏ãÂàÜÂâ≤„Éï„É¨„Éº„É†„ÅÆÂàÜÂâ≤‰ΩçÁΩÆ
- * BATTLE_MODE_COMMAND_POS          Êà¶Èóò„Ç≥„Éû„É≥„Éâ„Éñ„É¨„Éº„É†„ÅÆ1Ë°åÁõÆ„ÅÆXÂ∫ßÊ®ô
- * BATTLE_MODE_STATUS_HP_POS        „Çπ„ÉÜ„Éº„Çø„Çπ„Éï„É¨„Éº„É†„ÅÆ1Ë°åÁõÆ„ÅÆXÂ∫ßÊ®ô
+/*
+ * ÉXÉeÅ[ÉWÉZÉåÉNÉgÉtÉåÅ[ÉÄä÷òAíËêî
+ * SELECT_STAGE_FLAME_WIDTH  ÉtÉåÅ[ÉÄÇÃïù
+ * SELECT_STAGE_FLAME_HEIGHT ÉtÉåÅ[ÉÄÇÃçÇÇ≥
+ * SELECT_STAGE_FLAME_X      ÉtÉåÅ[ÉÄÇÃäJénà íuÇÃXç¿ïW
+ * SELECT_STAGE_FLAME_Y      ÉtÉåÅ[ÉÄÇÃäJénà íuÇÃYç¿ïW
  */
-#define BATTLE_MODE_STATUS_FLAME_WIDTH WIDTH-2
-#define BATTLE_MODE_STATUS_FLAME_HEIGHT 6
-#define BATTLE_MODE_STATUS_FLAME_X 2
-#define BATTLE_MODE_STATUS_FLAME_SPLIT_X 2*(WIDTH-2)/3-1
-#define BATTLE_MODE_COMMAND_POS 7
-#define BATTLE_MODE_STATUS_HP_POS BATTLE_MODE_STATUS_FLAME_SPLIT_X+5
+#define SELECT_STAGE_FLAME_WIDTH  				25
+#define SELECT_STAGE_FLAME_HEIGHT 				11
+#define SELECT_STAGE_FLAME_X      				(WIDTH  - SELECT_STAGE_FLAME_WIDTH) / 2
+#define SELECT_STAGE_FLAME_Y      				(HEIGHT - SELECT_STAGE_FLAME_HEIGHT) / 2
 
-#define EDIT_MODE_SELECT_FLAME_Y 2
-#define EDIT_MODE_EDIT_FLAME_CHAR_X 6
-#define EDIT_MODE_EDIT_FLAME_CHAR_Y 14
-#define ECHECK_SELECT_FLAME_WIDTH  WIDTH / 4 + 3
-#define ECHECK_SELECT_FLAME_HEIGHT HEIGHT / 4
-#define ECHECK_SELECT_FLAME_X      WIDTH / 4 + 8
-#define ECHECK_SELECT_FLAME_Y      3 * HEIGHT / 4
-#define ECHECK_TEMPLATE_FLAME_WIDTH  WIDTH / 4 + 10
-#define ECHECK_TEMPLATE_FLAME_HEIGHT HEIGHT / 4
-#define ECHECK_TEMPLATE_FLAME_X      WIDTH / 4 + 3
-#define ECHECK_TEMPLATE_FLAME_Y      HEIGHT / 2 + 3
+/** 
+ * êÌì¨âÊñ Ç≈ÇÃÉEÉBÉìÉhÉEÉTÉCÉY/îzíuä÷òAíËêî
+ * BATTLE_MODE_STATUS_FLAME_WIDTH   â∫ï™äÑÉtÉåÅ[ÉÄÇÃïù
+ * BATTLE_MODE_STATUS_FLAME_HEIGHT  â∫ï™äÑÉtÉåÅ[ÉÄÇÃçÇÇ≥
+ * BATTLE_MODE_STATUS_FLAME_X       â∫ï™äÑÉtÉåÅ[ÉÄÇÃäJénà íuÇÃXç¿ïW
+ * BATTLE_MODE_STATUS_FLAME_SPLIT_X â∫ï™äÑÉtÉåÅ[ÉÄÇÃï™äÑà íu
+ * BATTLE_MODE_COMMAND_POS          êÌì¨ÉRÉ}ÉìÉhÉuÉåÅ[ÉÄ(â∫ç∂)ÇÃ1çsñ⁄ÇÃXç¿ïW
+ * BATTLE_MODE_STATUS_HP_POS        ÉXÉeÅ[É^ÉXÉtÉåÅ[ÉÄ(â∫âE)ÇÃ1çsñ⁄ÇÃXç¿ïW
+ */
+#define BATTLE_MODE_STATUS_FLAME_WIDTH		WIDTH-2
+#define BATTLE_MODE_STATUS_FLAME_HEIGHT		6
+#define BATTLE_MODE_STATUS_FLAME_X				2
+#define BATTLE_MODE_STATUS_FLAME_SPLIT_X 	2*(WIDTH-2)/3-1
+#define BATTLE_MODE_COMMAND_POS 					7
+#define BATTLE_MODE_STATUS_HP_POS 				BATTLE_MODE_STATUS_FLAME_SPLIT_X+5
 
-#define SELECT_MODE_FLAME_HEIGHT_OFFSET 2
-#define SCHECK_SELECT_FLAME_WIDTH  WIDTH / 4
-#define SCHECK_SELECT_FLAME_HEIGHT HEIGHT / 4
-#define SCHECK_SELECT_FLAME_X      WIDTH / 4 + 8
-#define SCHECK_SELECT_FLAME_Y      HEIGHT / 2 - 6
+/*
+ * ÉLÉÉÉâÉNÉ^Å[ÉXÉeÅ[É^ÉXê›íËÉÇÅ[Éhä÷òAíËêî
+ * EDIT_MODE_SELECT_FLAME_WIDTH
+ * EDIT_MODE_SELECT_FLAME_HEIGHT
+ * EDIT_MODE_SELECT_FLAME_X
+ * EDIT_MODE_SELECT_FLAME_Y
+ * EDIT_MODE_EDIT_FLAME_CHAR_X
+ * EDIT_MODE_EDIT_FLAME_CHAR_Y 
+ */
+#define EDIT_MODE_SELECT_FLAME_WIDTH			WIDTH - 4
+#define EDIT_MODE_SELECT_FLAME_HEIGHT			10
+#define EDIT_MODE_SELECT_FLAME_X					3
+#define EDIT_MODE_SELECT_FLAME_Y					2
+#define EDIT_MODE_EDIT_FLAME_WIDTH				WIDTH - 4
+#define EDIT_MODE_EDIT_FLAME_HEIGHT				HEIGHT - 12
+#define EDIT_MODE_EDIT_FLAME_X						3
+#define EDIT_MODE_EDIT_FLAME_Y						12
+#define EDIT_MODE_EDIT_FLAME_CHAR_X				6
+#define EDIT_MODE_EDIT_FLAME_CHAR_Y 			14
+#define ECHECK_SELECT_FLAME_WIDTH  				WIDTH / 4 + 3
+#define ECHECK_SELECT_FLAME_HEIGHT 				HEIGHT / 4
+#define ECHECK_SELECT_FLAME_X							WIDTH / 4 + 8
+#define ECHECK_SELECT_FLAME_Y      				3 * HEIGHT / 4
+#define ECHECK_TEMPLATE_FLAME_WIDTH  			WIDTH / 4 + 10
+#define ECHECK_TEMPLATE_FLAME_HEIGHT 			HEIGHT / 4
+#define ECHECK_TEMPLATE_FLAME_X      			WIDTH / 4 + 3
+#define ECHECK_TEMPLATE_FLAME_Y      			HEIGHT / 2 + 3
 
-#define CHARACTOR_STATUS_ATK_DIFF 10
-#define CHARACTOR_STATUS_HP_DIFF 20
+#define SELECT_MODE_FLAME_HEIGHT_OFFSET 	2
+#define SCHECK_SELECT_FLAME_WIDTH  				WIDTH / 4
+#define SCHECK_SELECT_FLAME_HEIGHT 				HEIGHT / 4
+#define SCHECK_SELECT_FLAME_X      				WIDTH / 4 + 8
+#define SCHECK_SELECT_FLAME_Y      				HEIGHT / 2 - 6
+#define SELECT_MODE_EQIP_FLAME_WIDTH			WIDTH / 2 - 6
+#define SELECT_MODE_POTION_FLAME_HEIGHT		3
+#define SELECT_MODE_EQIP_FLAME_HEIGHT			6
+#define SELECT_MODE_EQIP_FLAME_X					3 + WIDTH / 2 + 2
+#define SELECT_MODE_EQIP_FLAME_Y					SELECT_MODE_FLAME_HEIGHT_OFFSET
+#define SELECT_MODE_EQIP_CHARASET_X				SELECT_MODE_EQIP_FLAME_X + SELECT_MODE_EQIP_FLAME_WIDTH - 2
 
-#define SET_WEAPON_MODE_FLAME_Y 3
-#define SET_WEAPON_MODE_FLAME_HEIGHT 5
-#define SET_WEAPON_EDIT_FLAME_CHAR_X 5
-#define SET_WEAPON_EDIT_FLAME_CHAR_Y 13
+#define CHARACTER_STATUS_ATK_DIFF 				10
+#define CHARACTER_STATUS_HP_DIFF 					20
 
-#define ARIST_ATTACK 35
-//„Çø„Ç§„Éà„É´ÁîªÈù¢„ÅÆÊòü„ÅÆÊï∞
-#define STAR_AMOUNT 50
+#define SET_WEAPON_MODE_FLAME_WIDTH 			18
+#define SET_WEAPON_MODE_FLAME_HEIGHT 			7
+#define SET_WEAPON_MODE_FLAME_X 					(WIDTH - SET_WEAPON_MODE_FLAME_WIDTH) / 2 
+#define SET_WEAPON_MODE_FLAME_Y 					(HEIGHT - SET_WEAPON_MODE_FLAME_HEIGHT) / 2
+#define SET_WEAPON_EDIT_FLAME_CHAR_X 			5
+#define SET_WEAPON_EDIT_FLAME_CHAR_Y 			13
 
-//‰π±Êï∞ÂèñÂæó
-long get_rand(){
-	return rand();
-}
+#define ARIST_ATTACK		35
+//É^ÉCÉgÉãâÊñ ÇÃêØÇÃêî
+#define STAR_AMOUNT 		50
 
-//ÂøÖË¶Å„Ç≠„É£„É©„ÇØ„Çø„ÅÆÂÆöÁæ©
-struct charactor naoki;
-struct charactor lirel;
-struct charactor arist;
-struct charactor robo1;
-struct charactor robo2;
-struct charactor boss1;
-struct charactor boss2;
-struct charactor dummy;
+//ÉLÉÉÉâÉNÉ^Å[ÉXÉeÅ[É^ÉXê›íËíËêî
+#define FRONT1_NAME				"Lirel"
+#define FRONT1_HP					110
+#define FRONT1_MINATK			15
+#define FRONT1_MAXATK			20
+#define FRONT2_NAME				"Naoki"
+#define FRONT2_HP_ST2			90
+#define FRONT2_MINATK_ST2	20
+#define FRONT2_MAXATK_ST2	35
+#define FRONT2_HP_ST3			110
+#define FRONT2_MINATK_ST3	30
+#define FRONT2_MAXATK_ST3	45
+#define FRONT2_HP_ST4			130
+#define FRONT2_MINATK_ST4	40
+#define FRONT2_MAXATK_ST4	55
+#define FRONT3_NAME				"Robo1"
+#define FRONT3_HP					2000
+#define FRONT3_MINATK			140
+#define FRONT3_MAXATK			150
+#define FRONT3_SP_DAMAGE	1500
+#define FRONT4_NAME				"Robo2"
+#define FRONT4_HP					5000
+#define FRONT4_MINATK			400
+#define FRONT4_MAXATK			450
+#define BACK_NAME					"Arist"
+#define BACK_HP_ST1				70
+#define BACK_HEAL_ST1 		20
+#define BACK_HP_ST2				90
+#define BACK_HEAL_ST2 		30
+#define BACK_HP_ST3				110
+#define BACK_HEAL_ST3 		40
+#define BACK_HP_ST4				130
+#define BACK_HEAL_ST4 		50
+#define ST1_BOSS_NAME			"St1Bs"
+#define ST1_BOSS_HP				100
+#define ST1_BOSS_MINATK		10
+#define ST1_BOSS_MAXATK		20
+#define ST2_BOSS_NAME			"St2Bs"	
+#define ST2_BOSS_HP				150
+#define ST2_BOSS_MINATK		30
+#define ST2_BOSS_MAXATK		40
+#define ST3_BOSS_NAME			"St3Bs"
+#define ST3_BOSS_HP				250
+#define ST3_BOSS_MINATK		50
+#define ST3_BOSS_MAXATK		60
+#define ST4_BOSS_NAME			"St4Bs"
+#define ST4_BOSS_HP				1000
+#define ST4_BOSS_MINATK		100
+#define ST4_BOSS_MAXATK		130
+#define ST5_BOSS_NAME			"St5Bs"
+#define ST5_BOSS_HP				3000
+#define ST5_BOSS_MINATK		300
+#define ST5_BOSS_MAXATK		400
 
-//Ë£ÖÂÇôÊû†„ÅÆÂÆ£Ë®Ä
+//ïKóvÉLÉÉÉâÉNÉ^ÇÃíËã`
+struct character naoki;
+struct character lirel;
+struct character arist;
+struct character robo;
+struct character boss1;
+struct character boss2;
+struct character dummy;
+
+//ëïîıògÇÃêÈåæ
 struct weapon *using_weapon;
 struct protector *using_protector;
-int potion_amount = 1;
-int arist_have_weapon = 0;
+struct weapon *arist_using_weapon;
+struct protector *arist_using_protector;
+int potion_amount = 0;
 
-//ÂêÑ„Ç≠„É£„É©„ÇØ„Çø„Éº„ÅÆ„Çπ„ÉÜ„Éº„Çø„ÇπÂàùÊúüÂåñ
+//äeÉLÉÉÉâÉNÉ^Å[ÇÃÉXÉeÅ[É^ÉXèâä˙âª
 void initchara(){
 	set_ch_stat("naoki",&naoki,90,20,35);
 	set_ch_stat("lirel",&lirel,120,15,20);
 	set_ch_stat("arist",&arist,70,0,20);
-	set_ch_stat("robo1",&robo1,2000,140,150);
-	set_ch_stat("robo2",&robo2,5000,400,450);
+	set_ch_stat("Robo1",&robo,2000,140,150);
+	set_ch_stat("boss1",&boss1,100,10,20);
 	set_ch_stat("boss2",&boss2,100,10,20);
 	set_ch_stat("dummy",&dummy,0,0,0);
-	//Ë£ÖÂÇô„ÇíÁ¥†Êâã„Å´ÂàùÊúüÂåñ
+	//ëïîıÇëféËÇ…èâä˙âª
 	using_weapon = &all_weapons[0];
 	using_protector = &all_protectors[0];
+	arist_using_weapon = &all_weapons4back[0];
+	arist_using_protector = &all_protectors[0];
 }
 
-//ÂêÑ„Ç≠„É£„É©„ÇØ„Çø„Éº„ÅÆ„Çπ„ÉÜ„Éº„Çø„ÇπË®≠ÂÆö„ÇíË°®Á§∫
+//äeÉLÉÉÉâÉNÉ^Å[ÇÃÉXÉeÅ[É^ÉXê›íËÇï\é¶
 void show_ch_stat(int x,int y){
 	make_flame(34,8,x,y);
 	print_line("Now status list",x+5,y+1);
 	mvcur(x+2,y+2);
-	printf("naoki - HP:%4d  ATK:%3d „Äú%3d",naoki.max_hp,naoki.min_atk,naoki.max_atk);
+	printf("naoki - HP:%4d  ATK:%3d Å`%3d",naoki.max_hp,naoki.min_atk,naoki.max_atk);
 	mvcur(x+2,y+3);
 	printf("arist - HP:%4d  HEAL:%d",arist.max_hp,arist.max_atk);
 	mvcur(x+2,y+4);
-	printf("lirel - HP:%4d  ATK:%3d „Äú%3d",lirel.max_hp,lirel.min_atk,lirel.max_atk);
+	printf("lirel - HP:%4d  ATK:%3d Å`%3d",lirel.max_hp,lirel.min_atk,lirel.max_atk);
 	mvcur(x+2,y+5);
-	printf("boss1 - HP:%4d  ATK:%3d „Äú%3d",boss1.max_hp,boss1.min_atk,boss1.max_atk);
+	printf("boss1 - HP:%4d  ATK:%3d Å`%3d",boss1.max_hp,boss1.min_atk,boss1.max_atk);
 	mvcur(x+2,y+6);
-	printf("boss2 - HP:%4d  ATK:%3d „Äú%3d",boss2.max_hp,boss2.min_atk,boss2.max_atk);
+	printf("boss2 - HP:%4d  ATK:%3d Å`%3d",boss2.max_hp,boss2.min_atk,boss2.max_atk);
 	mvcur(0,HEIGHT + 1);
 	fflush(stdout);
 }
 
 int sel_mode_window(int y){
-	make_flame(WIDTH - 4,HEIGHT / 2,3,y);
-	char menu_items[][100] = {
-		"Select mode",
-		" ",
-		"   battle - lirel&arist vs boss1",
-		"   battle - lirel&arist vs boss1&boss2",
-		"   battle - naoki&arist vs boss1",
-		"   battle - naoki&arist vs boss1&boss2",
-		"   edit charactor status",
-		"   edit equipment",
-		"   edit item",
-		"   exit"
-	};
-	print_lines(menu_items,5,y+1,10);
-	char control_explain[][100] = {
-		"  w            ‚Üë ",
-		"a s d   as   ‚Üê ‚Üì ‚Üí "	
-	};
-	print_lines(control_explain,4,y+12,2);
 	return 0;
 }
 
 int main_window_init(){
-	//„Éï„É¨„Éº„É†ÂÜÖ„Çπ„Éö„Éº„ÇπÂüã„ÇÅ
-	flame_flush();
-	//„Çπ„ÉÜ„Éº„Çø„Çπ„Éï„É¨„Éº„É†Ë°®Á§∫
-	show_ch_stat(WIDTH - 35,HEIGHT - 8);
-	//„É¢„Éº„ÉâÈÅ∏Êäû„Éï„É¨„Éº„É†„ÅÆ„Ç´„Éº„Çæ„É´Â∫ßÊ®ôÂ§âÊï∞
+	flame_clean();
+	//ÉÇÅ[ÉhëIëÉtÉåÅ[ÉÄÇÃÉJÅ[É]Éãç¿ïWïœêî
 	struct arrow_pos main_menu_arrow[] = {
-		//{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 2},
+		//{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+1}
+		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 2},
 		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 3},
 		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 4},
-		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 5},
-		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 6},
+		//{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 5},
+		//{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 6},
 		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 7},
 		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 8},
-		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 9},
+		//{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 9},
 		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+10}
+		//{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+11}
 	};
-	//„É¢„Éº„ÉâÈÅ∏Êäû„Éï„É¨„Éº„É†„ÅÆË°®Á§∫
-	sel_mode_window(SELECT_MODE_FLAME_HEIGHT_OFFSET);
-	//„É¢„Éº„ÉâÈÅ∏Êäû
-	return select_from_list(main_menu_arrow,8);
+	//ÉÇÅ[ÉhëIëÉtÉåÅ[ÉÄÇÃï\é¶
+	//sel_mode_window(SELECT_MODE_FLAME_HEIGHT_OFFSET);
+	make_flame(WIDTH / 2 + 1,HEIGHT / 2 ,3,SELECT_MODE_FLAME_HEIGHT_OFFSET);
+	char menu_items[][100] = {
+		"For PaperTest",
+		"   battle",
+		"   change equipment",
+		"   edit item",
+		" ",
+		"For Coordinate/Debug",
+		"   edit character status",
+		"   test battle",
+		" ",
+		"   exit"
+	};
+	print_lines(menu_items,6,SELECT_MODE_FLAME_HEIGHT_OFFSET+1,10);
+	/*ëOâqëïîıï\é¶*/
+	make_flame(SELECT_MODE_EQIP_FLAME_WIDTH,SELECT_MODE_EQIP_FLAME_HEIGHT,SELECT_MODE_EQIP_FLAME_X,SELECT_MODE_EQIP_FLAME_Y);
+	print_line("Front",SELECT_MODE_EQIP_FLAME_X + 2,SELECT_MODE_EQIP_FLAME_Y);
+	print_line("Weapon",SELECT_MODE_EQIP_FLAME_X + 2,SELECT_MODE_EQIP_FLAME_Y + 1);
+	mvcur(WIDTH - 3 - strlen(using_weapon->name),SELECT_MODE_EQIP_FLAME_Y + 2);
+	printf("%s",using_weapon->name);
+	print_line("Protector",SELECT_MODE_EQIP_FLAME_X + 2,SELECT_MODE_EQIP_FLAME_Y + 3);
+	mvcur(WIDTH - 3 - strlen(using_protector->name),SELECT_MODE_EQIP_FLAME_Y + 4);
+	printf("%s",using_protector->name);
+	/*å„âqëïîıï\é¶*/
+	make_flame(SELECT_MODE_EQIP_FLAME_WIDTH,SELECT_MODE_EQIP_FLAME_HEIGHT,SELECT_MODE_EQIP_FLAME_X,SELECT_MODE_EQIP_FLAME_Y + SELECT_MODE_EQIP_FLAME_HEIGHT);
+	print_line("Back",SELECT_MODE_EQIP_FLAME_X + 2,SELECT_MODE_EQIP_FLAME_Y + SELECT_MODE_EQIP_FLAME_HEIGHT);
+	print_line("Weapon",SELECT_MODE_EQIP_FLAME_X + 2,SELECT_MODE_EQIP_FLAME_Y + SELECT_MODE_EQIP_FLAME_HEIGHT + 1);
+	mvcur(WIDTH - 3 - strlen(arist_using_weapon->name),SELECT_MODE_EQIP_FLAME_Y + SELECT_MODE_EQIP_FLAME_HEIGHT + 2);
+	printf("%s",arist_using_weapon->name);
+	print_line("Protector",SELECT_MODE_EQIP_FLAME_X + 2,SELECT_MODE_EQIP_FLAME_Y + SELECT_MODE_EQIP_FLAME_HEIGHT + 3);
+	mvcur(WIDTH - 3 - strlen(arist_using_protector->name),SELECT_MODE_EQIP_FLAME_Y + SELECT_MODE_EQIP_FLAME_HEIGHT + 4);
+	printf("%s",arist_using_protector->name);
+	/*É|Å[ÉVÉáÉìèäéùêîï\é¶*/
+	make_flame(SELECT_MODE_EQIP_FLAME_WIDTH,SELECT_MODE_POTION_FLAME_HEIGHT,SELECT_MODE_EQIP_FLAME_X,SELECT_MODE_EQIP_FLAME_Y + 2 * SELECT_MODE_EQIP_FLAME_HEIGHT);
+	print_line("Potion amount",SELECT_MODE_EQIP_FLAME_X + 2,SELECT_MODE_EQIP_FLAME_Y + 2 * SELECT_MODE_EQIP_FLAME_HEIGHT);
+	mvcur(SELECT_MODE_EQIP_CHARASET_X - 1,SELECT_MODE_EQIP_FLAME_Y + 2 * SELECT_MODE_EQIP_FLAME_HEIGHT + 1);
+	printf("%d",potion_amount);
+	char control_explain[][100] = {
+		"  w            Å™   ",
+		"a s d   as  Å© Å´ Å®"	
+	};
+	print_lines(control_explain,WIDTH - 20,HEIGHT - 2,2);
+	print_line("The Beautiful Sky",4,HEIGHT - 1);
+	fflush(stdout);
+	//ÉÇÅ[ÉhëIë
+	return select_from_list(main_menu_arrow,6);
 }
 
-//Êà¶Èóò„É¢„Éº„Éâ„ÅÆÊôÇ„Å´„Ç≥„Éû„É≥„ÉâÈÉ®ÂàÜË°®Á§∫„Åô„ÇãÈñ¢Êï∞
+//êÌì¨ÉÇÅ[ÉhÇÃéûÇ…ÉRÉ}ÉìÉhïîï™ï\é¶Ç∑ÇÈä÷êî
 void print_bt_commands(){
 	print_line("Attack",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-	print_line("Magic",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
+	print_line("Special",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
 	print_line("Protect",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3);
 	print_line("Item",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4);
+	fflush(stdout);
 }
 
-void print_bt_status(struct charactor *front,struct charactor *back){
-	//„Çπ„ÉÜ„Éº„Çø„ÇπÈÉ®ÂàÜË°®Á§∫
+void print_bt_status(struct character *front,struct character *back){
+	//ÉXÉeÅ[É^ÉXïîï™ï\é¶
 	char spaces[][100] = {
 		{"               "},
 		{"               "}
@@ -181,25 +296,86 @@ void print_bt_status(struct charactor *front,struct charactor *back){
 	print_line("HP",BATTLE_MODE_STATUS_HP_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 	mvcur(BATTLE_MODE_STATUS_HP_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
 	printf("%s:%4d/%4d",front->name,front->hp,front->max_hp);
-	mvcur(BATTLE_MODE_STATUS_HP_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3);
-	printf("%s:%4d/%4d",back->name,back->hp,back->max_hp);
+	if(strcmp(back->name,"dummy")){
+		mvcur(BATTLE_MODE_STATUS_HP_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3);
+		printf("%s:%4d/%4d",back->name,back->hp,back->max_hp);
+	}
 	mvcur(0,HEIGHT + 1);
 	fflush(stdout);
 }
 
-//Êà¶Èóò„É¢„Éº„Éâ
-void battle(struct charactor *front,struct charactor *enemies[3], int enemy_amount){
+int select_stage(){
+	make_flame(SELECT_STAGE_FLAME_WIDTH,SELECT_STAGE_FLAME_HEIGHT,SELECT_STAGE_FLAME_X,SELECT_STAGE_FLAME_Y);
+	char stage_list[][100] = {
+		"Select Battle",
+		"  Stage1 vs Boss",
+		"  Stage2 vs Boss",
+		"  Stage3 vs WeakEnemy",
+		"  Stage3 vs Boss",
+		"  Stage4 vs WeakEnemy",
+		"  Stage4 vs Boss",
+		"  Stage5 vs Boss"
+	};
+	struct arrow_pos stage_select_arrow[] = {
+		{SELECT_STAGE_FLAME_X + 2,SELECT_STAGE_FLAME_Y + 2},
+		{SELECT_STAGE_FLAME_X + 2,SELECT_STAGE_FLAME_Y + 3},
+		{SELECT_STAGE_FLAME_X + 2,SELECT_STAGE_FLAME_Y + 4},
+		{SELECT_STAGE_FLAME_X + 2,SELECT_STAGE_FLAME_Y + 5},
+		{SELECT_STAGE_FLAME_X + 2,SELECT_STAGE_FLAME_Y + 6},
+		{SELECT_STAGE_FLAME_X + 2,SELECT_STAGE_FLAME_Y + 7},
+		{SELECT_STAGE_FLAME_X + 2,SELECT_STAGE_FLAME_Y + 8},
+		{SELECT_STAGE_FLAME_X + 2,SELECT_STAGE_FLAME_Y + 9}
+	};
+	print_lines(stage_list,SELECT_STAGE_FLAME_X + 2,SELECT_STAGE_FLAME_Y + 1,8);
+	print_line("back",SELECT_STAGE_FLAME_X + 4,SELECT_STAGE_FLAME_Y + 9);
+	return select_from_list(stage_select_arrow,sizeof(stage_select_arrow)/sizeof(struct arrow_pos));
+}
+
+void print_health_bar(struct character *target[],int amount){
+	double health_par = 0;
+	for(int i = 0; i < amount; i++){
+		make_flame(20,3,2,2 + 3 * i);
+		print_line("                    ",2,2+3*i);
+		mvcur(2,2 + 3 * i);
+		printf("[");
+		mvcur(WIDTH - 1,2 + 3 * i);
+		printf("]");
+		mvcur(3,3 + 3 * i);
+		printf("%s",target[i]->name);
+		health_par = ( (double)target[i]->hp / target[i]->max_hp) * ( WIDTH - 4 );
+		for(int j = 0; j < WIDTH - 4;j++){
+			mvcur(3+j,2 + 3 * i);
+			if(j < health_par){
+				printf("=");
+			}else{
+				printf(" ");
+			}
+		}
+		//printf("%fÅ_n%dÅ_n%d",health_par,target[i]->hp,target[i]->max_hp);
+		fflush(stdout);
+	}
+}
+
+//êÌì¨ÉÇÅ[Éh
+void battle(struct character *front,struct character *back,struct character *enemies[3], int enemy_amount){
 	int finish_flag = 0;
 	int protect_flag = 0;
 	int damage = 0;
 	int target_label = 0;
-	int turn_count = 0;
+	int turn_count = 1;
+	int sp_count = 0;
 	int enemies_dead_flag[enemy_amount];
 	int enemies_dead_check = 0;
 	int player_can_act = 1;
+	int used_flare = 0;
+	int enemy_amount_for_bar = enemy_amount;
+	struct character *for_bar[enemy_amount];
+	for(int i = 0;i < enemy_amount;i++){
+		for_bar[i] = enemies[i];
+	}
 	struct arrow_pos battle_menu_arrow[] = {{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4}};
 
-	//Êïµ„ÅÆHP„Å®ÁîüÂ≠ò„Éï„É©„Ç∞„ÇíÂàùÊúüÂåñ
+	//ìGÇÃHPÇ∆ê∂ë∂ÉtÉâÉOÇèâä˙âª
 	for(int i = 0; i < enemy_amount; i++){
 		change_hp(enemies[i],-1 * enemies[i]->max_hp);
 		enemies_dead_flag[i] = 1;
@@ -207,14 +383,14 @@ void battle(struct charactor *front,struct charactor *enemies[3], int enemy_amou
 	flame_flush();
 	make_vsflame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_SPLIT_X);
 
-	print_bt_status(front,&arist);
+	print_bt_status(front,back);
+	print_health_bar(for_bar,enemy_amount_for_bar);
 
 	while(!finish_flag){
-		turn_count++;
 		if(player_can_act){
 			print_bt_commands();
 			int command = select_from_list(battle_menu_arrow,4);
-			//„Ç≥„Éû„É≥„ÉâÈÉ®ÂàÜ„Éï„É¨„Éº„É†„ÇØ„É™„Éº„É≥
+			//ÉRÉ}ÉìÉhïîï™ÉtÉåÅ[ÉÄÉNÉäÅ[Éì
 			sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 			switch(command){
 				case 0:
@@ -225,45 +401,143 @@ void battle(struct charactor *front,struct charactor *enemies[3], int enemy_amou
 						}else{
 							printf("back");
 						}
-						fflush(stdout);
 					}
+					fflush(stdout);
 					target_label = select_from_list(battle_menu_arrow,enemy_amount + 1);
 					sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					if(target_label == enemy_amount){
 						continue;
-					}else if(enemies[target_label]->hp <= 0){
-						mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-						printf("%s was already down‚ñº",enemies[target_label]->name);
-						wait_anyinput();
-						sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-						continue;
 					}
-					//damage = front->min_atk + get_rand() % (front->max_atk - front->min_atk - 1);
-					damage = front->min_atk + get_rand() % (front->max_atk - front->min_atk - 1) + using_weapon->atk;
+					if(!strcmp(front->name,"Naoki") || !strcmp(front->name,"Lirel")){
+						damage = front->min_atk + rand() % (front->max_atk - front->min_atk - 1) + using_weapon->atk;
+					}else{
+						damage = front->min_atk + rand() % (front->max_atk - front->min_atk - 1);
+					}
 					mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-					printf("%s got %3d damaged!‚ñº",enemies[target_label]->name,damage);
+					printf("%s got %3d damaged!Å•",enemies[target_label]->name,damage);
 					change_hp(enemies[target_label],damage);
-					if(using_weapon->is_gun){
-						damage = front->min_atk + get_rand() % (front->max_atk - front->min_atk - 1) + using_weapon->atk;
+					if(using_weapon->is_gun && !strcmp(front->name,"Naoki")){
+						damage = front->min_atk + rand() % (front->max_atk - front->min_atk - 1) + using_weapon->atk;
 						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
-						printf("%s got %3d damaged!‚ñº",enemies[target_label]->name,damage);
+						printf("%s got %3d damaged!Å•",enemies[target_label]->name,damage);
 						change_hp(enemies[target_label],damage);
 					}
+					print_health_bar(for_bar,enemy_amount_for_bar);
 					wait_anyinput();
 					if(enemies[target_label]->hp <= 0){
-						enemies_dead_flag[target_label] = 0;
 						sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-						printf("%s was down!‚ñº",enemies[target_label]->name);
+						printf("%s was down!Å•",enemies[target_label]->name);
+						for(int i = target_label; i + 1 < enemy_amount;i++){
+							enemies[i] = enemies[i + 1];
+						}
+						enemy_amount--;
 						wait_anyinput();
 					}
 					break;
 				case 1:
+					mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+					if(strstr(front->name,"Robo") == NULL){
+						printf("back");
+						fflush(stdout);
+						target_label = select_from_list(battle_menu_arrow,1);
+					}else{
+						if(!strcmp(front->name,FRONT3_NAME)){
+							printf("Caladbolg");
+						}else if(!strcmp(front->name,FRONT4_NAME)){
+							printf("Flare");
+						}
+						mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);	
+						printf("back");
+						fflush(stdout);
+						target_label = select_from_list(battle_menu_arrow,2);
+					}
+					sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+					if((strstr(front->name,"Robo") == NULL && target_label == 0) || target_label == 1){
+						continue;
+					}else if(target_label == 0){
+						if(!strcmp(front->name,FRONT3_NAME)){
+							if(turn_count < 5){
+								print_line("Caladbolg can use since turn 5Å• ",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								wait_anyinput();
+								sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								continue;
+							}else{
+								mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								printf("%s use Caladbolg!Å•",front->name);
+								wait_anyinput();
+								mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
+								wait_anyinput();
+								/*ìGÉ_ÉÅÅ[ÉWèàóùÇ±Ç±Ç©ÇÁ*/
+								for(int i = 0; i < enemy_amount; i++){
+									sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+									change_hp(enemies[i],FRONT3_SP_DAMAGE);
+									mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+									printf("%s got %4d damaged!Å•",enemies[i]->name,FRONT3_SP_DAMAGE);
+									print_health_bar(for_bar,enemy_amount_for_bar);
+									wait_anyinput();
+									/*ìGÉ_ÉÅÅ[ÉWèàóùÇ±Ç±Ç‹Ç≈*/
+									/*ìGéÄñSîªíËÇ±Ç±Ç©ÇÁ*/
+									if(enemies[i]->hp <= 0){
+										sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+										mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+										printf("%s was down!Å•",enemies[target_label]->name);
+										for(int i = target_label; i + 1 < enemy_amount;i++){
+											enemies[i] = enemies[i + 1];
+										}
+										enemy_amount--;
+										wait_anyinput();
+									}
+								}
+								/*ìGéÄñSîªíËÇ±Ç±Ç‹Ç≈*/
+							}
+						}else if(!strcmp(front->name,FRONT4_NAME)){
+							if(turn_count < 3){
+								print_line("Flare can use since turn 3Å• ",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								wait_anyinput();
+								sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								continue;
+							}else if(!used_flare){
+								mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								printf("%s use Flare!Å•",front->name);
+								used_flare = 1;
+								wait_anyinput();
+								/*ìGÉ_ÉÅÅ[ÉWèàóùÇ±Ç±Ç©ÇÁ*/
+								for(int i = 0; i < enemy_amount; i++){
+									sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+									mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+									printf("%s got %4d damaged!Å•",enemies[i]->name,enemies[i]->hp / 2);
+									change_hp(enemies[i],enemies[i]->hp / 2);
+									print_health_bar(for_bar,enemy_amount_for_bar);
+									wait_anyinput();
+									/*ìGÉ_ÉÅÅ[ÉWèàóùÇ±Ç±Ç‹Ç≈*/
+									/*ìGéÄñSîªíËÇ±Ç±Ç©ÇÁ*/
+									if(enemies[i]->hp <= 0){
+										sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+										mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+										printf("%s was down!Å•",enemies[target_label]->name);
+										for(int i = target_label; i + 1 < enemy_amount;i++){
+											enemies[i] = enemies[i + 1];
+										}
+										enemy_amount--;
+										wait_anyinput();
+									}
+								}
+								/*ìGéÄñSîªíËÇ±Ç±Ç‹Ç≈*/
+							}else{
+								print_line("Flare can use only onceÅ• ",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								wait_anyinput();
+								sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								continue;
+							}
+						}
+					}
+					sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					break;
 				case 2:
 					protect_flag = 1;
 					mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-					printf("%s is ready to protect!‚ñº",front->name);
+					printf("%s is ready to protect!Å•",front->name);
 					wait_anyinput();
 					break;
 				case 3:
@@ -281,8 +555,8 @@ void battle(struct charactor *front,struct charactor *enemies[3], int enemy_amou
 						sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 						change_hp(front,-1 * front->max_hp);
 						change_hp(&arist,-1 * arist.max_hp);
-						print_bt_status(front,&arist);
-						print_line("use potion!‚ñº ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+						print_bt_status(front,back);
+						print_line("use potion!Å• ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 						potion_amount--;
 						wait_anyinput();
 					}else{
@@ -295,134 +569,166 @@ void battle(struct charactor *front,struct charactor *enemies[3], int enemy_amou
 					break;
 			}
 			sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-			//„Éó„É¨„Ç§„É§„Éº„ÅÆË°åÂãïÁµÇ„Çè„Çä
+			//ÉvÉåÉCÉÑÅ[ÇÃçsìÆèIÇÌÇË
+			print_health_bar(for_bar,enemy_amount_for_bar);
 
-			//ÂãùÂà©Âà§ÂÆö
+			//èüóòîªíË
 			enemies_dead_check = 0;
-			for(int i = 0; i <  enemy_amount; i++){
-				enemies_dead_check += enemies_dead_flag[i];
+			for(int i = 0; i <  enemy_amount_for_bar; i++){
+				enemies_dead_check += for_bar[i]->hp;
 			}
 			if(enemies_dead_check <= 0){
-				print_line("Win!‚ñº",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+				print_line("Win!Å•",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 				finish_flag = 1;
 				wait_anyinput();
 				continue;
 			}
-			//Âà§ÂÆöÁµÇ„Çè„Çä
+			//îªíËèIÇÌÇË
 
-			//ÂæåË°õ„ÅÆË°åÂãï
-			switch(get_rand() % 4){
-				case 0:
-					print_line("Arist was terrified...‚ñº",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-					mvcur(0,HEIGHT + 1);
-					fflush(stdout);
-					while(!mykbhit().kbhit_flag);
-					break;
-				case 1:
-					if(arist_have_weapon){
-						print_line("Arist's Rainbow Arrow!‚ñº",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+			//å„âqÇÃçsìÆ
+			if(strcmp(back->name,"dummy")){
+				switch(rand() % 4){
+					case 0:
+						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+						printf("%s was terrified...Å•",back->name);
 						wait_anyinput();
-						damage = (ARIST_ATTACK);
-						target_label = get_rand() % enemy_amount;
-						change_hp(enemies[target_label],damage);
-						mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-						printf("%s got %3d damaged!‚ñº ",enemies[target_label]->name,damage);
+						break;
+					case 1:
+						if(!strcmp(arist_using_weapon->name,"Bow")){
+							print_line("Arist's Rainbow Arrow!Å•",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+							wait_anyinput();
+							damage = (ARIST_ATTACK);
+							target_label = rand() % enemy_amount;
+							change_hp(enemies[target_label],damage);
+							mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+							printf("%s got %3d damaged!Å• ",enemies[target_label]->name,damage);
+							print_health_bar(for_bar,enemy_amount_for_bar);
+							wait_anyinput();
+							break;
+						}
+					default:
+						change_hp(front,-1 * arist.max_atk);
+						change_hp(back,-1 * arist.max_atk);
+						print_bt_status(front,back);
+						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+						printf("Arist cast 'heal'!Å• ");
 						wait_anyinput();
-					}
-					break;
-				default:
-					change_hp(front,-1 * arist.max_atk);
-					change_hp(&arist,-1 * arist.max_atk);
-					print_line("Arist cast 'heal'!‚ñº",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-					print_bt_status(front,&arist);
-					mvcur(0,HEIGHT + 1);
-					fflush(stdout);
-					while(!mykbhit().kbhit_flag);
-					break;
+						break;
+				}
 			}
 			sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-			//ÂæåË°õ„ÅÆË°åÂãïÁµÇ„Çè„Çä
+			//å„âqÇÃçsìÆèIÇÌÇË
 		}else{
-			print_line("Can't Action...‚ñº ",BATTLE_MODE_COMMAND_POS - 2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+			print_line("Can't Action...Å• ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 			wait_anyinput();
+			sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 			for(int i = 0; i < enemy_amount; i++){
 				if(!strcmp(enemies[i]->name,"St3Bs")){
 					player_can_act = 1;
+				}else if(!strcmp(enemies[i]->name,"St5Bs")){
+					sp_count++;
+					if(sp_count >= 3){
+						player_can_act = 1;
+						sp_count = 0;
+					}
 				}
 			}
 		}
-		//ÂãùÂà©Âà§ÂÆö
+		print_health_bar(for_bar,enemy_amount_for_bar);
+		//èüóòîªíË
 		enemies_dead_check = 0;
 		for(int i = 0; i <  enemy_amount; i++){
 			enemies_dead_check += enemies_dead_flag[i];
 		}
 		if(enemies_dead_check <= 0){
-			print_line("Win!‚ñº",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+			print_line("Win!Å•",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 			finish_flag = 1;
 			wait_anyinput();
 			continue;
 		}
-		//Âà§ÂÆöÁµÇ„Çè„Çä
+		//îªíËèIÇÌÇË
 
-		//Êïµ„ÅÆË°åÂãï
+		//ìGÇÃçsìÆ
 		for(int i = 0; i < enemy_amount; i++){
-			if(!strcmp(enemies[i]->name,"St3Bs") && turn_count == 6){
-				char string[][100] = {
-					"Ancient Gear Golem's action!",
-					"Ultimate bound!"	
-				};
-				print_line("Ancient Gear Golem's action!‚ñº ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
-				wait_anyinput();
-				print_line("Ultimate bound!‚ñº ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);		
-				wait_anyinput();
-				sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-				mvcur(BATTLE_MODE_COMMAND_POS - 2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
-				printf("Next turn,Players can't action...‚ñº ");	
-				fflush(stdout);
-				wait_anyinput();
-				player_can_act = !player_can_act;
-			}else{
-					damage = enemies[i]->min_atk + get_rand() % (enemies[i]->max_atk - enemies[i]->min_atk - 1);
-					if(protect_flag){
+			if(enemies[i]->hp > 0){
+				if(!strcmp(enemies[i]->name,"St3Bs") && turn_count == 6){
+					print_line("Ancient Gear Golem's action!Å• ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
+					wait_anyinput();
+					print_line("Ultimate bound!Å• ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);		
+					wait_anyinput();
+					sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+					mvcur(BATTLE_MODE_COMMAND_POS - 2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
+					printf("Next turn,Players can't action...Å• ");	
+					fflush(stdout);
+					wait_anyinput();
+					player_can_act = !player_can_act;
+				}else if(!strcmp(enemies[i]->name,"St4Bs") && rand() % 10 == 5){
+					change_hp(enemies[i],-500);
+					print_line("Stage4 Boss cast 'Curala'!Å• ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
+					wait_anyinput();
+				}else if(!strcmp(enemies[i]->name,"St5Bs") && turn_count != 0 && turn_count % 4 == 0){
+					print_line("Stage5 Boss's action!Å• ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
+					wait_anyinput();
+					print_line("The Gaia!Å• ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
+					wait_anyinput();
+					sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+					char string[][100] = {
+						"in 3 turn,",
+						"        Players can't action...Å• "
+					};
+					print_lines(string,BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,2);
+					fflush(stdout);
+					wait_anyinput();
+					player_can_act = !player_can_act;
+				} else if(!strcmp(enemies[i]->name,"St5Bs") && rand() % 10 == 5){
+					char string[][100] = {
+						"Stage5 Boss cast ",
+						"              'Tetragrammaton'!Å• "
+					};
+					change_hp(enemies[i],-1500);
+					print_lines(string,BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,2);
+					wait_anyinput();
+				} else {
+					damage = enemies[i]->min_atk + rand() % (enemies[i]->max_atk - enemies[i]->min_atk - 1);
+					if(protect_flag || !strcmp(back->name,"dummy")){
 						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-						printf("%s get %3d damaged by %s!‚ñº",front->name,damage,enemies[i]->name);
+						printf("%s get %3d damaged by %s!Å•",front->name,damage,enemies[i]->name);
 						change_hp(front,damage);
 					}else{
-						switch((int)(get_rand() % 2)){
+						switch((int)(rand() % 2)){
 							case 0:
 								mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-								printf("%s get %3d damaged by %s!‚ñº",arist.name,damage,enemies[i]->name);
-								change_hp(&arist,damage);
+								printf("%s get %3d damaged by %s!Å•",back->name,damage,enemies[i]->name);
+								change_hp(back,damage);
 								break;
 							default:
 								mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-								printf("%s get %3d damaged by %s!‚ñº",front->name,damage,enemies[i]->name);
+								printf("%s get %3d damaged by %s!Å•",front->name,damage,enemies[i]->name);
 								change_hp(front,damage);
 								break;
 						}
 					}
-			
-
-			protect_flag = 0;
-			mvcur(0,HEIGHT + 1);
-			fflush(stdout);
-			while(!mykbhit().kbhit_flag);
+					protect_flag = 0;
+					wait_anyinput();
+				}
 			}
-			print_bt_status(front,&arist);
-			if(front->hp <= 0 || arist.hp <= 0){
+			print_health_bar(for_bar,enemy_amount_for_bar);
+			print_bt_status(front,back);
+			if(front->hp <= 0 || (back->hp <= 0 && strcmp(back->name,"dummy"))){
 				sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-				print_line("Lose...‚ñº",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+				print_line("Lose...Å•",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 				finish_flag = 1;
 				wait_anyinput();
 				continue;
 			}
 		}
-		//Êïµ„ÅÆË°åÂãïÁµÇ„Çè„Çä
+		//ìGÇÃçsìÆèIÇÌÇË
 		sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+		turn_count++;
 	}
 }
 
-void set_stat_from_template_mamber(struct charactor *now_edit,int target){
+void set_stat_from_template_mamber(struct character *now_edit,int target){
 	struct arrow_pos arrow[] = {
 		{EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 1},
 		{EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 2},
@@ -443,19 +749,13 @@ void set_stat_from_template_mamber(struct charactor *now_edit,int target){
 		case 2:
 			switch(target){
 				case 0:
-					set_ch_stat("naoki",&naoki,90 + (CHARACTOR_STATUS_HP_DIFF * selected),20 + (CHARACTOR_STATUS_ATK_DIFF * selected),35 + (CHARACTOR_STATUS_ATK_DIFF * selected));
+					set_ch_stat("naoki",&naoki,90 + (CHARACTER_STATUS_HP_DIFF * selected),20 + (CHARACTER_STATUS_ATK_DIFF * selected),35 + (CHARACTER_STATUS_ATK_DIFF * selected));
 					break;
 				case 1:
-					set_ch_stat("arist",&arist,70 + (CHARACTOR_STATUS_HP_DIFF * selected),0,20 + (CHARACTOR_STATUS_ATK_DIFF * selected));
+					set_ch_stat("arist",&arist,70 + (CHARACTER_STATUS_HP_DIFF * selected),0,20 + (CHARACTER_STATUS_ATK_DIFF * selected));
 					break;
 				case 2:
-					set_ch_stat("lirel",&lirel,120 + (CHARACTOR_STATUS_HP_DIFF * selected),15 + (CHARACTOR_STATUS_ATK_DIFF * selected),20 + (CHARACTOR_STATUS_ATK_DIFF * selected));
-					break;
-				case 3:
-					naoki = robo1;
-					break;
-				case 4:
-					naoki = robo2;
+					set_ch_stat("lirel",&lirel,120 + (CHARACTER_STATUS_HP_DIFF * selected),15 + (CHARACTER_STATUS_ATK_DIFF * selected),20 + (CHARACTER_STATUS_ATK_DIFF * selected));
 					break;
 			}
 			break;
@@ -478,8 +778,8 @@ void set_stat_from_template_mamber(struct charactor *now_edit,int target){
 	}
 }
 
-//Êïµ„Çπ„ÉÜ„Éº„Çø„Çπ„ÉÜ„É≥„Éó„É¨„Éº„ÉàÈÅ∏Êäû
-void set_stat_from_template_enemy(struct charactor *now_edit){
+//ìGÉXÉeÅ[É^ÉXÉeÉìÉvÉåÅ[ÉgëIë
+void set_stat_from_template_enemy(struct character *now_edit){
 	int target = 0;
 	struct arrow_pos arrow[] = {
 		{EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 1},
@@ -500,19 +800,19 @@ void set_stat_from_template_enemy(struct charactor *now_edit){
 	target = select_from_list(arrow,6);
 	switch(target){
 		case 0:
-			set_ch_stat("St1Bs",now_edit,100,10,20);
+			set_ch_stat(ST1_BOSS_NAME,now_edit,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
 			break;
 		case 1:
-			set_ch_stat("St2Bs",now_edit,150,30,40);
+			set_ch_stat(ST2_BOSS_NAME,now_edit,ST2_BOSS_HP,ST2_BOSS_MINATK,ST2_BOSS_MAXATK);
 			break;
 		case 2:
-			set_ch_stat("St3Bs",now_edit,250,50,60);
+			set_ch_stat(ST3_BOSS_NAME,now_edit,ST3_BOSS_HP,ST3_BOSS_MINATK,ST3_BOSS_MAXATK);
 			break;
 		case 3:
-			set_ch_stat("St4Bs",now_edit,1000,100,130);
+			set_ch_stat(ST4_BOSS_NAME,now_edit,ST4_BOSS_HP,ST4_BOSS_MINATK,ST4_BOSS_MAXATK);
 			break;
 		case 4:
-			set_ch_stat("St5Bs",now_edit,3000,300,400);
+			set_ch_stat(ST5_BOSS_NAME,now_edit,ST5_BOSS_HP,ST5_BOSS_MINATK,ST5_BOSS_MAXATK);
 			break;
 		case 5:
 			set_ch_stat("enemy",now_edit,100,10,20);
@@ -520,33 +820,33 @@ void set_stat_from_template_enemy(struct charactor *now_edit){
 	}
 }
 
-//„É°„É≥„Éê„Éº„Çπ„ÉÜ„Éº„Çø„ÇπË®≠ÂÆö„É¢„Éº„Éâ
+//ÉÅÉìÉoÅ[ÉXÉeÅ[É^ÉXê›íËÉÇÅ[Éh
 void set_member_stat_mode(){
-	struct charactor *now_edit;
-	struct charactor draft;
-	//„É¢„Éº„ÉâÈÅ∏Êäû„Éï„É¨„Éº„É†„ÅÆ„Ç´„Éº„Çæ„É´Â∫ßÊ®ôÂ§âÊï∞
+	struct character *now_edit;
+	struct character draft;
+	//ÉÇÅ[ÉhëIëÉtÉåÅ[ÉÄÇÃÉJÅ[É]Éãç¿ïWïœêî
 	struct arrow_pos set_ch_arrow[] = {
-		{6,EDIT_MODE_SELECT_FLAME_Y+3},
-		{6,EDIT_MODE_SELECT_FLAME_Y+4},
-		{6,EDIT_MODE_SELECT_FLAME_Y+5},
-		{6,EDIT_MODE_SELECT_FLAME_Y+6},
-		{6,EDIT_MODE_SELECT_FLAME_Y+7},
-		{6,EDIT_MODE_SELECT_FLAME_Y+8}
+		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+3},
+		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+4},
+		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+5},
+		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+6},
+		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+7},
+		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+8}
 	};
 	char draft_name[] = "hoge";
 	draft.name = draft_name;
 	flame_flush();
-	make_flame(WIDTH - 4,10,3,EDIT_MODE_SELECT_FLAME_Y);
+	make_flame(EDIT_MODE_SELECT_FLAME_WIDTH,EDIT_MODE_SELECT_FLAME_HEIGHT,EDIT_MODE_SELECT_FLAME_X,EDIT_MODE_SELECT_FLAME_Y);
 	show_ch_stat(WIDTH - 36,3);
-	print_line("Select Charactor",5,EDIT_MODE_SELECT_FLAME_Y+1);
-	print_line("naoki",8,EDIT_MODE_SELECT_FLAME_Y+3);
-	print_line("arist",8,EDIT_MODE_SELECT_FLAME_Y+4);
-	print_line("lirel",8,EDIT_MODE_SELECT_FLAME_Y+5);
-	print_line("boss1",8,EDIT_MODE_SELECT_FLAME_Y+6);
-	print_line("boss2",8,EDIT_MODE_SELECT_FLAME_Y+7);
-	print_line("exit",8,EDIT_MODE_SELECT_FLAME_Y+8);
+	print_line("Select Character",EDIT_MODE_SELECT_FLAME_X + 2,EDIT_MODE_SELECT_FLAME_Y+1);
+	print_line("naoki",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+3);
+	print_line("arist",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+4);
+	print_line("lirel",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+5);
+	print_line("boss1",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+6);
+	print_line("boss2",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+7);
+	print_line("exit",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+8);
 	fflush(stdout);
-	make_flame(WIDTH - 4,HEIGHT - 12,3,12);
+	make_flame(EDIT_MODE_EDIT_FLAME_WIDTH,EDIT_MODE_EDIT_FLAME_HEIGHT,EDIT_MODE_EDIT_FLAME_X,EDIT_MODE_EDIT_FLAME_Y);
 	mvcur(0,HEIGHT + 1);
 	int flag = 1;
 	int target = 0;
@@ -582,10 +882,10 @@ void set_member_stat_mode(){
 			default:
 				continue;
 		}
-		//„ÉÜ„É≥„Éó„É¨„Éº„Éà„Åã„ÇâÈÅ∏Êäû„Åô„Çã„Åã„ÇíÁ¢∫Ë™ç
+		//ÉeÉìÉvÉåÅ[ÉgÇ©ÇÁëIëÇ∑ÇÈÇ©ÇämîF
 		if(target != 5){
 			if(check_window(ECHECK_TEMPLATE_FLAME_WIDTH,ECHECK_TEMPLATE_FLAME_HEIGHT,ECHECK_TEMPLATE_FLAME_X,ECHECK_TEMPLATE_FLAME_Y,"Choose from tamplate?")){
-				sub_flame_clean(WIDTH - 6,HEIGHT - 14,4,13);
+				sub_flame_clean(EDIT_MODE_EDIT_FLAME_WIDTH - 2,EDIT_MODE_EDIT_FLAME_HEIGHT - 2,EDIT_MODE_EDIT_FLAME_X + 1,EDIT_MODE_EDIT_FLAME_Y + 1);
 				switch(target){
 					case 0:
 					case 1:
@@ -598,16 +898,16 @@ void set_member_stat_mode(){
 						break;
 				}
 			}else{
-				sub_flame_clean(WIDTH - 6,HEIGHT - 14,4,13);
+				sub_flame_clean(EDIT_MODE_EDIT_FLAME_WIDTH - 2,EDIT_MODE_EDIT_FLAME_HEIGHT - 2,EDIT_MODE_EDIT_FLAME_X + 1,EDIT_MODE_EDIT_FLAME_Y + 1);
 				mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X,EDIT_MODE_EDIT_FLAME_CHAR_Y);
-				printf("Selected Charactor: %s",now_edit->name);
+				printf("Selected Character: %s",now_edit->name);
 				mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 1);
 				printf("    HP : %3d",now_edit->max_hp);
 				mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 2);
 				if(now_edit == &arist){
 					printf("  HEAL : %3d",now_edit->max_atk);
 				}else{
-					printf("   ATK : %3d „Äú %3d",now_edit->min_atk,now_edit->max_atk);
+					printf("   ATK : %3d Å` %3d",now_edit->min_atk,now_edit->max_atk);
 				}
 				mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X,EDIT_MODE_EDIT_FLAME_CHAR_Y + 5);
 				printf("New Status:");
@@ -636,78 +936,93 @@ void set_member_stat_mode(){
 				if(now_edit != &arist){
 					scanf("%d",&draft.max_atk);
 				}
-				//scanf„ÅßÊºè„Çå„ÅüEnter„ÇíÂèó„ÅëÊµÅ„Åô
+				//scanfÇ≈òRÇÍÇΩEnterÇéÛÇØó¨Ç∑
 				getchar();
 				if(check_window(ECHECK_SELECT_FLAME_WIDTH, ECHECK_SELECT_FLAME_HEIGHT, ECHECK_SELECT_FLAME_X, ECHECK_SELECT_FLAME_Y,"Admit Change?")){
 					set_ch_stat(now_edit->name,now_edit,draft.hp,draft.min_atk,draft.max_atk);
 				}
 			}
 		}
-		sub_flame_clean(WIDTH - 6,HEIGHT - 14,4,13);	
+		sub_flame_clean(EDIT_MODE_EDIT_FLAME_WIDTH - 2,EDIT_MODE_EDIT_FLAME_HEIGHT - 2,EDIT_MODE_EDIT_FLAME_X + 1,EDIT_MODE_EDIT_FLAME_Y + 1);
 		show_ch_stat(WIDTH - 36,3);
 		mvcur(0,HEIGHT + 1);
 		print_line(" ",set_ch_arrow[target].x,set_ch_arrow[target].y);
 	}
 }
 
-//Ë£ÖÂÇôË®≠ÂÆö„É¢„Éº„Éâ
+//ëïîıê›íËÉÇÅ[Éh
 void set_weapon_mode(){
-	int target = 0;
+	int target_chara	= 0;
+	int target_equip = 0;
+	struct weapon *weapon_list;
+	int weapon_amount = 0;
 	int label = 0;
-	//ÂØæË±°ÈÅ∏Êäû„Éï„É¨„Éº„É†„ÅÆ„Ç´„Éº„ÇΩ„É´Â∫ßÊ®ôÂ§âÊï∞
+	//ëŒè€ëIëÉtÉåÅ[ÉÄÇÃÉJÅ[É\Éãç¿ïWïœêî
 	struct arrow_pos arrow[] = {
-		{(WIDTH - 2) / 2 - 10,SET_WEAPON_MODE_FLAME_Y+3},
-		{(WIDTH - 2) / 2 + 1,SET_WEAPON_MODE_FLAME_Y+3}
+		{SET_WEAPON_MODE_FLAME_X + (SET_WEAPON_MODE_FLAME_WIDTH - 7) / 2 - 2,SET_WEAPON_MODE_FLAME_Y+4},
+		{SET_WEAPON_MODE_FLAME_X + (SET_WEAPON_MODE_FLAME_WIDTH - 7) / 2 - 2,SET_WEAPON_MODE_FLAME_Y+5}
 	};
-	//Ë£ÖÂÇôÈÅ∏Êäû„ÅÆ„Ç´„Éº„ÇΩ„É´Â∫ßÊ®ôÂ§âÊï∞
+	//ëïîıëIëÇÃÉJÅ[É\Éãç¿ïWïœêî
 	struct arrow_pos w_arrow[] = {
-		{SET_WEAPON_EDIT_FLAME_CHAR_X + 1,SET_WEAPON_EDIT_FLAME_CHAR_Y + 2},
-		{SET_WEAPON_EDIT_FLAME_CHAR_X + 1,SET_WEAPON_EDIT_FLAME_CHAR_Y + 3},
-		{SET_WEAPON_EDIT_FLAME_CHAR_X + 1,SET_WEAPON_EDIT_FLAME_CHAR_Y + 4},
-		{SET_WEAPON_EDIT_FLAME_CHAR_X + 1,SET_WEAPON_EDIT_FLAME_CHAR_Y + 5},
-		{SET_WEAPON_EDIT_FLAME_CHAR_X + 1,SET_WEAPON_EDIT_FLAME_CHAR_Y + 6}
+		{SET_WEAPON_MODE_FLAME_X + (SET_WEAPON_MODE_FLAME_WIDTH - 7) / 2 - 2,SET_WEAPON_MODE_FLAME_Y + 3},
+		{SET_WEAPON_MODE_FLAME_X + (SET_WEAPON_MODE_FLAME_WIDTH - 7) / 2 - 2,SET_WEAPON_MODE_FLAME_Y + 4},
+		{SET_WEAPON_MODE_FLAME_X + (SET_WEAPON_MODE_FLAME_WIDTH - 7) / 2 - 2,SET_WEAPON_MODE_FLAME_Y + 5},
+		{SET_WEAPON_MODE_FLAME_X + (SET_WEAPON_MODE_FLAME_WIDTH - 7) / 2 - 2,SET_WEAPON_MODE_FLAME_Y + 6}
 	};
-	flame_flush();
-	make_flame(WIDTH - 4,SET_WEAPON_MODE_FLAME_HEIGHT,3,SET_WEAPON_MODE_FLAME_Y);
-	print_line("Select edit equipment",5,SET_WEAPON_MODE_FLAME_Y+1);
-	print_line("weapon     protector",(WIDTH - 2) / 2 + 1 - 10,SET_WEAPON_MODE_FLAME_Y+3);
-	make_flame(WIDTH - 4,HEIGHT - 12,3,11);
-	target = select_from_hlist(arrow,2);
-	switch(target){
+	/* ëïîıïœçXÉLÉÉÉâëIë */
+	make_flame(SET_WEAPON_MODE_FLAME_WIDTH,SET_WEAPON_MODE_FLAME_HEIGHT,SET_WEAPON_MODE_FLAME_X,SET_WEAPON_MODE_FLAME_Y);
+	print_line("Select edit",SET_WEAPON_MODE_FLAME_X + 2,SET_WEAPON_MODE_FLAME_Y + 1);
+	print_line("     character",SET_WEAPON_MODE_FLAME_X + 2,SET_WEAPON_MODE_FLAME_Y + 2);
+	print_line("  Naoki",SET_WEAPON_MODE_FLAME_X + (SET_WEAPON_MODE_FLAME_WIDTH - 7) / 2,SET_WEAPON_MODE_FLAME_Y + 4);
+	print_line("  Arist",SET_WEAPON_MODE_FLAME_X + (SET_WEAPON_MODE_FLAME_WIDTH - 7) / 2,SET_WEAPON_MODE_FLAME_Y + 5);
+	target_chara = select_from_list(arrow,2);
+	/* ïœçXëŒè€ëIë */
+	make_flame(SET_WEAPON_MODE_FLAME_WIDTH,SET_WEAPON_MODE_FLAME_HEIGHT,SET_WEAPON_MODE_FLAME_X,SET_WEAPON_MODE_FLAME_Y);
+	print_line("Which edit",SET_WEAPON_MODE_FLAME_X + 2,SET_WEAPON_MODE_FLAME_Y + 1);
+	print_line("         equip",SET_WEAPON_MODE_FLAME_X + 2,SET_WEAPON_MODE_FLAME_Y + 2);
+	print_line(" Weapon",SET_WEAPON_MODE_FLAME_X + (SET_WEAPON_MODE_FLAME_WIDTH - 7) / 2,SET_WEAPON_MODE_FLAME_Y + 4);
+	print_line(" Protector",SET_WEAPON_MODE_FLAME_X + (SET_WEAPON_MODE_FLAME_WIDTH - 7) / 2,SET_WEAPON_MODE_FLAME_Y + 5);
+	target_equip = select_from_list(arrow,2);
+	switch(target_equip){
 		case 0:
-			print_line("Select weapon: (now eqip = with *)",SET_WEAPON_EDIT_FLAME_CHAR_X,SET_WEAPON_EDIT_FLAME_CHAR_Y);
-			for(int i = 0; i < WEPONS_AMOUNT; i++){
-				mvcur(SET_WEAPON_EDIT_FLAME_CHAR_X + 4,SET_WEAPON_EDIT_FLAME_CHAR_Y + 2 + i);
-				printf("%s",all_weapons[i].name);
-				if(using_weapon == &all_weapons[i]){
-					print_line("*",SET_WEAPON_EDIT_FLAME_CHAR_X + 3,SET_WEAPON_EDIT_FLAME_CHAR_Y + 2 + i);
-				}
+			make_flame(SET_WEAPON_MODE_FLAME_WIDTH,SET_WEAPON_MODE_FLAME_HEIGHT,SET_WEAPON_MODE_FLAME_X,SET_WEAPON_MODE_FLAME_Y);
+			print_line("Select weapon:",SET_WEAPON_MODE_FLAME_X + 2,SET_WEAPON_MODE_FLAME_Y + 1);
+			switch(target_chara){
+				case 0:
+					weapon_list = all_weapons;
+					weapon_amount = WEPONS_AMOUNT;
+					break;
+				case 1:
+					weapon_list = all_weapons4back;
+					weapon_amount = WEPONS_AMOUNT_BACK;
+					break;
 			}
-			fflush(stdout);
-			label = select_from_list(w_arrow,WEPONS_AMOUNT);
-			using_weapon = &all_weapons[label];
+			for(int i = 0; i <weapon_amount; i++){
+				mvcur(SET_WEAPON_MODE_FLAME_X + (SET_WEAPON_MODE_FLAME_WIDTH - 7) / 2,SET_WEAPON_MODE_FLAME_Y + 3 + i);
+				printf("%s",(weapon_list + i)->name);
+			}
+			label = select_from_list(w_arrow,weapon_amount);
+			if(target_chara == 0){
+				using_weapon = &all_weapons[label];
+			}else if(target_chara == 1){
+				arist_using_weapon = &all_weapons4back[label];
+			}
 			break;
 		case 1:
-			print_line("Select protector: (now eqip = with *)",SET_WEAPON_EDIT_FLAME_CHAR_X,SET_WEAPON_EDIT_FLAME_CHAR_Y);
+			make_flame(SET_WEAPON_MODE_FLAME_WIDTH + 5,SET_WEAPON_MODE_FLAME_HEIGHT,SET_WEAPON_MODE_FLAME_X,SET_WEAPON_MODE_FLAME_Y);
+			print_line("Select protector:",SET_WEAPON_MODE_FLAME_X + 2,SET_WEAPON_MODE_FLAME_Y + 1);
 			for(int i = 0; i < PROTECTORS_AMOUNT; i++){
-				mvcur(SET_WEAPON_EDIT_FLAME_CHAR_X + 4,SET_WEAPON_EDIT_FLAME_CHAR_Y + 2 + i);
+				mvcur(SET_WEAPON_MODE_FLAME_X + (SET_WEAPON_MODE_FLAME_WIDTH - 7) / 2,SET_WEAPON_MODE_FLAME_Y + 3 + i);
 				printf("%s",all_protectors[i].name);
-				if(using_protector == &all_protectors[i]){
-					print_line("*",SET_WEAPON_EDIT_FLAME_CHAR_X + 3,SET_WEAPON_EDIT_FLAME_CHAR_Y + 2 + i);
-				}
 			}
-			fflush(stdout);
 			label = select_from_list(w_arrow,PROTECTORS_AMOUNT);
-			set_ch_stat("naoki",&naoki,naoki.max_hp - using_protector->def,naoki.min_atk,naoki.max_atk);
-			set_ch_stat("lirel",&lirel,lirel.max_hp - using_protector->def,lirel.min_atk,lirel.max_atk);
-			using_protector = &all_protectors[label];
-			set_ch_stat("naoki",&naoki,naoki.max_hp + using_protector->def,naoki.min_atk,naoki.max_atk);
-			set_ch_stat("lirel",&lirel,lirel.max_hp + using_protector->def,lirel.min_atk,lirel.max_atk);
-			change_hp(&naoki,-1 * naoki.max_hp);
-			change_hp(&lirel,-1 * lirel.max_hp);
+			if(target_chara == 0){
+				using_protector = &all_protectors[label];
+			}else if(target_chara == 1){
+				arist_using_protector = &all_protectors[label];
+			}
 			break;
 	}
-	fflush(stdout);
 }
 
 void set_item_mode(){
@@ -723,7 +1038,7 @@ void set_item_mode(){
 	potion_amount = select_from_hlist(arrow,4);
 }
 
-//Êòü„ÅåÁû¨„ÅèÈñ¢Êï∞
+//êØÇ™èuÇ≠ä÷êî
 void stars(int x[],int y[],int amount){
 	//for(int i = 0; i < 10; i++){
 	for(int j = 0;j < amount; j++){
@@ -739,14 +1054,14 @@ void stars(int x[],int y[],int amount){
 }
 
 int main(){
-	//„Çø„Éº„Éü„Éä„É´„ÅÆÊñáÂ≠ó„ÇíÊµÅ„Åó„Å¶„Ç´„Éº„ÇΩ„É´‰ΩçÁΩÆ„Çí(1,1)„Å´„Åô„Çã
+	//É^Å[É~ÉiÉãÇÃï∂éöÇó¨ÇµÇƒÉJÅ[É\Éãà íuÇ(1,1)Ç…Ç∑ÇÈ
 	init_term();
-	//Â§ßÊû†„Ç¶„Ç£„É≥„Éâ„Ç¶„Éï„É¨„Éº„É†„ÅÆ‰ΩúÊàê
+	//ëÂògÉEÉBÉìÉhÉEÉtÉåÅ[ÉÄÇÃçÏê¨
 	make_flame(WIDTH,HEIGHT,MAIN_FLAME_X,MAIN_FLAME_Y);
 
 	/**
-	 * „Åì„Åì„Åã„Çâ„É≠„Ç¥„ÅÆ„Çπ„ÇØ„É≠„Éº„É´ÈñãÂßã
-	 * ÂÖ®ÈÉ®Ë¶ã„Åà„Å¶„Å™„ÅÑ„Çπ„ÇØ„É≠„Éº„É´‚Üí ÂÖ®ÈÉ®Ë¶ã„Åà„ÅüÁä∂ÊÖã„ÅÆ„Çπ„ÇØ„É≠„Éº„É´
+	 * Ç±Ç±Ç©ÇÁÉçÉSÇÃÉXÉNÉçÅ[ÉãäJén
+	 * ëSïîå©Ç¶ÇƒÇ»Ç¢ÉXÉNÉçÅ[ÉãÅ® ëSïîå©Ç¶ÇΩèÛë‘ÇÃÉXÉNÉçÅ[Éã
 	 */
 	for(int i = 0; i < 9; i++){
 		for(int j = 0; j < i; j++){
@@ -776,81 +1091,131 @@ int main(){
 	print_line("for PaperTest Ver",(WIDTH - 17)/2,14);
 	print_line("Press Enter",25,HEIGHT - 4);
 	fflush(stdout);
-	/* „Åì„Åì„Åæ„Åß„É≠„Ç¥„Çπ„ÇØ„É≠„Éº„É´ÈÉ®ÂàÜ
-	 * „Åì„ÅÆÊÆµÈöé„Åß„É≠„Ç¥„Å®PressEnter„ÅåË¶ã„Åà„Çã
+	/* Ç±Ç±Ç‹Ç≈ÉçÉSÉXÉNÉçÅ[Éãïîï™
+	 * Ç±ÇÃíiäKÇ≈ÉçÉSÇ∆PressEnterÇ™å©Ç¶ÇÈ
 	 */
 
-	//„Åì„Åì„Åã„ÇâÊòü„ÅÆÊèèÁîª
-	//Êòü„ÅÆÂ∫ßÊ®ôÂ§âÊï∞„ÇíÂÆ£Ë®Ä
+	//Ç±Ç±Ç©ÇÁêØÇÃï`âÊ
+	//êØÇÃç¿ïWïœêîÇêÈåæ
 	int star_x[STAR_AMOUNT];// ={10,15,20};
 	int star_y[STAR_AMOUNT];// ={20,15,10}; 
-	//‰π±Êï∞„ÅÆÂàùÊúüÂåñ
+	//óêêîÇÃèâä˙âª
 	srand(time(NULL));
-	//ÊñáÂ≠ó„Å®„Åã„Å∂„Çâ„Å™„ÅÑ„Çà„ÅÜ„Å´Â∫ßÊ®ô„ÇíË®≠ÂÆö„Åô„Çã
+	//ï∂éöÇ∆Ç©Ç‘ÇÁÇ»Ç¢ÇÊÇ§Ç…ç¿ïWÇê›íËÇ∑ÇÈ
 	for(int i = 0; i< STAR_AMOUNT;i++){
-		//„Åæ„Åö‰π±Êï∞„ÇíÊåØ„Çã
-		star_x[i] = get_rand() % (WIDTH - 2) + 2;
-		star_y[i] = get_rand() % (HEIGHT - 2) + 2;
-		//„ÇÇ„ÅóÂ∫ßÊ®ô„Åå„Çø„Ç§„Éà„É´„É≠„Ç¥„ÅÆ„ÅÇ„ÇãÁØÑÂõ≤„Å®„Åã„Å∂„Å£„Å¶„ÅÑ„Åü„Çâ
+		//Ç‹Ç∏óêêîÇêUÇÈ
+		star_x[i] = rand() % (WIDTH - 2) + 2;
+		star_y[i] = rand() % (HEIGHT - 2) + 2;
+		//Ç‡Çµç¿ïWÇ™É^ÉCÉgÉãÉçÉSÇÃÇ†ÇÈîÕàÕÇ∆Ç©Ç‘Ç¡ÇƒÇ¢ÇΩÇÁ
 		if(star_y[i] >= 5 && star_y[i] < 15){
 			if(star_x[i] >= 15 && star_x[i] <= 46){
 				mvcur(1,HEIGHT+1);
-				//‰ªä„ÅÆÂ§âÊï∞„Å´‰π±Êï∞„ÇíÊåØ„ÇäÁõ¥„Åô„Åü„ÇÅ„ÄÅ„É©„Éô„É´„ÇíÊ∏õÁÆó
+				//ç°ÇÃïœêîÇ…óêêîÇêUÇËíºÇ∑ÇΩÇﬂÅAÉâÉxÉãÇå∏éZ
 				i--;
 			}
-			//PressEnter„Å®„Åã„Å∂„Å£„Å¶„ÅÑ„ÅüÊôÇ„ÇÇÂêå„ÅòÂá¶ÁêÜ„Çí„Åô„Çã
+			//PressEnterÇ∆Ç©Ç‘Ç¡ÇƒÇ¢ÇΩéûÇ‡ìØÇ∂èàóùÇÇ∑ÇÈ
 		}else if(star_y[i] >= HEIGHT - 5 && star_y[i] <= HEIGHT - 3){
 			if(star_x[i] >= 24 && star_x[i] <= 37){
 				i--;
 			}
 		}
 	}
-	//Êòü„ÅÆÁÇπÊªÖÈñãÂßã EnterÂÖ•Âäõ„ÇíÂæÖÊ©ü„Åó„ÄÅÊäº„Åï„Çå„Åü„Çâ„É´„Éº„ÉóËÑ±Âá∫
+	//êØÇÃì_ñ≈äJén Enterì¸óÕÇë“ã@ÇµÅAâüÇ≥ÇÍÇΩÇÁÉãÅ[ÉvíEèo
 	do{
 		stars(star_x,star_y,STAR_AMOUNT);
 	}while((mykbhit().input_char) != ENTERKEY);
 
+	flame_flush();
 	initchara();
 
 	int exit_flag = 1;
 	int mode = 0;
 	struct input_assort check_select;
-	struct charactor *enemies[4]= {&dummy,&dummy,&dummy,&dummy};
+	struct character *enemies[4]= {&dummy,&dummy,&dummy,&dummy};
 	while(exit_flag){
 		mode = main_window_init();
-		//ÂÖ•Âäõ„Åå„Éü„Çπ„Åß„Å™„ÅÑ„Åã„ÇíÁ¢∫Ë™ç
+		//ì¸óÕÇ™É~ÉXÇ≈Ç»Ç¢Ç©ÇämîF
 		if(!check_window(SCHECK_SELECT_FLAME_WIDTH, SCHECK_SELECT_FLAME_HEIGHT, SCHECK_SELECT_FLAME_X, SCHECK_SELECT_FLAME_Y,"Continue?")){
 			continue;
 		}
+
 		switch(mode){
 			case 0:
-				enemies[0] = &boss1;
-				battle(&lirel,enemies,1);
+				switch(select_stage()){
+					case 0://stage1 vs boss
+						enemies[0] = &boss1;
+						set_ch_stat(ST1_BOSS_NAME,&boss1,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
+						set_ch_stat(FRONT1_NAME,&lirel,FRONT1_HP,FRONT1_MINATK,FRONT1_MAXATK);
+						set_ch_stat(BACK_NAME,&arist,BACK_HP_ST1,0,BACK_HEAL_ST1);
+						battle(&lirel,&arist,enemies,1);
+						flame_flush();
+						break;
+					case 1://stage2 vs boss
+						enemies[0] = &boss1;
+						set_ch_stat(ST2_BOSS_NAME,&boss1,ST2_BOSS_HP,ST2_BOSS_MINATK,ST2_BOSS_MAXATK);
+						set_ch_stat(FRONT2_NAME,&naoki,FRONT2_HP_ST2,FRONT2_MINATK_ST2,FRONT2_MAXATK_ST2);
+						set_ch_stat(BACK_NAME,&arist,BACK_HP_ST2,0,BACK_HEAL_ST2);
+						battle(&naoki,&arist,enemies,1);
+						flame_flush();
+						break;
+					case 2://stage3 vs weakenemy
+						enemies[0] = &boss1;
+						enemies[1] = &boss2;
+						set_ch_stat("enemy",&boss1,ST2_BOSS_HP,ST2_BOSS_MINATK,ST2_BOSS_MAXATK);
+						set_ch_stat("enemy",&boss2,ST2_BOSS_HP,ST2_BOSS_MINATK,ST2_BOSS_MAXATK);
+						set_ch_stat(BACK_NAME,&arist,BACK_HP_ST3,0,BACK_HEAL_ST3);
+						set_ch_stat(FRONT2_NAME,&naoki,FRONT2_HP_ST3,FRONT2_MINATK_ST3,FRONT2_MAXATK_ST3);
+						battle(&naoki,&arist,enemies,2);
+						flame_flush();
+						break;
+					case 3://stage3 vs boss
+						enemies[0] = &boss1;
+						set_ch_stat(ST3_BOSS_NAME,&boss1,ST3_BOSS_HP,ST3_BOSS_MINATK,ST3_BOSS_MAXATK);
+						set_ch_stat(FRONT2_NAME,&naoki,FRONT2_HP_ST3,FRONT2_MINATK_ST3,FRONT2_MAXATK_ST3);
+						set_ch_stat(BACK_NAME,&arist,BACK_HP_ST3,0,BACK_HEAL_ST3);
+						battle(&naoki,&arist,enemies,1);
+						flame_flush();
+						break;
+					case 4://stage4 vs weakenemy
+						enemies[0] = &boss1;
+						enemies[1] = &boss2;
+						set_ch_stat("enemy",&boss1,ST2_BOSS_HP,ST2_BOSS_MINATK,ST2_BOSS_MAXATK);
+						set_ch_stat("enemy",&boss2,ST2_BOSS_HP,ST2_BOSS_MINATK,ST2_BOSS_MAXATK);
+						set_ch_stat(BACK_NAME,&arist,BACK_HP_ST4,0,BACK_HEAL_ST4);
+						set_ch_stat(FRONT2_NAME,&naoki,FRONT2_HP_ST4,FRONT2_MINATK_ST4,FRONT2_MAXATK_ST4);
+						battle(&naoki,&arist,enemies,2);
+						flame_flush();
+						break;
+					case 5://stage4 vs boss
+						enemies[0] = &boss1;
+						set_ch_stat(ST4_BOSS_NAME,&boss1,ST4_BOSS_HP,ST4_BOSS_MINATK,ST4_BOSS_MAXATK);
+						set_ch_stat(FRONT3_NAME,&robo,FRONT3_HP,FRONT3_MINATK,FRONT3_MAXATK);
+						battle(&robo,&dummy,enemies,1);
+						flame_flush();
+						break;
+					case 6://stage5 vs boss
+						enemies[0] = &boss1;
+						set_ch_stat(ST5_BOSS_NAME,&boss1,ST5_BOSS_HP,ST5_BOSS_MINATK,ST5_BOSS_MAXATK);
+						set_ch_stat(FRONT4_NAME,&robo,FRONT4_HP,FRONT4_MINATK,FRONT4_MAXATK);
+						battle(&robo,&dummy,enemies,1);
+						flame_flush();
+						break;
+					default:
+						flame_clean();
+						break;
+				}
 				break;
 			case 1:
-				enemies[0] = &boss1;
-				enemies[1] = &boss2;
-				battle(&lirel,enemies,2);
-				break;
-			case 2:
-				enemies[0] = &boss1;
-				battle(&naoki,enemies,1);
-				break;
-			case 3:
-				enemies[0] = &boss1;
-				enemies[1] = &boss2;
-				battle(&naoki,enemies,2);
-				break;
-			case 4:
-				set_member_stat_mode();
-				break;
-			case 5:
 				set_weapon_mode();
 				break;
-			case 6:
+			case 2:
 				set_item_mode();
 				break;
-			case 7:
+			case 3:
+				set_member_stat_mode();
+				flame_flush();
+				break;
+			case 5:
 				exit_flag = 0;
 				break;
 		}
