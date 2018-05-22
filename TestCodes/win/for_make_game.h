@@ -301,6 +301,7 @@ void change_hp(struct character *tmpch, int damage){
 struct arrow_pos{
 	int x;
 	int y;
+	int not_active;
 };
 
 /**
@@ -389,6 +390,70 @@ int select_from_hlist(struct arrow_pos tmp_pos[10], int length){
 		break;
 	}
 	return arrow_pos_label;
+}
+
+int select_from_2dlist(int width, int height,struct arrow_pos tmp_pos[width][height]){
+	struct arrow_pos arrow_pos_label = {0,0};
+	struct input_assort tmp_input_list;
+	print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+	while(1){
+		while(!(tmp_input_list = mykbhit()).kbhit_flag);
+
+		print_line(" ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+		switch(tmp_input_list.input_char){
+			case 'w':
+				do{
+					if(arrow_pos_label.y <= 0){
+						arrow_pos_label.y = height - 1;
+					}else{
+						arrow_pos_label.y--;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case 's':
+				do{
+					if(arrow_pos_label.y >= height - 1){
+						arrow_pos_label.y= 0;
+					}else{
+						arrow_pos_label.y++;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case 'a':
+				do{
+					if(arrow_pos_label.x <= 0){
+						arrow_pos_label.x = width - 1;
+					}else{
+						arrow_pos_label.x--;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case 'd':
+				do{
+					if(arrow_pos_label.x >= width - 1){
+						arrow_pos_label.x= 0;
+					}else{
+						arrow_pos_label.x++;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case ENTERKEY:
+				break;
+			default:
+				continue;
+				break;
+		}
+		break;
+	}
+	return arrow_pos_label.x + width * arrow_pos_label.y;
 }
 
 int check_window(int width, int height, int x, int y, char *string){

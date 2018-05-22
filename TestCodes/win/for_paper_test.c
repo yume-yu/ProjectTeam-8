@@ -190,7 +190,7 @@ void initchara(){
 }
 
 //各キャラクターのステータス設定を表示
-void show_ch_stat(int x,int y){
+void print_ch_stat(int x,int y){
 	make_flame(34,8,x,y);
 	print_line("Now status list",x+5,y+1);
 	mvcur(x+2,y+2);
@@ -207,10 +207,7 @@ void show_ch_stat(int x,int y){
 	fflush(stdout);
 }
 
-int sel_mode_window(int y){
-	return 0;
-}
-
+//メインウィンドウの描画とモード選択
 int main_window_init(){
 	flame_clean();
 	//モード選択フレームのカーゾル座標変数
@@ -263,13 +260,9 @@ int main_window_init(){
 	printf("%s",arist_using_protector->name);
 	/*ポーション所持数表示*/
 	make_flame(SELECT_MODE_EQIP_FLAME_WIDTH,SELECT_MODE_POTION_FLAME_HEIGHT,SELECT_MODE_EQIP_FLAME_X,SELECT_MODE_EQIP_FLAME_Y + 2 * SELECT_MODE_EQIP_FLAME_HEIGHT);
-	print_line("Potion amount",SELECT_MODE_EQIP_FLAME_X + 2,SELECT_MODE_EQIP_FLAME_Y + 2 * SELECT_MODE_EQIP_FLAME_HEIGHT);
+	print_line("Potion amount",SELECT_MODE_EQIP_FLAME_X + 1,SELECT_MODE_EQIP_FLAME_Y + 2 * SELECT_MODE_EQIP_FLAME_HEIGHT);
 	mvcur(SELECT_MODE_EQIP_CHARASET_X - 1,SELECT_MODE_EQIP_FLAME_Y + 2 * SELECT_MODE_EQIP_FLAME_HEIGHT + 1);
 	printf("%d",potion_amount);
-	char control_explain[][100] = {
-		"  w            ↑   ",
-		"a s d   as  ← ↓ →"	
-	};
 	print_lines(control_explain,WIDTH - 20,HEIGHT - 2,2);
 	print_line("The Beautiful Sky",4,HEIGHT - 1);
 	fflush(stdout);
@@ -286,6 +279,7 @@ void print_bt_commands(){
 	fflush(stdout);
 }
 
+//戦闘モードの時にHP部分を描画する関数
 void print_bt_status(struct character *front,struct character *back){
 	//ステータス部分表示
 	char spaces[][100] = {
@@ -304,6 +298,7 @@ void print_bt_status(struct character *front,struct character *back){
 	fflush(stdout);
 }
 
+//戦闘モード前のステージ選択をする関数
 int select_stage(){
 	make_flame(SELECT_STAGE_FLAME_WIDTH,SELECT_STAGE_FLAME_HEIGHT,SELECT_STAGE_FLAME_X,SELECT_STAGE_FLAME_Y);
 	char stage_list[][100] = {
@@ -331,6 +326,7 @@ int select_stage(){
 	return select_from_list(stage_select_arrow,sizeof(stage_select_arrow)/sizeof(struct arrow_pos));
 }
 
+//敵のHPゲージを描画する関数
 void print_health_bar(struct character *target[],int amount){
 	double health_par = 0;
 	for(int i = 0; i < amount; i++){
@@ -358,27 +354,25 @@ void print_health_bar(struct character *target[],int amount){
 
 //戦闘モード
 void battle(struct character *front,struct character *back,struct character *enemies[3], int enemy_amount){
-	int finish_flag = 0;
-	int protect_flag = 0;
-	int damage = 0;
-	int target_label = 0;
-	int turn_count = 1;
-	int sp_count = 0;
-	int enemies_dead_flag[enemy_amount];
-	int enemies_dead_check = 0;
-	int player_can_act = 1;
-	int used_flare = 0;
-	int enemy_amount_for_bar = enemy_amount;
-	struct character *for_bar[enemy_amount];
+	int finish_flag = 0;												//戦闘終了のフラグ
+	int protect_flag = 0;												//かばう行動のフラグ
+	int damage = 0;															//計算後のダメージを記憶する変数
+	int target_label = 0;												//攻撃対象を判断するための変数
+	int turn_count = 1;													//特殊行動のため戦闘開始からのターンを数える変数
+	int sp_count = 0;														//特殊行動の行動不能ターンを数える変数
+	int enemies_dead_check = 0;									//敵が全滅したかどうかチェックする時に使う変数
+	int player_can_act = 1;											//プレイヤーが行動可能かのフラグ
+	int used_flare = 0;													//ステージ5での味方特殊行動の使用後フラグ
+	int enemy_amount_for_bar = enemy_amount;		//HPゲージ描画のため、本来の敵の数を記憶する変数
+	struct character *for_bar[enemy_amount];		//HPゲージ描画のため、本来の敵のアドレスを記憶する変数
 	for(int i = 0;i < enemy_amount;i++){
 		for_bar[i] = enemies[i];
 	}
 	struct arrow_pos battle_menu_arrow[] = {{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4}};
 
-	//敵のHPと生存フラグを初期化
+	//敵のHPを初期化
 	for(int i = 0; i < enemy_amount; i++){
 		change_hp(enemies[i],-1 * enemies[i]->max_hp);
-		enemies_dead_flag[i] = 1;
 	}
 	flame_flush();
 	make_vsflame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_SPLIT_X);
@@ -635,10 +629,11 @@ void battle(struct character *front,struct character *back,struct character *ene
 			}
 		}
 		print_health_bar(for_bar,enemy_amount_for_bar);
+		
 		//勝利判定
 		enemies_dead_check = 0;
-		for(int i = 0; i <  enemy_amount; i++){
-			enemies_dead_check += enemies_dead_flag[i];
+		for(int i = 0; i <  enemy_amount_for_bar; i++){
+			enemies_dead_check += for_bar[i]->hp;
 		}
 		if(enemies_dead_check <= 0){
 			print_line("Win!▼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
@@ -647,7 +642,7 @@ void battle(struct character *front,struct character *back,struct character *ene
 			continue;
 		}
 		//判定終わり
-
+		
 		//敵の行動
 		for(int i = 0; i < enemy_amount; i++){
 			if(enemies[i]->hp > 0){
@@ -729,49 +724,67 @@ void battle(struct character *front,struct character *back,struct character *ene
 }
 
 void set_stat_from_template_mamber(struct character *now_edit,int target){
+	int selected = 0; //選択されたテンプレートを記憶する変数
 	struct arrow_pos arrow[] = {
 		{EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 1},
 		{EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 2},
 		{EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 3},
 		{EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 4},
-		{EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 5}
 	};
 	print_line("Stage",EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y);
-	print_line("Stage1",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 1);
-	print_line("Stage2",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 2);
-	print_line("Stage3",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 3);
-	print_line("Stage4",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 4);
-	print_line("Stage5",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 5);
-	int selected = select_from_list(arrow,5);
-	switch(selected){
-		case 0:
+	if(target == 1){
+		print_line("Stage2",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 1);
+		print_line("Stage3",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 2);
+		print_line("Stage4",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 3);
+		selected = select_from_list(arrow,3);
+	}else if(target == 2){
+		print_line("Stage1",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 1);
+		print_line("Stage2",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 2);
+		print_line("Stage3",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 3);
+		print_line("Stage4",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 4);
+		selected = select_from_list(arrow,4);
+	}else if(target == 3){
+		print_line("Stage4",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 1);
+		print_line("Stage5",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 2);
+		selected = select_from_list(arrow,2);
+	}
+	switch(target){
 		case 1:
-		case 2:
-			switch(target){
+			switch(selected){
 				case 0:
-					set_ch_stat("naoki",&naoki,90 + (CHARACTER_STATUS_HP_DIFF * selected),20 + (CHARACTER_STATUS_ATK_DIFF * selected),35 + (CHARACTER_STATUS_ATK_DIFF * selected));
+					set_ch_stat(FRONT2_NAME,&naoki,FRONT2_HP_ST2,FRONT2_MINATK_ST2,FRONT2_MAXATK_ST2);
 					break;
 				case 1:
-					set_ch_stat("arist",&arist,70 + (CHARACTER_STATUS_HP_DIFF * selected),0,20 + (CHARACTER_STATUS_ATK_DIFF * selected));
+					set_ch_stat(FRONT2_NAME,&naoki,FRONT2_HP_ST3,FRONT2_MINATK_ST3,FRONT2_MAXATK_ST3);
 					break;
 				case 2:
-					set_ch_stat("lirel",&lirel,120 + (CHARACTER_STATUS_HP_DIFF * selected),15 + (CHARACTER_STATUS_ATK_DIFF * selected),20 + (CHARACTER_STATUS_ATK_DIFF * selected));
+					set_ch_stat(FRONT2_NAME,&naoki,FRONT2_HP_ST4,FRONT2_MINATK_ST4,FRONT2_MAXATK_ST4);
+					break;
+			}
+			break;
+		case 2:
+			switch(selected){
+				case 0:
+					set_ch_stat(BACK_NAME,&arist,BACK_HP_ST1,0,BACK_HEAL_ST1);
+					break;
+				case 1:
+					set_ch_stat(BACK_NAME,&arist,BACK_HP_ST2,0,BACK_HEAL_ST2);
+					break;
+				case 2:
+					set_ch_stat(BACK_NAME,&arist,BACK_HP_ST3,0,BACK_HEAL_ST3);
+					break;
+				case 3:
+					set_ch_stat(BACK_NAME,&arist,BACK_HP_ST4,0,BACK_HEAL_ST4);
 					break;
 			}
 			break;
 		case 3:
-			switch(target){
+			switch(selected){
 				case 0:
-				case 1:
-				case 2:
+					set_ch_stat(FRONT3_NAME,&robo,FRONT3_HP,FRONT3_MINATK,FRONT3_MAXATK);
 					break;
-			}
-			break;
-		case 4:
-			switch(target){
-				case 0:
 				case 1:
-				case 2:
+					set_ch_stat(FRONT4_NAME,&robo,FRONT4_HP,FRONT4_MINATK,FRONT4_MAXATK);
 					break;
 			}
 			break;
@@ -796,7 +809,7 @@ void set_stat_from_template_enemy(struct character *now_edit){
 	print_line("St4Boss",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 4);
 	print_line("St5Boss",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 5);
 	print_line("NotBoss",EDIT_MODE_EDIT_FLAME_CHAR_X + 1,EDIT_MODE_EDIT_FLAME_CHAR_Y + 7);
-	print_line("default",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 8);
+	print_line("enemy",EDIT_MODE_EDIT_FLAME_CHAR_X + 3,EDIT_MODE_EDIT_FLAME_CHAR_Y + 8);
 	target = select_from_list(arrow,6);
 	switch(target){
 		case 0:
@@ -815,7 +828,7 @@ void set_stat_from_template_enemy(struct character *now_edit){
 			set_ch_stat(ST5_BOSS_NAME,now_edit,ST5_BOSS_HP,ST5_BOSS_MINATK,ST5_BOSS_MAXATK);
 			break;
 		case 5:
-			set_ch_stat("enemy",now_edit,100,10,20);
+			set_ch_stat("enemy",now_edit,ST2_BOSS_HP,ST2_BOSS_MINATK,ST2_BOSS_MAXATK);
 			break;
 	}
 }
@@ -825,26 +838,33 @@ void set_member_stat_mode(){
 	struct character *now_edit;
 	struct character draft;
 	//モード選択フレームのカーゾル座標変数
-	struct arrow_pos set_ch_arrow[] = {
-		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+3},
-		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+4},
-		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+5},
-		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+6},
-		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+7},
-		{EDIT_MODE_SELECT_FLAME_X + 3,EDIT_MODE_SELECT_FLAME_Y+8}
+	struct arrow_pos set_ch_arrow[4][2] = {
+		{
+			{(EDIT_MODE_EDIT_FLAME_WIDTH - 30) / 2 - 1,EDIT_MODE_SELECT_FLAME_Y+4},
+			{(EDIT_MODE_EDIT_FLAME_WIDTH - 30) / 2 - 1,EDIT_MODE_SELECT_FLAME_Y+6},
+		},
+		{
+			{(EDIT_MODE_EDIT_FLAME_WIDTH - 30) / 2 + 7,EDIT_MODE_SELECT_FLAME_Y+4},
+			{(EDIT_MODE_EDIT_FLAME_WIDTH - 30) / 2 + 7,EDIT_MODE_SELECT_FLAME_Y+6},
+		}	,
+		{
+			{(EDIT_MODE_EDIT_FLAME_WIDTH - 30) / 2 + 15,EDIT_MODE_SELECT_FLAME_Y+4},
+			{(EDIT_MODE_EDIT_FLAME_WIDTH - 30) / 2 + 15,EDIT_MODE_SELECT_FLAME_Y+6},
+		},
+		{
+			{(EDIT_MODE_EDIT_FLAME_WIDTH - 30) / 2 + 23,EDIT_MODE_SELECT_FLAME_Y+4},
+			{(EDIT_MODE_EDIT_FLAME_WIDTH - 30) / 2 + 23,EDIT_MODE_SELECT_FLAME_Y+6,1},
+		}
 	};
+	//struct arrow_pos *arrow_p[4] = set_ch_arrow;
 	char draft_name[] = "hoge";
 	draft.name = draft_name;
 	flame_flush();
 	make_flame(EDIT_MODE_SELECT_FLAME_WIDTH,EDIT_MODE_SELECT_FLAME_HEIGHT,EDIT_MODE_SELECT_FLAME_X,EDIT_MODE_SELECT_FLAME_Y);
-	show_ch_stat(WIDTH - 36,3);
-	print_line("Select Character",EDIT_MODE_SELECT_FLAME_X + 2,EDIT_MODE_SELECT_FLAME_Y+1);
-	print_line("naoki",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+3);
-	print_line("arist",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+4);
-	print_line("lirel",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+5);
-	print_line("boss1",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+6);
-	print_line("boss2",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+7);
-	print_line("exit",EDIT_MODE_SELECT_FLAME_X + 5,EDIT_MODE_SELECT_FLAME_Y+8);
+	//print_ch_stat(WIDTH - 36,3);
+	print_line("Select Character",EDIT_MODE_SELECT_FLAME_X + 4,EDIT_MODE_SELECT_FLAME_Y+2);
+	print_line(" Lirel   Naoki   Arist   Robo",(EDIT_MODE_EDIT_FLAME_WIDTH - 30) / 2 ,EDIT_MODE_SELECT_FLAME_Y+4);
+	print_line(" Boss1   Boss2   Back ",(EDIT_MODE_EDIT_FLAME_WIDTH - 30) / 2 ,EDIT_MODE_SELECT_FLAME_Y+6);
 	fflush(stdout);
 	make_flame(EDIT_MODE_EDIT_FLAME_WIDTH,EDIT_MODE_EDIT_FLAME_HEIGHT,EDIT_MODE_EDIT_FLAME_X,EDIT_MODE_EDIT_FLAME_Y);
 	mvcur(0,HEIGHT + 1);
@@ -853,47 +873,48 @@ void set_member_stat_mode(){
 	struct input_assort tmp_input_ch;
 	struct input_assort continue_check;
 	while(flag){
-		target = select_from_list(set_ch_arrow,6);
+		print_ch_stat(EDIT_MODE_EDIT_FLAME_X + 1,EDIT_MODE_EDIT_FLAME_Y + 1);
+		target = select_from_2dlist(4,2,&set_ch_arrow[0]);
 		switch(target){
-			case '1':
 			case 0:
-				now_edit = &naoki;
-				break;
-			case '2':
-			case 1:
-				now_edit = &arist;
-				break;
-			case '3':
-			case 2:
 				now_edit = &lirel;
 				break;
-			case '4':
+			case 1:
+				now_edit = &naoki;
+				break;
+			case 2:
+				now_edit = &arist;
+				break;
 			case 3:
+				now_edit = &robo;
+				break;
+			case 4:
 				now_edit = &boss1;
 				break;
-			case '5':
-			case 4:
+			case 5:
 				now_edit = &boss2;
 				break;
-			case '9':
-			case 5:
+			case 6:
 				flag = 0;
 				break;
 			default:
 				continue;
 		}
 		//テンプレートから選択するかを確認
-		if(target != 5){
+		if(target != 6){
 			if(check_window(ECHECK_TEMPLATE_FLAME_WIDTH,ECHECK_TEMPLATE_FLAME_HEIGHT,ECHECK_TEMPLATE_FLAME_X,ECHECK_TEMPLATE_FLAME_Y,"Choose from tamplate?")){
 				sub_flame_clean(EDIT_MODE_EDIT_FLAME_WIDTH - 2,EDIT_MODE_EDIT_FLAME_HEIGHT - 2,EDIT_MODE_EDIT_FLAME_X + 1,EDIT_MODE_EDIT_FLAME_Y + 1);
 				switch(target){
 					case 0:
+						set_ch_stat(FRONT1_NAME,&lirel,FRONT1_HP,FRONT1_MINATK,FRONT1_MAXATK);
+						break;
 					case 1:
 					case 2:
+					case 3:
 						set_stat_from_template_mamber(now_edit,target);
 						break;
-					case 3:
 					case 4:
+					case 5:
 						set_stat_from_template_enemy(now_edit);
 						break;
 				}
@@ -944,9 +965,9 @@ void set_member_stat_mode(){
 			}
 		}
 		sub_flame_clean(EDIT_MODE_EDIT_FLAME_WIDTH - 2,EDIT_MODE_EDIT_FLAME_HEIGHT - 2,EDIT_MODE_EDIT_FLAME_X + 1,EDIT_MODE_EDIT_FLAME_Y + 1);
-		show_ch_stat(WIDTH - 36,3);
 		mvcur(0,HEIGHT + 1);
-		print_line(" ",set_ch_arrow[target].x,set_ch_arrow[target].y);
+		//print_line(" ",set_ch_arrow[target].x,set_ch_arrow[target].y);
+
 	}
 }
 
@@ -1130,6 +1151,23 @@ int main(){
 
 	int exit_flag = 1;
 	int mode = 0;
+	//テスト戦闘用変数宣言
+	int type[3];
+	struct character *front = &dummy;
+	struct character *back = &dummy;
+	char printed_string[100] = "null";
+	char any_types[][100] = {
+		"2 vs 1",
+		"2 vs 2 ",
+		"1 vs 1"
+	};
+	struct arrow_pos type_pos[3] = {
+		{(22 - 6) / 2 +(WIDTH - 22)/2 -	2,(HEIGHT - 7)/2 + 3},
+		{(22 - 6) / 2 +(WIDTH - 22)/2 - 2,(HEIGHT - 7)/2 + 4},
+		{(22 - 6) / 2 +(WIDTH - 22)/2 - 2,(HEIGHT - 7)/2 + 5}
+	};
+	//ここまでテスト戦闘用変数宣言
+
 	struct input_assort check_select;
 	struct character *enemies[4]= {&dummy,&dummy,&dummy,&dummy};
 	while(exit_flag){
@@ -1213,6 +1251,86 @@ int main(){
 				break;
 			case 3:
 				set_member_stat_mode();
+				flame_flush();
+				break;
+			case 4:
+				make_flame(22,7,(WIDTH - 22)/2,(HEIGHT - 7)/2 );
+				strcpy(printed_string,"Select Battle Type");
+				strcpy(any_types[0], "2 vs 1");
+				strcpy(any_types[1], "2 vs 2");
+				strcpy(any_types[2], "1 vs 1");
+				print_line(printed_string,(22 - strlen(printed_string)) / 2 +(WIDTH - 22)/2 ,(HEIGHT - 7)/2 + 1);
+				print_lines(any_types,(22 - 6) / 2 +(WIDTH - 22)/2 ,(HEIGHT - 7)/2 + 3,3);
+				type[0] = select_from_list(type_pos,3); //戦闘の種類を選択
+				sub_flame_clean(20,5,(WIDTH - 22) / 2 + 1,(HEIGHT - 7 )/ 2 + 1);
+				if(type[0] != 2){//1vsでなければ前衛を選択
+					strcpy(printed_string,"Select Front Chara");
+					print_line(printed_string,(22 - strlen(printed_string)) / 2 +(WIDTH - 22)/2 ,(HEIGHT - 7)/2 + 1);
+					strcpy(any_types[0], "Lirel");
+					strcpy(any_types[1], "Naoki");
+					print_lines(any_types,(22 - 6) / 2 +(WIDTH - 22)/2 ,(HEIGHT - 7)/2 + 3,2);
+					type[1] = select_from_list(type_pos,2);	//前衛を選択
+				}
+				strcpy(any_types[0], "Boss1");
+				strcpy(any_types[1], "Boss2");
+				sub_flame_clean(20,5,(WIDTH - 22) / 2 + 1,(HEIGHT - 7 )/ 2 + 1);
+				strcpy(printed_string,"Select Enemy");
+				print_line(printed_string,(22 - strlen(printed_string)) / 2 +(WIDTH - 22)/2 ,(HEIGHT - 7)/2 + 1);
+				if(type[0] != 1){ //vs2戦闘でなければ敵を選択
+					print_lines(any_types,(22 - 6) / 2 +(WIDTH - 22)/2 ,(HEIGHT - 7)/2 + 3,2);
+					type[2] = select_from_list(type_pos,2);	//敵を選択
+				}
+				switch(type[0]){
+					case 0:
+						switch(type[1]){
+							case 0:
+								front = &lirel;
+								break;
+							case 1:
+								front = &naoki;
+								break;
+						}
+						back = &arist;
+						switch(type[2]){
+							case 0:
+								enemies[0] = &boss1;
+								break;
+							case 1:
+								enemies[0] = &boss2;
+								break;
+						}
+						battle(front,back,enemies,1);
+						break;
+					case 1:
+						switch(type[1]){
+							case 0:
+								front = &lirel;
+								break;
+							case 1:
+								front = &naoki;
+								break;
+						}
+						back = &arist;
+						enemies[0] = &boss1;
+						enemies[1] = &boss2;
+						battle(front,back,enemies,2);
+						break;
+					case 2:
+						front = &robo;
+						switch(type[2]){
+							case 0:
+								enemies[0] = &boss1;
+								break;
+							case 1:
+								enemies[0] = &boss2;
+								break;
+						}
+						back = &dummy;
+						battle(front,back,enemies,1);
+						break;
+					default:
+						break;
+				}
 				flame_flush();
 				break;
 			case 5:

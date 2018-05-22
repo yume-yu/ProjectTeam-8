@@ -168,8 +168,8 @@ void string_march(char string[4], int x, int y, int width, int height){
 }
 
 /**
-  * フレーム関連関数
-  */
+ * フレーム関連関数
+ */
 
 
 /** 
@@ -274,7 +274,7 @@ void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x
 /**
  * フレーム内をアニメーションでスペース埋めにする関数
  */
- 
+
 void flame_flush(){	
 	for(int i = 2; i < HEIGHT; i++){
 		for(int j = 2; j < WIDTH; j++){
@@ -288,7 +288,7 @@ void flame_flush(){
 /**
  * フレーム内をスペース埋めにする関数
  */
- 
+
 void flame_clean(){	
 	for(int i = 2; i < HEIGHT; i++){
 		for(int j = 2; j < WIDTH; j++){
@@ -297,12 +297,12 @@ void flame_clean(){
 		}
 		//usleep(2 * 10000);
 	}
-		fflush(stdout);
+	fflush(stdout);
 }
 
 /**
-  * 指定フレーム内をスペース埋めにする関数
-  */
+ * 指定フレーム内をスペース埋めにする関数
+ */
 void sub_flame_clean(int width, int height, int x, int y){	
 	for(int i = y; i < y + height; i++){
 		for(int j = x; j < x + width;j++){
@@ -313,12 +313,12 @@ void sub_flame_clean(int width, int height, int x, int y){
 }
 
 /**
-  *  ステータス関連関数
-  */
+ *  ステータス関連関数
+ */
 
 /**
-  * キャラクターの基本ステータス構造体
-  */
+ * キャラクターの基本ステータス構造体
+ */
 struct character{
 	char *name;
 	int hp;
@@ -328,8 +328,8 @@ struct character{
 };
 
 /**
-  * 武器の基本ステータス構造体
-  */
+ * 武器の基本ステータス構造体
+ */
 struct weapon{
 	char *name;
 	int atk;
@@ -352,8 +352,8 @@ struct weapon all_weapons4back[7] = {
 };
 
 /**
-  * 防具の基本ステータス構造体
-  */
+ * 防具の基本ステータス構造体
+ */
 struct protector{
 	char *name;
 	int def;
@@ -368,13 +368,13 @@ struct protector all_protectors[7] = {
 };
 
 /**
-  * キャラクターのステータス設定をする関数
-  * name[10] キャラクターの名前
-  * tmpch    ステータスを設定するキャラクター構造体のアドレス
-  * hp       設定するhp
-  * min_atk  与ダメージの下限
-  * max_atk  与ダメージの上限
-  */
+ * キャラクターのステータス設定をする関数
+ * name[10] キャラクターの名前
+ * tmpch    ステータスを設定するキャラクター構造体のアドレス
+ * hp       設定するhp
+ * min_atk  与ダメージの下限
+ * max_atk  与ダメージの上限
+ */
 void set_ch_stat(char name[10], struct character *tmpch, int hp, int min_atk, int max_atk){
 	tmpch->name = name;
 	tmpch->hp = hp;
@@ -384,10 +384,10 @@ void set_ch_stat(char name[10], struct character *tmpch, int hp, int min_atk, in
 }
 
 /**
-  * キャラクターのHPを変動させる関数
-  * tmpch    hpが変動するキャラクター構造体のアドレス
-  * damage   ダメージ量 正なら減算/負なら加算される ex.damageが-20 → 20回復
-  */
+ * キャラクターのHPを変動させる関数
+ * tmpch    hpが変動するキャラクター構造体のアドレス
+ * damage   ダメージ量 正なら減算/負なら加算される ex.damageが-20 → 20回復
+ */
 void change_hp(struct character *tmpch, int damage){
 	tmpch->hp -= damage;
 	if(tmpch->hp < 0){
@@ -398,21 +398,22 @@ void change_hp(struct character *tmpch, int damage){
 }
 
 /**
-  *  UI関連関数
-  */
-  
+ *  UI関連関数
+ */
+
 //矢印の位置を定義するための構造体。リスト表示の際に座標配列として使う
 struct arrow_pos{
 	int x;
 	int y;
+	int not_active;
 };
 
 /**
-  * リストを表示した際にカーソルの縦移動と決定した項目を管理する関数
-  * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
-  * length      リスト項目の数
-  * 戻り値 length/Enterが押されたときの項目のラベル(何個目のメニューだったか)
-  */
+ * リストを表示した際にカーソルの縦移動と決定した項目を管理する関数
+ * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
+ * length      リスト項目の数
+ * 戻り値 length/Enterが押されたときの項目のラベル(何個目のメニューだったか)
+ */
 int select_from_list(struct arrow_pos tmp_pos[10], int length){
 	int arrow_pos_label = 0;
 	struct input_assort tmp_input_list;
@@ -452,11 +453,11 @@ int select_from_list(struct arrow_pos tmp_pos[10], int length){
 }
 
 /**
-  * リストを表示した際にカーソルの横移動と決定した項目を管理する関数
-  * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
-  * length      リスト項目の数
-  * 戻り値 length/Enterが押されたときの項目のラベル(何個目のメニューだったか)
-  */
+ * リストを表示した際にカーソルの横移動と決定した項目を管理する関数
+ * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
+ * length      リスト項目の数
+ * 戻り値 length/Enterが押されたときの項目のラベル(何個目のメニューだったか)
+ */
 int select_from_hlist(struct arrow_pos tmp_pos[10], int length){
 	int arrow_pos_label = 0;
 	struct input_assort tmp_input_list;
@@ -501,42 +502,50 @@ int select_from_2dlist(int width, int height,struct arrow_pos tmp_pos[width][hei
 	print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
 	while(1){
 		while(!(tmp_input_list = mykbhit()).kbhit_flag);
-		
+
 		print_line(" ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
 		switch(tmp_input_list.input_char){
 			case 'w':
-				if(arrow_pos_label.y <= 0){
-					arrow_pos_label.y = height - 1;
-				}else{
-					arrow_pos_label.y--;
-				}
+				do{
+					if(arrow_pos_label.y <= 0){
+						arrow_pos_label.y = height - 1;
+					}else{
+						arrow_pos_label.y--;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
 				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
 				continue;
 				break;
 			case 's':
-				if(arrow_pos_label.y >= height - 1){
-					arrow_pos_label.y= 0;
-				}else{
-					arrow_pos_label.y++;
-				}
+				do{
+					if(arrow_pos_label.y >= height - 1){
+						arrow_pos_label.y= 0;
+					}else{
+						arrow_pos_label.y++;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
 				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
 				continue;
 				break;
 			case 'a':
-				if(arrow_pos_label.x <= 0){
-					arrow_pos_label.x = width - 1;
-				}else{
-					arrow_pos_label.x--;
-				}
+				do{
+					if(arrow_pos_label.x <= 0){
+						arrow_pos_label.x = width - 1;
+					}else{
+						arrow_pos_label.x--;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
 				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
 				continue;
 				break;
 			case 'd':
-				if(arrow_pos_label.x >= width - 1){
-					arrow_pos_label.x= 0;
-				}else{
-					arrow_pos_label.x++;
-				}
+				do{
+					if(arrow_pos_label.x >= width - 1){
+						arrow_pos_label.x= 0;
+					}else{
+						arrow_pos_label.x++;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
 				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
 				continue;
 				break;
@@ -555,7 +564,7 @@ int check_window(int width, int height, int x, int y, char *string){
 	struct arrow_pos yesno_pos[2] = {
 		{x + width / 2 + 2,y+3},
 		{x + width / 2 - 3,y+3}
-		};
+	};
 	make_flame(width,height,x,y);
 	mvcur(x+2,y+1);
 	printf("%s",string);
@@ -564,8 +573,8 @@ int check_window(int width, int height, int x, int y, char *string){
 }
 
 /**
-  *  Enter入力の待機をする関数
-  */
+ *  Enter入力の待機をする関数
+ */
 void wait_anyinput(){
 	mvcur(0,HEIGHT + 1);
 	fflush(stdout);
@@ -574,8 +583,8 @@ void wait_anyinput(){
 }
 
 /**
-  *  タイトルロゴの出方が微妙に違うのでヘッダで定義
-  */
+ *  タイトルロゴの出方が微妙に違うのでヘッダで定義
+ */
 //タイトルロゴ宣言
 char title[][100] = {
 	{"┌┬┐┬ ┬┌─┐                       "},                
@@ -602,8 +611,8 @@ char title_space[][100] = {
 };
 
 /**
-  *  操作説明の出方が違うのでヘッダで定義
-  */
+ *  操作説明の出方が違うのでヘッダで定義
+ */
 char control_explain[][100] = {
 	"  w            ↑   ",
 	"a s d   as   ← ↓ → "	
