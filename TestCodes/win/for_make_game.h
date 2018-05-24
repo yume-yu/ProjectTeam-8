@@ -238,14 +238,14 @@ struct weapon{
 
 struct weapon all_weapons[7] = {
 	{"No weapon",0,0},
-	{"HandGun",10,1},
-	{"Knife",20,0},
+	{"HandGun",15,1},
+	{"Knife",5,0},
 	//{"Bow",15,1}
 };
 
 struct weapon all_weapons4back[7] = {
 	{"No weapon",0,0},
-	{"Bow",35,1}
+	{"Bow",10,1}
 };
 /**
   * 防具の基本ステータス構造体

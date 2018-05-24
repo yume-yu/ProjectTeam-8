@@ -368,7 +368,12 @@ void battle(struct character *front,struct character *back,struct character *ene
 	for(int i = 0;i < enemy_amount;i++){
 		for_bar[i] = enemies[i];
 	}
-	struct arrow_pos battle_menu_arrow[] = {{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3},{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4}};
+	struct arrow_pos battle_menu_arrow[] = {
+		{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1},
+		{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2},
+		{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3},
+		{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4}
+	};
 
 	//敵のHPを初期化
 	for(int i = 0; i < enemy_amount; i++){
@@ -381,6 +386,8 @@ void battle(struct character *front,struct character *back,struct character *ene
 	print_health_bar(for_bar,enemy_amount_for_bar);
 
 	while(!finish_flag){
+		mvcur(BATTLE_MODE_STATUS_FLAME_X + 2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT - 1);
+		printf("Turn %2d",turn_count);
 		if(player_can_act){
 			print_bt_commands();
 			int command = select_from_list(battle_menu_arrow,4);
@@ -629,7 +636,7 @@ void battle(struct character *front,struct character *back,struct character *ene
 			}
 		}
 		print_health_bar(for_bar,enemy_amount_for_bar);
-		
+
 		//勝利判定
 		enemies_dead_check = 0;
 		for(int i = 0; i <  enemy_amount_for_bar; i++){
@@ -642,7 +649,7 @@ void battle(struct character *front,struct character *back,struct character *ene
 			continue;
 		}
 		//判定終わり
-		
+
 		//敵の行動
 		for(int i = 0; i < enemy_amount; i++){
 			if(enemies[i]->hp > 0){
@@ -1178,7 +1185,7 @@ int main(){
 		}
 
 		switch(mode){
-			case 0:
+			case 0://battle
 				switch(select_stage()){
 					case 0://stage1 vs boss
 						enemies[0] = &boss1;
@@ -1243,17 +1250,17 @@ int main(){
 						break;
 				}
 				break;
-			case 1:
+			case 1://change equipment
 				set_weapon_mode();
 				break;
-			case 2:
+			case 2://edit item
 				set_item_mode();
 				break;
-			case 3:
+			case 3://edit character
 				set_member_stat_mode();
 				flame_flush();
 				break;
-			case 4:
+			case 4://test battle
 				make_flame(22,7,(WIDTH - 22)/2,(HEIGHT - 7)/2 );
 				strcpy(printed_string,"Select Battle Type");
 				strcpy(any_types[0], "2 vs 1");
