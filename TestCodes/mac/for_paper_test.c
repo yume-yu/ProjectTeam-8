@@ -217,7 +217,7 @@ int main_window_init(){
 		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 3},
 		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 4},
 		//{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 5},
-		//{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 6},
+		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 6},
 		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 7},
 		{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 8},
 		//{6,SELECT_MODE_FLAME_HEIGHT_OFFSET+ 9},
@@ -232,9 +232,9 @@ int main_window_init(){
 		"   battle",
 		"   change equipment",
 		"   edit item",
-		" ",
 		"For Coordinate/Debug",
 		"   edit character status",
+		"   edit equip/sp values ",
 		"   test battle",
 		" ",
 		"   exit"
@@ -267,7 +267,7 @@ int main_window_init(){
 	print_line("The Beautiful Sky",4,HEIGHT - 1);
 	fflush(stdout);
 	//モード選択
-	return select_from_list(main_menu_arrow,6);
+	return select_from_list(main_menu_arrow,7);
 }
 
 //戦闘モードの時にコマンド部分表示する関数
@@ -978,6 +978,10 @@ void set_member_stat_mode(){
 	}
 }
 
+void set_eqip_values(){
+
+}
+
 //装備設定モード
 void set_weapon_mode(){
 	int target_chara	= 0;
@@ -1018,11 +1022,11 @@ void set_weapon_mode(){
 			switch(target_chara){
 				case 0:
 					weapon_list = all_weapons;
-					weapon_amount = WEPONS_AMOUNT;
+					weapon_amount = WEAPONS_AMOUNT;
 					break;
 				case 1:
 					weapon_list = all_weapons4back;
-					weapon_amount = WEPONS_AMOUNT_BACK;
+					weapon_amount = WEAPONS_AMOUNT_BACK;
 					break;
 			}
 			for(int i = 0; i <weapon_amount; i++){
@@ -1206,8 +1210,8 @@ int main(){
 					case 2://stage3 vs weakenemy
 						enemies[0] = &boss1;
 						enemies[1] = &boss2;
-						set_ch_stat("enemy",&boss1,ST2_BOSS_HP,ST2_BOSS_MINATK,ST2_BOSS_MAXATK);
-						set_ch_stat("enemy",&boss2,ST2_BOSS_HP,ST2_BOSS_MINATK,ST2_BOSS_MAXATK);
+						set_ch_stat("enemy",&boss1,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
+						set_ch_stat("enemy",&boss2,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
 						set_ch_stat(BACK_NAME,&arist,BACK_HP_ST3,0,BACK_HEAL_ST3);
 						set_ch_stat(FRONT2_NAME,&naoki,FRONT2_HP_ST3,FRONT2_MINATK_ST3,FRONT2_MAXATK_ST3);
 						battle(&naoki,&arist,enemies,2);
@@ -1260,7 +1264,10 @@ int main(){
 				set_member_stat_mode();
 				flame_flush();
 				break;
-			case 4://test battle
+			case 4:
+				set_eqip_values();
+				break;
+			case 5://test battle
 				make_flame(22,7,(WIDTH - 22)/2,(HEIGHT - 7)/2 );
 				strcpy(printed_string,"Select Battle Type");
 				strcpy(any_types[0], "2 vs 1");
@@ -1340,7 +1347,7 @@ int main(){
 				}
 				flame_flush();
 				break;
-			case 5:
+			case 6://exit
 				exit_flag = 0;
 				break;
 		}

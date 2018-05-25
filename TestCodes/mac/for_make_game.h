@@ -336,8 +336,8 @@ struct weapon{
 	int is_gun;
 };
 
-#define WEPONS_AMOUNT				3
-#define WEPONS_AMOUNT_BACK	2
+#define WEAPONS_AMOUNT				3
+#define WEAPONS_AMOUNT_BACK	2
 
 struct weapon all_weapons[7] = {
 	{"No weapon",0,0},
@@ -366,6 +366,26 @@ struct protector all_protectors[7] = {
 	{"Shield",40},
 	{"Protective Suit",55}
 };
+
+/**
+ * 武器のステータス設定をする関数
+ * tmpwp    ステータスを設定する武器構造体のアドレス
+ * atk      武器の攻撃力
+ * is_gun  	銃かどうかのフラグ
+ */
+void set_weapon_stat(struct weapon *tmpwp, int atk, int is_gun){
+	tmpwp->atk = atk;
+	tmpwp->is_gun = is_gun;
+}
+
+/**
+ * 防具のステータス設定をする関数
+ * tmppr    ステータスを設定する武器構造体のアドレス
+ * def      武器の攻撃力
+ */
+void set_protector_stat(struct protector *tmppr, int def){
+	tmppr->def = def;
+}
 
 /**
  * キャラクターのステータス設定をする関数
