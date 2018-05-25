@@ -264,6 +264,26 @@ struct protector all_protectors[7] = {
 };
 
 /**
+ * 武器のステータス設定をする関数
+ * tmpwp    ステータスを設定する武器構造体のアドレス
+ * atk      武器の攻撃力
+ * is_gun  	銃かどうかのフラグ
+ */
+void set_weapon_stat(struct weapon *tmpwp, int atk, int is_gun){
+	tmpwp->atk = atk;
+	tmpwp->is_gun = is_gun;
+}
+
+/**
+ * 防具のステータス設定をする関数
+ * tmppr    ステータスを設定する武器構造体のアドレス
+ * def      武器の攻撃力
+ */
+void set_protector_stat(struct protector *tmppr, int def){
+	tmppr->def = def;
+}
+
+/**
   * キャラクターのステータス設定をする関数
   * name[10] キャラクターの名前
   * tmpch    ステータスを設定するキャラクター構造体のアドレス

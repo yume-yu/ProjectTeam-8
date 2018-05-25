@@ -99,6 +99,15 @@
 #define SET_WEAPON_EDIT_FLAME_CHAR_X 			5
 #define SET_WEAPON_EDIT_FLAME_CHAR_Y 			13
 
+#define EDIT_EQIP_SELECT_FLAME_X					2
+#define EDIT_EQIP_SELECT_FLAME_Y					2
+#define EDIT_EQIP_SELECT_FLAME_WIDTH			(WIDTH - 2)
+#define EDIT_EQIP_SELECT_FLAME_HEIGHT			(HEIGHT - 2) / 3
+#define EDIT_EQIP_EDIT_FLAME_X						2
+#define EDIT_EQIP_EDIT_FLAME_Y						EDIT_EQIP_SELECT_FLAME_HEIGHT + 1
+#define EDIT_EQIP_EDIT_FLAME_WIDTH				(WIDTH - 2)
+#define EDIT_EQIP_EDIT_FLAME_HEIGHT				2* (HEIGHT - 2) / 3
+
 #define ARIST_ATTACK		35
 //タイトル画面の星の数
 #define STAR_AMOUNT 		50
@@ -979,7 +988,12 @@ void set_member_stat_mode(){
 }
 
 void set_eqip_values(){
-
+	struct weapon *now_editw;
+	struct protector * now_editp;
+	flame_flush();
+	make_flame(EDIT_EQIP_SELECT_FLAME_WIDTH,EDIT_EQIP_SELECT_FLAME_HEIGHT,EDIT_EQIP_SELECT_FLAME_X,EDIT_EQIP_SELECT_FLAME_Y);
+	make_flame(EDIT_EQIP_EDIT_FLAME_WIDTH,EDIT_EQIP_EDIT_FLAME_HEIGHT,EDIT_EQIP_EDIT_FLAME_X,EDIT_EQIP_EDIT_FLAME_Y);
+	wait_anyinput();
 }
 
 //装備設定モード
