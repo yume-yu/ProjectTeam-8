@@ -32,11 +32,21 @@ int mvcur(int x, int y){
 	);
 }
 
+/*
+ * 入力周りを扱う構造体
+ * kbhit_flag	キーが押されているかを返すint
+ * input_char	押されているキー
+ */
 struct input_assort{
 	int kbhit_flag;
 	int input_char;
 };
 
+/*
+ * キーボードが押されているかとその入力キーをとる関数
+ * 戻り値
+ * struct input_assort temp	2つのフラグの構造体
+ */
 struct input_assort mykbhit(){
 	struct input_assort temp;
 	if(kbhit()){
@@ -58,24 +68,24 @@ void init_term(){
 }
 
 /**
-	* 指定箇所への1行の文字出力を行う関数
-	* string 出力する文字列
-	* x      出力するx座標
-	* y      出力するy座標
-	*/
+ * 指定箇所への1行の文字出力を行う関数
+ * string 出力する文字列
+ * x      出力するx座標
+ * y      出力するy座標
+ */
 void print_line(char string[], int x, int y){
 	mvcur(x,y);
 	printf("%s",string);
 	mvcur(0,HEIGHT + 1);
 }
 
-/**
-	* 指定箇所への複数行行の文字出力を行う関数
-	* string    出力する文字列配列
-	* x         出力を開始するx座標
-	* y         出力を開始するy座標
-	* num_lines 出力する行数
-	*/
+/*
+ * 指定箇所への複数行行の文字出力を行う関数
+ * string    出力する文字列配列
+ * x         出力を開始するx座標
+ * y         出力を開始するy座標
+ * num_lines 出力する行数
+ */
 void print_lines(char string[][100], int x, int y, int num_lines){
 	for(int i = 0; i < num_lines; i++){
 		mvcur(x,y+i);
@@ -84,7 +94,7 @@ void print_lines(char string[][100], int x, int y, int num_lines){
 	mvcur(0,HEIGHT + 1);
 }
 
-/**
+/*
  * フレームの作成関数
  * width    作成するフレームの幅
  * height   作成するフレームの高さ
@@ -123,6 +133,14 @@ void make_flame(int width, int height, int offset_x, int offset_y){
 	mvcur(1,HEIGHT+1);
 }
 
+/**
+ * 横分割フレームの作成関数
+ * width    作成するフレームの幅
+ * height   作成するフレームの高さ
+ * offset_x 作成するフレームの開始位置のx座標
+ * offset_y 作成するフレームの開始位置のy座標
+ * split_x  フレームの区切り線を入れるx座標
+ */
 void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x){
 	int print_width = width - 2;
 	int print_height = height - 2;
@@ -168,10 +186,10 @@ void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x
 	mvcur(1,HEIGHT+1);
 
 }
+
 /**
  * フレーム内をアニメーションでスペース埋めにする関数
  */
- 
 void flame_flush(){	
 	for(int i = 2; i < HEIGHT; i++){
 		for(int j = 2; j < WIDTH; j++){
@@ -185,7 +203,6 @@ void flame_flush(){
 /**
  * フレーム内をスペース埋めにする関数
  */
- 
 void flame_clean(){	
 	for(int i = 2; i < HEIGHT; i++){
 		for(int j = 2; j < WIDTH; j++){
@@ -233,7 +250,7 @@ struct weapon{
 	int is_gun;
 };
 
-#define WEPONS_AMOUNT				3
+#define WEPONS_AMOUNT		3
 #define WEPONS_AMOUNT_BACK	2
 
 struct weapon all_weapons[7] = {
@@ -313,11 +330,12 @@ void change_hp(struct character *tmpch, int damage){
 	}
 }
 
-/**
-  *  UI関連関数
-  */
-  
-//矢印の位置を定義するための構造体。リスト表示の際に座標配列として使う
+/*
+ * 矢印の位置を定義するための構造体。リスト表示の際に座標配列として使う
+ * int x			x座標
+ * int y			y座標
+ * int not_active	対象の座標が移動可能かのフラグ(1なら移動不可)
+ */
 struct arrow_pos{
 	int x;
 	int y;
@@ -412,6 +430,13 @@ int select_from_hlist(struct arrow_pos tmp_pos[10], int length){
 	return arrow_pos_label;
 }
 
+/*
+ * リストを表示した際にカーソルの二次元移動と決定した項目を管理する関数
+ * tmp_pos[10][10]	カーソルを表示する位置を定義したarrow_pos型の配列
+ * length			リスト項目の数
+ * 戻り値
+ * int length		Enterが押されたときの項目のラベル(何個目のメニューだったか)
+ */
 int select_from_2dlist(int width, int height,struct arrow_pos tmp_pos[width][height]){
 	struct arrow_pos arrow_pos_label = {0,0};
 	struct input_assort tmp_input_list;

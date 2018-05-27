@@ -154,23 +154,16 @@ void print_lines(char string[][100], int x, int y, int num_lines){
 	mvcur(0,HEIGHT + 1);
 }
 
+/*
+ * 
+ *
+ */
 void string_march(char string[4], int x, int y, int width, int height){
 	int line_num = 0;
 	int chara_count = 0;
 	char *p_str = string;
 	printf("%s",string);
-	/*while(line_num < height){
-		while((chara_count % width) != 0){
-
-		}
-		printf("\n");
-		}*/
 }
-
-/**
- * フレーム関連関数
- */
-
 
 /** 
  * 標準出力の初期化
@@ -417,22 +410,24 @@ void change_hp(struct character *tmpch, int damage){
 	}
 }
 
-/**
- *  UI関連関数
+/*
+ * 矢印の位置を定義するための構造体。リスト表示の際に座標配列として使う
+ * int x			x座標
+ * int y			y座標
+ * int not_active	対象の座標が移動可能かのフラグ(1なら移動不可)
  */
-
-//矢印の位置を定義するための構造体。リスト表示の際に座標配列として使う
 struct arrow_pos{
 	int x;
 	int y;
 	int not_active;
 };
 
-/**
- * リストを表示した際にカーソルの縦移動と決定した項目を管理する関数
- * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
- * length      リスト項目の数
- * 戻り値 length/Enterが押されたときの項目のラベル(何個目のメニューだったか)
+/*
+ * リストを表示した際にカーソルの二次元移動と決定した項目を管理する関数
+ * tmp_pos[10][10]	カーソルを表示する位置を定義したarrow_pos型の配列
+ * length			リスト項目の数
+ * 戻り値
+ * int length		Enterが押されたときの項目のラベル(何個目のメニューだったか)
  */
 int select_from_list(struct arrow_pos tmp_pos[10], int length){
 	int arrow_pos_label = 0;
@@ -516,6 +511,13 @@ int select_from_hlist(struct arrow_pos tmp_pos[10], int length){
 	return arrow_pos_label;
 }
 
+/*
+ * リストを表示した際にカーソルの二次元移動と決定した項目を管理する関数
+ * tmp_pos[10][10]	カーソルを表示する位置を定義したarrow_pos型の配列
+ * length			リスト項目の数
+ * 戻り値
+ * int length		Enterが押されたときの項目のラベル(何個目のメニューだったか)
+ */
 int select_from_2dlist(int width, int height,struct arrow_pos tmp_pos[width][height]){
 	struct arrow_pos arrow_pos_label = {0,0};
 	struct input_assort tmp_input_list;

@@ -488,7 +488,7 @@ void battle(struct character *front,struct character *back,struct character *ene
 									wait_anyinput();
 									/*敵ダメージ処理ここまで*/
 									/*敵死亡判定ここから*/
-									if(enemies[i]->hp <= 0){
+			EDIT_EQIP_SELECT_FLAME_WIDTH i							if(enemies[i]->hp <= 0){
 										sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 										mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 										printf("%s was down!▼",enemies[target_label]->name);
