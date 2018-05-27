@@ -420,6 +420,7 @@ struct arrow_pos{
 	int x;
 	int y;
 	int not_active;
+	int at_event;
 };
 
 /*
@@ -582,6 +583,78 @@ int select_from_2dlist(int width, int height,struct arrow_pos tmp_pos[width][hei
 	return arrow_pos_label.x + width * arrow_pos_label.y;
 }
 
+/*
+ * リストを表示した際にカーソルの二次元移動と決定した項目を管理する関数
+ * tmp_pos[10][10]	カーソルを表示する位置を定義したarrow_pos型の配列
+ * length			リスト項目の数
+ * 戻り値
+ * int length		Enterが押されたときの項目のラベル(何個目のメニューだったか)
+ */
+int move_on_map(int width, int height,struct arrow_pos tmp_pos[width][height]){
+	struct arrow_pos arrow_pos_label = {0,0};
+	struct input_assort tmp_input_list;
+	print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+	while(1){
+		while(!(tmp_input_list = mykbhit()).kbhit_flag);
+
+		print_line(" ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+		switch(tmp_input_list.input_char){
+			case 'w':
+				do{
+					if(arrow_pos_label.y <= 0){
+						//arrow_pos_label.y = height - 1;
+					}else{
+						arrow_pos_label.y--;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case 's':
+				do{
+					if(arrow_pos_label.y > height - 2){
+						//arrow_pos_label.y= 0;
+					}else{
+						arrow_pos_label.y++;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case 'a':
+				do{
+					if(arrow_pos_label.x <= 0){
+						//arrow_pos_label.x = width - 1;
+					}else{
+						arrow_pos_label.x--;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case 'd':
+				do{
+					if(arrow_pos_label.x > width - 2){
+						//arrow_pos_label.x= 0;
+					}else{
+						arrow_pos_label.x++;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case ENTERKEY:
+				break;
+			default:
+				continue;
+				break;
+		}
+		break;
+	}
+	return arrow_pos_label.x + width * arrow_pos_label.y;
+}
+
+
 int check_window(int width, int height, int x, int y, char *string){
 	struct arrow_pos yesno_pos[2] = {
 		{x + width / 2 + 2,y+3},
@@ -601,6 +674,7 @@ void wait_anyinput(){
 	mvcur(0,HEIGHT + 1);
 	fflush(stdout);
 	while(!mykbhit().kbhit_flag);
+	usleep(1000);
 	while(mykbhit().kbhit_flag);
 }
 
