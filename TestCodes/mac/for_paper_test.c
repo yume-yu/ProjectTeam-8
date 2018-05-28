@@ -691,7 +691,7 @@ void battle(struct character *front,struct character *back,struct character *ene
 					fflush(stdout);
 					wait_anyinput();
 					player_can_act = !player_can_act;
-				} else if(!strcmp(enemies[i]->name,"St5Bs") && rand() % 10 == 5){
+				} else if(!strcmp(enemies[i]->name,"St5Bs") && rand() % 10 == 5 && enemies[i]->hp < enemies[i]->max_hp * 0.25){
 					char string[][100] = {
 						"Stage5 Boss cast ",
 						"              'Tetragrammaton'!▼ "
