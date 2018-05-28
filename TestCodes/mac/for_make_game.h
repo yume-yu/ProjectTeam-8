@@ -8,6 +8,22 @@
 #include "mconio.h"
 //WindowsとUNIXでEnterキーの入力が異なるのでプログラム上の表記を統一
 #define ENTERKEY '\n'
+#include <signal.h>
+void ignore_cc(){
+	struct sigaction sa;
+    // 初期化
+    memset( &sa, 0, sizeof(struct sigaction) );
+ 
+    /*
+     * シグナルを単純に無視する場合
+     */
+    sa.sa_handler = SIG_IGN;
+		// シグナルハンドラの設定
+    if( sigaction( SIGINT, &sa, NULL ) < 0 ) {
+        perror("sigaction");
+    }
+}
+
 
 /**
  * 左上を頂点(1,1)として(100,100)までの座標を配列指定

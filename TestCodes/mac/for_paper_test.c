@@ -1100,6 +1100,8 @@ void stars(int x[],int y[],int amount){
 }
 
 int main(){
+	//Ctrl+Cを無効化
+	ignore_cc();
 	//ターミナルの文字を流してカーソル位置を(1,1)にする
 	init_term();
 	//大枠ウィンドウフレームの作成
