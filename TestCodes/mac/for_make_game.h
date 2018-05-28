@@ -590,8 +590,8 @@ int select_from_2dlist(int width, int height,struct arrow_pos tmp_pos[width][hei
  * 戻り値
  * int length		Enterが押されたときの項目のラベル(何個目のメニューだったか)
  */
-int move_on_map(int width, int height,struct arrow_pos tmp_pos[width][height]){
-	struct arrow_pos arrow_pos_label = {0,0};
+struct arrow_pos move_on_map(int width, int height,struct arrow_pos tmp_pos[width][height]){
+	struct arrow_pos arrow_pos_label = {width/2,height - 1};
 	struct input_assort tmp_input_list;
 	print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
 	while(1){
@@ -601,7 +601,7 @@ int move_on_map(int width, int height,struct arrow_pos tmp_pos[width][height]){
 		switch(tmp_input_list.input_char){
 			case 'w':
 				do{
-					if(arrow_pos_label.y <= 0){
+					if(arrow_pos_label.y <= 0 || tmp_pos[arrow_pos_label.x][arrow_pos_label.y - 1].not_active){
 						//arrow_pos_label.y = height - 1;
 					}else{
 						arrow_pos_label.y--;
@@ -612,7 +612,7 @@ int move_on_map(int width, int height,struct arrow_pos tmp_pos[width][height]){
 				break;
 			case 's':
 				do{
-					if(arrow_pos_label.y > height - 2){
+					if(arrow_pos_label.y > height - 2 || tmp_pos[arrow_pos_label.x][arrow_pos_label.y + 1].not_active){
 						//arrow_pos_label.y= 0;
 					}else{
 						arrow_pos_label.y++;
@@ -623,7 +623,7 @@ int move_on_map(int width, int height,struct arrow_pos tmp_pos[width][height]){
 				break;
 			case 'a':
 				do{
-					if(arrow_pos_label.x <= 0){
+					if(arrow_pos_label.x <= 0 || tmp_pos[arrow_pos_label.x - 1][arrow_pos_label.y].not_active){
 						//arrow_pos_label.x = width - 1;
 					}else{
 						arrow_pos_label.x--;
@@ -634,7 +634,7 @@ int move_on_map(int width, int height,struct arrow_pos tmp_pos[width][height]){
 				break;
 			case 'd':
 				do{
-					if(arrow_pos_label.x > width - 2){
+					if(arrow_pos_label.x > width - 2 || tmp_pos[arrow_pos_label.x + 1][arrow_pos_label.y].not_active){
 						//arrow_pos_label.x= 0;
 					}else{
 						arrow_pos_label.x++;
@@ -651,7 +651,7 @@ int move_on_map(int width, int height,struct arrow_pos tmp_pos[width][height]){
 		}
 		break;
 	}
-	return arrow_pos_label.x + width * arrow_pos_label.y;
+	return arrow_pos_label;
 }
 
 
@@ -674,7 +674,7 @@ void wait_anyinput(){
 	mvcur(0,HEIGHT + 1);
 	fflush(stdout);
 	while(!mykbhit().kbhit_flag);
-	usleep(1000);
+	usleep(3000);
 	while(mykbhit().kbhit_flag);
 }
 
