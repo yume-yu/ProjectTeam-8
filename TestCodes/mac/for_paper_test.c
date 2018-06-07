@@ -662,7 +662,7 @@ void battle(struct character *front,struct character *back,struct character *ene
 		//敵の行動
 		for(int i = 0; i < enemy_amount; i++){
 			if(enemies[i]->hp > 0){
-				if(!strcmp(enemies[i]->name,"St3Bs") && turn_count == 6){
+				if(!strcmp(enemies[i]->name,ST3_BOSS_NAME) && turn_count == 6){
 					print_line("Ancient Gear Golem's action!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
 					wait_anyinput();
 					print_line("Ultimate bound!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);		
@@ -673,7 +673,7 @@ void battle(struct character *front,struct character *back,struct character *ene
 					fflush(stdout);
 					wait_anyinput();
 					player_can_act = !player_can_act;
-				}else if(!strcmp(enemies[i]->name,"St4Bs") && rand() % 10 == 5){
+				}else if(!strcmp(enemies[i]->name,ST4_BOSS_NAME) && rand() % 10 == 5){
 					change_hp(enemies[i],-500);
 					print_line("Stage4 Boss cast 'Curala'!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
 					wait_anyinput();
@@ -691,7 +691,7 @@ void battle(struct character *front,struct character *back,struct character *ene
 					fflush(stdout);
 					wait_anyinput();
 					player_can_act = !player_can_act;
-				} else if(!strcmp(enemies[i]->name,"St5Bs") && rand() % 10 == 5 && enemies[i]->hp < enemies[i]->max_hp * 0.25){
+				} else if(!strcmp(enemies[i]->name,ST5_BOSS_NAME) && rand() % 10 == 5 && enemies[i]->hp < enemies[i]->max_hp * 0.25){
 					char string[][100] = {
 						"Stage5 Boss cast ",
 						"              'Tetragrammaton'!▼ "

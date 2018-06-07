@@ -9,6 +9,23 @@
 //WindowsとUNIXでEnterキーの入力が異なるのでプログラム上の表記を統一
 #define ENTERKEY 0x0d
 
+//Ctrl+Cによる終了を防ぐ
+#include <signal.h>
+void ignore_cc(){
+	struct sigaction sa;
+    // 初期化
+    memset( &sa, 0, sizeof(struct sigaction) );
+ 
+    /*
+     * シグナルを単純に無視する場合
+     */
+    sa.sa_handler = SIG_IGN;
+		// シグナルハンドラの設定
+    if( sigaction( SIGINT, &sa, NULL ) < 0 ) {
+        perror("sigaction");
+    }
+}
+
 /** 
   * Windowsにはマイクロ秒でsleepするusleep(int)がないので
   * time 処理を停止する時間[ms]
@@ -499,6 +516,77 @@ int select_from_2dlist(int width, int height,struct arrow_pos tmp_pos[width][hei
 		break;
 	}
 	return arrow_pos_label.x + width * arrow_pos_label.y;
+}
+
+/*
+ * リストを表示した際にカーソルの二次元移動と決定した項目を管理する関数
+ * tmp_pos[10][10]	カーソルを表示する位置を定義したarrow_pos型の配列
+ * length			リスト項目の数
+ * 戻り値
+ * int length		Enterが押されたときの項目のラベル(何個目のメニューだったか)
+ */
+struct arrow_pos move_on_map(int width, int height,struct arrow_pos tmp_pos[width][height], struct arrow_pos offset){
+	struct arrow_pos arrow_pos_label = offset;
+	struct input_assort tmp_input_list;
+	print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+	while(1){
+		while(!(tmp_input_list = mykbhit()).kbhit_flag);
+
+		print_line(" ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+		switch(tmp_input_list.input_char){
+			case 'w':
+				do{
+					if(arrow_pos_label.y <= 0 || tmp_pos[arrow_pos_label.x][arrow_pos_label.y - 1].not_active){
+						//arrow_pos_label.y = height - 1;
+					}else{
+						arrow_pos_label.y--;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case 's':
+				do{
+					if(arrow_pos_label.y > height - 2 || tmp_pos[arrow_pos_label.x][arrow_pos_label.y + 1].not_active){
+						//arrow_pos_label.y= 0;
+					}else{
+						arrow_pos_label.y++;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case 'a':
+				do{
+					if(arrow_pos_label.x <= 0 || tmp_pos[arrow_pos_label.x - 1][arrow_pos_label.y].not_active){
+						//arrow_pos_label.x = width - 1;
+					}else{
+						arrow_pos_label.x--;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case 'd':
+				do{
+					if(arrow_pos_label.x > width - 2 || tmp_pos[arrow_pos_label.x + 1][arrow_pos_label.y].not_active){
+						//arrow_pos_label.x= 0;
+					}else{
+						arrow_pos_label.x++;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case ENTERKEY:
+				break;
+			default:
+				continue;
+				break;
+		}
+		break;
+	}
+	return arrow_pos_label;
 }
 
 int check_window(int width, int height, int x, int y, char *string){

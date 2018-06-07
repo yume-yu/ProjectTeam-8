@@ -8,6 +8,8 @@
 #include "mconio.h"
 //WindowsとUNIXでEnterキーの入力が異なるのでプログラム上の表記を統一
 #define ENTERKEY '\n'
+
+//Ctrl+Cによる終了を防ぐ
 #include <signal.h>
 void ignore_cc(){
 	struct sigaction sa;
@@ -600,14 +602,16 @@ int select_from_2dlist(int width, int height,struct arrow_pos tmp_pos[width][hei
 }
 
 /*
- * リストを表示した際にカーソルの二次元移動と決定した項目を管理する関数
- * tmp_pos[10][10]	カーソルを表示する位置を定義したarrow_pos型の配列
- * length			リスト項目の数
+ * マップ上を移動する関数
+ * width						マップの幅
+ * hright 					マップの高さ
+ * tmp_pos[10][10]	マップ座標の配列
+ * offset						操作受け付け開始時の座標
  * 戻り値
- * int length		Enterが押されたときの項目のラベル(何個目のメニューだったか)
+ * int tmp_pos			ループを抜けた際の座標
  */
-struct arrow_pos move_on_map(int width, int height,struct arrow_pos tmp_pos[width][height]){
-	struct arrow_pos arrow_pos_label = {width/2,height - 1};
+struct arrow_pos move_on_map(int width, int height,struct arrow_pos tmp_pos[width][height], struct arrow_pos offset){
+	struct arrow_pos arrow_pos_label = offset;
 	struct input_assort tmp_input_list;
 	print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
 	while(1){
