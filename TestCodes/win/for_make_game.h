@@ -2,7 +2,7 @@
   * Writtenby yume_yu
   * windowsのapiを使ってカーソルの位置を指定箇所へ移動する関数を定義したヘッダ
   */
- 
+
 #include <windows.h>
 #include <conio.h>
 
@@ -15,7 +15,7 @@ void ignore_cc(){
 	struct sigaction sa;
     // 初期化
     memset( &sa, 0, sizeof(struct sigaction) );
- 
+
     /*
      * シグナルを単純に無視する場合
      */
@@ -26,14 +26,14 @@ void ignore_cc(){
     }
 }
 
-/** 
+/**
   * Windowsにはマイクロ秒でsleepするusleep(int)がないので
   * time 処理を停止する時間[ms]
   */
 void usleep(int time){
 	Sleep(time/1000);
 }
-/** 
+/**
   * 左上を(1,1)としてカーソルを指定位置へ移動させる関数
   * x カーソルのx座標
   * y カーソルのy座標
@@ -76,7 +76,7 @@ struct input_assort mykbhit(){
 	return temp;
 }
 
-/** 
+/**
  * 標準出力の初期化
  */
 void init_term(){
@@ -207,7 +207,7 @@ void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x
 /**
  * フレーム内をアニメーションでスペース埋めにする関数
  */
-void flame_flush(){	
+void flame_flush(){
 	for(int i = 2; i < HEIGHT; i++){
 		for(int j = 2; j < WIDTH; j++){
 			print_line(" ",j,i);
@@ -220,7 +220,7 @@ void flame_flush(){
 /**
  * フレーム内をスペース埋めにする関数
  */
-void flame_clean(){	
+void flame_clean(){
 	for(int i = 2; i < HEIGHT; i++){
 		for(int j = 2; j < WIDTH; j++){
 			mvcur(j,i);
@@ -234,12 +234,12 @@ void flame_clean(){
 /**
  * 指定フレーム内をスペース埋めにする関数
  */
-void sub_flame_clean(int width, int height, int x, int y){	
+void sub_flame_clean(int width, int height, int x, int y){
 	for(int i = y; i < y + height; i++){
 		for(int j = x; j <x+  width;j++){
 			print_line(" ",j,i);
 		}
-	}	
+	}
 	fflush(stdout);
 }
 
@@ -616,11 +616,11 @@ void wait_anyinput(){
   */
 //タイトルロゴ宣言
 char title[][100] = {
-	{"┌┬┐┬ ┬┌─┐                       "},                
-	{" │ ├─┤├┤                        "},                 
-	{" ┴ ┴ ┴└─┘                       "},                
+	{"┌┬┐┬ ┬┌─┐                       "},
+	{" │ ├─┤├┤                        "},
+	{" ┴ ┴ ┴└─┘                       "},
 	{"   ┌┐ ┌─┐┌─┐┬ ┬┌┬┐┬┌─┐┬ ┬┬      "},
-	{"   ├┴┐├┤ ├─┤│ │ │ │├┤ │ ││      "},  
+	{"   ├┴┐├┤ ├─┤│ │ │ │├┤ │ ││      "},
 	{"   └─┘└─┘┴ ┴└─┘ ┴ ┴└  └─┘┴─┘    "},
 	{"                      ┌─┐┬┌─┬ ┬ "},
 	{"	                     └─┐├┴┐└┬┘ "},
@@ -644,5 +644,5 @@ char title_space[][100] = {
   */
 char control_explain[][100] = {
 	"  w            ↑   ",
-	"a s d   as  ← ↓ →"	
+	"a s d   as  ← ↓ →"
 };

@@ -3,7 +3,7 @@
 #include <time.h>
 #include <string.h>
 
-/** 
+/**
  * メインフレーム(大枠)関連定数
  * WIDTH          メインフレームの幅
  * HEIGHT         メインフレームの高さ
@@ -33,7 +33,7 @@
 #define SELECT_STAGE_FLAME_X      				(WIDTH  - SELECT_STAGE_FLAME_WIDTH) / 2
 #define SELECT_STAGE_FLAME_Y      				(HEIGHT - SELECT_STAGE_FLAME_HEIGHT) / 2
 
-/** 
+/**
  * 戦闘画面でのウィンドウサイズ/配置関連定数
  * BATTLE_MODE_STATUS_FLAME_WIDTH   下分割フレームの幅
  * BATTLE_MODE_STATUS_FLAME_HEIGHT  下分割フレームの高さ
@@ -56,7 +56,7 @@
  * EDIT_MODE_SELECT_FLAME_X
  * EDIT_MODE_SELECT_FLAME_Y
  * EDIT_MODE_EDIT_FLAME_CHAR_X
- * EDIT_MODE_EDIT_FLAME_CHAR_Y 
+ * EDIT_MODE_EDIT_FLAME_CHAR_Y
  */
 #define EDIT_MODE_SELECT_FLAME_WIDTH			WIDTH - 4
 #define EDIT_MODE_SELECT_FLAME_HEIGHT			10
@@ -94,7 +94,7 @@
 
 #define SET_WEAPON_MODE_FLAME_WIDTH 			18
 #define SET_WEAPON_MODE_FLAME_HEIGHT 			7
-#define SET_WEAPON_MODE_FLAME_X 					(WIDTH - SET_WEAPON_MODE_FLAME_WIDTH) / 2 
+#define SET_WEAPON_MODE_FLAME_X 					(WIDTH - SET_WEAPON_MODE_FLAME_WIDTH) / 2
 #define SET_WEAPON_MODE_FLAME_Y 					(HEIGHT - SET_WEAPON_MODE_FLAME_HEIGHT) / 2
 #define SET_WEAPON_EDIT_FLAME_CHAR_X 			5
 #define SET_WEAPON_EDIT_FLAME_CHAR_Y 			13
@@ -149,7 +149,7 @@
 #define ST1_BOSS_HP				100
 #define ST1_BOSS_MINATK		10
 #define ST1_BOSS_MAXATK		20
-#define ST2_BOSS_NAME			"St2Bs"	
+#define ST2_BOSS_NAME			"St2Bs"
 #define ST2_BOSS_HP				150
 #define ST2_BOSS_MINATK		30
 #define ST2_BOSS_MAXATK		40
@@ -457,7 +457,7 @@ void battle(struct character *front,struct character *back,struct character *ene
 						}else if(!strcmp(front->name,FRONT4_NAME)){
 							printf("Flare");
 						}
-						mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);	
+						mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
 						printf("back");
 						fflush(stdout);
 						target_label = select_from_list(battle_menu_arrow,2);
@@ -663,22 +663,22 @@ void battle(struct character *front,struct character *back,struct character *ene
 		for(int i = 0; i < enemy_amount; i++){
 			if(enemies[i]->hp > 0){
 				if(!strcmp(enemies[i]->name,"St3Bs") && turn_count == 6){
-					print_line("Ancient Gear Golem's action!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
+					print_line("Ancient Gear Golem's action!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					wait_anyinput();
-					print_line("Ultimate bound!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);		
+					print_line("Ultimate bound!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
 					wait_anyinput();
 					sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-					mvcur(BATTLE_MODE_COMMAND_POS - 2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
-					printf("Next turn,Players can't action...▼ ");	
+					mvcur(BATTLE_MODE_COMMAND_POS - 2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+					printf("Next turn,Players can't action...▼ ");
 					fflush(stdout);
 					wait_anyinput();
 					player_can_act = !player_can_act;
 				}else if(!strcmp(enemies[i]->name,"St4Bs") && rand() % 10 == 5){
 					change_hp(enemies[i],-500);
-					print_line("Stage4 Boss cast 'Curala'!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
+					print_line("Stage4 Boss cast 'Curala'!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					wait_anyinput();
 				}else if(!strcmp(enemies[i]->name,"St5Bs") && turn_count != 0 && turn_count % 4 == 0){
-					print_line("Stage5 Boss's action!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);		
+					print_line("Stage5 Boss's action!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					wait_anyinput();
 					print_line("The Gaia!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
 					wait_anyinput();
@@ -691,7 +691,7 @@ void battle(struct character *front,struct character *back,struct character *ene
 					fflush(stdout);
 					wait_anyinput();
 					player_can_act = !player_can_act;
-				} else if(!strcmp(enemies[i]->name,"St5Bs") && rand() % 10 == 5){
+				} else if(!strcmp(enemies[i]->name,"St5Bs") && rand() % 10 == 5 && enemies[i]->hp < enemies[i]->max_hp * 0.4){
 					char string[][100] = {
 						"Stage5 Boss cast ",
 						"              'Tetragrammaton'!▼ "
@@ -961,10 +961,10 @@ void set_member_stat_mode(){
 					printf("MAXATK : ");
 				}
 				mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X + 10,EDIT_MODE_EDIT_FLAME_CHAR_Y + 6);
-				scanf("%d",&draft.hp);	
+				scanf("%d",&draft.hp);
 				mvcur(EDIT_MODE_EDIT_FLAME_CHAR_X + 10,EDIT_MODE_EDIT_FLAME_CHAR_Y + 7);
 				if(now_edit != &arist){
-					scanf("%d",&draft.min_atk);	
+					scanf("%d",&draft.min_atk);
 				}else{
 					scanf("%d",&draft.max_atk);
 					draft.min_atk = 0;
@@ -1144,7 +1144,7 @@ int main(){
 	//ここから星の描画
 	//星の座標変数を宣言
 	int star_x[STAR_AMOUNT];// ={10,15,20};
-	int star_y[STAR_AMOUNT];// ={20,15,10}; 
+	int star_y[STAR_AMOUNT];// ={20,15,10};
 	//乱数の初期化
 	srand(time(NULL));
 	//文字とかぶらないように座標を設定する
