@@ -3,176 +3,176 @@
  * printf()のみを使用したゲームを作るためのヘッダ
  */
 
- //必要なライブラリをインクルード
- #include <stdio.h>
- #include <stdlib.h>
- #include <time.h>
- #include <string.h>
+//必要なライブラリをインクルード
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
 
- //定数定義部
- /**
-  * メインフレーム(大枠)関連定数
-  * WIDTH          メインフレームの幅
-  * HEIGHT         メインフレームの高さ
-  * MAIN_FLAME_X   メインフレームの開始位置のX座標
-  * MAIN_FLAME_Y   メインフレームの開始位置のY座標
-  */
- #define WIDTH					60
- #define HEIGHT 				25
- #define MAIN_FLAME_X	1
- #define MAIN_FLAME_Y 	1
-
- /*
-  * ステージセレクトフレーム関連定数
-  * SELECT_STAGE_FLAME_WIDTH  フレームの幅
-  * SELECT_STAGE_FLAME_HEIGHT フレームの高さ
-  * SELECT_STAGE_FLAME_X      フレームの開始位置のX座標
-  * SELECT_STAGE_FLAME_Y      フレームの開始位置のY座標
-  */
- #define SELECT_STAGE_FLAME_WIDTH  				25
- #define SELECT_STAGE_FLAME_HEIGHT 				11
- #define SELECT_STAGE_FLAME_X      				(WIDTH  - SELECT_STAGE_FLAME_WIDTH) / 2
- #define SELECT_STAGE_FLAME_Y      				(HEIGHT - SELECT_STAGE_FLAME_HEIGHT) / 2
-
- /**
-  * 戦闘画面でのウィンドウサイズ/配置関連定数
-  * BATTLE_MODE_STATUS_FLAME_WIDTH   下分割フレームの幅
-  * BATTLE_MODE_STATUS_FLAME_HEIGHT  下分割フレームの高さ
-  * BATTLE_MODE_STATUS_FLAME_X       下分割フレームの開始位置のX座標
-  * BATTLE_MODE_STATUS_FLAME_SPLIT_X 下分割フレームの分割位置
-  * BATTLE_MODE_COMMAND_POS          戦闘コマンドブレーム(下左)の1行目のX座標
-  * BATTLE_MODE_STATUS_HP_POS        ステータスフレーム(下右)の1行目のX座標
-  */
- #define BATTLE_MODE_STATUS_FLAME_WIDTH		WIDTH-2
- #define BATTLE_MODE_STATUS_FLAME_HEIGHT		6
- #define BATTLE_MODE_STATUS_FLAME_X				2
- #define BATTLE_MODE_STATUS_FLAME_SPLIT_X 	2*(WIDTH-2)/3-1
- #define BATTLE_MODE_COMMAND_POS 					7
- #define BATTLE_MODE_STATUS_HP_POS 				BATTLE_MODE_STATUS_FLAME_SPLIT_X+5
-
- /*
-  * キャラクターステータス設定モード関連定数
-  * EDIT_MODE_SELECT_FLAME_WIDTH
-  * EDIT_MODE_SELECT_FLAME_HEIGHT
-  * EDIT_MODE_SELECT_FLAME_X
-  * EDIT_MODE_SELECT_FLAME_Y
-  * EDIT_MODE_EDIT_FLAME_CHAR_X
-  * EDIT_MODE_EDIT_FLAME_CHAR_Y
-  */
- #define EDIT_MODE_SELECT_FLAME_WIDTH			WIDTH - 4
- #define EDIT_MODE_SELECT_FLAME_HEIGHT			10
- #define EDIT_MODE_SELECT_FLAME_X					3
- #define EDIT_MODE_SELECT_FLAME_Y					2
- #define EDIT_MODE_EDIT_FLAME_WIDTH				WIDTH - 4
- #define EDIT_MODE_EDIT_FLAME_HEIGHT				HEIGHT - 12
- #define EDIT_MODE_EDIT_FLAME_X						3
- #define EDIT_MODE_EDIT_FLAME_Y						12
- #define EDIT_MODE_EDIT_FLAME_CHAR_X				6
- #define EDIT_MODE_EDIT_FLAME_CHAR_Y 			14
- #define ECHECK_SELECT_FLAME_WIDTH  				WIDTH / 4 + 3
- #define ECHECK_SELECT_FLAME_HEIGHT 				HEIGHT / 4
- #define ECHECK_SELECT_FLAME_X							WIDTH / 4 + 8
- #define ECHECK_SELECT_FLAME_Y      				3 * HEIGHT / 4
- #define ECHECK_TEMPLATE_FLAME_WIDTH  			WIDTH / 4 + 10
- #define ECHECK_TEMPLATE_FLAME_HEIGHT 			HEIGHT / 4
- #define ECHECK_TEMPLATE_FLAME_X      			WIDTH / 4 + 3
- #define ECHECK_TEMPLATE_FLAME_Y      			HEIGHT / 2 + 3
-
- #define SELECT_MODE_FLAME_HEIGHT_OFFSET 	2
- #define SCHECK_SELECT_FLAME_WIDTH  				WIDTH / 4
- #define SCHECK_SELECT_FLAME_HEIGHT 				HEIGHT / 4
- #define SCHECK_SELECT_FLAME_X      				WIDTH / 4 + 8
- #define SCHECK_SELECT_FLAME_Y      				HEIGHT / 2 - 6
- #define SELECT_MODE_EQIP_FLAME_WIDTH			WIDTH / 2 - 6
- #define SELECT_MODE_POTION_FLAME_HEIGHT		3
- #define SELECT_MODE_EQIP_FLAME_HEIGHT			6
- #define SELECT_MODE_EQIP_FLAME_X					3 + WIDTH / 2 + 2
- #define SELECT_MODE_EQIP_FLAME_Y					SELECT_MODE_FLAME_HEIGHT_OFFSET
- #define SELECT_MODE_EQIP_CHARASET_X				SELECT_MODE_EQIP_FLAME_X + SELECT_MODE_EQIP_FLAME_WIDTH - 2
-
- #define CHARACTER_STATUS_ATK_DIFF 				10
- #define CHARACTER_STATUS_HP_DIFF 					20
-
- #define SET_WEAPON_MODE_FLAME_WIDTH 			18
- #define SET_WEAPON_MODE_FLAME_HEIGHT 			7
- #define SET_WEAPON_MODE_FLAME_X 					(WIDTH - SET_WEAPON_MODE_FLAME_WIDTH) / 2
- #define SET_WEAPON_MODE_FLAME_Y 					(HEIGHT - SET_WEAPON_MODE_FLAME_HEIGHT) / 2
- #define SET_WEAPON_EDIT_FLAME_CHAR_X 			5
- #define SET_WEAPON_EDIT_FLAME_CHAR_Y 			13
-
- #define EDIT_EQIP_SELECT_FLAME_X					2
- #define EDIT_EQIP_SELECT_FLAME_Y					2
- #define EDIT_EQIP_SELECT_FLAME_WIDTH			(WIDTH - 2)
- #define EDIT_EQIP_SELECT_FLAME_HEIGHT			(HEIGHT - 2) / 3
- #define EDIT_EQIP_EDIT_FLAME_X						2
- #define EDIT_EQIP_EDIT_FLAME_Y						EDIT_EQIP_SELECT_FLAME_HEIGHT + 1
- #define EDIT_EQIP_EDIT_FLAME_WIDTH				(WIDTH - 2)
- #define EDIT_EQIP_EDIT_FLAME_HEIGHT				2* (HEIGHT - 2) / 3
-
- #define ARIST_ATTACK		35
- //タイトル画面の星の数
- #define STAR_AMOUNT 		50
-
- //キャラクターステータス設定定数
- #define FRONT1_NAME				"Lirel"
- #define FRONT1_HP					110
- #define FRONT1_MINATK			15
- #define FRONT1_MAXATK			20
- #define FRONT2_NAME				"Naoki"
- #define FRONT2_HP_ST2			90
- #define FRONT2_MINATK_ST2	20
- #define FRONT2_MAXATK_ST2	35
- #define FRONT2_HP_ST3			110
- #define FRONT2_MINATK_ST3	30
- #define FRONT2_MAXATK_ST3	45
- #define FRONT2_HP_ST4			130
- #define FRONT2_MINATK_ST4	40
- #define FRONT2_MAXATK_ST4	55
- #define FRONT3_NAME				"Robo1"
- #define FRONT3_HP					2000
- #define FRONT3_MINATK			140
- #define FRONT3_MAXATK			150
- #define FRONT3_SP_DAMAGE	1500
- #define FRONT4_NAME				"Robo2"
- #define FRONT4_HP					5000
- #define FRONT4_MINATK			400
- #define FRONT4_MAXATK			450
- #define BACK_NAME					"Arist"
- #define BACK_HP_ST1				70
- #define BACK_HEAL_ST1 		20
- #define BACK_HP_ST2				90
- #define BACK_HEAL_ST2 		30
- #define BACK_HP_ST3				110
- #define BACK_HEAL_ST3 		40
- #define BACK_HP_ST4				130
- #define BACK_HEAL_ST4 		50
- #define ST1_BOSS_NAME			"St1Bs"
- #define ST1_BOSS_HP				100
- #define ST1_BOSS_MINATK		10
- #define ST1_BOSS_MAXATK		20
- #define ST2_BOSS_NAME			"St2Bs"
- #define ST2_BOSS_HP				150
- #define ST2_BOSS_MINATK		30
- #define ST2_BOSS_MAXATK		40
- #define ST3_BOSS_NAME			"St3Bs"
- #define ST3_BOSS_HP				250
- #define ST3_BOSS_MINATK		50
- #define ST3_BOSS_MAXATK		60
- #define ST4_BOSS_NAME			"St4Bs"
- #define ST4_BOSS_HP				1000
- #define ST4_BOSS_MINATK		100
- #define ST4_BOSS_MAXATK		130
- #define ST5_BOSS_NAME			"St5Bs"
- #define ST5_BOSS_HP				3000
- #define ST5_BOSS_MINATK		300
- #define ST5_BOSS_MAXATK		400
+//定数定義部
+/**
+ * メインフレーム(大枠)関連定数
+ * WIDTH          メインフレームの幅
+ * HEIGHT         メインフレームの高さ
+ * MAIN_FLAME_X   メインフレームの開始位置のX座標
+ * MAIN_FLAME_Y   メインフレームの開始位置のY座標
+ */
+#define WIDTH					60
+#define HEIGHT 				25
+#define MAIN_FLAME_X	1
+#define MAIN_FLAME_Y 	1
 
 /*
-* 矢印の位置を定義するための構造体。リスト表示の際に座標配列として使う
-* int x			x座標
-* int y			y座標
-* int not_active	対象の座標が移動可能かのフラグ(1なら移動不可)
-*/
+ * ステージセレクトフレーム関連定数
+ * SELECT_STAGE_FLAME_WIDTH  フレームの幅
+ * SELECT_STAGE_FLAME_HEIGHT フレームの高さ
+ * SELECT_STAGE_FLAME_X      フレームの開始位置のX座標
+ * SELECT_STAGE_FLAME_Y      フレームの開始位置のY座標
+ */
+#define SELECT_STAGE_FLAME_WIDTH  				25
+#define SELECT_STAGE_FLAME_HEIGHT 				11
+#define SELECT_STAGE_FLAME_X      				(WIDTH  - SELECT_STAGE_FLAME_WIDTH) / 2
+#define SELECT_STAGE_FLAME_Y      				(HEIGHT - SELECT_STAGE_FLAME_HEIGHT) / 2
+
+/**
+ * 戦闘画面でのウィンドウサイズ/配置関連定数
+ * BATTLE_MODE_STATUS_FLAME_WIDTH   下分割フレームの幅
+ * BATTLE_MODE_STATUS_FLAME_HEIGHT  下分割フレームの高さ
+ * BATTLE_MODE_STATUS_FLAME_X       下分割フレームの開始位置のX座標
+ * BATTLE_MODE_STATUS_FLAME_SPLIT_X 下分割フレームの分割位置
+ * BATTLE_MODE_COMMAND_POS          戦闘コマンドブレーム(下左)の1行目のX座標
+ * BATTLE_MODE_STATUS_HP_POS        ステータスフレーム(下右)の1行目のX座標
+ */
+#define BATTLE_MODE_STATUS_FLAME_WIDTH		WIDTH-2
+#define BATTLE_MODE_STATUS_FLAME_HEIGHT		6
+#define BATTLE_MODE_STATUS_FLAME_X				2
+#define BATTLE_MODE_STATUS_FLAME_SPLIT_X 	2*(WIDTH-2)/3-1
+#define BATTLE_MODE_COMMAND_POS 					7
+#define BATTLE_MODE_STATUS_HP_POS 				BATTLE_MODE_STATUS_FLAME_SPLIT_X+5
+
+/*
+ * キャラクターステータス設定モード関連定数
+ * EDIT_MODE_SELECT_FLAME_WIDTH
+ * EDIT_MODE_SELECT_FLAME_HEIGHT
+ * EDIT_MODE_SELECT_FLAME_X
+ * EDIT_MODE_SELECT_FLAME_Y
+ * EDIT_MODE_EDIT_FLAME_CHAR_X
+ * EDIT_MODE_EDIT_FLAME_CHAR_Y
+ */
+#define EDIT_MODE_SELECT_FLAME_WIDTH			WIDTH - 4
+#define EDIT_MODE_SELECT_FLAME_HEIGHT			10
+#define EDIT_MODE_SELECT_FLAME_X					3
+#define EDIT_MODE_SELECT_FLAME_Y					2
+#define EDIT_MODE_EDIT_FLAME_WIDTH				WIDTH - 4
+#define EDIT_MODE_EDIT_FLAME_HEIGHT				HEIGHT - 12
+#define EDIT_MODE_EDIT_FLAME_X						3
+#define EDIT_MODE_EDIT_FLAME_Y						12
+#define EDIT_MODE_EDIT_FLAME_CHAR_X				6
+#define EDIT_MODE_EDIT_FLAME_CHAR_Y 			14
+#define ECHECK_SELECT_FLAME_WIDTH  				WIDTH / 4 + 3
+#define ECHECK_SELECT_FLAME_HEIGHT 				HEIGHT / 4
+#define ECHECK_SELECT_FLAME_X							WIDTH / 4 + 8
+#define ECHECK_SELECT_FLAME_Y      				3 * HEIGHT / 4
+#define ECHECK_TEMPLATE_FLAME_WIDTH  			WIDTH / 4 + 10
+#define ECHECK_TEMPLATE_FLAME_HEIGHT 			HEIGHT / 4
+#define ECHECK_TEMPLATE_FLAME_X      			WIDTH / 4 + 3
+#define ECHECK_TEMPLATE_FLAME_Y      			HEIGHT / 2 + 3
+
+#define SELECT_MODE_FLAME_HEIGHT_OFFSET 	2
+#define SCHECK_SELECT_FLAME_WIDTH  				WIDTH / 4
+#define SCHECK_SELECT_FLAME_HEIGHT 				HEIGHT / 4
+#define SCHECK_SELECT_FLAME_X      				WIDTH / 4 + 8
+#define SCHECK_SELECT_FLAME_Y      				HEIGHT / 2 - 6
+#define SELECT_MODE_EQIP_FLAME_WIDTH			WIDTH / 2 - 6
+#define SELECT_MODE_POTION_FLAME_HEIGHT		3
+#define SELECT_MODE_EQIP_FLAME_HEIGHT			6
+#define SELECT_MODE_EQIP_FLAME_X					3 + WIDTH / 2 + 2
+#define SELECT_MODE_EQIP_FLAME_Y					SELECT_MODE_FLAME_HEIGHT_OFFSET
+#define SELECT_MODE_EQIP_CHARASET_X				SELECT_MODE_EQIP_FLAME_X + SELECT_MODE_EQIP_FLAME_WIDTH - 2
+
+#define CHARACTER_STATUS_ATK_DIFF 				10
+#define CHARACTER_STATUS_HP_DIFF 					20
+
+#define SET_WEAPON_MODE_FLAME_WIDTH 			18
+#define SET_WEAPON_MODE_FLAME_HEIGHT 			7
+#define SET_WEAPON_MODE_FLAME_X 					(WIDTH - SET_WEAPON_MODE_FLAME_WIDTH) / 2
+#define SET_WEAPON_MODE_FLAME_Y 					(HEIGHT - SET_WEAPON_MODE_FLAME_HEIGHT) / 2
+#define SET_WEAPON_EDIT_FLAME_CHAR_X 			5
+#define SET_WEAPON_EDIT_FLAME_CHAR_Y 			13
+
+#define EDIT_EQIP_SELECT_FLAME_X					2
+#define EDIT_EQIP_SELECT_FLAME_Y					2
+#define EDIT_EQIP_SELECT_FLAME_WIDTH			(WIDTH - 2)
+#define EDIT_EQIP_SELECT_FLAME_HEIGHT			(HEIGHT - 2) / 3
+#define EDIT_EQIP_EDIT_FLAME_X						2
+#define EDIT_EQIP_EDIT_FLAME_Y						EDIT_EQIP_SELECT_FLAME_HEIGHT + 1
+#define EDIT_EQIP_EDIT_FLAME_WIDTH				(WIDTH - 2)
+#define EDIT_EQIP_EDIT_FLAME_HEIGHT				2* (HEIGHT - 2) / 3
+
+#define ARIST_ATTACK		35
+//タイトル画面の星の数
+#define STAR_AMOUNT 		50
+
+//キャラクターステータス設定定数
+#define FRONT1_NAME				"Lirel"
+#define FRONT1_HP					110
+#define FRONT1_MINATK			15
+#define FRONT1_MAXATK			20
+#define FRONT2_NAME				"Naoki"
+#define FRONT2_HP_ST2			90
+#define FRONT2_MINATK_ST2	20
+#define FRONT2_MAXATK_ST2	35
+#define FRONT2_HP_ST3			110
+#define FRONT2_MINATK_ST3	30
+#define FRONT2_MAXATK_ST3	45
+#define FRONT2_HP_ST4			130
+#define FRONT2_MINATK_ST4	40
+#define FRONT2_MAXATK_ST4	55
+#define FRONT3_NAME				"Robo1"
+#define FRONT3_HP					2000
+#define FRONT3_MINATK			140
+#define FRONT3_MAXATK			150
+#define FRONT3_SP_DAMAGE	1500
+#define FRONT4_NAME				"Robo2"
+#define FRONT4_HP					5000
+#define FRONT4_MINATK			400
+#define FRONT4_MAXATK			450
+#define BACK_NAME					"Arist"
+#define BACK_HP_ST1				70
+#define BACK_HEAL_ST1 		20
+#define BACK_HP_ST2				90
+#define BACK_HEAL_ST2 		30
+#define BACK_HP_ST3				110
+#define BACK_HEAL_ST3 		40
+#define BACK_HP_ST4				130
+#define BACK_HEAL_ST4 		50
+#define ST1_BOSS_NAME			"St1Bs"
+#define ST1_BOSS_HP				100
+#define ST1_BOSS_MINATK		10
+#define ST1_BOSS_MAXATK		20
+#define ST2_BOSS_NAME			"St2Bs"
+#define ST2_BOSS_HP				150
+#define ST2_BOSS_MINATK		30
+#define ST2_BOSS_MAXATK		40
+#define ST3_BOSS_NAME			"St3Bs"
+#define ST3_BOSS_HP				250
+#define ST3_BOSS_MINATK		50
+#define ST3_BOSS_MAXATK		60
+#define ST4_BOSS_NAME			"St4Bs"
+#define ST4_BOSS_HP				1000
+#define ST4_BOSS_MINATK		100
+#define ST4_BOSS_MAXATK		130
+#define ST5_BOSS_NAME			"St5Bs"
+#define ST5_BOSS_HP				3000
+#define ST5_BOSS_MINATK		300
+#define ST5_BOSS_MAXATK		400
+
+/*
+ * 矢印の位置を定義するための構造体。リスト表示の際に座標配列として使う
+ * int x			x座標
+ * int y			y座標
+ * int not_active	対象の座標が移動可能かのフラグ(1なら移動不可)
+ */
 struct arrow_pos{
 	int x;
 	int y;
@@ -181,8 +181,8 @@ struct arrow_pos{
 };
 
 /**
-* キャラクターの基本ステータス構造体
-*/
+ * キャラクターの基本ステータス構造体
+ */
 struct character{
 	char *name;
 	int hp;
@@ -192,8 +192,8 @@ struct character{
 };
 
 /**
-* 武器の基本ステータス構造体
-*/
+ * 武器の基本ステータス構造体
+ */
 struct weapon{
 	char *name;
 	int atk;
@@ -201,16 +201,16 @@ struct weapon{
 };
 
 /**
-* 防具の基本ステータス構造体
-*/
+ * 防具の基本ステータス構造体
+ */
 struct protector{
 	char *name;
 	int def;
 };
 
 /**
-	*	ストーリー等表示文字列の構造体
-	*/
+ *	ストーリー等表示文字列の構造体
+ */
 struct extendstr{
 	char string[100];
 	int offset;
@@ -258,30 +258,37 @@ struct weapon *arist_using_weapon;
 struct protector *arist_using_protector;
 int potion_amount = 0;
 
-//環境変数の設定
+/**
+ * @enum event
+ * ステージのマップ一覧
+ */
 enum stage {
-	/* ステージのマップ一覧 */
-	 stage1,
-	 stage2,
-	 stage3_1,
-	 stage3_2,
-	 stage3_3,
-	 stage4_1,
-   stage4_2,
-   stage4_3,
-   stage5
+	stage1,
+	stage2,
+	stage3_1,
+	stage3_2,
+	stage3_3,
+	stage4_1,
+	stage4_2,
+	stage4_3,
+	stage5
 };
 
+/**
+ * @enum event
+ * 起こるイベントの一覧
+ */
 enum event {
-	/* 起こるイベントの一覧 */
 	battle_event,
-	talk_event
+	talk_event,
+	move_map
 };
 
 //現在のステージ
 enum stage now_stage = stage1;
 char *(now_map)[23];
 struct arrow_pos *(now_map_coor)[WIDTH - 2][HEIGHT - 2];
+int room_id = 0;
 struct arrow_pos start_pos = {0,15,0,0};
 struct extendstr *now_text[HEIGHT];
 
@@ -307,27 +314,27 @@ struct arrow_pos *(map_coors)[9][WIDTH - 2][HEIGHT - 2];
 #define MULTIBYTE_CHAR_SIZE 2
 
 /**
-  * Windowsにはマイクロ秒でsleepするusleep(int)がないので
-  * time 処理を停止する時間[ms]
-  */
+ * Windowsにはマイクロ秒でsleepするusleep(int)がないので
+ * time 処理を停止する時間[ms]
+ */
 void usleep(int time){
 	Sleep(time/1000);
 }
 
 /**
-  * 左上を(1,1)としてカーソルを指定位置へ移動させる関数
-  * x カーソルのx座標
-  * y カーソルのy座標
-  */
+ * 左上を(1,1)としてカーソルを指定位置へ移動させる関数
+ * x カーソルのx座標
+ * y カーソルのy座標
+ */
 int mvcur(int x, int y){
 	COORD coord;
 	coord.X = x;
 	coord.Y = y;
 
 	SetConsoleCursorPosition(
-		GetStdHandle(STD_OUTPUT_HANDLE),
-		coord
-	);
+			GetStdHandle(STD_OUTPUT_HANDLE),
+			coord
+			);
 }
 
 /*
@@ -358,12 +365,22 @@ struct input_assort mykbhit(){
 }
 
 /**
-  *  Enter入力の待機をする関数
-  */
+ *  なにかの入力の待機をする関数
+ */
 void wait_anyinput(){
 	mvcur(0,HEIGHT + 1);
 	fflush(stdout);
 	while(!mykbhit().kbhit_flag);
+	while(mykbhit().kbhit_flag);
+}
+
+/**
+ *  スペースキーの入力の待機をする関数
+ */
+void wait_input_space(){
+	mvcur(0,HEIGHT + 1);
+	fflush(stdout);
+	while(mykbhit().input_char != ' ');
 	while(mykbhit().kbhit_flag);
 }
 
@@ -394,11 +411,11 @@ void print_line(char string[], int x, int y){
  * y         出力を開始するy座標
  * num_lines 出力する行数
  */
- void print_lines(char *string[], int x, int y, int num_lines){
- 	for(int i = 0; i < num_lines; i++){
- 		print_line(string[i],x,y+i);
- 	}
- 	mvcur(0,HEIGHT + 1);
+void print_lines(char *string[], int x, int y, int num_lines){
+	for(int i = 0; i < num_lines; i++){
+		print_line(string[i],x,y+i);
+	}
+	mvcur(0,HEIGHT + 1);
 }
 
 /**
@@ -418,9 +435,10 @@ void string_march(struct extendstr *(tmp)[],int x,int y,int lines){
 			printf("%s",substring);
 			mvcur(0,HEIGHT + 1);
 			fflush(stdout);
-			usleep(2 * 10000);
+			usleep(1 * 1000);
 		}
 		if(!tmp[i]->not_need_return){
+			//wait_input_space();
 			wait_anyinput();
 		}
 	}
@@ -463,7 +481,7 @@ void coorcpy(struct arrow_pos *(to)[WIDTH - 2][HEIGHT - 2],struct arrow_pos *(fr
  */
 void exstrcpy(struct extendstr *(to)[],struct extendstr from[],int lines){
 	for(int i = 0; i < lines; i++){
-			to[i] = &from[i];
+		to[i] = &from[i];
 	}
 }
 
@@ -475,10 +493,10 @@ void exstrcpy(struct extendstr *(to)[],struct extendstr from[],int lines){
  * min_atk  与ダメージの下限
  * max_atk  与ダメージの上限
  */
-void set_ch_stat(char name[10], struct character *tmpch, int hp, int min_atk, int max_atk){
+void set_ch_stat(char name[10], struct character *tmpch, int hp, int max_hp,int min_atk, int max_atk){
 	tmpch->name = name;
 	tmpch->hp = hp;
-	tmpch->max_hp = hp;
+	tmpch->max_hp = max_hp;
 	tmpch->max_atk = max_atk;
 	tmpch->min_atk = min_atk;
 }
@@ -488,35 +506,35 @@ void set_ch_stat(char name[10], struct character *tmpch, int hp, int min_atk, in
  */
 
 void initmaps(){
-  mapcpy(maps[stage1],map_st1);
+	mapcpy(maps[stage1],map_st1);
 	mapcpy(maps[stage2],map_st2);
-  mapcpy(maps[stage3_1],map_st3_1);
-  mapcpy(maps[stage3_2],map_st3_2);
-  mapcpy(maps[stage3_3],map_st3_3);
-  mapcpy(maps[stage4_1],map_st4_1);
-  mapcpy(maps[stage4_2],map_st4_2);
-  mapcpy(maps[stage4_3],map_st4_3);
-  coor_cnv_adr(map_coors[stage1],st1_pos);
+	mapcpy(maps[stage3_1],map_st3_1);
+	mapcpy(maps[stage3_2],map_st3_2);
+	mapcpy(maps[stage3_3],map_st3_3);
+	mapcpy(maps[stage4_1],map_st4_1);
+	mapcpy(maps[stage4_2],map_st4_2);
+	mapcpy(maps[stage4_3],map_st4_3);
+	coor_cnv_adr(map_coors[stage1],st1_pos);
 	coor_cnv_adr(map_coors[stage2],st2_pos);
-  coor_cnv_adr(map_coors[stage3_1],st3_1_pos);
-  coor_cnv_adr(map_coors[stage3_2],st3_2_pos);
-  coor_cnv_adr(map_coors[stage3_3],st3_3_pos);
-  coor_cnv_adr(map_coors[stage4_1],st4_1_pos);
-  coor_cnv_adr(map_coors[stage4_2],st4_2_pos);
-  coor_cnv_adr(map_coors[stage4_3],st4_3_pos);
-  mapcpy(now_map,maps[now_stage]);
+	coor_cnv_adr(map_coors[stage3_1],st3_1_pos);
+	coor_cnv_adr(map_coors[stage3_2],st3_2_pos);
+	coor_cnv_adr(map_coors[stage3_3],st3_3_pos);
+	coor_cnv_adr(map_coors[stage4_1],st4_1_pos);
+	coor_cnv_adr(map_coors[stage4_2],st4_2_pos);
+	coor_cnv_adr(map_coors[stage4_3],st4_3_pos);
+	mapcpy(now_map,maps[now_stage]);
 	coorcpy(now_map_coor,map_coors[now_stage]);
 }
 
 //各キャラクターのステータス初期化
 void initchara(){
-	set_ch_stat("naoki",&naoki,90,20,35);
-	set_ch_stat("lirel",&lirel,120,15,20);
-	set_ch_stat("arist",&arist,70,0,20);
-	set_ch_stat("Robo1",&robo,2000,140,150);
-	set_ch_stat("boss1",&boss1,100,10,20);
-	set_ch_stat("boss2",&boss2,100,10,20);
-	set_ch_stat("dummy",&dummy,0,0,0);
+	set_ch_stat(FRONT2_NAME,&naoki,FRONT2_HP_ST2,FRONT2_HP_ST2,FRONT2_MINATK_ST2,FRONT2_MAXATK_ST2);
+	set_ch_stat(FRONT1_NAME,&lirel,FRONT1_HP,FRONT1_HP,FRONT1_MINATK,FRONT1_MAXATK);
+	set_ch_stat(BACK_NAME,&arist,BACK_HP_ST1,BACK_HP_ST1,0,BACK_HEAL_ST1);
+	set_ch_stat(FRONT3_NAME,&robo,FRONT3_HP,FRONT3_HP,FRONT3_MINATK,FRONT3_MAXATK);
+	set_ch_stat("boss1",&boss1,100,100,10,20);
+	set_ch_stat("boss2",&boss2,100,100,10,20);
+	set_ch_stat("dummy",&dummy,0,0,0,0);
 	//装備を素手に初期化
 	using_weapon = &all_weapons[0];
 	using_protector = &all_protectors[0];
@@ -639,7 +657,7 @@ void flame_clean(){
 		}
 		//usleep(2 * 10000);
 	}
-		fflush(stdout);
+	fflush(stdout);
 }
 
 /**
@@ -675,10 +693,10 @@ void set_protector_stat(struct protector *tmppr, int def){
 }
 
 /**
-  * キャラクターのHPを変動させる関数
-  * tmpch    hpが変動するキャラクター構造体のアドレス
-  * damage   ダメージ量 正なら減算/負なら加算される ex.damageが-20 → 20回復
-  */
+ * キャラクターのHPを変動させる関数
+ * tmpch    hpが変動するキャラクター構造体のアドレス
+ * damage   ダメージ量 正なら減算/負なら加算される ex.damageが-20 → 20回復
+ */
 void change_hp(struct character *tmpch, int damage){
 	tmpch->hp -= damage;
 	if(tmpch->hp < 0){
@@ -689,11 +707,28 @@ void change_hp(struct character *tmpch, int damage){
 }
 
 /**
-  * リストを表示した際にカーソルの縦移動と決定した項目を管理する関数
-  * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
-  * length      リスト項目の数
-  * 戻り値 length/Enterが押されたときの項目のラベル(何個目のメニューだったか)
-  */
+ * @fn
+ * ポーションの取得
+ * @brief ポーションの取得を実行し得られたかを返す
+ * @return ポーションが得られたか
+ * @detail ポーションの所持数を確認し、3未満ならポーションを取得して1を返す。所持数が3を超えていたら0を返す
+ */
+int get_potion(){
+	if(potion_amount < 3){
+		potion_amount++;
+		return 1;
+	}else{
+		return 0;
+	}
+}
+
+
+/**
+ * リストを表示した際にカーソルの縦移動と決定した項目を管理する関数
+ * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
+ * length      リスト項目の数
+ * 戻り値 length/Enterが押されたときの項目のラベル(何個目のメニューだったか)
+ */
 int select_from_list(struct arrow_pos tmp_pos[10], int length){
 	int arrow_pos_label = 0;
 	struct input_assort tmp_input_list;
@@ -733,11 +768,11 @@ int select_from_list(struct arrow_pos tmp_pos[10], int length){
 }
 
 /**
-  * リストを表示した際にカーソルの横移動と決定した項目を管理する関数
-  * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
-  * length      リスト項目の数
-  * 戻り値 length/Enterが押されたときの項目のラベル(何個目のメニューだったか)
-  */
+ * リストを表示した際にカーソルの横移動と決定した項目を管理する関数
+ * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
+ * length      リスト項目の数
+ * 戻り値 length/Enterが押されたときの項目のラベル(何個目のメニューだったか)
+ */
 int select_from_hlist(struct arrow_pos tmp_pos[10], int length){
 	int arrow_pos_label = 0;
 	struct input_assort tmp_input_list;
@@ -856,76 +891,76 @@ int select_from_2dlist(int width, int height,struct arrow_pos tmp_pos[width][hei
  * 戻り値
  * int tmp_pos			ループを抜けた際の座標
  */
- struct arrow_pos move_on_map(int width, int height,struct arrow_pos *(tmp_pos)[WIDTH -2 ][HEIGHT - 2], struct arrow_pos offset){
- 	struct arrow_pos arrow_pos_label = offset;
-  struct arrow_pos return_value;
- 	struct input_assort tmp_input_list;
- 	print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
- 	while(1){
- 		while(!(tmp_input_list = mykbhit()).kbhit_flag);
- 		switch(tmp_input_list.input_char){
- 			case 'w':
- 				//do{
-        print_line(" ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
- 					if(arrow_pos_label.y <= 0 || tmp_pos[arrow_pos_label.x][arrow_pos_label.y - 1]->not_active){
- 						//arrow_pos_label.y = height - 1;
- 					}else{
- 						arrow_pos_label.y--;
- 					}
- 				//}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->not_active);
- 				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
- 				break;
+struct arrow_pos move_on_map(int width, int height,struct arrow_pos *(tmp_pos)[WIDTH -2 ][HEIGHT - 2], struct arrow_pos offset){
+	struct arrow_pos arrow_pos_label = offset;
+	struct arrow_pos return_value;
+	struct input_assort tmp_input_list;
+	print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+	while(1){
+		while(!(tmp_input_list = mykbhit()).kbhit_flag);
+		switch(tmp_input_list.input_char){
+			case 'w':
+				//do{
+				print_line(" ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				if(arrow_pos_label.y <= 0 || tmp_pos[arrow_pos_label.x][arrow_pos_label.y - 1]->not_active){
+					//arrow_pos_label.y = height - 1;
+				}else{
+					arrow_pos_label.y--;
+				}
+				//}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->not_active);
+				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				break;
 
- 			case 's':
- 				//do{
-        print_line(" ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
- 					if(arrow_pos_label.y > height - 2 || tmp_pos[arrow_pos_label.x][arrow_pos_label.y + 1]->not_active){
- 						//arrow_pos_label.y= 0;
- 					}else{
- 						arrow_pos_label.y++;
- 					}
- 				//}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->not_active);
- 				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
- 				break;
+			case 's':
+				//do{
+				print_line(" ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				if(arrow_pos_label.y > height - 2 || tmp_pos[arrow_pos_label.x][arrow_pos_label.y + 1]->not_active){
+					//arrow_pos_label.y= 0;
+				}else{
+					arrow_pos_label.y++;
+				}
+				//}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->not_active);
+				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				break;
 
- 			case 'a':
- 				//do{
-        print_line(" ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
- 					if(arrow_pos_label.x <= 0 || tmp_pos[arrow_pos_label.x - 1][arrow_pos_label.y]->not_active){
- 						//arrow_pos_label.x = width - 1;
- 					}else{
- 						arrow_pos_label.x--;
- 					}
- 				//}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->not_active);
-        print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
- 				break;
+			case 'a':
+				//do{
+				print_line(" ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				if(arrow_pos_label.x <= 0 || tmp_pos[arrow_pos_label.x - 1][arrow_pos_label.y]->not_active){
+					//arrow_pos_label.x = width - 1;
+				}else{
+					arrow_pos_label.x--;
+				}
+				//}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->not_active);
+				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				break;
 
- 			case 'd':
- 				//do{
-        print_line(" ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
- 					if(arrow_pos_label.x > width - 2 || tmp_pos[arrow_pos_label.x + 1][arrow_pos_label.y]->not_active){
- 						//arrow_pos_label.x= 0;
- 					}else{
- 						arrow_pos_label.x++;
- 					}
- 				//}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->not_active);
-        print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
- 				break;
- 			case ENTERKEY:
- 				break;
+			case 'd':
+				//do{
+				print_line(" ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				if(arrow_pos_label.x > width - 2 || tmp_pos[arrow_pos_label.x + 1][arrow_pos_label.y]->not_active){
+					//arrow_pos_label.x= 0;
+				}else{
+					arrow_pos_label.x++;
+				}
+				//}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->not_active);
+				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				break;
+			case ENTERKEY:
+				break;
 
- 			default:
- 				//print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
- 				continue;
- 				//break;
- 		}
-    printf("%2d,%2d",arrow_pos_label.x,arrow_pos_label.y);
-    if(tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->at_event){
-      break;
-    }
- 	}
- 	return *tmp_pos[arrow_pos_label.x][arrow_pos_label.y];
- }
+			default:
+				//print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				continue;
+				//break;
+		}
+		printf("%2d,%2d",arrow_pos_label.x,arrow_pos_label.y);
+		if(tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->at_event){
+			break;
+		}
+	}
+	return *tmp_pos[arrow_pos_label.x][arrow_pos_label.y];
+}
 
 
 
@@ -933,7 +968,7 @@ int check_window(int width, int height, int x, int y, char *string){
 	struct arrow_pos yesno_pos[2] = {
 		{x + width / 2 + 2,y+3},
 		{x + width / 2 - 3,y+3}
-		};
+	};
 	make_flame(width,height,x,y);
 	mvcur(x+2,y+1);
 	printf("%s",string);
@@ -942,8 +977,8 @@ int check_window(int width, int height, int x, int y, char *string){
 }
 
 /**
-  *  タイトルロゴの出方が微妙に違うのでヘッダで定義
-  */
+ *  タイトルロゴの出方が微妙に違うのでヘッダで定義
+ */
 //タイトルロゴ宣言
 char *(title)[9] = {
 	"┌┬┐┬ ┬┌─┐                       ",
@@ -970,16 +1005,16 @@ char *(title_space)[9] = {
 };
 
 /**
-  *  操作説明の出方が違うのでヘッダで定義
-  */
+ *  操作説明の出方が違うのでヘッダで定義
+ */
 char control_explain[][100] = {
 	"  w            ↑   ",
 	"a s d   as  ← ↓ →"
 };
 
 /**
-	*	タイトル画面の星のアニメーションが書かれた関数
-	*/
+ *	タイトル画面の星のアニメーションが書かれた関数
+ */
 void stars(int x[],int y[],int amount){
 	//for(int i = 0; i < 10; i++){
 	for(int j = 0;j < amount; j++){
@@ -995,8 +1030,8 @@ void stars(int x[],int y[],int amount){
 }
 
 /**
-	*	タイトル画面を表示する関数
-	*/
+ *	タイトル画面を表示する関数
+ */
 void maintitle(){
 	/**
 	 * ここからロゴのスクロール開始
@@ -1027,7 +1062,7 @@ void maintitle(){
 
 	print_lines(title_space,15,4,9);
 	print_lines(title,15,5,9);
-	print_line("for PaperTest Ver",(WIDTH - 17)/2,14);
+	print_line("Beta Ver",(WIDTH - 8)/2,14);
 	print_line("Press Enter",25,HEIGHT - 4);
 	fflush(stdout);
 	/* ここまでロゴスクロール部分
@@ -1159,13 +1194,20 @@ int battle(struct character *front,struct character *back,struct character *enem
 	while(!finish_flag){
 		mvcur(BATTLE_MODE_STATUS_FLAME_X + 2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT - 1);
 		printf("Turn %2d",turn_count);
+
+		/*プレイヤーの行動 ここから*/
 		if(player_can_act){
-			print_bt_commands();
-			int command = select_from_list(battle_menu_arrow,4);
-			//コマンド部分フレームクリーン
-			sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+			print_bt_commands();																			//プレイヤーのコマンドを表示する
+			int command = select_from_list(battle_menu_arrow,4);			//コマンド入力を受け付ける	
+			sub_flame_clean(																					//コマンド部分フレームクリーン	
+					BATTLE_MODE_STATUS_FLAME_SPLIT_X,
+					BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,
+					BATTLE_MODE_STATUS_FLAME_X + 1,
+					HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1
+					);
 			switch(command){
-				case 0:
+				case 0:																																		//attack(攻撃)だった時
+					/*敵の一覧表示 ここから*/
 					for(int i = 0; i <= enemy_amount; i++){
 						mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1 + i);
 						if(i < enemy_amount){
@@ -1175,8 +1217,14 @@ int battle(struct character *front,struct character *back,struct character *enem
 						}
 					}
 					fflush(stdout);
+					/*敵の一覧表示 ここまで*/
 					target_label = select_from_list(battle_menu_arrow,enemy_amount + 1);
-					sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+					sub_flame_clean(																												//コマンド部分フレームクリーン
+							BATTLE_MODE_STATUS_FLAME_SPLIT_X,
+							BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,
+							BATTLE_MODE_STATUS_FLAME_X + 1,
+							HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1
+							);
 					if(target_label == enemy_amount){
 						continue;
 					}
@@ -1341,7 +1389,8 @@ int battle(struct character *front,struct character *back,struct character *enem
 					break;
 			}
 			sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-			//プレイヤーの行動終わり
+			/*プレイヤーの行動 ここから*/
+
 			print_health_bar(for_bar,enemy_amount_for_bar);
 
 			//勝利判定
@@ -1352,8 +1401,9 @@ int battle(struct character *front,struct character *back,struct character *enem
 			if(enemies_dead_check <= 0){
 				print_line("Win!▼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 				finish_flag = 1;
-				return 1;
 				wait_anyinput();
+				//flame_flush();
+				return 1;
 				continue;
 			}
 			//判定終わり
@@ -1416,9 +1466,9 @@ int battle(struct character *front,struct character *back,struct character *enem
 		}
 		if(enemies_dead_check <= 0){
 			print_line("Win!▼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+			wait_anyinput();
 			finish_flag = 1;
 			return 1;
-			wait_anyinput();
 			continue;
 		}
 		//判定終わり
@@ -1503,122 +1553,6 @@ int battle(struct character *front,struct character *back,struct character *enem
 		turn_count++;
 	}
 	return 0;
-}
-
-enum event decide_event(struct arrow_pos exit_point){
-	//printf("%2d:%2d",exit_point.x,exit_point.y);
-	enum event selected_event;
-	switch(now_stage){
-		case stage1:
-      if(exit_point.x == 31 && exit_point.y == 7){
-        selected_event = battle_event;
-				front = &lirel;
-				set_ch_stat(BACK_NAME,&arist,BACK_HP_ST2,0,BACK_HEAL_ST2);
-				back = &arist;
-				set_ch_stat("St1bs",&boss1,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
-				enemies[0] = &boss1;
-				enemies[1] = &dummy;
-				enemy_amount = 1;
-      }
-			break;
-		case stage2:
-			if(exit_point.x == 28 && exit_point.y == 9){
-        selected_event = talk_event;
-        /*
-				selected_event = battle_event;
-				front = &naoki;
-				set_ch_stat(BACK_NAME,&arist,BACK_HP_ST2,0,BACK_HEAL_ST2);
-				back = &arist;
-				set_ch_stat("St2bs",&boss1,ST2_BOSS_HP,ST2_BOSS_MINATK,ST2_BOSS_MAXATK);
-				enemies[0] = &boss1;
-				enemies[1] = &dummy;
-				enemy_amount = 1;
-        */
-        now_stage = stage3_1;
-      	mapcpy(now_map,maps[now_stage]);
-      	coorcpy(now_map_coor,map_coors[now_stage]);
-        start_pos.x = (WIDTH - 2)/2 - 3;
-        start_pos.y = (HEIGHT - 2)-1;
-			}else{
-        selected_event = talk_event;
-			}
-			break;
-		case stage3_1:
-      if(exit_point.x == 58 && exit_point.y == 18){
-        now_stage = stage3_2;
-        mapcpy(now_map,maps[now_stage]);
-        coorcpy(now_map_coor,map_coors[now_stage]);
-        start_pos.x= 1;
-        start_pos.y = 17 -  2;
-      }else if(exit_point.x == 2 && exit_point.y == 18){
-        now_stage = stage3_3;
-        mapcpy(now_map,maps[now_stage]);
-        coorcpy(now_map_coor,map_coors[now_stage]);
-        start_pos.x= 57 - 2;
-        start_pos.y = 17 -  2;
-      }else if(exit_point.x == 28 && exit_point.y == 9){
-        now_stage = stage4_1;
-        mapcpy(now_map,maps[now_stage]);
-        coorcpy(now_map_coor,map_coors[now_stage]);
-        start_pos.x= 27 - 2;
-        start_pos.y = 17 -  2;
-      }
-			break;
-		case stage3_2:
-      if(exit_point.x == 3 && exit_point.y == 17){
-        now_stage = stage3_1;
-        mapcpy(now_map,maps[now_stage]);
-        coorcpy(now_map_coor,map_coors[now_stage]);
-        start_pos.x = 57 - 2;
-        start_pos.y = 18 - 2;
-      }
-			break;
-		case stage3_3:
-      if(exit_point.x == 55 && exit_point.y == 17){
-        now_stage = stage3_1;
-        mapcpy(now_map,maps[now_stage]);
-        coorcpy(now_map_coor,map_coors[now_stage]);
-        start_pos.x = 1;
-        start_pos.y = 18 - 2;
-      }
-			break;
-		case stage4_1:
-    if(exit_point.x == 55 && (exit_point.y == 13 || exit_point.y == 14)){
-      now_stage = stage4_2;
-      mapcpy(now_map,maps[now_stage]);
-      coorcpy(now_map_coor,map_coors[now_stage]);
-      start_pos.x = 4 - 2;
-      start_pos.y = 13 - 2;
-    }
-			break;
-      case stage4_2:
-      if(exit_point.x == 55 && (exit_point.y == 14 || exit_point.y == 15)){
-        now_stage = stage4_3;
-        mapcpy(now_map,maps[now_stage]);
-        coorcpy(now_map_coor,map_coors[now_stage]);
-        start_pos.x = 2;
-        start_pos.y = 14 - 2;
-      }else if(exit_point.x == 3 && (exit_point.y == 14 || exit_point.y == 13)){
-        now_stage = stage4_1;
-        mapcpy(now_map,maps[now_stage]);
-        coorcpy(now_map_coor,map_coors[now_stage]);
-        start_pos.x = 54 - 2;
-        start_pos.y = 14 - 2;
-      }
-  			break;
-      case stage4_3:
-      if(exit_point.x == 2 && (exit_point.y == 14 || exit_point.y == 15)){
-        now_stage = stage4_2;
-        mapcpy(now_map,maps[now_stage]);
-        coorcpy(now_map_coor,map_coors[now_stage]);
-        start_pos.x = 54 - 2;
-        start_pos.y = 14 - 2;
-      }
-        break;
-		default:
-			break;
-	}
-	return selected_event;
 }
 
 void gameover_lose(){
