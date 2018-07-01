@@ -375,12 +375,28 @@ void wait_anyinput(){
 }
 
 /**
- *  スペースキーの入力の待機をする関数
+ *  方向キー以外の入力の待機をする関数
  */
-void wait_input_space(){
+void wait_input_without_arrow(){
+	int flag = 1;
+	struct input_assort tmp;
 	mvcur(0,HEIGHT + 1);
 	fflush(stdout);
-	while(mykbhit().input_char != ' ');
+	while(flag){
+		tmp = mykbhit();
+		switch(tmp.input_char){
+			case 'a':
+			case 's':
+			case 'w':
+			case 'd':
+				break;
+			default:
+				if(tmp.kbhit_flag){
+					flag = 0;
+				}
+				break;
+		}
+	}
 	while(mykbhit().kbhit_flag);
 }
 
@@ -438,8 +454,8 @@ void string_march(struct extendstr *(tmp)[],int x,int y,int lines){
 			usleep(1 * 1000);
 		}
 		if(!tmp[i]->not_need_return){
-			//wait_input_space();
-			wait_anyinput();
+			wait_input_without_arrow();
+			//wait_anyinput();
 		}
 	}
 }
@@ -954,7 +970,8 @@ struct arrow_pos move_on_map(int width, int height,struct arrow_pos *(tmp_pos)[W
 				continue;
 				//break;
 		}
-		printf("%2d,%2d",arrow_pos_label.x,arrow_pos_label.y);
+		//デバッグ用座標表示
+		//printf("%2d,%2d",arrow_pos_label.x,arrow_pos_label.y);
 		if(tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->at_event){
 			break;
 		}
@@ -1004,6 +1021,11 @@ char *(title_space)[9] = {
 	"                                "
 };
 
+char *(gameover)[] = {
+	"┌─┐┌─┐┌┬┐┌─┐  ┌─┐┬  ┬┌─┐┬─┐",
+	"│ ┬├─┤│││├┤   │ │└┐┌┘├┤ ├┬┘",
+	"└─┘┴ ┴┴ ┴└─┘  └─┘ └┘ └─┘┴└─",
+};
 /**
  *  操作説明の出方が違うのでヘッダで定義
  */
@@ -1560,5 +1582,5 @@ void gameover_lose(){
 }
 
 void gameover_win(){
-
+	print_lines(gameover,(WIDTH - 27) / 2,(HEIGHT - 3) / 2,3);
 }

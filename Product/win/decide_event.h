@@ -38,13 +38,19 @@ enum event decide_event(struct arrow_pos exit_point){
 			}else if(exit_point.x == 15 && exit_point.y == 15){
 				/* 左の部屋 */
 				room_id = 1;
-				selected_event = battle_event;
-				front = &naoki;
-				back = &arist;
-				set_ch_stat("Weak",&boss1,ST1_BOSS_HP,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
-				enemies[0] = &boss1;
-				enemies[1] = &dummy;
-				enemy_amount = 1;
+				if(!talk_event_st2_1_arrived){
+					room_id = 1;
+					selected_event = battle_event;
+					front = &naoki;
+					back = &arist;
+					set_ch_stat("Weak",&boss1,ST1_BOSS_HP,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
+					enemies[0] = &boss1;
+					enemies[1] = &dummy;
+					enemy_amount = 1;
+					talk_event_st2_1_arrived = 1;
+				}else{
+					selected_event = talk_event;
+				}
 			}else if(exit_point.x == 41 && exit_point.y == 15){
 				/* 右の部屋 */
 				room_id = 0;
@@ -169,7 +175,28 @@ enum event decide_event(struct arrow_pos exit_point){
 				mapcpy(now_map,maps[now_stage]);
 				coorcpy(now_map_coor,map_coors[now_stage]);
 				start_pos.x = 4 - 2;
-				start_pos.y = 13 - 2;
+				start_pos.y = 14 - 2;
+			}else if((exit_point.x == 14 || exit_point.x == 15) && exit_point.y == 11){
+				/* 左下の家 */
+				selected_event = talk_event;
+				room_id = 0;
+				/* マップ復帰時の座標を指定 */
+				start_pos.x = exit_point.x - 2;;
+				start_pos.y = 12 - 2;
+			}else if(exit_point.x == 40 && exit_point.y == 6){
+				/* 上の家 */
+				room_id = 1;
+				selected_event = talk_event;
+				/* マップ復帰時の座標を指定 */
+				start_pos.x= 40 - 1 - 2;
+				start_pos.y = 6 - 2;
+			}else if(exit_point.x == 38 && exit_point.y == 11){
+				/* 右下の家 */
+				room_id = 2;
+				selected_event = talk_event;
+				/* マップ復帰時の座標を指定 */
+				start_pos.x= exit_point.x - 2;
+				start_pos.y = 11 + 1 - 2;
 			}
 			break;
 		case stage4_2: //中央マップ
@@ -189,10 +216,28 @@ enum event decide_event(struct arrow_pos exit_point){
 				coorcpy(now_map_coor,map_coors[now_stage]);
 				start_pos.x = 54 - 2;
 				start_pos.y = 14 - 2;
+			}else if(exit_point.x == 20 && exit_point.y == 6){
+				/* 上の家 */
+				room_id = 3;
+				selected_event = talk_event;
+				/* マップ復帰時の座標を指定 */
+				start_pos.x= 20 - 1 - 2;
+				start_pos.y = 6 - 2;
+			}else if((exit_point.x == 36 || exit_point.x == 37 || exit_point.x == 38) && exit_point.y == 12){
+				/* ボス到達 */
+				room_id = 4;
+				selected_event = battle_event;
+				/* キャラクターセット */
+				front = &robo;
+				back = &dummy;
+				set_ch_stat(ST4_BOSS_NAME,&boss1,ST4_BOSS_HP,ST4_BOSS_HP,ST4_BOSS_MINATK,ST4_BOSS_MAXATK);
+				enemies[0] = &boss1;
+				enemies[1] = &dummy;
+				enemy_amount = 1;
 			}
 			break;
 		case stage4_3://右マップ
-				/* 中央マップへの移動 */
+			/* 中央マップへの移動 */
 			if(exit_point.x == 2 && (exit_point.y == 14 || exit_point.y == 15)){
 				selected_event = move_map;
 				now_stage = stage4_2;
@@ -200,6 +245,32 @@ enum event decide_event(struct arrow_pos exit_point){
 				coorcpy(now_map_coor,map_coors[now_stage]);
 				start_pos.x = 54 - 2;
 				start_pos.y = 14 - 2;
+			}else if((exit_point.x == 14 || exit_point.x == 15) && exit_point.y == 11){
+				/* 左の家 */
+				room_id = 5;
+				if(!battle_event_st4_5_arrived){ //始めての訪問の時
+					selected_event = battle_event;
+					/* キャラクターセット */
+					front = &naoki;
+					back = &arist;
+					set_ch_stat("Weak 1",&boss1,ST1_BOSS_HP,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
+					set_ch_stat("Weak 2",&boss2,ST1_BOSS_HP,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
+					enemies[0] = &boss1;
+					enemies[1] = &boss2;
+					enemy_amount = 2;
+					battle_event_st4_5_arrived = 1;
+				}else{ //2回め以降の時
+					selected_event = talk_event;
+				}
+				start_pos.x = exit_point.x - 2;
+				start_pos.y = 12 - 2;
+			}else if(exit_point.x == 40 && exit_point.y == 6){
+				/* 上の家 */
+				room_id = 6;
+				selected_event = talk_event;
+				/* マップ復帰時の座標を指定 */
+				start_pos.x=  40 - 1 - 2;
+				start_pos.y = 6 - 2;
 			}
 			break;
 		default:
@@ -207,4 +278,3 @@ enum event decide_event(struct arrow_pos exit_point){
 	}
 	return selected_event;
 }
-

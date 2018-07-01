@@ -95,8 +95,26 @@ int talk_event_st2_0(){
 		flame_clean();
 		exstrcpy(now_text,talk_st2_0_2,sizeof(talk_st2_0_2)/sizeof(struct extendstr));
 		string_march(now_text,2,2,sizeof(talk_st2_0_2)/sizeof(struct extendstr));
+		talk_event_st2_0_arrived = 1;
 	}else{
+		struct extendstr error_text[] = {
+			{"ここにはなにもない▼  ",0,0},
+		};
+		exstrcpy(now_text,error_text,1);
+		make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
+		string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,sizeof(error_text)/sizeof(struct extendstr));
 	}
+}
+
+int talk_event_st2_1_arrived = 0;
+int talk_event_st2_1(){
+	flame_flush();
+	struct extendstr error_text[] = {
+		{"ここにはなにもない▼  ",0,0},
+	};
+	exstrcpy(now_text,error_text,1);
+	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
+	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,sizeof(error_text)/sizeof(struct extendstr));
 }
 
 /* ステージ2 ボス戦後 */
@@ -255,4 +273,131 @@ void after_battle_st3(){
 	flame_clean();
 }
 
+/* ステージ3 右マップ左下の部屋 */
+int talk_event_st4_0_arrived = 0;
+int talk_event_st4_0(){
+	flame_flush();
+	if(!talk_event_st4_0_arrived){ //初めて来たときかどうか
+		exstrcpy(now_text,talk_st4_0,sizeof(talk_st4_0)/sizeof(struct extendstr));
+		string_march(now_text,2,2,sizeof(talk_st4_0)/sizeof(struct extendstr));
+		if(instory_yesno(2 + sizeof(talk_st4_0)/sizeof(struct extendstr) + 1)){
+			using_weapon = &all_weapons[1];
+			exstrcpy(now_text,talk_st4_0_2,sizeof(talk_st4_0_2)/sizeof(struct extendstr));
+			string_march(now_text,2,2 + sizeof(talk_st4_0)/sizeof(struct extendstr) + 3,sizeof(talk_st4_0_2)/sizeof(struct extendstr));
+		}else{
+			exstrcpy(now_text,talk_st4_0_3,sizeof(talk_st4_0_3)/sizeof(struct extendstr));
+			string_march(now_text,2,2 + sizeof(talk_st4_0)/sizeof(struct extendstr) + 3,sizeof(talk_st4_0_3)/sizeof(struct extendstr));
+		}
+		talk_event_st4_0_arrived = 1;
+	}else if(using_weapon != &all_weapons[1]){ //初めてではなく、装備が銃ではない時
+		exstrcpy(now_text,talk_st4_0_1,sizeof(talk_st4_0_1)/sizeof(struct extendstr));
+		string_march(now_text,2,2,sizeof(talk_st4_0_1)/sizeof(struct extendstr));
+		if(instory_yesno(2 + sizeof(talk_st4_0_1)/sizeof(struct extendstr) + 1)){
+			using_weapon = &all_weapons[1];
+			exstrcpy(now_text,talk_st4_0_2,sizeof(talk_st4_0_2)/sizeof(struct extendstr));
+			string_march(now_text,2,2 + sizeof(talk_st4_0)/sizeof(struct extendstr) + 3,sizeof(talk_st4_0_2)/sizeof(struct extendstr));
+		}else{
+			exstrcpy(now_text,talk_st4_0_3,sizeof(talk_st4_0_3)/sizeof(struct extendstr));
+			string_march(now_text,2,2 + sizeof(talk_st4_0)/sizeof(struct extendstr) + 3,sizeof(talk_st4_0_3)/sizeof(struct extendstr));
+		}
+	}else{
+		make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
+		exstrcpy(now_text, talk_st4_0_2,1);
+		string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,sizeof(talk_st4_0_2)/sizeof(struct extendstr));
+	}
+}
+
+/* ステージ4 右マップ下の部屋 */
+int talk_event_st4_1_arrived = 0;
+int talk_event_st4_1(){
+	flame_flush();
+	if(!talk_event_st4_1_arrived){ //初めて来たときかどうか
+		exstrcpy(now_text,talk_st4_1,sizeof(talk_st4_1)/sizeof(struct extendstr));
+		string_march(now_text,2,2,sizeof(talk_st4_1)/sizeof(struct extendstr));
+		if(instory_yesno(2 + sizeof(talk_st4_1)/sizeof(struct extendstr) + 1)){
+			using_weapon = &all_weapons[1];
+			exstrcpy(now_text,talk_st4_1_2,sizeof(talk_st4_1_2)/sizeof(struct extendstr));
+			string_march(now_text,2,2 + sizeof(talk_st4_1)/sizeof(struct extendstr) + 3,sizeof(talk_st4_1_2)/sizeof(struct extendstr));
+		}else{
+			exstrcpy(now_text,talk_st4_1_3,sizeof(talk_st4_1_3)/sizeof(struct extendstr));
+			string_march(now_text,2,2 + sizeof(talk_st4_1)/sizeof(struct extendstr) + 3,sizeof(talk_st4_1_3)/sizeof(struct extendstr));
+		}
+		talk_event_st4_1_arrived = 1;
+	}else if(using_weapon != &all_weapons[1]){ //初めてではなく、装備が銃ではない時
+		exstrcpy(now_text,talk_st4_1_1,sizeof(talk_st4_1_1)/sizeof(struct extendstr));
+		string_march(now_text,2,2,sizeof(talk_st4_1_1)/sizeof(struct extendstr));
+		if(instory_yesno(2 + sizeof(talk_st4_1_1)/sizeof(struct extendstr) + 1)){
+			using_weapon = &all_weapons[1];
+			exstrcpy(now_text,talk_st4_1_2,sizeof(talk_st4_1_2)/sizeof(struct extendstr));
+			string_march(now_text,2,2 + sizeof(talk_st4_1)/sizeof(struct extendstr) + 3,sizeof(talk_st4_1_2)/sizeof(struct extendstr));
+		}else{
+			exstrcpy(now_text,talk_st4_1_3,sizeof(talk_st4_1_3)/sizeof(struct extendstr));
+			string_march(now_text,2,2 + sizeof(talk_st4_1)/sizeof(struct extendstr) + 3,sizeof(talk_st4_1_3)/sizeof(struct extendstr));
+		}
+	}else{
+		make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
+		exstrcpy(now_text, talk_st4_1_2,1);
+		string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,sizeof(talk_st4_1_2)/sizeof(struct extendstr));
+	}
+}
+
+
+/* ステージ4 左マップ右の部屋 */
+int talk_event_st4_2_arrived = 0;
+void talk_event_st4_2(){
+	if(talk_event_st4_2_arrived){
+		talk_event_st1_1();
+	}else{
+		flame_flush();
+		naoki_find_potion();
+		talk_event_st4_2_arrived = 1;
+	}
+}
+
+/* ステージ4 中央マップ左の部屋 */
+int battle_event_st4_3_arrived = 0;
+int talk_event_st4_3(){
+	flame_flush();
+	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
+	exstrcpy(now_text,talk_st4_3,sizeof(talk_st4_3)/sizeof(struct extendstr));
+	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,sizeof(talk_st4_3)/sizeof(struct extendstr));
+}
+
+/* ステージ4 右マップ左の部屋 */
+int battle_event_st4_5_arrived = 0;
+int talk_event_st4_5(){
+	flame_flush();
+	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
+	exstrcpy(now_text,talk_st4_5,sizeof(talk_st4_5)/sizeof(struct extendstr));
+	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,sizeof(talk_st4_5)/sizeof(struct extendstr));
+}
+
+/* ステージ2 右の部屋 */
+int talk_event_st4_6(){
+	flame_flush();
+	exstrcpy(now_text,talk_st4_6,sizeof(talk_st4_6)/sizeof(struct extendstr));
+	string_march(now_text,2,2,sizeof(talk_st4_6)/sizeof(struct extendstr));
+}
+
+/* ステージ4 ボス戦後 */
+void after_battle_st4(){
+	flame_flush();
+	exstrcpy(now_text,afterbattle_stage4_1, sizeof(afterbattle_stage4_1)/sizeof(struct extendstr));
+	string_march(now_text,2,2,sizeof(afterbattle_stage4_1)/sizeof(struct extendstr));
+	flame_clean();
+	exstrcpy(now_text,afterbattle_stage4_2, sizeof(afterbattle_stage4_2)/sizeof(struct extendstr));
+	string_march(now_text,2,2,sizeof(afterbattle_stage4_2)/sizeof(struct extendstr));
+	flame_clean();
+	exstrcpy(now_text,afterbattle_stage4_3, sizeof(afterbattle_stage4_3)/sizeof(struct extendstr));
+	string_march(now_text,2,2,sizeof(afterbattle_stage4_3)/sizeof(struct extendstr));
+	flame_clean();
+}
+
+/* ステージ5 ボス戦後 */
+void after_battle_st5(){
+	flame_flush();
+	exstrcpy(now_text,afterbattle_stage5, sizeof(afterbattle_stage5)/sizeof(struct extendstr));
+	string_march(now_text,2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,sizeof(afterbattle_stage5)/sizeof(struct extendstr));
+	flame_clean();
+}
 
