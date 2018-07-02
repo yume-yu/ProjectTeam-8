@@ -180,6 +180,10 @@ int main(){
 								case 1:
 									talk_event_st1_1();//真ん中の部屋
 									break;
+								case 2:
+									noentry_st1();
+									continue;
+									break;
 							}
 							break;
 						case stage2:

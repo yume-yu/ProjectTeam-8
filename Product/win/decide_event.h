@@ -11,18 +11,36 @@ enum event decide_event(struct arrow_pos exit_point){
 				enemies[0] = &boss1;
 				enemies[1] = &dummy;
 				enemy_amount = 1;
+				/* マップ復帰時の座標を指定 */
+				start_pos.x = exit_point.x - 2;
+				start_pos.y = (exit_point.y + 1 ) - 2;
 			}else if((exit_point.x == 4 || exit_point.x == 5) && exit_point.y == 15){
 				/* 一番左の部屋到達 */
 				selected_event = talk_event;
 				room_id = 0;
-			}else if(exit_point.x == 25 && exit_point.y == 13){
+				/* マップ復帰時の座標を指定 */
+				start_pos.x = exit_point.x - 2;
+				start_pos.y = (exit_point.y + 1 ) - 2;
+			}else if(exit_point.x == 25 && exit_point.y == 14){
 				/* 真ん中の部屋到達 */
 				selected_event = talk_event;
 				room_id = 1;
-			}
 			/* マップ復帰時の座標を指定 */
 			start_pos.x = exit_point.x - 2;
 			start_pos.y = (exit_point.y + 1 ) - 2;
+			}
+			/* 右側の侵入禁止 */
+			if(exit_point.x == 35 && exit_point.y == 17){
+				room_id = 2;
+				selected_event = talk_event;
+				/* マップ復帰時の座標を指定 */
+				start_pos.x = exit_point.x - 1 - 2;
+				start_pos.y = exit_point.y - 2;
+				/* 右側の侵入禁止 */
+				if(exit_point.x == 35 && exit_point.y == 17){
+					selected_event = talk_event;
+				}
+			}
 			break;
 		case stage2:
 			if(exit_point.x == 28 && exit_point.y == 9){
@@ -275,6 +293,9 @@ enum event decide_event(struct arrow_pos exit_point){
 			break;
 		default:
 			break;
+	}
+	if(exit_point.y == 58 && exit_point.y == 24){
+		selected_event = open_item;
 	}
 	return selected_event;
 }

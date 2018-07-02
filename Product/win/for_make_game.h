@@ -281,7 +281,8 @@ enum stage {
 enum event {
 	battle_event,
 	talk_event,
-	move_map
+	move_map,
+	open_item
 };
 
 //現在のステージ
@@ -911,7 +912,7 @@ struct arrow_pos move_on_map(int width, int height,struct arrow_pos *(tmp_pos)[W
 	struct arrow_pos arrow_pos_label = offset;
 	struct arrow_pos return_value;
 	struct input_assort tmp_input_list;
-	print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+	print_line("●",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
 	while(1){
 		while(!(tmp_input_list = mykbhit()).kbhit_flag);
 		switch(tmp_input_list.input_char){
@@ -924,7 +925,7 @@ struct arrow_pos move_on_map(int width, int height,struct arrow_pos *(tmp_pos)[W
 					arrow_pos_label.y--;
 				}
 				//}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->not_active);
-				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				print_line("●",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
 				break;
 
 			case 's':
@@ -936,7 +937,7 @@ struct arrow_pos move_on_map(int width, int height,struct arrow_pos *(tmp_pos)[W
 					arrow_pos_label.y++;
 				}
 				//}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->not_active);
-				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				print_line("●",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
 				break;
 
 			case 'a':
@@ -948,7 +949,7 @@ struct arrow_pos move_on_map(int width, int height,struct arrow_pos *(tmp_pos)[W
 					arrow_pos_label.x--;
 				}
 				//}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->not_active);
-				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				print_line("●",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
 				break;
 
 			case 'd':
@@ -960,13 +961,19 @@ struct arrow_pos move_on_map(int width, int height,struct arrow_pos *(tmp_pos)[W
 					arrow_pos_label.x++;
 				}
 				//}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->not_active);
-				print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				print_line("●",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
 				break;
 			case ENTERKEY:
 				break;
+			case ' ':
+				start_pos =*tmp_pos[arrow_pos_label.x][arrow_pos_label.y];
+				start_pos.x -= 2;
+				start_pos.y -= 2;
+				return *tmp_pos[WIDTH - 1][HEIGHT - 1];
+				break;
 
 			default:
-				//print_line("◯",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				//print_line("●",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
 				continue;
 				//break;
 		}

@@ -49,6 +49,12 @@ struct extendstr lirel_said[] = {
 	{"早く姫と祭壇に行かなくては」▼ ",12,0}
 };
 
+/* ステージ1 侵入禁止 */
+struct extendstr lirel_stop[] = {
+	{"リーレル：「今はそれどころではない ",0,1},
+	{"一刻も早く逃げなければ」▼ ",20,0}
+};
+
 /* ステージ1 ボス戦後 */
 struct extendstr afterbattle_stage1[] = {
 	{"アリスト：「見てリーレル動くよ」▼ ",0},

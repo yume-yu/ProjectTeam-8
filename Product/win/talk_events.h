@@ -53,6 +53,13 @@ void guide_st1(){
 	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,sizeof(lirel_said)/sizeof(struct extendstr));
 }
 
+/* ステージ1 侵入禁止 */
+void noentry_st1(){
+	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
+	exstrcpy(now_text,lirel_stop,sizeof(lirel_stop)/sizeof(struct extendstr));
+	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,sizeof(lirel_said)/sizeof(struct extendstr));
+}
+
 /* ステージ1 真ん中の部屋 */
 void talk_event_st1_1(){
 	flame_flush();
