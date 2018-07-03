@@ -46,9 +46,9 @@
 #define BATTLE_MODE_STATUS_FLAME_WIDTH		WIDTH-2
 #define BATTLE_MODE_STATUS_FLAME_HEIGHT		6
 #define BATTLE_MODE_STATUS_FLAME_X				2
-#define BATTLE_MODE_STATUS_FLAME_SPLIT_X 	2*(WIDTH-2)/3-1
+#define BATTLE_MODE_STATUS_FLAME_SPLIT_X 	2*(WIDTH-2)/3-1 -2
 #define BATTLE_MODE_COMMAND_POS 					7
-#define BATTLE_MODE_STATUS_HP_POS 				BATTLE_MODE_STATUS_FLAME_SPLIT_X+5
+#define BATTLE_MODE_STATUS_HP_POS 				BATTLE_MODE_STATUS_FLAME_SPLIT_X+5 
 
 /*
  * キャラクターステータス設定モード関連定数
@@ -114,11 +114,11 @@
 #define STAR_AMOUNT 		50
 
 //キャラクターステータス設定定数
-#define FRONT1_NAME				"Lirel"
+#define FRONT1_NAME				"リーレル"
 #define FRONT1_HP					110
 #define FRONT1_MINATK			15
 #define FRONT1_MAXATK			20
-#define FRONT2_NAME				"Naoki"
+#define FRONT2_NAME				"ナオキ"
 #define FRONT2_HP_ST2			90
 #define FRONT2_MINATK_ST2	20
 #define FRONT2_MAXATK_ST2	35
@@ -137,7 +137,7 @@
 #define FRONT4_HP					5000
 #define FRONT4_MINATK			400
 #define FRONT4_MAXATK			450
-#define BACK_NAME					"Arist"
+#define BACK_NAME					"アリスト"
 #define BACK_HP_ST1				70
 #define BACK_HEAL_ST1 		20
 #define BACK_HP_ST2				90
@@ -282,7 +282,7 @@ enum event {
 	battle_event,
 	talk_event,
 	move_map,
-	open_item
+	open_menu
 };
 
 //現在のステージ
@@ -541,6 +541,10 @@ void initmaps(){
 	coor_cnv_adr(map_coors[stage4_3],st4_3_pos);
 	mapcpy(now_map,maps[now_stage]);
 	coorcpy(now_map_coor,map_coors[now_stage]);
+	room_id = 0;
+	start_pos.x = 0;
+	start_pos.y = 15;
+	now_stage = stage1;
 }
 
 //各キャラクターのステータス初期化
@@ -969,9 +973,10 @@ struct arrow_pos move_on_map(int width, int height,struct arrow_pos *(tmp_pos)[W
 				start_pos =*tmp_pos[arrow_pos_label.x][arrow_pos_label.y];
 				start_pos.x -= 2;
 				start_pos.y -= 2;
-				return *tmp_pos[WIDTH - 1][HEIGHT - 1];
+				arrow_pos_label.x = WIDTH - 4;
+				arrow_pos_label.y = HEIGHT - 3;
+				return *tmp_pos[arrow_pos_label.x][arrow_pos_label.y];
 				break;
-
 			default:
 				//print_line("●",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
 				continue;
@@ -1135,10 +1140,10 @@ void maintitle(){
 
 //戦闘モードの時にコマンド部分表示する関数
 void print_bt_commands(){
-	print_line("Attack",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-	print_line("Special",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
-	print_line("Protect",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3);
-	print_line("Item",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4);
+	print_line("こうげき",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+	print_line("とくしゅ",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
+	print_line("がばう",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3);
+	print_line("どうぐ",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4);
 	fflush(stdout);
 }
 
