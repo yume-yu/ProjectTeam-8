@@ -17,9 +17,9 @@
 
 * Windows
 
-```
-$ gcc win/theBeautifulSky.c -o theBeautifulSky
-```
+	```
+	$ gcc win/theBeautifulSky.c -o theBeautifulSky
+	```
 
 * macOS/Linux(調整中のためコンパイル不可)
 
@@ -40,12 +40,11 @@ $ gcc win/theBeautifulSky.c -o theBeautifulSky
 
 * Windows
 
-```
-theBeautifulSky.exe` をダブルクリック
-```
+	`theBeautifulSky.exe` をダブルクリック
+
 
 * macOS/Linux
 
-```
-$ mac/theBeautifulSky
-```
+	```
+	$ mac/theBeautifulSky
+	```
