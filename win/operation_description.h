@@ -389,6 +389,7 @@ int operation_description(){
 		{"　 ",0,1},
 		{"Space:マップ上でメニューを開く ",1,1},
 	};
+
 	struct arrow_pos yesno[] = {
 		{(WIDTH - 16)/2 + 8,16,0,0},
 		{(WIDTH - 16)/2 + 1,16,0,0},
@@ -441,6 +442,6 @@ int operation_description(){
 	make_flame(39,7,(WIDTH - 36) / 2 - 2,7);
 	exstrcpy(now_text,after,sizeof(after)/sizeof(struct extendstr));
 	string_march(now_text,(WIDTH - 36) / 2,8,sizeof(after)/sizeof(struct extendstr));
-	now_stage = stage1;
+	reset_state();
 	return select_from_list(tobe,2);
 }

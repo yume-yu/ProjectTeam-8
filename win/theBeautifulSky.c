@@ -1,4 +1,9 @@
-﻿#include "for_make_game.h"
+﻿//必要なライブラリをインクルード
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+#include "for_make_game.h"
 #include "talk_events.h"
 #include "decide_event.h"
 #include "map_menu.h"
@@ -79,10 +84,13 @@ int main(){
 				MAIN_FLAME_X,
 				MAIN_FLAME_Y
 				);									/* メインフレーム描画 ここまで */
-		maintitle();						//タイトル画面表示
-		//アニメーション付きフレームクリーン
-		flame_flush();
-		operation_description();
+		if(maintitle()){      	//タイトル画面表示
+			flame_flush();					//アニメーション付きフレームクリーン
+			if(operation_description()){
+				continue;
+			}
+		}			
+		flame_flush();					//アニメーション付きフレームクリーン
 		//シナリオ表示
 		subtitle(now_stage);
 		story(now_stage);

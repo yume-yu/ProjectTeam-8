@@ -524,10 +524,23 @@ void set_ch_stat(char name[10], struct character *tmpch, int hp, int max_hp,int 
 	tmpch->min_atk = min_atk;
 }
 
+/**
+ * @fn
+ * ゲーム開始時の座標とステージを初期化する関数
+ * @brief start_posとnow_stageの初期化
+ * @detail ループ復帰時やチュートリアル終了時などにゲームを始めるときに初期化すべき部分を初期化する
+ */
+void reset_state(){
+	room_id = 0;
+	potion_amount = 0;
+	start_pos.x = 0;
+	start_pos.y = 15;
+	now_stage = stage1;
+}
+
 /*
  *	マップ配列の初期化
  */
-
 void initmaps(){
 	mapcpy(maps[stage1],map_st1);
 	mapcpy(maps[stage2],map_st2);
@@ -549,11 +562,9 @@ void initmaps(){
 	coor_cnv_adr(map_coors[ope_exp],exp_pos);
 	mapcpy(now_map,maps[now_stage]);
 	coorcpy(now_map_coor,map_coors[now_stage]);
-	room_id = 0;
-	start_pos.x = 0;
-	start_pos.y = 15;
-	now_stage = stage1;
+	reset_state();
 }
+
 
 //各キャラクターのステータス初期化
 void initchara(){
@@ -1063,7 +1074,7 @@ void stars(int x[],int y[],int amount){
 /**
  *	タイトル画面を表示する関数
  */
-void maintitle(){
+int maintitle(){
 	/**
 	 * ここからロゴのスクロール開始
 	 * 全部見えてないスクロール→ 全部見えた状態のスクロール
@@ -1075,27 +1086,32 @@ void maintitle(){
 		fflush(stdout);
 		usleep(0.2 * 1000000);
 		print_lines(title_space,15,2,9);
+		mykbhit();
 	}
 
 	print_lines(title,15,2,9);
 	fflush(stdout);
 	usleep(0.2 * 1000000);
+		mykbhit();
 
 	print_lines(title_space,15,2,9);
 	print_lines(title,15,3,9);
 	fflush(stdout);
 	usleep(0.2 * 1000000);
+		mykbhit();
 
 	print_lines(title_space,15,3,9);
 	print_lines(title,15,4,9);
 	fflush(stdout);
 	usleep(0.2 * 1000000);
+		mykbhit();
 
 	print_lines(title_space,15,4,9);
 	print_lines(title,15,5,9);
 	print_line("Beta Ver",(WIDTH - 8)/2,14);
 	print_line("Press Enter",25,HEIGHT - 4);
 	fflush(stdout);
+		mykbhit();
 	/* ここまでロゴスクロール部分
 	 * この段階でロゴとPressEnterが見える
 	 */
@@ -1129,6 +1145,18 @@ void maintitle(){
 	do{
 		stars(star_x,star_y,STAR_AMOUNT);
 	}while((mykbhit().input_char) != ENTERKEY);
+	char *(select_start)[] =	{
+		"     操作説明をみる",
+		"     ゲームを始める",
+		"",
+		"W/S 選択      Enter 決定"
+	};
+	struct arrow_pos title_command_pos[] = {
+		{(WIDTH - 24)/2 + 1,HEIGHT - 5,0,0},
+		{(WIDTH - 24)/2 + 1,HEIGHT - 4,0,0}
+	};
+	print_lines(select_start,(WIDTH - 24)/2,HEIGHT - 5,4);
+	return !select_from_list(title_command_pos,2);
 }
 
 /*
