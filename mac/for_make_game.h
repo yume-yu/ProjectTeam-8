@@ -288,10 +288,11 @@ enum event {
 };
 
 //現在のステージ
-enum stage now_stage;
+enum stage now_stage = stage1;;
 char *(now_map)[23];
 struct arrow_pos *(now_map_coor)[WIDTH - 2][HEIGHT - 2];
-struct arrow_pos start_pos = {(WIDTH - 2)/2 - 3,(HEIGHT - 2)-1,0,0};
+struct arrow_pos start_pos = {0,15,0,0};
+struct extendstr *now_text[HEIGHT];
 
 //マップと座標系一覧の宣言
 char *(maps)[7][HEIGHT - 2];
@@ -343,6 +344,17 @@ void wait_anyinput(){
 	usleep(3000);
 	while(mykbhit().kbhit_flag);
 }
+
+/**
+ *  スペースキーの入力の待機をする関数
+ */
+void wait_input_space(){
+	mvcur(0,HEIGHT + 1);
+	fflush(stdout);
+	while(mykbhit().input_char != ' ');
+	while(mykbhit().kbhit_flag);
+}
+
 /**
  * 指定箇所への1行の文字出力を行う関数
  * string 出力する文字列
@@ -389,7 +401,7 @@ void string_march(struct extendstr *(tmp)[],int x,int y,int lines){
 			usleep(2 * 10000);
 		}
 		if(!tmp[i]->not_need_return){
-			wait_anyinput();
+			wait_input_space();
 		}
 	}
 }
@@ -463,13 +475,26 @@ void init_term(){
 /*
  *	マップ配列の初期化
  */
-
 void initmaps(){
-	mapcpy(maps[stage1],map_st1);
+  mapcpy(maps[stage1],map_st1);
 	mapcpy(maps[stage2],map_st2);
-	coor_cnv_adr(map_coors[1],st2_pos);
+  mapcpy(maps[stage3_1],map_st3_1);
+  mapcpy(maps[stage3_2],map_st3_2);
+  mapcpy(maps[stage3_3],map_st3_3);
+  mapcpy(maps[stage4_1],map_st4_1);
+  mapcpy(maps[stage4_2],map_st4_2);
+  mapcpy(maps[stage4_3],map_st4_3);
+  coor_cnv_adr(map_coors[stage1],st1_pos);
+	coor_cnv_adr(map_coors[stage2],st2_pos);
+  coor_cnv_adr(map_coors[stage3_1],st3_1_pos);
+  coor_cnv_adr(map_coors[stage3_2],st3_2_pos);
+  coor_cnv_adr(map_coors[stage3_3],st3_3_pos);
+  coor_cnv_adr(map_coors[stage4_1],st4_1_pos);
+  coor_cnv_adr(map_coors[stage4_2],st4_2_pos);
+  coor_cnv_adr(map_coors[stage4_3],st4_3_pos);
+  mapcpy(now_map,maps[now_stage]);
+	coorcpy(now_map_coor,map_coors[now_stage]);
 }
-
 //各キャラクターのステータス初期化
 void initchara(){
 	set_ch_stat("naoki",&naoki,90,20,35);
