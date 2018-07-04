@@ -18,7 +18,7 @@
 * Windows
 
 	```
-	$ gcc win/theBeautifulSky.c -o theBeautifulSky
+	$ gcc win¥theBeautifulSky.c -o theBeautifulSky
 	```
 
 * macOS/Linux(調整中のためコンパイル不可)
