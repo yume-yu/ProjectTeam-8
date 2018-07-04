@@ -2,6 +2,7 @@
 #include "talk_events.h"
 #include "decide_event.h"
 #include "map_menu.h"
+#include "operation_description.h"
 
 void update_map(enum stage now_stage){
 	mapcpy(now_map,maps[now_stage]);
@@ -69,22 +70,24 @@ void story(enum stage now_stage){
 int main(){
 	int game_exit_flag = 0;
 	while(1){
-		//マップ/座標一覧の初期化
-		initmaps();
-		//キャラクターの初期化
-		initchara();
-		//コンソールの初期化
-		init_term();
-		//メインフレーム描画
-		make_flame(WIDTH,HEIGHT,MAIN_FLAME_X,MAIN_FLAME_Y);
-		//タイトル画面表示
-		maintitle();
+		initmaps();							//マップ/座標一覧の初期化
+		initchara();						//キャラクターの初期化
+		init_term();						//コンソールの初期化
+		make_flame(							/* メインフレーム描画 ここから */
+				WIDTH,
+				HEIGHT,
+				MAIN_FLAME_X,
+				MAIN_FLAME_Y
+				);									/* メインフレーム描画 ここまで */
+		maintitle();						//タイトル画面表示
 		//アニメーション付きフレームクリーン
 		flame_flush();
+		operation_description();
 		//シナリオ表示
 		subtitle(now_stage);
 		story(now_stage);
 		flame_flush();
+
 		update_map(now_stage);
 		print_lines(now_map,2,2,HEIGHT - 2);
 		guide_st1();
