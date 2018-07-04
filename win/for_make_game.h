@@ -969,8 +969,8 @@ struct arrow_pos move_on_map(int width, int height,struct arrow_pos *(tmp_pos)[W
 				start_pos =*tmp_pos[arrow_pos_label.x][arrow_pos_label.y];
 				start_pos.x -= 2;
 				start_pos.y -= 2;
-				arrow_pos_label.x = WIDTH - 4;
-				arrow_pos_label.y = HEIGHT - 3;
+				arrow_pos_label.x = width - 2;
+				arrow_pos_label.y = height - 1;
 				return *tmp_pos[arrow_pos_label.x][arrow_pos_label.y];
 				break;
 			default:

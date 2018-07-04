@@ -424,7 +424,10 @@ int operation_description(){
 	start_pos.x = 1;																															//マップ移動開始時のX座標をセット
 	start_pos.y = 0;																															//マップ移動開始時のY座標をセット	
 	print_lines(map_exp,10,17,8);																									//説明用マップを表示
-	move_on_map(WIDTH - 2, 6, now_map_coor,start_pos);														//マップ移動開始
+	while(move_on_map(39, 6, now_map_coor,start_pos).x != 48){										//マップ移動開始
+		start_pos.x -= 8;
+		start_pos.y -= 16;
+	}
 	set_ch_stat("前衛",&lirel,FRONT1_HP,FRONT1_HP,FRONT1_MINATK,FRONT1_MAXATK);		//前衛ステータスセット
 	set_ch_stat("後衛",&arist,BACK_HP_ST1,BACK_HP_ST1,0,BACK_HEAL_ST1);						//後衛ステータスセット		
 	front = &lirel;																																//前衛アドレスセット
@@ -438,6 +441,6 @@ int operation_description(){
 	make_flame(39,7,(WIDTH - 36) / 2 - 2,7);
 	exstrcpy(now_text,after,sizeof(after)/sizeof(struct extendstr));
 	string_march(now_text,(WIDTH - 36) / 2,8,sizeof(after)/sizeof(struct extendstr));
-	return select_from_list(tobe,2);
 	now_stage = stage1;
+	return select_from_list(tobe,2);
 }
