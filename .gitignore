@@ -1,4 +1,4 @@
-TestCodes/mac/*.out
-TestCodes/win/*.exe
+*.out
+*.exe
 .idea/*
 .DS_store
