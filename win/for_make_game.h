@@ -1458,7 +1458,7 @@ int battle(struct character *front,struct character *back,struct character *enem
 				enemies_dead_check += for_bar[i]->hp;
 			}
 			if(enemies_dead_check <= 0){
-				print_line("Win!¥",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+				print_line("í“¬‚ÉŸ—˜‚µ‚½!¥",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 				finish_flag = 1;
 				wait_anyinput();
 				//flame_flush();
