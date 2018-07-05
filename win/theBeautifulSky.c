@@ -106,10 +106,10 @@ int main(){
 				if(battle(front,back,enemies,enemy_amount)){
 					after_battle_st5();
 					gameover_win();
-					return 0;
+				game_exit_flag = 1;	
 				}else{
 					gameover_win();
-					return 0;
+				game_exit_flag = 1;	
 				}
 			}else{
 				print_lines(now_map,2,2,HEIGHT - 2);
