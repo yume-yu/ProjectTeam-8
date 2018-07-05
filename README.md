@@ -20,6 +20,7 @@
 	```
 	$ gcc win¥theBeautifulSky.c -o theBeautifulSky
 	```
+	VisualStadioを使用したコンパイルは、C99での記法を含むため失敗します。
 
 * macOS/Linux(調整中のためコンパイル不可)
 
