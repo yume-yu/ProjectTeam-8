@@ -538,7 +538,8 @@ void set_ch_stat(char name[10], struct character *tmpch, int hp, int max_hp,int 
  */
 void reset_state(){
 	room_id = 0;
-	potion_amount = 0;
+	potion_amount = 3;
+	have_nasu = 1;
 	start_pos.x = 0;
 	start_pos.y = 15;
 	now_stage = stage1;
@@ -1226,6 +1227,7 @@ void print_bt_status(struct character *front,struct character *back){
 int battle(struct character *front,struct character *back,struct character *enemies[3], int enemy_amount){
 	int finish_flag = 0;												//戦闘終了のフラグ
 	int protect_flag = 0;												//かばう行動のフラグ
+	int use_nasu = 0;														//ナス使用フラグ
 	int damage = 0;															//計算後のダメージを記憶する変数
 	int target_label = 0;												//攻撃対象を判断するための変数
 	int turn_count = 1;													//特殊行動のため戦闘開始からのターンを数える変数
@@ -1243,6 +1245,20 @@ int battle(struct character *front,struct character *back,struct character *enem
 		{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2},
 		{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3},
 		{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4}
+	};
+	struct arrow_pos battle_item_menu_arrow[2][4] = {
+		{
+			{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1},
+			{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2},
+			{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3},
+			{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4},
+		},
+		{
+			{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,1},
+			{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2,1},
+			{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3,1},
+			{2 * BATTLE_MODE_COMMAND_POS + 10 - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4},
+		}
 	};
 
 	//敵のHPを初期化
@@ -1296,6 +1312,10 @@ int battle(struct character *front,struct character *back,struct character *enem
 						damage = front->min_atk + rand() % (front->max_atk - front->min_atk - 1) + using_weapon->atk;
 					}else{
 						damage = front->min_atk + rand() % (front->max_atk - front->min_atk - 1);
+					}
+					if(use_nasu){
+						damage *= 2;
+						use_nasu = 0;
 					}
 					mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					printf("%s に %3d ダメージ!▼",enemies[target_label]->name,damage);
@@ -1425,27 +1445,77 @@ int battle(struct character *front,struct character *back,struct character *enem
 					wait_anyinput();
 					break;
 				case 3:
-					for(int i = 0; i <= potion_amount; i++){
-						mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1 + i);
-						if(i < potion_amount){
-							printf("ポーション");
-						}else{
-							printf("戻る");
+					if(potion_amount + have_nasu <= 3){
+						for(int i = 0; i <= potion_amount + have_nasu; i++){
+							mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1 + i);
+							if(i < potion_amount){
+								printf("ポーション");
+							}else if(i < potion_amount + have_nasu){
+								printf("ｿﾗﾅﾑ･ﾒﾛﾝｹﾞﾅ");
+							}else{
+								printf("戻る");
+							}
+							fflush(stdout);
 						}
-						fflush(stdout);
-					}
-					target_label = select_from_list(battle_menu_arrow,potion_amount + 1);
-					if(target_label < potion_amount){
-						sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-						change_hp(front,-1 * front->max_hp);
-						change_hp(&arist,-1 * arist.max_hp);
-						print_bt_status(front,back);
-						print_line("ポーションを使った!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-						potion_amount--;
-						wait_anyinput();
-					}else{
-						sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-						continue;
+						target_label = select_from_list(battle_menu_arrow,potion_amount + have_nasu + 1);
+						if(target_label < potion_amount){
+							sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+							change_hp(front,-1 * front->max_hp);
+							change_hp(&arist,-1 * arist.max_hp);
+							print_bt_status(front,back);
+							print_line("ポーションを使った!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+							potion_amount--;
+							wait_anyinput();
+						}else if(target_label < potion_amount + have_nasu){
+							sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+							print_line("力がみなぎる!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+							have_nasu = 0;
+							use_nasu = 1;
+							wait_anyinput();
+						}else{
+							sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+							continue;
+						}
+					}else if(potion_amount + have_nasu >= 4){
+						for(int i = 0; i <= potion_amount + have_nasu; i++){
+							mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1 + i);
+							if(i < potion_amount){
+								printf("ポーション");
+							}else if(i < potion_amount + have_nasu){
+								printf("ｿﾗﾅﾑ･ﾒﾛﾝｹﾞﾅ");
+							}
+							fflush(stdout);
+						}
+						print_line("戻る",2 * BATTLE_MODE_COMMAND_POS + 10,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + potion_amount + have_nasu);
+
+						target_label = select_from_2dlist(2,4,battle_item_menu_arrow);
+						switch(target_label){
+							case 0:	//ポーション
+							case 2:
+							case 4:
+								sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								change_hp(front,-1 * front->max_hp);
+								change_hp(&arist,-1 * arist.max_hp);
+								print_bt_status(front,back);
+								print_line("ポーションを使った!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								potion_amount--;
+								wait_anyinput();
+								break;
+							case 6:	//Nasu
+								sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								print_line("力がみなぎる!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								have_nasu = 0;
+								use_nasu = 1;
+								wait_anyinput();
+								break;
+							case 7:	//戻る
+								sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								continue;
+								break;
+							default:
+								break;
+								
+						}
 					}
 					sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					break;

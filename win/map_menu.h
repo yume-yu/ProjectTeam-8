@@ -9,7 +9,7 @@
 
 /**
  *	@def
- *	マップ上のメニューに関する定数
+ *	マップ上のステータスメニューに関する定数
  */
 #define STAT_WIN_WIDTH		MAP_WIN_WIDTH  + 10
 #define STAT_WIN_HEIGHT		8
@@ -60,6 +60,7 @@ void item_list_on_map(){
 			print_line("戻る",MAP_WIN_X - MAP_WIN_WIDTH + 4,MAP_WIN_Y + 1 + i);
 		}else{
 			print_line("ポーション",MAP_WIN_X - MAP_WIN_WIDTH + 4,MAP_WIN_Y + 1 + i);
+			//print_line("ｿﾗﾅﾑ･ﾒﾛﾝｹﾞﾅ",MAP_WIN_X - MAP_WIN_WIDTH + 4,MAP_WIN_Y + 1 + i);
 		}
 	}
 	if(select_from_list(item_pos,potion_amount+1) < potion_amount){

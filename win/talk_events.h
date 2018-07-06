@@ -1,3 +1,14 @@
+/**
+ * @file talk_event.h
+ * @brief 各会話イベントごとに呼び出される処理をまとめたヘッダ
+ * @author yume_yu
+ * @date 
+ */
+
+
+#ifdef STORYTEXT_H
+#define TALK_EVENT_H	//重複読み込み回避のための定義
+
 /* リーレルがポーションを見つけた時の挙動  */
 void lirel_find_potion(){		
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
@@ -38,8 +49,8 @@ void naoki_find_potion(){
 
 int instory_yesno(int y){
 	struct arrow_pos yn[10] = {
-			{11,y,0,0},
-			{18,y,0,0}
+		{11,y,0,0},
+		{18,y,0,0}
 	};
 	char *yesno = "  はい   いいえ";
 	print_line(yesno,10,y);
@@ -256,9 +267,14 @@ int talk_event_st3_3(){
 /* ステージ3 中央マップ左の部屋 */
 int talk_event_st3_5(){
 	flame_flush();
-	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
-	exstrcpy(now_text,talk_st3_5,sizeof(talk_st3_5)/sizeof(struct extendstr));
-	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,sizeof(talk_st3_5)/sizeof(struct extendstr));
+	exstrcpy(now_text,talk_st3_5_1,sizeof(talk_st3_5_1)/sizeof(struct extendstr));
+	string_march(now_text,2,2,sizeof(talk_st3_5_1)/sizeof(struct extendstr));
+	flame_clean();
+	exstrcpy(now_text,talk_st3_5_2,sizeof(talk_st3_5_2)/sizeof(struct extendstr));
+	string_march(now_text,2,2,sizeof(talk_st3_5_2)/sizeof(struct extendstr));
+	flame_clean();
+	exstrcpy(now_text,talk_st3_5_3,sizeof(talk_st3_5_3)/sizeof(struct extendstr));
+	string_march(now_text,2,2,sizeof(talk_st3_5_3)/sizeof(struct extendstr));
 }
 
 /* ステージ3 右マップ左の部屋 */
@@ -407,4 +423,6 @@ void after_battle_st5(){
 	string_march(now_text,2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,sizeof(afterbattle_stage5)/sizeof(struct extendstr));
 	flame_clean();
 }
+
+#endif
 
