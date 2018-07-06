@@ -36,7 +36,7 @@ void naoki_find_potion(){
 		{"ポーションを見つけた▼  ",0,0}
 	};
 	struct extendstr error_text[] = {
-		{"ポーションはこれ以上持てないので諦めた▼  ",0,0},
+		{"ポーションはこれ以上持てない…▼  ",0,0},
 	};
 	exstrcpy(now_text,event_text,2);
 	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,sizeof(event_text)/sizeof(struct extendstr));
@@ -243,7 +243,7 @@ int talk_event_st3_3(){
 		if(get_potion()){
 		}else{
 			exstrcpy(now_text,error_text,1);
-			string_march(now_text,2,2 + sizeof(talk_st3_3)/sizeof(struct extendstr) + 5,sizeof(error_text)/sizeof(struct extendstr));
+			string_march(now_text,2,2 + sizeof(talk_st3_3)/sizeof(struct extendstr) + 7,sizeof(error_text)/sizeof(struct extendstr));
 		}
 		talk_event_st3_3_arrived = 1;
 	}else if(using_weapon != &all_weapons[2]){ //初めてではなく、装備が銃ではない時
@@ -304,7 +304,7 @@ int talk_event_st4_0(){
 		exstrcpy(now_text,talk_st4_0,sizeof(talk_st4_0)/sizeof(struct extendstr));
 		string_march(now_text,2,2,sizeof(talk_st4_0)/sizeof(struct extendstr));
 		if(instory_yesno(2 + sizeof(talk_st4_0)/sizeof(struct extendstr) + 1)){
-			arist_using_weapon = &all_weapons4back[1];
+			arist_using_weapon = &all_weapons[1];
 			exstrcpy(now_text,talk_st4_0_2,sizeof(talk_st4_0_2)/sizeof(struct extendstr));
 			string_march(now_text,2,2 + sizeof(talk_st4_0)/sizeof(struct extendstr) + 3,sizeof(talk_st4_0_2)/sizeof(struct extendstr));
 		}else{
@@ -312,11 +312,11 @@ int talk_event_st4_0(){
 			string_march(now_text,2,2 + sizeof(talk_st4_0)/sizeof(struct extendstr) + 3,sizeof(talk_st4_0_3)/sizeof(struct extendstr));
 		}
 		talk_event_st4_0_arrived = 1;
-	}else if(arist_using_weapon != &all_weapons4back[1]){ //初めてではなく、装備が銃ではない時
+	}else if(arist_using_weapon != &all_weapons[1]){ //初めてではなく、装備が銃ではない時
 		exstrcpy(now_text,talk_st4_0_1,sizeof(talk_st4_0_1)/sizeof(struct extendstr));
 		string_march(now_text,2,2,sizeof(talk_st4_0_1)/sizeof(struct extendstr));
 		if(instory_yesno(2 + sizeof(talk_st4_0_1)/sizeof(struct extendstr) + 1)){
-			arist_using_weapon = &all_weapons4back[1];
+			arist_using_weapon = &all_weapons[1];
 			exstrcpy(now_text,talk_st4_0_2,sizeof(talk_st4_0_2)/sizeof(struct extendstr));
 			string_march(now_text,2,2 + sizeof(talk_st4_0)/sizeof(struct extendstr) + 3,sizeof(talk_st4_0_2)/sizeof(struct extendstr));
 		}else{
