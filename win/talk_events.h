@@ -296,7 +296,7 @@ void after_battle_st3(){
 	flame_clean();
 }
 
-/* ステージ3 右マップ左下の部屋 */
+/* ステージ4 右マップ左下の部屋 */
 int talk_event_st4_0_arrived = 0;
 int talk_event_st4_0(){
 	flame_flush();
@@ -304,7 +304,7 @@ int talk_event_st4_0(){
 		exstrcpy(now_text,talk_st4_0,sizeof(talk_st4_0)/sizeof(struct extendstr));
 		string_march(now_text,2,2,sizeof(talk_st4_0)/sizeof(struct extendstr));
 		if(instory_yesno(2 + sizeof(talk_st4_0)/sizeof(struct extendstr) + 1)){
-			using_weapon = &all_weapons[1];
+			arist_using_weapon = &all_weapons4back[1];
 			exstrcpy(now_text,talk_st4_0_2,sizeof(talk_st4_0_2)/sizeof(struct extendstr));
 			string_march(now_text,2,2 + sizeof(talk_st4_0)/sizeof(struct extendstr) + 3,sizeof(talk_st4_0_2)/sizeof(struct extendstr));
 		}else{
@@ -312,11 +312,11 @@ int talk_event_st4_0(){
 			string_march(now_text,2,2 + sizeof(talk_st4_0)/sizeof(struct extendstr) + 3,sizeof(talk_st4_0_3)/sizeof(struct extendstr));
 		}
 		talk_event_st4_0_arrived = 1;
-	}else if(using_weapon != &all_weapons[1]){ //初めてではなく、装備が銃ではない時
+	}else if(arist_using_weapon != &all_weapons4back[1]){ //初めてではなく、装備が銃ではない時
 		exstrcpy(now_text,talk_st4_0_1,sizeof(talk_st4_0_1)/sizeof(struct extendstr));
 		string_march(now_text,2,2,sizeof(talk_st4_0_1)/sizeof(struct extendstr));
 		if(instory_yesno(2 + sizeof(talk_st4_0_1)/sizeof(struct extendstr) + 1)){
-			using_weapon = &all_weapons[1];
+			arist_using_weapon = &all_weapons4back[1];
 			exstrcpy(now_text,talk_st4_0_2,sizeof(talk_st4_0_2)/sizeof(struct extendstr));
 			string_march(now_text,2,2 + sizeof(talk_st4_0)/sizeof(struct extendstr) + 3,sizeof(talk_st4_0_2)/sizeof(struct extendstr));
 		}else{
@@ -338,7 +338,7 @@ int talk_event_st4_1(){
 		exstrcpy(now_text,talk_st4_1,sizeof(talk_st4_1)/sizeof(struct extendstr));
 		string_march(now_text,2,2,sizeof(talk_st4_1)/sizeof(struct extendstr));
 		if(instory_yesno(2 + sizeof(talk_st4_1)/sizeof(struct extendstr) + 1)){
-			using_weapon = &all_weapons[1];
+			arist_using_protector = &all_protectors[1];
 			exstrcpy(now_text,talk_st4_1_2,sizeof(talk_st4_1_2)/sizeof(struct extendstr));
 			string_march(now_text,2,2 + sizeof(talk_st4_1)/sizeof(struct extendstr) + 3,sizeof(talk_st4_1_2)/sizeof(struct extendstr));
 		}else{
@@ -346,11 +346,11 @@ int talk_event_st4_1(){
 			string_march(now_text,2,2 + sizeof(talk_st4_1)/sizeof(struct extendstr) + 3,sizeof(talk_st4_1_3)/sizeof(struct extendstr));
 		}
 		talk_event_st4_1_arrived = 1;
-	}else if(using_weapon != &all_weapons[1]){ //初めてではなく、装備が銃ではない時
+	}else if(arist_using_protector != &all_protectors[1]){ //初めてではなく、装備が銃ではない時
 		exstrcpy(now_text,talk_st4_1_1,sizeof(talk_st4_1_1)/sizeof(struct extendstr));
 		string_march(now_text,2,2,sizeof(talk_st4_1_1)/sizeof(struct extendstr));
 		if(instory_yesno(2 + sizeof(talk_st4_1_1)/sizeof(struct extendstr) + 1)){
-			using_weapon = &all_weapons[1];
+			arist_using_protector = &all_protectors[1];
 			exstrcpy(now_text,talk_st4_1_2,sizeof(talk_st4_1_2)/sizeof(struct extendstr));
 			string_march(now_text,2,2 + sizeof(talk_st4_1)/sizeof(struct extendstr) + 3,sizeof(talk_st4_1_2)/sizeof(struct extendstr));
 		}else{
