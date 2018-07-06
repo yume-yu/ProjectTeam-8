@@ -107,9 +107,11 @@ int main(){
 					after_battle_st5();
 					gameover_win();
 				game_exit_flag = 1;	
+				continue;
 				}else{
 					gameover_win();
 				game_exit_flag = 1;	
+				continue;
 				}
 			}else{
 				print_lines(now_map,2,2,HEIGHT - 2);
@@ -178,7 +180,8 @@ int main(){
 							}
 						}else{
 							gameover_lose();
-							return 0;
+							game_exit_flag = 1;
+							continue;
 						}
 						update_map(now_stage);	//マップの更新
 						subtitle(now_stage);		//サブタイトル表示
