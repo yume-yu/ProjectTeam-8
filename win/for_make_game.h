@@ -148,7 +148,7 @@
 #define BACK_HP_ST4				130
 #define BACK_HEAL_ST4 		50
 #define BACK_ATTACK				35
-#define ST1_BOSS_NAME			"St1Bs"
+#define ST1_BOSS_NAME			"シュゼット = ルースロ"
 #define ST1_BOSS_HP				100
 #define ST1_BOSS_MINATK		10
 #define ST1_BOSS_MAXATK		20
@@ -156,18 +156,23 @@
 #define ST2_BOSS_HP				150
 #define ST2_BOSS_MINATK		30
 #define ST2_BOSS_MAXATK		40
-#define ST3_BOSS_NAME			"St3Bs"
+#define ST3_BOSS_NAME			"デジレ = シニジェ"
 #define ST3_BOSS_HP				250
 #define ST3_BOSS_MINATK		50
 #define ST3_BOSS_MAXATK		60
-#define ST4_BOSS_NAME			"St4Bs"
+#define ST4_BOSS_NAME			"古代の機械巨人"
 #define ST4_BOSS_HP				1000
 #define ST4_BOSS_MINATK		100
 #define ST4_BOSS_MAXATK		130
-#define ST5_BOSS_NAME			"St5Bs"
+#define ST5_BOSS_NAME			"ファール"
 #define ST5_BOSS_HP				3000
 #define ST5_BOSS_MINATK		300
 #define ST5_BOSS_MAXATK		400
+#define ST2_WEAK_NAME			"リトルワイバーン"
+#define ST31_WEAK_NAME		"クレイジードッグ"
+#define ST32_WEAK_NAME		"マッドドッグ"
+#define ST41_WEAK_NAME		"羽を失いしもの A"
+#define ST42_WEAK_NAME		"羽を失いしもの B"
 
 
 #define lengthof(var,type) (sizeof(var)/sizeof(type))
@@ -1182,7 +1187,7 @@ void print_bt_commands(){
 void print_health_bar(struct character *target[],int amount){
 	double health_par = 0;
 	for(int i = 0; i < amount; i++){
-		make_flame(20,3,2,2 + 3 * i);
+		make_flame(25,3,2,2 + 3 * i);
 		print_line("                    ",2,2+3*i);
 		mvcur(2,2 + 3 * i);
 		printf("[");
@@ -1236,6 +1241,7 @@ int battle(struct character *front,struct character *back,struct character *enem
 	int player_can_act = 1;											//プレイヤーが行動可能かのフラグ
 	int used_flare = 0;													//ステージ5での味方特殊行動の使用後フラグ
 	int enemy_amount_for_bar = enemy_amount;		//HPゲージ描画のため、本来の敵の数を記憶する変数
+	char battle_text[100] = "\0";
 	struct character *for_bar[enemy_amount];		//HPゲージ描画のため、本来の敵のアドレスを記憶する変数
 	for(int i = 0;i < enemy_amount;i++){
 		for_bar[i] = enemies[i];
@@ -1318,12 +1324,16 @@ int battle(struct character *front,struct character *back,struct character *enem
 						use_nasu = 0;
 					}
 					mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-					printf("%s に %3d ダメージ!▼",enemies[target_label]->name,damage);
+					printf("%s に",enemies[target_label]->name);
+					mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
+					printf("                %3d ダメージ!▼",damage);
 					change_hp(enemies[target_label],damage);
 					if(using_weapon->is_gun && !strcmp(front->name,FRONT2_NAME)){
 						damage = front->min_atk + rand() % (front->max_atk - front->min_atk - 1) + using_weapon->atk;
-						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
-						printf("%s に %3d ダメージ!▼",enemies[target_label]->name,damage);
+						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3);
+						printf("%s に",enemies[target_label]->name);
+						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4);
+						printf("                %3d ダメージ!▼",damage);
 						change_hp(enemies[target_label],damage);
 					}
 					print_health_bar(for_bar,enemy_amount_for_bar);
@@ -1376,8 +1386,8 @@ int battle(struct character *front,struct character *back,struct character *enem
 								for(int i = 0; i < enemy_amount; i++){
 									sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 									change_hp(enemies[i],FRONT3_SP_DAMAGE);
-									mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-									printf("%s に %4d ダメージ!▼",enemies[i]->name,FRONT3_SP_DAMAGE);
+									mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
+									printf("%s に %3d ダメージ!▼",enemies[target_label]->name,damage);
 									print_health_bar(for_bar,enemy_amount_for_bar);
 									wait_anyinput();
 									/*敵ダメージ処理ここまで*/

@@ -65,7 +65,7 @@ enum event decide_event(struct arrow_pos exit_point){
 						selected_event = battle_event;
 						front = &naoki;
 						back = &arist;
-						set_ch_stat("Weak",&boss1,ST1_BOSS_HP,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
+						set_ch_stat(ST2_WEAK_NAME,&boss1,ST1_BOSS_HP,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
 						enemies[0] = &boss1;
 						enemies[1] = &dummy;
 						enemy_amount = 1;
@@ -137,8 +137,8 @@ enum event decide_event(struct arrow_pos exit_point){
 						/* キャラクターセット */
 						front = &naoki;
 						back = &arist;
-						set_ch_stat("Weak 1",&boss1,ST1_BOSS_HP,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
-						set_ch_stat("Weak 2",&boss2,ST1_BOSS_HP,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
+						set_ch_stat(ST31_WEAK_NAME,&boss1,ST1_BOSS_HP,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
+						set_ch_stat(ST32_WEAK_NAME,&boss2,ST1_BOSS_HP,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
 						enemies[0] = &boss1;
 						enemies[1] = &boss2;
 						enemy_amount = 2;
@@ -275,8 +275,8 @@ enum event decide_event(struct arrow_pos exit_point){
 						/* キャラクターセット */
 						front = &naoki;
 						back = &arist;
-						set_ch_stat("Weak 1",&boss1,ST1_BOSS_HP,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
-						set_ch_stat("Weak 2",&boss2,ST1_BOSS_HP,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
+						set_ch_stat(ST41_WEAK_NAME,&boss1,ST1_BOSS_HP,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
+						set_ch_stat(ST42_WEAK_NAME,&boss2,ST1_BOSS_HP,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
 						enemies[0] = &boss1;
 						enemies[1] = &boss2;
 						enemy_amount = 2;
