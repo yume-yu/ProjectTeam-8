@@ -1341,7 +1341,9 @@ int battle(struct character *front,struct character *back,struct character *enem
 					if(enemies[target_label]->hp <= 0){
 						sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-						printf("%s ÇÕì|ÇÍÇΩ!Å•",enemies[target_label]->name);
+						printf("%s ÇÕ",enemies[target_label]->name);
+						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
+						printf("                      ì|ÇÍÇΩ!Å•");
 						for(int i = target_label; i + 1 < enemy_amount;i++){
 							enemies[i] = enemies[i + 1];
 						}
@@ -1395,7 +1397,9 @@ int battle(struct character *front,struct character *back,struct character *enem
 									if(enemies[i]->hp <= 0){
 										sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 										mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-										printf("%s ÇÕì|ÇÍÇΩ!Å•",enemies[target_label]->name);
+										printf("%s ÇÕ",enemies[target_label]->name);
+										mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
+										printf("                      ì|ÇÍÇΩ!Å•");
 										for(int i = target_label; i + 1 < enemy_amount;i++){
 											enemies[i] = enemies[i + 1];
 										}
