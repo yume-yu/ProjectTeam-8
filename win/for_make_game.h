@@ -109,9 +109,10 @@
 #define EDIT_EQIP_EDIT_FLAME_WIDTH				(WIDTH - 2)
 #define EDIT_EQIP_EDIT_FLAME_HEIGHT				2* (HEIGHT - 2) / 3
 
-#define ARIST_ATTACK		35
 //タイトル画面の星の数
-#define STAR_AMOUNT 		50
+#define STAR_AMOUNT 											50
+#define TITLE_MENU_BASE_X									(WIDTH - 24)/2
+#define TITLE_MENU_BASE_Y									HEIGHT - 5
 
 //キャラクターステータス設定定数
 #define FRONT1_NAME				"リーレル"
@@ -146,6 +147,7 @@
 #define BACK_HEAL_ST3 		40
 #define BACK_HP_ST4				130
 #define BACK_HEAL_ST4 		50
+#define BACK_ATTACK				35
 #define ST1_BOSS_NAME			"St1Bs"
 #define ST1_BOSS_HP				100
 #define ST1_BOSS_MINATK		10
@@ -166,6 +168,9 @@
 #define ST5_BOSS_HP				3000
 #define ST5_BOSS_MINATK		300
 #define ST5_BOSS_MAXATK		400
+
+
+#define lengthof(var,type) (sizeof(var)/sizeof(type))
 
 /*
  * 矢印の位置を定義するための構造体。リスト表示の際に座標配列として使う
@@ -257,6 +262,7 @@ struct protector *using_protector;
 struct weapon *arist_using_weapon;
 struct protector *arist_using_protector;
 int potion_amount = 0;
+int have_nasu = 0;
 
 /**
  * @enum event
@@ -1092,26 +1098,26 @@ int maintitle(){
 	print_lines(title,15,2,9);
 	fflush(stdout);
 	usleep(0.2 * 1000000);
-		mykbhit();
+	mykbhit();
 
 	print_lines(title_space,15,2,9);
 	print_lines(title,15,3,9);
 	fflush(stdout);
 	usleep(0.2 * 1000000);
-		mykbhit();
+	mykbhit();
 
 	print_lines(title_space,15,3,9);
 	print_lines(title,15,4,9);
 	fflush(stdout);
 	usleep(0.2 * 1000000);
-		mykbhit();
+	mykbhit();
 
 	print_lines(title_space,15,4,9);
 	print_lines(title,15,5,9);
 	print_line("Beta Ver",(WIDTH - 8)/2,14);
 	print_line("Press Enter",25,HEIGHT - 4);
 	fflush(stdout);
-		mykbhit();
+	mykbhit();
 	/* ここまでロゴスクロール部分
 	 * この段階でロゴとPressEnterが見える
 	 */
@@ -1130,14 +1136,12 @@ int maintitle(){
 		//もし座標がタイトルロゴのある範囲とかぶっていたら
 		if(star_y[i] >= 5 && star_y[i] < 15){
 			if(star_x[i] >= 15 && star_x[i] <= 46){
-				mvcur(1,HEIGHT+1);
-				//今の変数に乱数を振り直すため、ラベルを減算
-				i--;
+				i--;	//今の変数に乱数を振り直すため、ラベルを減算
 			}
 			//PressEnterとかぶっていた時も同じ処理をする
 		}else if(star_y[i] >= HEIGHT - 5 && star_y[i] <= HEIGHT - 3){
 			if(star_x[i] >= 24 && star_x[i] <= 37){
-				i--;
+				i--;	
 			}
 		}
 	}
@@ -1145,17 +1149,18 @@ int maintitle(){
 	do{
 		stars(star_x,star_y,STAR_AMOUNT);
 	}while((mykbhit().input_char) != ENTERKEY);
-	char *(select_start)[] =	{
+	char *(select_start)[] =	{										//ゲーム開始の選択肢の文字列
 		"     操作説明をみる",
 		"     ゲームを始める",
 		"",
 		"W/S 選択      Enter 決定"
 	};
 	struct arrow_pos title_command_pos[] = {
-		{(WIDTH - 24)/2 + 1,HEIGHT - 5,0,0},
-		{(WIDTH - 24)/2 + 1,HEIGHT - 4,0,0}
+		{TITLE_MENU_BASE_X + 4,TITLE_MENU_BASE_Y,0,0},
+		{TITLE_MENU_BASE_X + 4,TITLE_MENU_BASE_Y + 1,0,0}
 	};
-	print_lines(select_start,(WIDTH - 24)/2,HEIGHT - 5,4);
+	make_flame(24 + 5,7,TITLE_MENU_BASE_X - 3,TITLE_MENU_BASE_Y - 2);
+	print_lines(select_start,TITLE_MENU_BASE_X,TITLE_MENU_BASE_Y,lengthof(select_start,char *));
 	return !select_from_list(title_command_pos,2);
 }
 
@@ -1479,7 +1484,7 @@ int battle(struct character *front,struct character *back,struct character *enem
 						if(!strcmp(arist_using_weapon->name,"Bow")){
 							print_line("アリストのレインボーアロー!▼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 							wait_anyinput();
-							damage = (ARIST_ATTACK);
+							damage = (BACK_ATTACK);
 							target_label = rand() % enemy_amount;
 							change_hp(enemies[target_label],damage);
 							mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
