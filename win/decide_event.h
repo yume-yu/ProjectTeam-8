@@ -18,6 +18,7 @@ enum event decide_event(struct arrow_pos exit_point){
 					/* マップ復帰時の座標を指定 */
 					start_pos.x = exit_point.x - 2;
 					start_pos.y = (exit_point.y + 1 ) - 2;
+					before_battle_st1();
 				}else if((exit_point.x == 4 || exit_point.x == 5) && exit_point.y == 15){
 					/* 一番左の部屋到達 */
 					selected_event = talk_event;
@@ -57,6 +58,7 @@ enum event decide_event(struct arrow_pos exit_point){
 					enemies[0] = &boss1;
 					enemies[1] = &dummy;
 					enemy_amount = 1;
+					before_battle_st2();
 				}else if(exit_point.x == 15 && exit_point.y == 15){
 					/* 左の部屋 */
 					room_id = 1;
@@ -113,6 +115,7 @@ enum event decide_event(struct arrow_pos exit_point){
 					enemies[0] = &boss1;
 					enemies[1] = &dummy;
 					enemy_amount = 1;
+					before_battle_st3();
 				}else if(exit_point.x == 41 && exit_point.y == 15){
 					/* 右の家 */
 					room_id = 5;
@@ -256,6 +259,7 @@ enum event decide_event(struct arrow_pos exit_point){
 					enemies[0] = &boss1;
 					enemies[1] = &dummy;
 					enemy_amount = 1;
+					before_battle_st4();
 				}
 				break;
 			case stage4_3://右マップ
