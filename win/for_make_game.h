@@ -148,7 +148,7 @@
 #define BACK_HP_ST4				130
 #define BACK_HEAL_ST4 		50
 #define BACK_ATTACK				35
-#define ST1_BOSS_NAME			"シュゼット = ルースロ"
+#define ST1_BOSS_NAME			"追手の操機兵"
 #define ST1_BOSS_HP				100
 #define ST1_BOSS_MINATK		10
 #define ST1_BOSS_MAXATK		20
@@ -1230,6 +1230,7 @@ void print_bt_status(struct character *front,struct character *back){
 
 //戦闘モード
 int battle(struct character *front,struct character *back,struct character *enemies[3], int enemy_amount){
+	mykbhit();																	//過剰入力クッション
 	int finish_flag = 0;												//戦闘終了のフラグ
 	int protect_flag = 0;												//かばう行動のフラグ
 	int use_nasu = 0;														//ナス使用フラグ
