@@ -543,8 +543,8 @@ void set_ch_stat(char name[10], struct character *tmpch, int hp, int max_hp,int 
  */
 void reset_state(){
 	room_id = 0;
-	potion_amount = 3;
-	have_nasu = 1;
+	potion_amount = 0;
+	have_nasu = 0;
 	start_pos.x = 0;
 	start_pos.y = 15;
 	now_stage = stage1;
@@ -1710,4 +1710,5 @@ void gameover_lose(){
 
 void gameover_win(){
 	print_lines(gameover,(WIDTH - 27) / 2,(HEIGHT - 3) / 2,3);
+	wait_anyinput();
 }

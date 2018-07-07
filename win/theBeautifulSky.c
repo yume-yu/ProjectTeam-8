@@ -96,6 +96,7 @@ int main(){
 		story(now_stage);
 		flame_flush();
 
+		now_stage = stage1;
 		update_map(now_stage);
 		print_lines(now_map,2,2,HEIGHT - 2);
 		guide_st1();
