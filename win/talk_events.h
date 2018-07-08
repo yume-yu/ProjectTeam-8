@@ -48,7 +48,7 @@ void naoki_find_potion(){
 }
 
 int instory_yesno(int y){
-	struct arrow_pos yn[10] = {
+	arrow_pos yn[10] = {
 		{11,y,0,0},
 		{18,y,0,0}
 	};

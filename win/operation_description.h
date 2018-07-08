@@ -119,7 +119,7 @@ int demo_battle(struct character *front,struct character *back,struct character 
 	for(int i = 0;i < enemy_amount;i++){
 		for_bar[i] = enemies[i];
 	}
-	struct arrow_pos battle_menu_arrow[] = {
+	arrow_pos battle_menu_arrow[] = {
 		{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1},
 		{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2},
 		{BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3},
@@ -390,7 +390,7 @@ int operation_description(){
 		{"Space:マップ上でメニューを開く ",1,1},
 	};
 
-	struct arrow_pos yesno[] = {
+	arrow_pos yesno[] = {
 		{(WIDTH - 16)/2 + 8,16,0,0},
 		{(WIDTH - 16)/2 + 1,16,0,0},
 	};
@@ -408,7 +408,7 @@ int operation_description(){
 		{"タイトルにもどる ",7,1},
 	};
 
-	struct arrow_pos tobe[] = {
+	arrow_pos tobe[] = {
 		{(WIDTH - 36)/2 + 6,11,0,0},
 		{(WIDTH - 36)/2 + 6,12,0,0},
 	};

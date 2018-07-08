@@ -48,7 +48,7 @@ void view_status(){
 /* アイテム欄 */
 void item_list_on_map(){
 	/* 座標の定義 */
-	struct arrow_pos item_pos[] = {
+	arrow_pos item_pos[] = {
 		{MAP_WIN_X - MAP_WIN_WIDTH + 2,MAP_WIN_Y + 1,0,0},
 		{MAP_WIN_X - MAP_WIN_WIDTH + 2,MAP_WIN_Y + 2,0,0},
 		{MAP_WIN_X - MAP_WIN_WIDTH + 2,MAP_WIN_Y + 3,0,0},
@@ -108,7 +108,7 @@ int onmap_manu(){
 		close
 	};
 	/* 座標の定義 */
-	struct arrow_pos menu_pos[] = {
+	arrow_pos menu_pos[] = {
 		{MAP_WIN_X + 2,MAP_WIN_Y + 1,0,0},
 		{MAP_WIN_X + 2,MAP_WIN_Y + 2,0,0},
 		{MAP_WIN_X + 2,MAP_WIN_Y + 3,0,0},
