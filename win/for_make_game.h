@@ -5,58 +5,21 @@
 
 #include "thebeautifulsky.h"
 
-/**
- * キャラクターの基本ステータス構造体
- */
-struct character{
-	char *name;
-	int hp;
-	int max_hp;
-	int max_atk;
-	int min_atk;
-};
-
-/**
- * 武器の基本ステータス構造体
- */
-struct weapon{
-	char *name;
-	int atk;
-	int is_gun;
-};
-
-/**
- * 防具の基本ステータス構造体
- */
-struct protector{
-	char *name;
-	int def;
-};
-
-/**
- *	ストーリー等表示文字列の構造体
- */
-struct extendstr{
-	char string[100];
-	int offset;
-	int not_need_return;
-};
-
 //必要キャラクタ-の定義
-struct character naoki;
-struct character lirel;
-struct character arist;
-struct character robo;
-struct character boss1;
-struct character boss2;
-struct character dummy;
-struct character *front;
-struct character *back;
-struct character *(enemies)[3];
+character naoki;
+character lirel;
+character arist;
+character robo;
+character boss1;
+character boss2;
+character dummy;
+character *front;
+character *back;
+character *(enemies)[3];
 int enemy_amount = 0;
 
 //前衛装備の宣言
-struct weapon all_weapons[7] = {
+weapon all_weapons[7] = {
 	{"No weapon",0,0},
 	{"HandGun",15,1},
 	{"Knife",5,0},
@@ -64,23 +27,23 @@ struct weapon all_weapons[7] = {
 };
 
 //後衛装備の宣言
-struct weapon all_weapons4back[7] = {
+weapon all_weapons4back[7] = {
 	{"No weapon",0,0},
 	{"Bow",10,1}
 };
 
 //防具の宣言
-struct protector all_protectors[7] = {
+protector all_protectors[7] = {
 	{"No protector",0},
 	{"Shield",40},
 	{"Protective Suit",55}
 };
 
 //装備枠の宣言
-struct weapon *using_weapon;
-struct protector *using_protector;
-struct weapon *arist_using_weapon;
-struct protector *arist_using_protector;
+weapon *using_weapon;
+protector *using_protector;
+weapon *arist_using_weapon;
+protector *arist_using_protector;
 int potion_amount = 0;
 int have_nasu = 0;
 
@@ -118,7 +81,7 @@ char *(now_map)[23];
 arrow_pos *(now_map_coor)[WIDTH - 2][HEIGHT - 2];
 int room_id = 0;
 arrow_pos start_pos = {0,15,0,0};
-struct extendstr *now_text[HEIGHT];
+extendstr *now_text[HEIGHT];
 
 //マップと座標系一覧の宣言
 char *(maps)[9][HEIGHT - 2];
@@ -142,29 +105,7 @@ arrow_pos *(map_coors)[10][WIDTH - 2][HEIGHT - 2];
 //マルチバイト文字の大きさがOSで若干違う(文字コード?)
 #define MULTIBYTE_CHAR_SIZE 2
 
-/**
- * Windowsにはマイクロ秒でsleepするusleep(int)がないので
- * time 処理を停止する時間[ms]
- */
-void usleep(int time){
-	Sleep(time/1000);
-}
 
-/**
- * 左上を(1,1)としてカーソルを指定位置へ移動させる関数
- * x カーソルのx座標
- * y カーソルのy座標
- */
-int mvcur(int x, int y){
-	COORD coord;
-	coord.X = x;
-	coord.Y = y;
-
-	SetConsoleCursorPosition(
-			GetStdHandle(STD_OUTPUT_HANDLE),
-			coord
-			);
-}
 
 /*
  * 入力周りを扱う構造体
@@ -270,7 +211,7 @@ void print_lines(char *string[], int x, int y, int num_lines){
  * y         出力を開始するy座標
  * num_lines 出力する行数
  */
-void string_march(struct extendstr *(tmp)[],int x,int y,int lines){
+void string_march(extendstr *(tmp)[],int x,int y,int lines){
 	char substring[100];
 	for(int i = 0; i < lines; i++){
 		for(int j = MULTIBYTE_CHAR_SIZE ; j < strlen(tmp[i]->string); j += MULTIBYTE_CHAR_SIZE ){
@@ -328,7 +269,7 @@ void coorcpy(arrow_pos *(to)[WIDTH - 2][HEIGHT - 2],arrow_pos *(from)[WIDTH - 2]
 /**
  *	表示文章を文章のアドレス配列に変換する関数
  */
-void exstrcpy(struct extendstr *(to)[],struct extendstr from[],int lines){
+void exstrcpy(extendstr *(to)[],extendstr from[],int lines){
 	for(int i = 0; i < lines; i++){
 		to[i] = &from[i];
 	}
@@ -342,7 +283,7 @@ void exstrcpy(struct extendstr *(to)[],struct extendstr from[],int lines){
  * min_atk  与ダメージの下限
  * max_atk  与ダメージの上限
  */
-void set_ch_stat(char name[10], struct character *tmpch, int hp, int max_hp,int min_atk, int max_atk){
+void set_ch_stat(char name[10], character *tmpch, int hp, int max_hp,int min_atk, int max_atk){
 	tmpch->name = name;
 	tmpch->hp = hp;
 	tmpch->max_hp = max_hp;
@@ -545,7 +486,7 @@ void sub_flame_clean(int width, int height, int x, int y){
  * atk      武器の攻撃力
  * is_gun  	銃かどうかのフラグ
  */
-void set_weapon_stat(struct weapon *tmpwp, int atk, int is_gun){
+void set_weapon_stat(weapon *tmpwp, int atk, bool is_gun){
 	tmpwp->atk = atk;
 	tmpwp->is_gun = is_gun;
 }
@@ -555,7 +496,7 @@ void set_weapon_stat(struct weapon *tmpwp, int atk, int is_gun){
  * tmppr    ステータスを設定する武器構造体のアドレス
  * def      武器の攻撃力
  */
-void set_protector_stat(struct protector *tmppr, int def){
+void set_protector_stat(protector *tmppr, int def){
 	tmppr->def = def;
 }
 
@@ -564,7 +505,7 @@ void set_protector_stat(struct protector *tmppr, int def){
  * tmpch    hpが変動するキャラクター構造体のアドレス
  * damage   ダメージ量 正なら減算/負なら加算される ex.damageが-20 → 20回復
  */
-void change_hp(struct character *tmpch, int damage){
+void change_hp(character *tmpch, int damage){
 	tmpch->hp -= damage;
 	if(tmpch->hp < 0){
 		tmpch->hp = 0;
@@ -999,7 +940,7 @@ void print_bt_commands(){
 }
 
 //敵のHPゲージを描画する関数
-void print_health_bar(struct character *target[],int amount){
+void print_health_bar(character *target[],int amount){
 	double health_par = 0;
 	for(int i = 0; i < amount; i++){
 		make_flame(25,3,2,2 + 3 * i);
@@ -1025,7 +966,7 @@ void print_health_bar(struct character *target[],int amount){
 }
 
 //戦闘モードの時にHP部分を描画する関数
-void print_bt_status(struct character *front,struct character *back){
+void print_bt_status(character *front,character *back){
 	//ステータス部分表示
 	char *(spaces)[] = {
 		"               ",
@@ -1044,7 +985,7 @@ void print_bt_status(struct character *front,struct character *back){
 }
 
 //戦闘モード
-int battle(struct character *front,struct character *back,struct character *enemies[3], int enemy_amount){
+int battle(character *front,character *back,character *enemies[3], int enemy_amount){
 	mykbhit();																	//過剰入力クッション
 	int finish_flag = 0;												//戦闘終了のフラグ
 	int protect_flag = 0;												//かばう行動のフラグ
@@ -1058,7 +999,7 @@ int battle(struct character *front,struct character *back,struct character *enem
 	int used_flare = 0;													//ステージ5での味方特殊行動の使用後フラグ
 	int enemy_amount_for_bar = enemy_amount;		//HPゲージ描画のため、本来の敵の数を記憶する変数
 	char battle_text[100] = "\0";
-	struct character *for_bar[enemy_amount];		//HPゲージ描画のため、本来の敵のアドレスを記憶する変数
+	character *for_bar[enemy_amount];		//HPゲージ描画のため、本来の敵のアドレスを記憶する変数
 	for(int i = 0;i < enemy_amount;i++){
 		for_bar[i] = enemies[i];
 	}

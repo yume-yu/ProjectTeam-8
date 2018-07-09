@@ -16,7 +16,7 @@ void update_map(enum stage now_stage){
 
 void subtitle(enum stage now_stage){
 	int length = 0;
-	struct extendstr *nowsubtitle[HEIGHT];
+	extendstr *nowsubtitle[HEIGHT];
 	switch(now_stage){
 		case stage1:
 			exstrcpy(nowsubtitle,subtitle1,2);
@@ -48,24 +48,24 @@ void subtitle(enum stage now_stage){
 void story(enum stage now_stage){
 	switch(now_stage){
 		case stage1:
-			exstrcpy(now_text,cenario_stage1,sizeof(cenario_stage1) / sizeof(struct extendstr));
-			string_march(now_text,2,2,sizeof(cenario_stage1) / sizeof(struct extendstr));
+			exstrcpy(now_text,cenario_stage1,sizeof(cenario_stage1) / sizeof(extendstr));
+			string_march(now_text,2,2,sizeof(cenario_stage1) / sizeof(extendstr));
 			break;
 		case stage2:
-			exstrcpy(now_text,cenario_stage2,sizeof(cenario_stage2) / sizeof(struct extendstr));
-			string_march(now_text,2,2,sizeof(cenario_stage2) / sizeof(struct extendstr));
+			exstrcpy(now_text,cenario_stage2,sizeof(cenario_stage2) / sizeof(extendstr));
+			string_march(now_text,2,2,sizeof(cenario_stage2) / sizeof(extendstr));
 			break;
 		case stage3_1:
-			exstrcpy(now_text,cenario_stage3,sizeof(cenario_stage3) / sizeof(struct extendstr));
-			string_march(now_text,2,2,sizeof(cenario_stage3) / sizeof(struct extendstr));
+			exstrcpy(now_text,cenario_stage3,sizeof(cenario_stage3) / sizeof(extendstr));
+			string_march(now_text,2,2,sizeof(cenario_stage3) / sizeof(extendstr));
 			break;
 		case stage4_1:
-			exstrcpy(now_text,cenario_stage4,sizeof(cenario_stage4) / sizeof(struct extendstr));
-			string_march(now_text,2,2,sizeof(cenario_stage4) / sizeof(struct extendstr));
+			exstrcpy(now_text,cenario_stage4,sizeof(cenario_stage4) / sizeof(extendstr));
+			string_march(now_text,2,2,sizeof(cenario_stage4) / sizeof(extendstr));
 			break;
 		case stage5:
-			exstrcpy(now_text,cenario_stage5,sizeof(cenario_stage5) / sizeof(struct extendstr));
-			string_march(now_text,2,2,sizeof(cenario_stage5) / sizeof(struct extendstr));
+			exstrcpy(now_text,cenario_stage5,sizeof(cenario_stage5) / sizeof(extendstr));
+			string_march(now_text,2,2,sizeof(cenario_stage5) / sizeof(extendstr));
 			break;
 		default:
 			break;

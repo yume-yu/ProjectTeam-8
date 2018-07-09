@@ -8,6 +8,11 @@
 //多重インクルード防止
 #pragma once
 
+/**
+ * コンパイルするOSの宣言
+ * Windows系	WINDOWS
+ * mac/Linux	MAC
+ */
 #define WINDOWS
 
 /* 使用するヘッダのインクルード */
@@ -200,6 +205,43 @@ typedef struct {
 	bool at_event;			//イベントが有るマスかどうか
 } arrow_pos;
 
+// character	キャラクターの基本ステータス構造体
+typedef struct {
+	char *name;
+	int hp;
+	int max_hp;
+	int max_atk;
+	int min_atk;
+} character;
+
+// weapon 武器の基本ステータス構造体
+typedef struct { 
+	char *name;
+	int atk;
+	bool is_gun;
+} weapon;
+
+// protector 防具の基本ステータス構造体
+typedef struct {
+	char *name;
+	int def;
+} protector;
+
+
+// extendstr ストーリー等表示文字列の構造体
+typedef struct {
+	char string[100];
+	int offset;
+	int not_need_return;
+} extendstr;
+
 //char配列やextendstr配列の文字数/行数を返すマクロ
 #define lengthof(var,type) (sizeof(var)/sizeof(type))
+
+/* プロトタイプ宣言 */
+
+#ifdef WINDOWS
+void usleep(int time);
+#endif
+void mvcur(int x, int y);
 

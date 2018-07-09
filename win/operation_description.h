@@ -1,9 +1,10 @@
+#include "thebeautifulsky.h"
 /**
  * 操作説明の関数
  */
 
 /* 枠内への文表示 */
-void print_explain_in(struct extendstr explain[],int size){
+void print_explain_in(extendstr explain[],int size){
 	exstrcpy(now_text,explain,size);
 	string_march(
 			now_text,
@@ -20,7 +21,7 @@ void print_explain_in(struct extendstr explain[],int size){
 }
 
 /* 枠外への文表示 */
-void print_explain_out(struct extendstr explain[],int size){
+void print_explain_out(extendstr explain[],int size){
 	exstrcpy(now_text,explain,size);
 	string_march(now_text,8,8,size);
 	sub_flame_clean(WIDTH - 2,5,2,8);
@@ -28,83 +29,83 @@ void print_explain_out(struct extendstr explain[],int size){
 
 /* 戦闘の説明 */
 void explain_battle(){
-	struct extendstr first[] = {
+	extendstr first[] = {
 		{"チュートリアル戦闘を行います▼ ",0,0}
 	};
 
-	struct extendstr second[] = {
+	extendstr second[] = {
 		{"戦闘は前衛と後衛の２人 ",0,1},
 		{"対エネミーで行います▼ ",12,0}
 	};
 
-	struct extendstr third[] = {
+	extendstr third[] = {
 		{"プレイヤーが操作するのは ",0,1},
 		{"前衛のみです▼ ",20,0}
 	};
 
-	struct extendstr fourth[] = {
+	extendstr fourth[] = {
 		{"後衛の行動は ",0,1},
 		{"ランダムに決定されます▼ ",10,0}
 	};
 
-	struct extendstr fifth[] = {
+	extendstr fifth[] = {
 		{"行動の順番は必ず ",0,1},
 		{"前衛→後衛→エネミーです▼ ",9,0}
 	};
 
-	struct extendstr sixth[] = {
+	extendstr sixth[] = {
 		{"エネミーのHPは上部に ",0,1},
 		{"パーティーのHPは右に表\示されます▼ ",0,0}
 	};
 
-	print_explain_in(first,sizeof(first)/sizeof(struct extendstr));
-	print_explain_in(second,sizeof(second)/sizeof(struct extendstr));
-	print_explain_in(third,sizeof(third)/sizeof(struct extendstr));
-	print_explain_in(fourth,sizeof(fourth)/sizeof(struct extendstr));
-	print_explain_in(fifth,sizeof(fifth)/sizeof(struct extendstr));
-	print_explain_in(sixth,sizeof(sixth)/sizeof(struct extendstr));
+	print_explain_in(first,sizeof(first)/sizeof(extendstr));
+	print_explain_in(second,sizeof(second)/sizeof(extendstr));
+	print_explain_in(third,sizeof(third)/sizeof(extendstr));
+	print_explain_in(fourth,sizeof(fourth)/sizeof(extendstr));
+	print_explain_in(fifth,sizeof(fifth)/sizeof(extendstr));
+	print_explain_in(sixth,sizeof(sixth)/sizeof(extendstr));
 }
 
 /* 戦闘コマンドの説明 */
 void explain_command(){
-	struct extendstr first[] = {
+	extendstr first[] = {
 		{"最後に戦闘時のコマンドについて説明します▼ ",0,0}
 	};
 
-	struct extendstr second[] = {
+	extendstr second[] = {
 		{"こうげき　コマンドを選ぶと攻撃ができます ",0,1},
 		{"攻撃の前には攻撃する相手を選択できます▼ ",0,0},
 	};
 
-	struct extendstr third[] = {
+	extendstr third[] = {
 		{"とくしゅ　コマンドを選ぶと特殊な攻撃ができます ",0,1},
 		{"特殊攻撃を持っていないキャラクターもいるので ",0,1},
 		{"注意してください▼ ",30,0},
 	};
 
-	struct extendstr fourth[] = {
+	extendstr fourth[] = {
 		{"かばう　コマンドを選ぶと後衛をかばうことができます ",0,1},
 		{"使用するときには前衛のHPに気を付けましょう▼ ",0,0},
 	};
 
-	struct extendstr fifth[] = {
+	extendstr fifth[] = {
 		{"どうぐ　コマンドを選ぶとポーションを使用できます ",0,1},
 		{"ポーションの効果はパーティーの全回復です▼ ",0,0},
 	};
 
-	struct extendstr sixth[] = {
+	extendstr sixth[] = {
 		{"では実際に戦ってみましょう▼ ",0,0},
 	};
 	
-	print_explain_out(first,sizeof(first)/sizeof(struct extendstr));
-	print_explain_out(second,sizeof(second)/sizeof(struct extendstr));
-	print_explain_out(third,sizeof(third)/sizeof(struct extendstr));
-	print_explain_out(fourth,sizeof(fourth)/sizeof(struct extendstr));
-	print_explain_out(fifth,sizeof(fifth)/sizeof(struct extendstr));
-	print_explain_out(sixth,sizeof(sixth)/sizeof(struct extendstr));
+	print_explain_out(first,sizeof(first)/sizeof(extendstr));
+	print_explain_out(second,sizeof(second)/sizeof(extendstr));
+	print_explain_out(third,sizeof(third)/sizeof(extendstr));
+	print_explain_out(fourth,sizeof(fourth)/sizeof(extendstr));
+	print_explain_out(fifth,sizeof(fifth)/sizeof(extendstr));
+	print_explain_out(sixth,sizeof(sixth)/sizeof(extendstr));
 }
 /* チュートリアル戦闘モード */
-int demo_battle(struct character *front,struct character *back,struct character *enemies[3], int enemy_amount){
+int demo_battle(character *front,character *back,character *enemies[3], int enemy_amount){
 	int finish_flag = 0;																																	//戦闘終了のフラグ
 	int protect_flag = 0;																																	//かばう行動のフラグ
 	int damage = 0;																																				//計算後のダメージを記憶する変数
@@ -115,7 +116,7 @@ int demo_battle(struct character *front,struct character *back,struct character 
 	int player_can_act = 1;																																//プレイヤーが行動可能かのフラグ
 	int used_flare = 0;																																		//ステージ5での味方特殊行動の使用後フラグ
 	int enemy_amount_for_bar = enemy_amount;																							//HPゲージ描画のため、本来の敵の数を記憶する変数
-	struct character *for_bar[enemy_amount];																							//HPゲージ描画のため、本来の敵のアドレスを記憶する変数
+	character *for_bar[enemy_amount];																							//HPゲージ描画のため、本来の敵のアドレスを記憶する変数
 	for(int i = 0;i < enemy_amount;i++){
 		for_bar[i] = enemies[i];
 	}
@@ -377,7 +378,7 @@ int demo_battle(struct character *front,struct character *back,struct character 
 int operation_description(){
 	now_stage = ope_exp;
 	flame_clean();
-	struct extendstr first[] = {
+	extendstr first[] = {
 		{"このゲームでの操作は以下のキーで行います。 ",0,1},
 		{"　 ",0,1},
 		{"Enter:決定　文字送り ",1,1},
@@ -395,12 +396,12 @@ int operation_description(){
 		{(WIDTH - 16)/2 + 1,16,0,0},
 	};
 
-	struct extendstr second[] = {
+	extendstr second[] = {
 		{"マップ上でのキャラクターの位置は●で表\されます ",0,1},
 		{"次に進む場合はキャラクターを出口へ移動させてください▼  ",0,0},
 	};
 
-	struct extendstr after[] = {
+	extendstr after[] = {
 		{"操作説明／チュートリアルは以上です。 ",0,1},
 		{"ゲームを始めますか？ ",7,1},
 		{" ",0,1},
@@ -413,14 +414,14 @@ int operation_description(){
 		{(WIDTH - 36)/2 + 6,12,0,0},
 	};
 	print_line("How to play game",(WIDTH - 16)/2,2);															//タイトルテキストを出す
-	exstrcpy(now_text,first,sizeof(first)/sizeof(struct extendstr));
-	string_march(now_text,2,4,sizeof(first)/sizeof(struct extendstr));
+	exstrcpy(now_text,first,sizeof(first)/sizeof(extendstr));
+	string_march(now_text,2,4,sizeof(first)/sizeof(extendstr));
 	print_line("次に進む場合は「はい」を選んでください",(WIDTH - 38)/2,15);				//確認の文章を表示
 	print_line("はい   いいえ",(WIDTH - 16)/2 + 2,16);
 	while(!select_from_hlist(yesno,2));																						//｢はい｣の入力をまつ
 	sub_flame_clean(WIDTH - 2,2,2,15);																						//次に進む場合は～の文章を消す
-	exstrcpy(now_text,second,sizeof(second)/sizeof(struct extendstr));						//次に表示する文章をnow_textに用意
-	string_march(now_text,2,15,sizeof(second)/sizeof(struct extendstr));					//now_textを表示
+	exstrcpy(now_text,second,sizeof(second)/sizeof(extendstr));						//次に表示する文章をnow_textに用意
+	string_march(now_text,2,15,sizeof(second)/sizeof(extendstr));					//now_textを表示
 	coorcpy(now_map_coor,map_coors[now_stage]);																		//説明用マップ座標をnow_map_coorに用意
 	start_pos.x = 1;																															//マップ移動開始時のX座標をセット
 	start_pos.y = 0;																															//マップ移動開始時のY座標をセット	
@@ -440,8 +441,8 @@ int operation_description(){
 	enemy_amount = 1;																															//敵の数を設定
 	demo_battle(front,back,enemies,enemy_amount);
 	make_flame(39,7,(WIDTH - 36) / 2 - 2,7);
-	exstrcpy(now_text,after,sizeof(after)/sizeof(struct extendstr));
-	string_march(now_text,(WIDTH - 36) / 2,8,sizeof(after)/sizeof(struct extendstr));
+	exstrcpy(now_text,after,sizeof(after)/sizeof(extendstr));
+	string_march(now_text,(WIDTH - 36) / 2,8,sizeof(after)/sizeof(extendstr));
 	reset_state();
 	return select_from_list(tobe,2);
 }
