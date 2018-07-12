@@ -480,5 +480,4 @@ extendstr afterbattle_stage5[] ={
 	{"アリストとなら　 ",14,1},
 	{"何処へでも行ける。」　▼　 ",17,0},
 };
-#endif
 
