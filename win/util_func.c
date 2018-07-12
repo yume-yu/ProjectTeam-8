@@ -151,6 +151,15 @@ void string_march(extendstr *(tmp)[],int x,int y,int lines){
 }
 
 /**
+ *	表示文章を文章のアドレス配列に変換する関数
+ */
+void exstrcpy(extendstr *(to)[],extendstr from[],int lines){
+	for(int i = 0; i < lines; i++){
+		to[i] = &from[i];
+	}
+}
+
+/**
  * リストを表示した際にカーソルの縦移動と決定した項目を管理する関数
  * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
  * length      リスト項目の数

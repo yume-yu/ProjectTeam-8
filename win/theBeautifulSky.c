@@ -3,16 +3,12 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include "thebeautifulsky.h"
 #include "for_make_game.h"
 #include "talk_events.h"
 #include "decide_event.h"
-#include "map_menu.h"
 #include "operation_description.h"
 
-void update_map(stage now_stage){
-	mapcpy(now_map,maps[now_stage]);
-	coorcpy(now_map_coor,map_coors[now_stage]);
-}
 
 void subtitle(stage now_stage){
 	int length = 0;

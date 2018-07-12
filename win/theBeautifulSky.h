@@ -147,6 +147,23 @@
 #define TITLE_MENU_BASE_X									(WIDTH - 24)/2
 #define TITLE_MENU_BASE_Y									HEIGHT - 5
 
+/**
+ *	@def
+ *	ƒ}ƒbƒvã‚Ìƒƒjƒ…[‚ÉŠÖ‚·‚é’è”
+ */
+#define MAP_WIN_WIDTH		(WIDTH - 2) / 3
+#define MAP_WIN_HEIGHT	6
+#define MAP_WIN_X				WIDTH - 1 - MAP_WIN_WIDTH
+#define MAP_WIN_Y				5
+
+/**
+ *	@def
+ *	ƒ}ƒbƒvã‚ÌƒXƒe[ƒ^ƒXƒƒjƒ…[‚ÉŠÖ‚·‚é’è”
+ */
+#define STAT_WIN_WIDTH		MAP_WIN_WIDTH  + 10
+#define STAT_WIN_HEIGHT		8
+#define STAT_WIN_X				MAP_WIN_X - (MAP_WIN_WIDTH + 10)
+
 //ƒLƒƒƒ‰ƒNƒ^[ƒXƒe[ƒ^ƒXİ’è’è”
 #define FRONT1_NAME				"ƒŠ[ƒŒƒ‹"
 #define FRONT1_HP					110
@@ -297,7 +314,7 @@ extern int enemy_amount;
 
 //‘•”õ‚Æ‘•”õ˜g
 extern weapon all_weapons[7];							//‘S‘O‰q•Ší‚ÌéŒ¾
-extern weapon all_weapons4back[7];					//‘SŒã‰q•Ší‚ÌéŒ¾
+extern weapon all_weapons4back[7];				//‘SŒã‰q•Ší‚ÌéŒ¾
 extern protector all_protectors[7];				//‘S–h‹ï‚ÌéŒ¾
 extern weapon *using_weapon;							//‘O‰q‚Ì•Ší
 extern protector *using_protector;				//‘O‰q‚Ì–h‹ï
@@ -361,6 +378,7 @@ void init_term();																																//ƒ^[ƒ~ƒiƒ‹‚Ì‰Šú‰»‚ğs‚¤ŠÖ”
 void print_line(char string[], int x, int y);																		//w’è‚µ‚½À•W‚ğs“ª‚É‚É1so—Í‚·‚éŠÖ”
 void print_lines(char *string[], int x, int y, int num_lines);									//w’è‚µ‚½À•W‚ğs“ª‚É•¡”so—Í‚·‚éŠÖ”
 void string_march(extendstr *(tmp)[],int x,int y,int lines);										//w’è‚µ‚½À•W‚ğs“ª‚É•¡”sƒAƒjƒ[ƒVƒ‡ƒ“o—Í‚·‚éŠÖ”
+void exstrcpy(extendstr *(to)[],extendstr from[],int lines);										//ƒAƒjƒ[ƒVƒ‡ƒ“•\¦—p\‘¢‘Ì”z—ñ‚ğƒAƒhƒŒƒX‚Ì”z—ñ‚É•ÏŠ·‚·‚éŠÖ”
 int select_from_list(arrow_pos tmp_pos[10], int length);												//c•ûŒü‚ÌƒŠƒXƒg‚©‚ç‘I‘ğ‚³‚¹‚éŠÖ”
 int select_from_hlist(arrow_pos tmp_pos[10], int length);												//‰¡•ûŒü‚ÌƒŠƒXƒg‚©‚ç‘I‘ğ‚³‚¹‚éŠÖ”
 int select_from_2dlist(int width, int height,arrow_pos tmp_pos[width][height]);	//•½–ÊƒŠƒXƒg‚©‚ç‘I‘ğ‚³‚¹‚éŠÖ”
@@ -374,4 +392,29 @@ void flame_clean();																																//ƒƒCƒ“ƒtƒŒ[ƒ€“à‚ğƒAƒjƒ[ƒ
 void sub_flame_clean(int width, int height, int x, int y);												//w’è”ÍˆÍ“à‚ğƒAƒjƒ[ƒVƒ‡ƒ“‚È‚µ‚ÅƒXƒy[ƒX–„‚ß‚·‚éŠÖ”
 int check_window(int width, int height, int x, int y, char *string);							//Šm”F•¶‚Æy/n‚ÌŠm”FƒtƒŒ[ƒ€‚ğo‚·ŠÖ”
 /* ‚±‚±‚Ü‚Åflame_func.c‚Å’è‹`‚·‚éŠÖ” */
+
+/* ‚±‚±‚©‚çweapons_items.c‚Å’è‹`‚·‚éŠÖ” */
+void set_weapon_stat(weapon *tmpwp, int atk, bool is_gun);												//•Ší‚ÌƒXƒe[ƒ^ƒX‚ğXV‚·‚éŠÖ”
+void set_protector_stat(protector *tmppr, int def);																//–h‹ï‚ÌƒXƒe[ƒ^ƒX‚ğXV‚·‚éŠÖ”
+bool get_potion();																																//ƒ|[ƒVƒ‡ƒ“‚ğ“üè‚µ‚½‚Æ‚«‚ÌŠÖ”
+/* ‚±‚±‚Ü‚Åweapons_items.c‚Å’è‹`‚·‚éŠÖ” */
+
+/* ‚±‚±‚©‚çcharacter.c‚Å’è‹`‚·‚éŠÖ” */
+void set_ch_stat(char name[10], character *tmpch, int hp, int max_hp,int min_atk, int max_atk);	//ƒLƒƒƒ‰ƒNƒ^[‚ÌƒXƒe[ƒ^ƒX‚ğXV‚·‚éŠÖ”
+void change_hp(character *tmpch, int damage);																										//ƒLƒƒƒ‰ƒNƒ^[‚Ìƒ_ƒ[ƒW/‰ñ•œˆ—‚ğs‚¤ŠÖ”
+/* ‚±‚±‚Ü‚Åcharacter.c‚Å’è‹`‚·‚éŠÖ” */
+
+/* ‚±‚±‚©‚çmap_func.c‚Å’è‹`‚·‚éŠÖ” */
+void mapcpy(char *(to)[HEIGHT - 2],char *(from)[HEIGHT - 2]);																								//ƒ}ƒbƒv‚ğ•ÊŠÖ”‚ÉƒRƒs[‚·‚éŠÖ”
+void coor_cnv_adr(arrow_pos *(to)[WIDTH - 2][HEIGHT - 2],arrow_pos from[WIDTH - 2][HEIGHT - 2]);						//ƒ}ƒbƒvÀ•W‚ğƒAƒhƒŒƒX”z—ñ‚É‚µ‚ÄƒRƒs[‚·‚éŠÖ”
+void coorcpy(arrow_pos *(to)[WIDTH - 2][HEIGHT - 2],arrow_pos *(from)[WIDTH - 2][HEIGHT - 2]);							//ƒ}ƒbƒvÀ•W‚ÌƒAƒhƒŒƒX”z—ñ‚ğƒRƒs[‚·‚éŠÖ”
+arrow_pos move_on_map(int width, int height,arrow_pos *(tmp_pos)[WIDTH -2 ][HEIGHT - 2], arrow_pos offset);	//ƒ}ƒbƒvã‚ğˆÚ“®‚·‚éŠÖ”
+/* ‚±‚±‚Ü‚Åmap_func.c‚Å’è‹`‚·‚éŠÖ” */
+
+/* ‚±‚±‚©‚çmap_menu.c‚Å’è‹`‚·‚éŠÖ” */
+void view_status();																																//ƒ}ƒbƒvƒƒjƒ…[‚ÅƒXƒe[ƒ^ƒX‚ğ•\¦‚·‚éŠÖ”
+void item_list_on_map();																													//ƒ}ƒbƒvƒƒjƒ…[‚ÅƒAƒCƒeƒ€ˆê——‚ğ•\¦‚·‚éŠÖ”
+int onmap_manu();																																	//ƒ}ƒbƒvƒƒjƒ…[‚ğŠJ‚­ŠÖ”
+void update_map(stage now_stage);																									//•\¦‚·‚éƒ}ƒbƒv‚ğƒXƒe[ƒW‚É‡‚í‚¹‚ÄXV‚·‚éŠÖ”
+/* ‚±‚±‚Ü‚Åmap_menu.c‚Å’è‹`‚·‚éŠÖ” */
 
