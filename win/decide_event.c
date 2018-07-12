@@ -1,3 +1,10 @@
+/**
+ * @file		decide_event.c
+ * @brief		マップ移動関数からの戻り値を見て発生イベントを決定する関数を書いたファイル
+ * @author	yume_yu
+ * @date		2018/07/12
+ */
+
 #include "thebeautifulsky.h"
 
 event decide_event(arrow_pos exit_point){
