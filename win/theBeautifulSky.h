@@ -81,7 +81,7 @@
 #define BATTLE_MODE_STATUS_FLAME_X				2
 #define BATTLE_MODE_STATUS_FLAME_SPLIT_X 	2*(WIDTH-2)/3-1 -2
 #define BATTLE_MODE_COMMAND_POS 					7
-#define BATTLE_MODE_STATUS_HP_POS 				BATTLE_MODE_STATUS_FLAME_SPLIT_X+5 
+#define BATTLE_MODE_STATUS_HP_POS 				BATTLE_MODE_STATUS_FLAME_SPLIT_X+5
 
 /*
  * キャラクターステータス設定モード関連定数
@@ -229,7 +229,7 @@
 
 // arrow_pos	座標を管理するための構造体。リスト表示やマップ上で、配列にして使う
 typedef struct {
-	int x;							//x座標 
+	int x;							//x座標
 	int y;							//y座標
 	bool not_active;		//移動可能な座標かどうか
 	bool at_event;			//イベントが有るマスかどうか
@@ -245,7 +245,7 @@ typedef struct {
 } character;
 
 // weapon 武器の基本ステータス構造体
-typedef struct { 
+typedef struct {
 	char *name;					//名前
 	int atk;						//与ダメージ増加分
 	bool is_gun;				//銃であるかどうか
@@ -299,7 +299,7 @@ typedef enum {
 
 //必要キャラクタ-の定義
 extern character naoki;
-extern character lirel;						
+extern character lirel;
 extern character arist;
 extern character robo;
 extern character boss1;
@@ -333,7 +333,7 @@ extern int room_id;																				//侵入した部屋のid
 extern arrow_pos start_pos;																//マップ描画時のキャラクターの初期位置
 extern extendstr *now_text[HEIGHT];												//アニメーションで表示する文字列
 
-/* ここからmap_stX.hで定義する変数 */
+/* ここからmap_stX.cで定義する変数 */
 
 //マップ変数
 extern char *(map_st1)[WIDTH - 2];
@@ -349,15 +349,72 @@ extern char *(map_exp)[WIDTH - 2];
 //マップ座標変数
 extern arrow_pos st1_pos[WIDTH - 2][HEIGHT - 2] ;
 extern arrow_pos st2_pos[WIDTH - 2][HEIGHT - 2] ;
-extern arrow_pos st3_1_pos[WIDTH - 2][HEIGHT - 2]; 
-extern arrow_pos st3_2_pos[WIDTH - 2][HEIGHT - 2]; 
-extern arrow_pos st3_3_pos[WIDTH - 2][HEIGHT - 2]; 
-extern arrow_pos st4_1_pos[WIDTH - 2][HEIGHT - 2]; 
-extern arrow_pos st4_2_pos[WIDTH - 2][HEIGHT - 2]; 
-extern arrow_pos st4_3_pos[WIDTH - 2][HEIGHT - 2]; 
+extern arrow_pos st3_1_pos[WIDTH - 2][HEIGHT - 2];
+extern arrow_pos st3_2_pos[WIDTH - 2][HEIGHT - 2];
+extern arrow_pos st3_3_pos[WIDTH - 2][HEIGHT - 2];
+extern arrow_pos st4_1_pos[WIDTH - 2][HEIGHT - 2];
+extern arrow_pos st4_2_pos[WIDTH - 2][HEIGHT - 2];
+extern arrow_pos st4_3_pos[WIDTH - 2][HEIGHT - 2];
 extern arrow_pos exp_pos[WIDTH - 2][HEIGHT - 2] ;
 
-/* ここまでmap_stX.hで定義する変数 */
+/* ここまでmap_stX.cで定義する変数 */
+
+/* ここからstorytext.cで定義する*/
+extern extendstr subtitle1[];
+extern extendstr subtitle2[];
+extern extendstr subtitle3[];
+extern extendstr subtitle4[];
+extern extendstr subtitle5[];
+extern extendstr cenario_stage1[];
+extern extendstr lirel_said[];
+extern extendstr lirel_stop[];
+extern extendstr beforebattle_stage1[];
+extern extendstr afterbattle_stage1[];
+extern extendstr cenario_stage2[];
+extern extendstr talk_st2_0_1[];
+extern extendstr talk_st2_0_2[];
+extern extendstr beforebattle_stage2[];
+extern extendstr afterbattle_stage2[];
+extern extendstr cenario_stage3[];
+extern extendstr talk_st3_0[];
+extern extendstr talk_st3_1[];
+extern extendstr talk_st3_1_1[];
+extern extendstr talk_st3_1_3[];
+extern extendstr talk_st3_1_2[];
+extern extendstr talk_st3_2[];
+extern extendstr talk_st3_2_1[];
+extern extendstr talk_st3_2_2[];
+extern extendstr talk_st3_2_3[];
+extern extendstr talk_st3_3[];
+extern extendstr talk_st3_3_0[];
+extern extendstr talk_st3_3_1[];
+extern extendstr talk_st3_3_2[];
+extern extendstr talk_st3_3_3[];
+extern extendstr talk_st3_5_1[];
+extern extendstr talk_st3_5_2[];
+extern extendstr talk_st3_5_3[];
+extern extendstr talk_st3_6[];
+extern extendstr beforebattle_stage3[];
+extern extendstr afterbattle_stage3[];
+extern extendstr cenario_stage4[];
+extern extendstr talk_st4_0[];
+extern extendstr talk_st4_0_1[];
+extern extendstr talk_st4_0_2[];
+extern extendstr talk_st4_0_3[];
+extern extendstr talk_st4_1[];
+extern extendstr talk_st4_1_1[];
+extern extendstr talk_st4_1_2[];
+extern extendstr talk_st4_1_3[];
+extern extendstr talk_st4_3[];
+extern extendstr talk_st4_5[];
+extern extendstr talk_st4_6[];
+extern extendstr beforebattle_stage4[];
+extern extendstr afterbattle_stage4_1[];
+extern extendstr afterbattle_stage4_2[];
+extern extendstr afterbattle_stage4_3[];
+extern extendstr cenario_stage5[];
+extern extendstr afterbattle_stage5[];
+/* ここまでstorytext.cで定義する*/
 
 /* 関数マクロ定義 */
 //char配列やextendstr配列の文字数/行数を返すマクロ
@@ -385,7 +442,7 @@ int select_from_2dlist(int width, int height,arrow_pos tmp_pos[width][height]);	
 /* ここまでutil_func.cで定義する関数 */
 
 /* ここからflame_func.cで定義する関数 */
-void make_flame(int width, int height, int offset_x, int offset_y);								//指定位置を左上に高さと幅を指定したフレームを作成する関数	
+void make_flame(int width, int height, int offset_x, int offset_y);								//指定位置を左上に高さと幅を指定したフレームを作成する関数
 void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x);//指定位置を左上に高さと幅と分割位置を指定した横2分割のフレームを作成する関数
 void flame_flush();																																//メインフレーム内をアニメーション付きでスペース埋めする関数
 void flame_clean();																																//メインフレーム内をアニメーションなしでスペース埋めする関数
