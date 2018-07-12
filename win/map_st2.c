@@ -1,6 +1,7 @@
+#include "thebeautifulsky.h"
 /* ステージ2のマップと座標 */
 
-char *(map_st2)[23] = {
+char *(map_st2)[WIDTH - 2] = {
 	"                          ┏┓            ^       ^       ",
 	"             ^        ^   ┗┫    ^           ^           ",
   "   ^     ^    ^   ^        ▲        ^                    ",

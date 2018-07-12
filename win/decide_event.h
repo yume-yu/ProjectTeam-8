@@ -1,5 +1,7 @@
-enum event decide_event(arrow_pos exit_point){
-	enum event selected_event;
+#include "thebeautifulsky.h"
+
+event decide_event(arrow_pos exit_point){
+	event selected_event;
 	/* ƒƒjƒ…[•\¦‚©‚Ç‚¤‚©‚ğ”»’è */
 	if(exit_point.x == 58 && exit_point.y == 24){
 		selected_event = open_menu;

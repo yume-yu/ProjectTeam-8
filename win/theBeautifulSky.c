@@ -9,12 +9,12 @@
 #include "map_menu.h"
 #include "operation_description.h"
 
-void update_map(enum stage now_stage){
+void update_map(stage now_stage){
 	mapcpy(now_map,maps[now_stage]);
 	coorcpy(now_map_coor,map_coors[now_stage]);
 }
 
-void subtitle(enum stage now_stage){
+void subtitle(stage now_stage){
 	int length = 0;
 	extendstr *nowsubtitle[HEIGHT];
 	switch(now_stage){
@@ -45,7 +45,7 @@ void subtitle(enum stage now_stage){
 	flame_clean();
 }
 
-void story(enum stage now_stage){
+void story(stage now_stage){
 	switch(now_stage){
 		case stage1:
 			exstrcpy(now_text,cenario_stage1,sizeof(cenario_stage1) / sizeof(extendstr));

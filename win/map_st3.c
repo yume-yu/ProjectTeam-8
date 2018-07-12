@@ -1,4 +1,5 @@
-char *(map_st3_1)[23] = {
+#include "thebeautifulsky.h"
+char *(map_st3_1)[WIDTH - 2] = {
 		"                          Ñ¨Ñ≠            ^       ^       ",
 		"             ^        ^   ÑØÑ≤    ^           ^           ",
     "   ^     ^    ^   ^        Å£        ^                    ",
@@ -24,7 +25,7 @@ char *(map_st3_1)[23] = {
 		"                  ^      Ñ†  Ñ†                 ^     ",
 };
 
-char *(map_st3_2)[23] = {
+char *(map_st3_2)[WIDTH - 2] = {
 		"             ^        ^           ^           ^           ",
     "   ^     ^    ^   ^        ^         ^                    ",
 		"                                  ^      ^        ^       ",
@@ -50,7 +51,7 @@ char *(map_st3_2)[23] = {
 		"                 ^                              ^       ",
 };
 /*
-char *(map_st3_2)[23] = {
+char *(map_st3_2)[WIDTH - 2] = {
 		"             ^        ^           ^           ^           ",
     "   ^     ^    ^   ^        ^         ^                    ",
 		"                                  ^      ^        ^       ",
@@ -77,7 +78,7 @@ char *(map_st3_2)[23] = {
 };
 */
 
-char *(map_st3_3)[23] = {
+char *(map_st3_3)[WIDTH - 2] = {
 "             ^        ^           ^           ^           ",
 						"   ^     ^    ^   ^        ^         ^                    ",
 "                                  ^      ^        ^       ",

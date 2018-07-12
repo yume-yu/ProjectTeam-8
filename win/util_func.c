@@ -1,18 +1,24 @@
+/**
+ * @file util_func.c
+ * @brief ”Ä—p“I‚ÈŠÖ”‚ğ’è‹`‚·‚éƒtƒ@ƒCƒ‹
+ * @author yume_yu
+ * @date 2018/07/08
+ */
 #include "thebeautifulsky.h"
 #ifdef WINDOWS
 
 /**
- * Windowsã«ã¯ãƒã‚¤ã‚¯ãƒ­ç§’ã§sleepã™ã‚‹usleep(int)ãŒãªã„ã®ã§
- * time å‡¦ç†ã‚’åœæ­¢ã™ã‚‹æ™‚é–“[ms]
+ * Windows‚É‚Íƒ}ƒCƒNƒ•b‚Åsleep‚·‚éusleep(int)‚ª‚È‚¢‚Ì‚Å
+ * time ˆ—‚ğ’â~‚·‚éŠÔ[ms]
  */
 void usleep(int time){
 	Sleep(time/1000);
 }
 
 /**
- * å·¦ä¸Šã‚’(1,1)ã¨ã—ã¦ã‚«ãƒ¼ã‚½ãƒ«ã‚’æŒ‡å®šä½ç½®ã¸ç§»å‹•ã•ã›ã‚‹é–¢æ•°
- * x ã‚«ãƒ¼ã‚½ãƒ«ã®xåº§æ¨™
- * y ã‚«ãƒ¼ã‚½ãƒ«ã®yåº§æ¨™
+ * ¶ã‚ğ(1,1)‚Æ‚µ‚ÄƒJ[ƒ\ƒ‹‚ğw’èˆÊ’u‚ÖˆÚ“®‚³‚¹‚éŠÖ”
+ * x ƒJ[ƒ\ƒ‹‚ÌxÀ•W
+ * y ƒJ[ƒ\ƒ‹‚ÌyÀ•W
  */
 void mvcur(int x, int y){
 	COORD coord;
@@ -25,4 +31,281 @@ void mvcur(int x, int y){
 			);
 }
 
+/*
+ * ƒL[ƒ{[ƒh‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©‚Æ‚»‚Ì“ü—ÍƒL[‚ğ‚Æ‚éŠÖ”
+ * –ß‚è’l
+ * input_assort temp	2‚Â‚Ìƒtƒ‰ƒO‚Ì\‘¢‘Ì
+ */
+input_assort mykbhit(){
+	input_assort temp;
+	if(_kbhit()){
+		temp.input_char =  _getch();
+		temp.kbhit_flag = 1;
+	}else{
+		temp.input_char = 0;
+		temp.kbhit_flag = 0;
+	}
+	return temp;
+}
+
+/**
+ * •W€o—Í‚Ì‰Šú‰»
+ */
+void init_term(){
+	//ƒJ[ƒ\ƒ‹ˆÊ’u‚ğ(1,1)‚ÉˆÚ“®
+	mvcur(1,1);
+}
+
 #endif
+
+/**
+ *  ‚È‚É‚©‚Ì“ü—Í‚Ì‘Ò‹@‚ğ‚·‚éŠÖ”
+ */
+void wait_anyinput(){
+	mvcur(0,HEIGHT + 1);
+	fflush(stdout);
+	while(!mykbhit().kbhit_flag);
+	while(mykbhit().kbhit_flag);
+}
+
+/**
+ *  •ûŒüƒL[ˆÈŠO‚Ì“ü—Í‚Ì‘Ò‹@‚ğ‚·‚éŠÖ”
+ */
+void wait_input_without_arrow(){
+	int flag = 1;
+	input_assort tmp;
+	mvcur(0,HEIGHT + 1);
+	fflush(stdout);
+	while(flag){
+		tmp = mykbhit();
+		switch(tmp.input_char){
+			case 'a':
+			case 's':
+			case 'w':
+			case 'd':
+				break;
+			default:
+				if(tmp.kbhit_flag){
+					flag = 0;
+				}
+				break;
+		}
+	}
+	while(mykbhit().kbhit_flag);
+}
+
+/**
+ * w’è‰ÓŠ‚Ö‚Ì1s‚Ì•¶šo—Í‚ğs‚¤ŠÖ”
+ * string o—Í‚·‚é•¶š—ñ
+ * x      o—Í‚·‚éxÀ•W
+ * y      o—Í‚·‚éyÀ•W
+ */
+void print_line(char string[], int x, int y){
+	mvcur(x,y);
+	printf("%s",string);
+	mvcur(0,HEIGHT + 1);
+}
+
+/*
+ * w’è‰ÓŠ‚Ö‚Ì•¡”ss‚Ì•¶šo—Í‚ğs‚¤ŠÖ”
+ * string    o—Í‚·‚é•¶š—ñ”z—ñ
+ * x         o—Í‚ğŠJn‚·‚éxÀ•W
+ * y         o—Í‚ğŠJn‚·‚éyÀ•W
+ * num_lines o—Í‚·‚és”
+ */
+void print_lines(char *string[], int x, int y, int num_lines){
+	for(int i = 0; i < num_lines; i++){
+		print_line(string[i],x,y+i);
+	}
+	mvcur(0,HEIGHT + 1);
+}
+
+/**
+ * w’è‰ÓŠ‚Ö‚Ì•¡”s‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚Â‚«•¶šo—Í‚ğs‚¤ŠÖ”
+ * string    o—Í‚·‚é•¶š—ñ2ŸŒ³”z—ñ
+ * x         o—Í‚ğŠJn‚·‚éxÀ•W
+ * y         o—Í‚ğŠJn‚·‚éyÀ•W
+ * num_lines o—Í‚·‚és”
+ */
+void string_march(extendstr *(tmp)[],int x,int y,int lines){
+	char substring[100];
+	for(int i = 0; i < lines; i++){
+		for(int j = MULTIBYTE_CHAR_SIZE ; j < strlen(tmp[i]->string); j += MULTIBYTE_CHAR_SIZE ){
+			mvcur(x + tmp[i]->offset,y + i);
+			strncpy(substring,tmp[i]->string,j);
+			substring[j] = '\0';
+			printf("%s",substring);
+			mvcur(0,HEIGHT + 1);
+			fflush(stdout);
+			input_assort now = mykbhit();
+			if(now.kbhit_flag && now.input_char == ENTERKEY){
+			}else{
+				usleep(30 * 1000);
+			}
+		}
+		if(!tmp[i]->not_need_return){
+			wait_input_without_arrow();
+			//wait_anyinput();
+		}
+	}
+}
+
+/**
+ * ƒŠƒXƒg‚ğ•\¦‚µ‚½Û‚ÉƒJ[ƒ\ƒ‹‚ÌcˆÚ“®‚ÆŒˆ’è‚µ‚½€–Ú‚ğŠÇ—‚·‚éŠÖ”
+ * tmp_pos[10] ƒJ[ƒ\ƒ‹‚ğ•\¦‚·‚éˆÊ’u‚ğ’è‹`‚µ‚½arrow_posŒ^‚Ì”z—ñ
+ * length      ƒŠƒXƒg€–Ú‚Ì”
+ * –ß‚è’l length/Enter‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚Ì€–Ú‚Ìƒ‰ƒxƒ‹(‰½ŒÂ–Ú‚Ìƒƒjƒ…[‚¾‚Á‚½‚©)
+ */
+int select_from_list(arrow_pos tmp_pos[10], int length){
+	int arrow_pos_label = 0;
+	input_assort tmp_input_list;
+	print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+	while(1){
+		while(!(tmp_input_list = mykbhit()).kbhit_flag);
+		switch(tmp_input_list.input_char){
+			case 'w':
+				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				if(arrow_pos_label <= 0){
+					arrow_pos_label = length - 1;
+				}else{
+					arrow_pos_label--;
+				}
+				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				continue;
+				break;
+			case 's':
+				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				if(arrow_pos_label >= length - 1){
+					arrow_pos_label = 0;
+				}else{
+					arrow_pos_label++;
+				}
+				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				continue;
+				break;
+			case ENTERKEY:
+				break;
+			default:
+				continue;
+				break;
+		}
+		break;
+	}
+	return arrow_pos_label;
+}
+
+/**
+ * ƒŠƒXƒg‚ğ•\¦‚µ‚½Û‚ÉƒJ[ƒ\ƒ‹‚Ì‰¡ˆÚ“®‚ÆŒˆ’è‚µ‚½€–Ú‚ğŠÇ—‚·‚éŠÖ”
+ * tmp_pos[10] ƒJ[ƒ\ƒ‹‚ğ•\¦‚·‚éˆÊ’u‚ğ’è‹`‚µ‚½arrow_posŒ^‚Ì”z—ñ
+ * length      ƒŠƒXƒg€–Ú‚Ì”
+ * –ß‚è’l length/Enter‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚Ì€–Ú‚Ìƒ‰ƒxƒ‹(‰½ŒÂ–Ú‚Ìƒƒjƒ…[‚¾‚Á‚½‚©)
+ */
+int select_from_hlist(arrow_pos tmp_pos[10], int length){
+	int arrow_pos_label = 0;
+	input_assort tmp_input_list;
+	print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+	while(1){
+		while(!(tmp_input_list = mykbhit()).kbhit_flag);
+		switch(tmp_input_list.input_char){
+			case 'a':
+				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				if(arrow_pos_label <= 0){
+					arrow_pos_label = length - 1;
+				}else{
+					arrow_pos_label--;
+				}
+				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				continue;
+				break;
+			case 'd':
+				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				if(arrow_pos_label >= length - 1){
+					arrow_pos_label = 0;
+				}else{
+					arrow_pos_label++;
+				}
+				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				continue;
+				break;
+			case ENTERKEY:
+				break;
+			default:
+				continue;
+				break;
+		}
+		break;
+	}
+	return arrow_pos_label;
+}
+
+/*
+ * ƒŠƒXƒg‚ğ•\¦‚µ‚½Û‚ÉƒJ[ƒ\ƒ‹‚Ì“ñŸŒ³ˆÚ“®‚ÆŒˆ’è‚µ‚½€–Ú‚ğŠÇ—‚·‚éŠÖ”
+ * tmp_pos[10][10]	ƒJ[ƒ\ƒ‹‚ğ•\¦‚·‚éˆÊ’u‚ğ’è‹`‚µ‚½arrow_posŒ^‚Ì”z—ñ
+ * length			ƒŠƒXƒg€–Ú‚Ì”
+ * –ß‚è’l
+ * int length		Enter‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚Ì€–Ú‚Ìƒ‰ƒxƒ‹(‰½ŒÂ–Ú‚Ìƒƒjƒ…[‚¾‚Á‚½‚©)
+ */
+int select_from_2dlist(int width, int height,arrow_pos tmp_pos[width][height]){
+	arrow_pos arrow_pos_label = {0,0};
+	input_assort tmp_input_list;
+	print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+	while(1){
+		while(!(tmp_input_list = mykbhit()).kbhit_flag);
+
+		print_line(" ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+		switch(tmp_input_list.input_char){
+			case 'w':
+				do{
+					if(arrow_pos_label.y <= 0){
+						arrow_pos_label.y = height - 1;
+					}else{
+						arrow_pos_label.y--;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case 's':
+				do{
+					if(arrow_pos_label.y >= height - 1){
+						arrow_pos_label.y= 0;
+					}else{
+						arrow_pos_label.y++;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case 'a':
+				do{
+					if(arrow_pos_label.x <= 0){
+						arrow_pos_label.x = width - 1;
+					}else{
+						arrow_pos_label.x--;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case 'd':
+				do{
+					if(arrow_pos_label.x >= width - 1){
+						arrow_pos_label.x= 0;
+					}else{
+						arrow_pos_label.x++;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case ENTERKEY:
+				break;
+			default:
+				continue;
+				break;
+		}
+		break;
+	}
+	return arrow_pos_label.x + width * arrow_pos_label.y;
+}
+

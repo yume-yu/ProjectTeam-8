@@ -1,5 +1,6 @@
+#include "thebeautifulsky.h"
 /* 操作説明用マップ */
-char *(map_exp)[23] = {
+char *(map_exp)[WIDTH - 2] = {
 "┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐",
 "│                                     │ ",
 "│                                     │ ",

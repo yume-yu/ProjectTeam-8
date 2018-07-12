@@ -1,42 +1,54 @@
 /**
  * @file thebeautifulsky.h
- * @brief ã‚²ãƒ¼ãƒ ï½¢thebeautifulskyï½£ã®ãƒ˜ãƒƒãƒ€
+ * @brief ƒQ[ƒ€¢thebeautifulsky£‚Ìƒwƒbƒ_
  * @author yume_yu
  * @date 2018/07/08
  */
 
-//å¤šé‡ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰é˜²æ­¢
+//‘½dƒCƒ“ƒNƒ‹[ƒh–h~
 #pragma once
 
 /**
- * ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã™ã‚‹OSã®å®£è¨€
- * Windowsç³»	WINDOWS
+ * ƒRƒ“ƒpƒCƒ‹‚·‚éOS‚ÌéŒ¾
+ * WindowsŒn	WINDOWS
  * mac/Linux	MAC
  */
 #define WINDOWS
 
-/* ä½¿ç”¨ã™ã‚‹ãƒ˜ãƒƒãƒ€ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ */
+/* g—p‚·‚éƒwƒbƒ_‚ÌƒCƒ“ƒNƒ‹[ƒh */
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
 #include <stdbool.h>
 
-#ifdef WINDOWS
+//OS‚ÉˆË‘¶‚·‚éƒ‰ƒCƒuƒ‰ƒŠ‚ğ‚±‚±‚É‘‚­
+#if defined WINDOWS
 
-#include <windows.h>		//ã‚«ãƒ¼ã‚½ãƒ«ç§»å‹•SetConsoleCursorPositionç­‰
-#include <conio.h>			//kbhit(),getch()ãªã©
+#include <windows.h>						//ƒJ[ƒ\ƒ‹ˆÚ“®SetConsoleCursorPosition“™
+#include <conio.h>							//kbhit(),getch()‚È‚Ç
+
+#define ENTERKEY 0x0d						//EnterƒL[‚Ì“ü—Í‚Ì“ˆê•\‹L
+#define MULTIBYTE_CHAR_SIZE 2		//ƒ}ƒ‹ƒ`ƒoƒCƒg•¶š‚Ì‘å‚«‚³‚Ì“ˆê•\‹L(•¶šƒR[ƒh?)
+
+#elif defined MAC
+
+#include "mconio.h"
+
+#define ENTERKEY '_n'						//EnterƒL[‚Ì“ü—Í‚Ì“ˆê•\‹L
+#define MULTIBYTE_CHAR_SIZE 3		//ƒ}ƒ‹ƒ`ƒoƒCƒg•¶š‚Ì‘å‚«‚³‚Ì“ˆê•\‹L(•¶šƒR[ƒh?)
 
 #endif
 
-/* å®šæ•°ã®å®šç¾© */
+
+/* ’è”‚Ì’è‹`(define) */
 
 /**
- * ãƒ¡ã‚¤ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ (å¤§æ )é–¢é€£å®šæ•°
- * WIDTH          ãƒ¡ã‚¤ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ ã®å¹…
- * HEIGHT         ãƒ¡ã‚¤ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ ã®é«˜ã•
- * MAIN_FLAME_X   ãƒ¡ã‚¤ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ ã®é–‹å§‹ä½ç½®ã®Xåº§æ¨™
- * MAIN_FLAME_Y   ãƒ¡ã‚¤ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ ã®é–‹å§‹ä½ç½®ã®Yåº§æ¨™
+ * ƒƒCƒ“ƒtƒŒ[ƒ€(‘å˜g)ŠÖ˜A’è”
+ * WIDTH          ƒƒCƒ“ƒtƒŒ[ƒ€‚Ì•
+ * HEIGHT         ƒƒCƒ“ƒtƒŒ[ƒ€‚Ì‚‚³
+ * MAIN_FLAME_X   ƒƒCƒ“ƒtƒŒ[ƒ€‚ÌŠJnˆÊ’u‚ÌXÀ•W
+ * MAIN_FLAME_Y   ƒƒCƒ“ƒtƒŒ[ƒ€‚ÌŠJnˆÊ’u‚ÌYÀ•W
  */
 #define WIDTH					60
 #define HEIGHT 				25
@@ -44,11 +56,11 @@
 #define MAIN_FLAME_Y 	1
 
 /*
- * ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ é–¢é€£å®šæ•°
- * SELECT_STAGE_FLAME_WIDTH  ãƒ•ãƒ¬ãƒ¼ãƒ ã®å¹…
- * SELECT_STAGE_FLAME_HEIGHT ãƒ•ãƒ¬ãƒ¼ãƒ ã®é«˜ã•
- * SELECT_STAGE_FLAME_X      ãƒ•ãƒ¬ãƒ¼ãƒ ã®é–‹å§‹ä½ç½®ã®Xåº§æ¨™
- * SELECT_STAGE_FLAME_Y      ãƒ•ãƒ¬ãƒ¼ãƒ ã®é–‹å§‹ä½ç½®ã®Yåº§æ¨™
+ * ƒXƒe[ƒWƒZƒŒƒNƒgƒtƒŒ[ƒ€ŠÖ˜A’è”
+ * SELECT_STAGE_FLAME_WIDTH  ƒtƒŒ[ƒ€‚Ì•
+ * SELECT_STAGE_FLAME_HEIGHT ƒtƒŒ[ƒ€‚Ì‚‚³
+ * SELECT_STAGE_FLAME_X      ƒtƒŒ[ƒ€‚ÌŠJnˆÊ’u‚ÌXÀ•W
+ * SELECT_STAGE_FLAME_Y      ƒtƒŒ[ƒ€‚ÌŠJnˆÊ’u‚ÌYÀ•W
  */
 #define SELECT_STAGE_FLAME_WIDTH  				25
 #define SELECT_STAGE_FLAME_HEIGHT 				11
@@ -56,13 +68,13 @@
 #define SELECT_STAGE_FLAME_Y      				(HEIGHT - SELECT_STAGE_FLAME_HEIGHT) / 2
 
 /**
- * æˆ¦é—˜ç”»é¢ã§ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚º/é…ç½®é–¢é€£å®šæ•°
- * BATTLE_MODE_STATUS_FLAME_WIDTH   ä¸‹åˆ†å‰²ãƒ•ãƒ¬ãƒ¼ãƒ ã®å¹…
- * BATTLE_MODE_STATUS_FLAME_HEIGHT  ä¸‹åˆ†å‰²ãƒ•ãƒ¬ãƒ¼ãƒ ã®é«˜ã•
- * BATTLE_MODE_STATUS_FLAME_X       ä¸‹åˆ†å‰²ãƒ•ãƒ¬ãƒ¼ãƒ ã®é–‹å§‹ä½ç½®ã®Xåº§æ¨™
- * BATTLE_MODE_STATUS_FLAME_SPLIT_X ä¸‹åˆ†å‰²ãƒ•ãƒ¬ãƒ¼ãƒ ã®åˆ†å‰²ä½ç½®
- * BATTLE_MODE_COMMAND_POS          æˆ¦é—˜ã‚³ãƒãƒ³ãƒ‰ãƒ–ãƒ¬ãƒ¼ãƒ (ä¸‹å·¦)ã®1è¡Œç›®ã®Xåº§æ¨™
- * BATTLE_MODE_STATUS_HP_POS        ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒ•ãƒ¬ãƒ¼ãƒ (ä¸‹å³)ã®1è¡Œç›®ã®Xåº§æ¨™
+ * í“¬‰æ–Ê‚Å‚ÌƒEƒBƒ“ƒhƒEƒTƒCƒY/”z’uŠÖ˜A’è”
+ * BATTLE_MODE_STATUS_FLAME_WIDTH   ‰º•ªŠ„ƒtƒŒ[ƒ€‚Ì•
+ * BATTLE_MODE_STATUS_FLAME_HEIGHT  ‰º•ªŠ„ƒtƒŒ[ƒ€‚Ì‚‚³
+ * BATTLE_MODE_STATUS_FLAME_X       ‰º•ªŠ„ƒtƒŒ[ƒ€‚ÌŠJnˆÊ’u‚ÌXÀ•W
+ * BATTLE_MODE_STATUS_FLAME_SPLIT_X ‰º•ªŠ„ƒtƒŒ[ƒ€‚Ì•ªŠ„ˆÊ’u
+ * BATTLE_MODE_COMMAND_POS          í“¬ƒRƒ}ƒ“ƒhƒuƒŒ[ƒ€(‰º¶)‚Ì1s–Ú‚ÌXÀ•W
+ * BATTLE_MODE_STATUS_HP_POS        ƒXƒe[ƒ^ƒXƒtƒŒ[ƒ€(‰º‰E)‚Ì1s–Ú‚ÌXÀ•W
  */
 #define BATTLE_MODE_STATUS_FLAME_WIDTH		WIDTH-2
 #define BATTLE_MODE_STATUS_FLAME_HEIGHT		6
@@ -72,7 +84,7 @@
 #define BATTLE_MODE_STATUS_HP_POS 				BATTLE_MODE_STATUS_FLAME_SPLIT_X+5 
 
 /*
- * ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹è¨­å®šãƒ¢ãƒ¼ãƒ‰é–¢é€£å®šæ•°
+ * ƒLƒƒƒ‰ƒNƒ^[ƒXƒe[ƒ^ƒXİ’èƒ‚[ƒhŠÖ˜A’è”
  * EDIT_MODE_SELECT_FLAME_WIDTH
  * EDIT_MODE_SELECT_FLAME_HEIGHT
  * EDIT_MODE_SELECT_FLAME_X
@@ -130,17 +142,17 @@
 #define EDIT_EQIP_EDIT_FLAME_WIDTH				(WIDTH - 2)
 #define EDIT_EQIP_EDIT_FLAME_HEIGHT				2* (HEIGHT - 2) / 3
 
-//ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ã®æ˜Ÿã®æ•°
+//ƒ^ƒCƒgƒ‹‰æ–Ê‚Ì¯‚Ì”
 #define STAR_AMOUNT 											50
 #define TITLE_MENU_BASE_X									(WIDTH - 24)/2
 #define TITLE_MENU_BASE_Y									HEIGHT - 5
 
-//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹è¨­å®šå®šæ•°
-#define FRONT1_NAME				"ãƒªãƒ¼ãƒ¬ãƒ«"
+//ƒLƒƒƒ‰ƒNƒ^[ƒXƒe[ƒ^ƒXİ’è’è”
+#define FRONT1_NAME				"ƒŠ[ƒŒƒ‹"
 #define FRONT1_HP					110
 #define FRONT1_MINATK			15
 #define FRONT1_MAXATK			20
-#define FRONT2_NAME				"ãƒŠã‚ªã‚­"
+#define FRONT2_NAME				"ƒiƒIƒL"
 #define FRONT2_HP_ST2			90
 #define FRONT2_MINATK_ST2	20
 #define FRONT2_MAXATK_ST2	35
@@ -159,7 +171,7 @@
 #define FRONT4_HP					5000
 #define FRONT4_MINATK			400
 #define FRONT4_MAXATK			450
-#define BACK_NAME					"ã‚¢ãƒªã‚¹ãƒˆ"
+#define BACK_NAME					"ƒAƒŠƒXƒg"
 #define BACK_HP_ST1				70
 #define BACK_HEAL_ST1 		20
 #define BACK_HP_ST2				90
@@ -169,79 +181,197 @@
 #define BACK_HP_ST4				130
 #define BACK_HEAL_ST4 		50
 #define BACK_ATTACK				35
-#define ST1_BOSS_NAME			"è¿½æ‰‹ã®æ“æ©Ÿå…µ"
+#define ST1_BOSS_NAME			"’Çè‚Ì‘€‹@•º"
 #define ST1_BOSS_HP				100
 #define ST1_BOSS_MINATK		10
 #define ST1_BOSS_MAXATK		20
-#define ST2_BOSS_NAME			"ã‚¿ã‚¯ãƒˆ"
+#define ST2_BOSS_NAME			"ƒ^ƒNƒg"
 #define ST2_BOSS_HP				150
 #define ST2_BOSS_MINATK		30
 #define ST2_BOSS_MAXATK		40
-#define ST3_BOSS_NAME			"ãƒ‡ã‚¸ãƒ¬ = ã‚·ãƒ‹ã‚¸ã‚§"
+#define ST3_BOSS_NAME			"ƒfƒWƒŒ = ƒVƒjƒWƒF"
 #define ST3_BOSS_HP				250
 #define ST3_BOSS_MINATK		50
 #define ST3_BOSS_MAXATK		60
-#define ST4_BOSS_NAME			"å¤ä»£ã®æ©Ÿæ¢°å·¨äºº"
+#define ST4_BOSS_NAME			"ŒÃ‘ã‚Ì‹@ŠB‹l"
 #define ST4_BOSS_HP				1000
 #define ST4_BOSS_MINATK		100
 #define ST4_BOSS_MAXATK		130
-#define ST5_BOSS_NAME			"ãƒ•ã‚¡ãƒ¼ãƒ«"
+#define ST5_BOSS_NAME			"ƒtƒ@[ƒ‹"
 #define ST5_BOSS_HP				3000
 #define ST5_BOSS_MINATK		300
 #define ST5_BOSS_MAXATK		400
-#define ST2_WEAK_NAME			"ãƒªãƒˆãƒ«ãƒ¯ã‚¤ãƒãƒ¼ãƒ³"
-#define ST31_WEAK_NAME		"ã‚¯ãƒ¬ã‚¤ã‚¸ãƒ¼ãƒ‰ãƒƒã‚°"
-#define ST32_WEAK_NAME		"ãƒãƒƒãƒ‰ãƒ‰ãƒƒã‚°"
-#define ST41_WEAK_NAME		"ç¾½ã‚’å¤±ã„ã—ã‚‚ã® A"
-#define ST42_WEAK_NAME		"ç¾½ã‚’å¤±ã„ã—ã‚‚ã® B"
+#define ST2_WEAK_NAME			"ƒŠƒgƒ‹ƒƒCƒo[ƒ“"
+#define ST31_WEAK_NAME		"ƒNƒŒƒCƒW[ƒhƒbƒO"
+#define ST32_WEAK_NAME		"ƒ}ƒbƒhƒhƒbƒO"
+#define ST41_WEAK_NAME		"‰H‚ğ¸‚¢‚µ‚à‚Ì A"
+#define ST42_WEAK_NAME		"‰H‚ğ¸‚¢‚µ‚à‚Ì B"
 
-/* æ§‹é€ ä½“ã®å®£è¨€ */
 
-// arrow_pos	åº§æ¨™ã‚’ç®¡ç†ã™ã‚‹ãŸã‚ã®æ§‹é€ ä½“ã€‚ãƒªã‚¹ãƒˆè¡¨ç¤ºã‚„ãƒãƒƒãƒ—ä¸Šã§ã€é…åˆ—ã«ã—ã¦ä½¿ã†
+/* \‘¢‘Ì‚ÌéŒ¾ */
+
+// arrow_pos	À•W‚ğŠÇ—‚·‚é‚½‚ß‚Ì\‘¢‘ÌBƒŠƒXƒg•\¦‚âƒ}ƒbƒvã‚ÅA”z—ñ‚É‚µ‚Äg‚¤
 typedef struct {
-	int x;						//xåº§æ¨™ 
-	int y;						//yåº§æ¨™
-	bool not_active;		//ç§»å‹•å¯èƒ½ãªåº§æ¨™ã‹ã©ã†ã‹
-	bool at_event;			//ã‚¤ãƒ™ãƒ³ãƒˆãŒæœ‰ã‚‹ãƒã‚¹ã‹ã©ã†ã‹
+	int x;							//xÀ•W 
+	int y;							//yÀ•W
+	bool not_active;		//ˆÚ“®‰Â”\‚ÈÀ•W‚©‚Ç‚¤‚©
+	bool at_event;			//ƒCƒxƒ“ƒg‚ª—L‚éƒ}ƒX‚©‚Ç‚¤‚©
 } arrow_pos;
 
-// character	ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®åŸºæœ¬ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹æ§‹é€ ä½“
+// character	ƒLƒƒƒ‰ƒNƒ^[‚ÌŠî–{ƒXƒe[ƒ^ƒX\‘¢‘Ì
 typedef struct {
-	char *name;
-	int hp;
-	int max_hp;
-	int max_atk;
-	int min_atk;
+	char *name;					//–¼‘O
+	int hp;							//Œ»İ‚Ì‘Ì—Í
+	int max_hp;					//‘Ì—Í‚ÌÅ‘å’l
+	int max_atk;				//—^ƒ_ƒ[ƒW‚ÌãŒÀ
+	int min_atk;				//—^ƒ_ƒ[ƒW‚Ì‰ºŒÀ
 } character;
 
-// weapon æ­¦å™¨ã®åŸºæœ¬ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹æ§‹é€ ä½“
+// weapon •Ší‚ÌŠî–{ƒXƒe[ƒ^ƒX\‘¢‘Ì
 typedef struct { 
-	char *name;
-	int atk;
-	bool is_gun;
+	char *name;					//–¼‘O
+	int atk;						//—^ƒ_ƒ[ƒW‘‰Á•ª
+	bool is_gun;				//e‚Å‚ ‚é‚©‚Ç‚¤‚©
 } weapon;
 
-// protector é˜²å…·ã®åŸºæœ¬ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹æ§‹é€ ä½“
+// protector –h‹ï‚ÌŠî–{ƒXƒe[ƒ^ƒX\‘¢‘Ì
 typedef struct {
-	char *name;
-	int def;
+	char *name;					//–¼‘O
+	int def;						//–hŒä—Í‚Ì‘‰Á•ª
 } protector;
 
-
-// extendstr ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ç­‰è¡¨ç¤ºæ–‡å­—åˆ—ã®æ§‹é€ ä½“
+// extendstr ƒXƒg[ƒŠ[“™•\¦•¶š—ñ‚Ì\‘¢‘Ì
 typedef struct {
-	char string[100];
-	int offset;
-	int not_need_return;
+	char string[100];		//•\¦‚·‚é•¶š—ñ
+	int offset;					//•\¦ˆÊ’u‚Ì‰E‚¸‚ç‚µƒIƒtƒZƒbƒg
+	int not_need_return;//“ü—Í‚ğ‘Ò‚Âs‚Å‚ ‚é‚©‚Ìƒtƒ‰ƒO
 } extendstr;
 
-//charé…åˆ—ã‚„extendstré…åˆ—ã®æ–‡å­—æ•°/è¡Œæ•°ã‚’è¿”ã™ãƒã‚¯ãƒ­
+// input_assort “ü—Í‚ğˆµ‚¤\‘¢‘Ì
+typedef struct {
+	bool kbhit_flag;		//ƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©‚ğ•Ô‚·ƒtƒ‰ƒO
+	int input_char;			//“ü—Í‚³‚ê‚½ƒL[
+} input_assort;
+
+// stage ƒ}ƒbƒv‚ğ•\‚·—ñ‹“
+typedef enum {
+	stage1,
+	stage2,
+	stage3_1,
+	stage3_2,
+	stage3_3,
+	stage4_1,
+	stage4_2,
+	stage4_3,
+	stage5,
+	ope_exp
+} stage;
+
+// event ƒ}ƒbƒv‚Å‹N‚±‚éƒCƒxƒ“ƒg‚ğ•\‚·—ñ‹“
+typedef enum {
+	battle_event, //í“¬ƒCƒxƒ“ƒg
+	talk_event,		//‰ï˜bƒCƒxƒ“ƒg
+	move_map,			//ƒ}ƒbƒvŠÔ‚ÌˆÚ“®
+	open_menu			//ƒƒjƒ…[‚ğŠJ‚­
+} event;
+
+/* ’è”‚Ì’è‹`(const) */
+
+
+/* ƒOƒ[ƒoƒ‹ŠÖ”éŒ¾ */
+
+//•K—vƒLƒƒƒ‰ƒNƒ^-‚Ì’è‹`
+extern character naoki;
+extern character lirel;						
+extern character arist;
+extern character robo;
+extern character boss1;
+extern character boss2;
+extern character dummy;
+extern character *front;
+extern character *back;
+extern character *(enemies)[3];
+
+//í“¬‚Ì“G‚Ì”
+extern int enemy_amount;
+
+//‘•”õ‚Æ‘•”õ˜g
+extern weapon all_weapons[7];							//‘S‘O‰q•Ší‚ÌéŒ¾
+extern weapon all_weapons4back[7];					//‘SŒã‰q•Ší‚ÌéŒ¾
+extern protector all_protectors[7];				//‘S–h‹ï‚ÌéŒ¾
+extern weapon *using_weapon;							//‘O‰q‚Ì•Ší
+extern protector *using_protector;				//‘O‰q‚Ì–h‹ï
+extern weapon *arist_using_weapon;				//Œã‰q‚Ì•Ší
+extern protector *arist_using_protector;	//Œã‰q‚Ì–h‹ï
+extern int potion_amount;									//Š‚µ‚Ä‚¢‚éƒ|[ƒVƒ‡ƒ“‚Ì”
+extern int have_nasu;											//Š‚µ‚Ä‚¢‚éƒiƒX‚Ì”
+
+//ƒXƒe[ƒWŠÇ—/ƒ}ƒbƒvŠÇ—
+extern char *(maps)[9][HEIGHT - 2];												//‘SƒXƒe[ƒW‚Ìƒ}ƒbƒv}
+extern arrow_pos *(map_coors)[10][WIDTH - 2][HEIGHT - 2];	//‘SƒXƒe[ƒW‚Ìƒ}ƒbƒvÀ•W
+extern stage now_stage;																		//Œ»İ‚ÌƒXƒe[ƒW
+extern char *(now_map)[WIDTH - 2];												//Œ»İ‚Ìƒ}ƒbƒv}
+extern arrow_pos *(now_map_coor)[WIDTH - 2][HEIGHT - 2];	//Œ»İ‚Ìƒ}ƒbƒvÀ•W
+extern int room_id;																				//N“ü‚µ‚½•”‰®‚Ìid
+extern arrow_pos start_pos;																//ƒ}ƒbƒv•`‰æ‚ÌƒLƒƒƒ‰ƒNƒ^[‚Ì‰ŠúˆÊ’u
+extern extendstr *now_text[HEIGHT];												//ƒAƒjƒ[ƒVƒ‡ƒ“‚Å•\¦‚·‚é•¶š—ñ
+
+/* ‚±‚±‚©‚çmap_stX.h‚Å’è‹`‚·‚é•Ï” */
+
+//ƒ}ƒbƒv•Ï”
+extern char *(map_st1)[WIDTH - 2];
+extern char *(map_st2)[WIDTH - 2];
+extern char *(map_st3_1)[WIDTH - 2];
+extern char *(map_st3_2)[WIDTH - 2];
+extern char *(map_st3_3)[WIDTH - 2];
+extern char *(map_st4_1)[WIDTH - 2];
+extern char *(map_st4_2)[WIDTH - 2];
+extern char *(map_st4_3)[WIDTH - 2];
+extern char *(map_exp)[WIDTH - 2];
+
+//ƒ}ƒbƒvÀ•W•Ï”
+extern arrow_pos st1_pos[WIDTH - 2][HEIGHT - 2] ;
+extern arrow_pos st2_pos[WIDTH - 2][HEIGHT - 2] ;
+extern arrow_pos st3_1_pos[WIDTH - 2][HEIGHT - 2]; 
+extern arrow_pos st3_2_pos[WIDTH - 2][HEIGHT - 2]; 
+extern arrow_pos st3_3_pos[WIDTH - 2][HEIGHT - 2]; 
+extern arrow_pos st4_1_pos[WIDTH - 2][HEIGHT - 2]; 
+extern arrow_pos st4_2_pos[WIDTH - 2][HEIGHT - 2]; 
+extern arrow_pos st4_3_pos[WIDTH - 2][HEIGHT - 2]; 
+extern arrow_pos exp_pos[WIDTH - 2][HEIGHT - 2] ;
+
+/* ‚±‚±‚Ü‚Åmap_stX.h‚Å’è‹`‚·‚é•Ï” */
+
+/* ŠÖ”ƒ}ƒNƒ’è‹` */
+//char”z—ñ‚âextendstr”z—ñ‚Ì•¶š”/s”‚ğ•Ô‚·ƒ}ƒNƒ
 #define lengthof(var,type) (sizeof(var)/sizeof(type))
 
-/* ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—å®£è¨€ */
+/* ƒvƒƒgƒ^ƒCƒvéŒ¾ */
 
-#ifdef WINDOWS
-void usleep(int time);
+/* ‚±‚±‚©‚çutil_func.c‚Å’è‹`‚·‚éŠÖ” */
+#ifdef WINDOWS									//Windows‚Ì‚Æ‚«‚¾‚¯•K—v‚È‹Lq‚ğ‚±‚Ìif‚Ì’†‚É“ü‚ê‚é
+void usleep(int time);					//usleep‚Ì•\‹L“ˆê‚Ì‚½‚ß
 #endif
-void mvcur(int x, int y);
+
+void mvcur(int x, int y);																												//ƒJ[ƒ\ƒ‹ˆÚ“®‚ğs‚¤ŠÖ”
+input_assort mykbhit();																													//ƒL[“ü—Í‚ğæ‚éŠÖ”
+void wait_anyinput();																														//‚È‚É‚©ƒL[“ü—Í‚ğ‘Ò‚ÂŠÖ”
+void wait_input_without_arrow();																								//AWSDˆÈŠO‚ÌƒL[“ü—Í‚ğ‘Ò‚ÂŠÖ”
+void init_term();																																//ƒ^[ƒ~ƒiƒ‹‚Ì‰Šú‰»‚ğs‚¤ŠÖ”
+void print_line(char string[], int x, int y);																		//w’è‚µ‚½À•W‚ğs“ª‚É‚É1so—Í‚·‚éŠÖ”
+void print_lines(char *string[], int x, int y, int num_lines);									//w’è‚µ‚½À•W‚ğs“ª‚É•¡”so—Í‚·‚éŠÖ”
+void string_march(extendstr *(tmp)[],int x,int y,int lines);										//w’è‚µ‚½À•W‚ğs“ª‚É•¡”sƒAƒjƒ[ƒVƒ‡ƒ“o—Í‚·‚éŠÖ”
+int select_from_list(arrow_pos tmp_pos[10], int length);												//c•ûŒü‚ÌƒŠƒXƒg‚©‚ç‘I‘ğ‚³‚¹‚éŠÖ”
+int select_from_hlist(arrow_pos tmp_pos[10], int length);												//‰¡•ûŒü‚ÌƒŠƒXƒg‚©‚ç‘I‘ğ‚³‚¹‚éŠÖ”
+int select_from_2dlist(int width, int height,arrow_pos tmp_pos[width][height]);	//•½–ÊƒŠƒXƒg‚©‚ç‘I‘ğ‚³‚¹‚éŠÖ”
+/* ‚±‚±‚Ü‚Åutil_func.c‚Å’è‹`‚·‚éŠÖ” */
+
+/* ‚±‚±‚©‚çflame_func.c‚Å’è‹`‚·‚éŠÖ” */
+void make_flame(int width, int height, int offset_x, int offset_y);								//w’èˆÊ’u‚ğ¶ã‚É‚‚³‚Æ•‚ğw’è‚µ‚½ƒtƒŒ[ƒ€‚ğì¬‚·‚éŠÖ”	
+void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x);//w’èˆÊ’u‚ğ¶ã‚É‚‚³‚Æ•‚Æ•ªŠ„ˆÊ’u‚ğw’è‚µ‚½‰¡2•ªŠ„‚ÌƒtƒŒ[ƒ€‚ğì¬‚·‚éŠÖ”
+void flame_flush();																																//ƒƒCƒ“ƒtƒŒ[ƒ€“à‚ğƒAƒjƒ[ƒVƒ‡ƒ“•t‚«‚ÅƒXƒy[ƒX–„‚ß‚·‚éŠÖ”
+void flame_clean();																																//ƒƒCƒ“ƒtƒŒ[ƒ€“à‚ğƒAƒjƒ[ƒVƒ‡ƒ“‚È‚µ‚ÅƒXƒy[ƒX–„‚ß‚·‚éŠÖ”
+void sub_flame_clean(int width, int height, int x, int y);												//w’è”ÍˆÍ“à‚ğƒAƒjƒ[ƒVƒ‡ƒ“‚È‚µ‚ÅƒXƒy[ƒX–„‚ß‚·‚éŠÖ”
+int check_window(int width, int height, int x, int y, char *string);							//Šm”F•¶‚Æy/n‚ÌŠm”FƒtƒŒ[ƒ€‚ğo‚·ŠÖ”
+/* ‚±‚±‚Ü‚Åflame_func.c‚Å’è‹`‚·‚éŠÖ” */
 

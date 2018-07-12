@@ -23,7 +23,6 @@ weapon all_weapons[7] = {
 	{"No weapon",0,0},
 	{"HandGun",15,1},
 	{"Knife",5,0},
-	//{"Bow",30,1}
 };
 
 //後衛装備の宣言
@@ -47,37 +46,11 @@ protector *arist_using_protector;
 int potion_amount = 0;
 int have_nasu = 0;
 
-/**
- * @enum event
- * ステージのマップ一覧
- */
-enum stage {
-	stage1,
-	stage2,
-	stage3_1,
-	stage3_2,
-	stage3_3,
-	stage4_1,
-	stage4_2,
-	stage4_3,
-	stage5,
-	ope_exp
-};
 
-/**
- * @enum event
- * 起こるイベントの一覧
- */
-enum event {
-	battle_event,
-	talk_event,
-	move_map,
-	open_menu
-};
 
 //現在のステージ
-enum stage now_stage = stage1;
-char *(now_map)[23];
+stage now_stage = stage1;
+char *(now_map)[WIDTH - 2];
 arrow_pos *(now_map_coor)[WIDTH - 2][HEIGHT - 2];
 int room_id = 0;
 arrow_pos start_pos = {0,15,0,0};
@@ -87,152 +60,13 @@ extendstr *now_text[HEIGHT];
 char *(maps)[9][HEIGHT - 2];
 arrow_pos *(map_coors)[10][WIDTH - 2][HEIGHT - 2];
 
-//マップの読み込み
-#include "map_exp.h"
-#include "map_st1.h"
-#include "map_st2.h"
-#include "map_st3.h"
-#include "map_st4.h"
 
 //ストーリーの読み込み
 #include "storytexts.h"
 
-#include <windows.h>
-#include <conio.h>
-
-//WindowsとUNIXでEnterキーの入力が異なるのでプログラム上の表記を統一
-#define ENTERKEY 0x0d
-//マルチバイト文字の大きさがOSで若干違う(文字コード?)
-#define MULTIBYTE_CHAR_SIZE 2
 
 
 
-/*
- * 入力周りを扱う構造体
- * kbhit_flag	キーが押されているかを返すint
- * input_char	押されているキー
- */
-struct input_assort{
-	int kbhit_flag;
-	int input_char;
-};
-
-/*
- * キーボードが押されているかとその入力キーをとる関数
- * 戻り値
- * struct input_assort temp	2つのフラグの構造体
- */
-struct input_assort mykbhit(){
-	struct input_assort temp;
-	if(kbhit()){
-		temp.input_char =  _getch();
-		temp.kbhit_flag = 1;
-	}else{
-		temp.input_char = 0;
-		temp.kbhit_flag = 0;
-	}
-	return temp;
-}
-
-/**
- *  なにかの入力の待機をする関数
- */
-void wait_anyinput(){
-	mvcur(0,HEIGHT + 1);
-	fflush(stdout);
-	while(!mykbhit().kbhit_flag);
-	while(mykbhit().kbhit_flag);
-}
-
-/**
- *  方向キー以外の入力の待機をする関数
- */
-void wait_input_without_arrow(){
-	int flag = 1;
-	struct input_assort tmp;
-	mvcur(0,HEIGHT + 1);
-	fflush(stdout);
-	while(flag){
-		tmp = mykbhit();
-		switch(tmp.input_char){
-			case 'a':
-			case 's':
-			case 'w':
-			case 'd':
-				break;
-			default:
-				if(tmp.kbhit_flag){
-					flag = 0;
-				}
-				break;
-		}
-	}
-	while(mykbhit().kbhit_flag);
-}
-
-/**
- * 標準出力の初期化
- */
-void init_term(){
-	//カーソル位置を(1,1)に移動
-	mvcur(1,1);
-}
-
-/**
- * 指定箇所への1行の文字出力を行う関数
- * string 出力する文字列
- * x      出力するx座標
- * y      出力するy座標
- */
-void print_line(char string[], int x, int y){
-	mvcur(x,y);
-	printf("%s",string);
-	mvcur(0,HEIGHT + 1);
-}
-
-/*
- * 指定箇所への複数行行の文字出力を行う関数
- * string    出力する文字列配列
- * x         出力を開始するx座標
- * y         出力を開始するy座標
- * num_lines 出力する行数
- */
-void print_lines(char *string[], int x, int y, int num_lines){
-	for(int i = 0; i < num_lines; i++){
-		print_line(string[i],x,y+i);
-	}
-	mvcur(0,HEIGHT + 1);
-}
-
-/**
- * 指定箇所への複数行のアニメーションつき文字出力を行う関数
- * string    出力する文字列2次元配列
- * x         出力を開始するx座標
- * y         出力を開始するy座標
- * num_lines 出力する行数
- */
-void string_march(extendstr *(tmp)[],int x,int y,int lines){
-	char substring[100];
-	for(int i = 0; i < lines; i++){
-		for(int j = MULTIBYTE_CHAR_SIZE ; j < strlen(tmp[i]->string); j += MULTIBYTE_CHAR_SIZE ){
-			mvcur(x + tmp[i]->offset,y + i);
-			strncpy(substring,tmp[i]->string,j);
-			substring[j] = '\0';
-			printf("%s",substring);
-			mvcur(0,HEIGHT + 1);
-			fflush(stdout);
-			struct input_assort now = mykbhit();
-			if(now.kbhit_flag && now.input_char == ENTERKEY){
-			}else{
-				usleep(30 * 1000);
-			}
-		}
-		if(!tmp[i]->not_need_return){
-			wait_input_without_arrow();
-			//wait_anyinput();
-		}
-	}
-}
 
 /**
  *	マップをコピーする関数
@@ -350,135 +184,6 @@ void initchara(){
 	arist_using_protector = &all_protectors[0];
 }
 
-/*
- * フレームの作成関数
- * width    作成するフレームの幅
- * height   作成するフレームの高さ
- * offset_x 作成するフレームの開始位置のx座標
- * offset_y 作成するフレームの開始位置のy座標
- */
-void make_flame(int width, int height, int offset_x, int offset_y){
-	int print_width = width - 2;
-	int print_height = height - 2;
-	//1行目の描画
-	mvcur(offset_x,offset_y);
-	printf("┌");
-	for(int i = 0; i < print_width; i++){
-		printf("─");
-	}
-	printf("┐");
-	//中間部分の描画
-	for(int i = 0; i < print_height; i++){
-		mvcur(offset_x,offset_y + 1 + i);
-		printf("│");
-		for(int j = 0; j < print_width; j++){
-			printf(" ");
-		}
-		printf("│");
-	}
-
-	//最終行部分の描画
-	mvcur(offset_x,offset_y + height - 1);
-	printf("└");
-	for(int i = 0; i < print_width; i++){
-		printf("─");
-	}
-	printf("┘");
-
-	//カーソル位置の初期化
-	mvcur(1,HEIGHT+1);
-}
-
-/**
- * 横分割フレームの作成関数
- * width    作成するフレームの幅
- * height   作成するフレームの高さ
- * offset_x 作成するフレームの開始位置のx座標
- * offset_y 作成するフレームの開始位置のy座標
- * split_x  フレームの区切り線を入れるx座標
- */
-void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x){
-	int print_width = width - 2;
-	int print_height = height - 2;
-	//1行目の描画
-	mvcur(offset_x,offset_y);
-	printf("┌");
-	for(int i = 0; i < print_width; i++){
-		if(i == split_x){
-			printf("┬");
-		}else{
-			printf("─");
-		}
-	}
-	printf("┐");
-	//中間部分の描画
-	for(int i = 0; i < print_height; i++){
-		mvcur(offset_x,offset_y + 1 + i);
-		printf("│");
-		for(int j = 0; j < print_width; j++){
-			if(j == split_x){
-				printf("│");
-			}else{
-				printf(" ");
-			}
-		}
-		printf("│");
-	}
-	//最終行部分の描画
-	mvcur(offset_x,offset_y + height - 1);
-	printf("└");
-	for(int i = 0; i < print_width; i++){
-		if(i == split_x){
-			printf("┴");
-		}else{
-			printf("─");
-		}
-	}
-	printf("┘\n");
-
-	//カーソル位置の初期化
-	mvcur(1,HEIGHT+1);
-
-}
-
-/**
- * フレーム内をアニメーションでスペース埋めにする関数
- */
-void flame_flush(){
-	for(int i = 2; i < HEIGHT; i++){
-		for(int j = 2; j < WIDTH; j++){
-			print_line(" ",j,i);
-		}
-		fflush(stdout);
-		usleep(2 * 10000);
-	}
-}
-
-/**
- * フレーム内をスペース埋めにする関数
- */
-void flame_clean(){
-	for(int i = 2; i < HEIGHT; i++){
-		for(int j = 2; j < WIDTH; j++){
-			mvcur(j,i);
-			printf(" ");
-		}
-		//usleep(2 * 10000);
-	}
-	fflush(stdout);
-}
-
-/**
- * 指定フレーム内をスペース埋めにする関数
- */
-void sub_flame_clean(int width, int height, int x, int y){
-	for(int i = y; i < y + height; i++){
-		for(int j = x; j <x+  width;j++){
-			print_line(" ",j,i);
-		}
-	}
-	fflush(stdout);
-}
 
 /**
  * 武器のステータス設定をする関数
@@ -531,164 +236,6 @@ int get_potion(){
 }
 
 
-/**
- * リストを表示した際にカーソルの縦移動と決定した項目を管理する関数
- * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
- * length      リスト項目の数
- * 戻り値 length/Enterが押されたときの項目のラベル(何個目のメニューだったか)
- */
-int select_from_list(arrow_pos tmp_pos[10], int length){
-	int arrow_pos_label = 0;
-	struct input_assort tmp_input_list;
-	print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
-	while(1){
-		while(!(tmp_input_list = mykbhit()).kbhit_flag);
-		switch(tmp_input_list.input_char){
-			case 'w':
-				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
-				if(arrow_pos_label <= 0){
-					arrow_pos_label = length - 1;
-				}else{
-					arrow_pos_label--;
-				}
-				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
-				continue;
-				break;
-			case 's':
-				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
-				if(arrow_pos_label >= length - 1){
-					arrow_pos_label = 0;
-				}else{
-					arrow_pos_label++;
-				}
-				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
-				continue;
-				break;
-			case ENTERKEY:
-				break;
-			default:
-				continue;
-				break;
-		}
-		break;
-	}
-	return arrow_pos_label;
-}
-
-/**
- * リストを表示した際にカーソルの横移動と決定した項目を管理する関数
- * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
- * length      リスト項目の数
- * 戻り値 length/Enterが押されたときの項目のラベル(何個目のメニューだったか)
- */
-int select_from_hlist(arrow_pos tmp_pos[10], int length){
-	int arrow_pos_label = 0;
-	struct input_assort tmp_input_list;
-	print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
-	while(1){
-		while(!(tmp_input_list = mykbhit()).kbhit_flag);
-		switch(tmp_input_list.input_char){
-			case 'a':
-				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
-				if(arrow_pos_label <= 0){
-					arrow_pos_label = length - 1;
-				}else{
-					arrow_pos_label--;
-				}
-				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
-				continue;
-				break;
-			case 'd':
-				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
-				if(arrow_pos_label >= length - 1){
-					arrow_pos_label = 0;
-				}else{
-					arrow_pos_label++;
-				}
-				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
-				continue;
-				break;
-			case ENTERKEY:
-				break;
-			default:
-				continue;
-				break;
-		}
-		break;
-	}
-	return arrow_pos_label;
-}
-
-/*
- * リストを表示した際にカーソルの二次元移動と決定した項目を管理する関数
- * tmp_pos[10][10]	カーソルを表示する位置を定義したarrow_pos型の配列
- * length			リスト項目の数
- * 戻り値
- * int length		Enterが押されたときの項目のラベル(何個目のメニューだったか)
- */
-int select_from_2dlist(int width, int height,arrow_pos tmp_pos[width][height]){
-	arrow_pos arrow_pos_label = {0,0};
-	struct input_assort tmp_input_list;
-	print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
-	while(1){
-		while(!(tmp_input_list = mykbhit()).kbhit_flag);
-
-		print_line(" ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
-		switch(tmp_input_list.input_char){
-			case 'w':
-				do{
-					if(arrow_pos_label.y <= 0){
-						arrow_pos_label.y = height - 1;
-					}else{
-						arrow_pos_label.y--;
-					}
-				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
-				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
-				continue;
-				break;
-			case 's':
-				do{
-					if(arrow_pos_label.y >= height - 1){
-						arrow_pos_label.y= 0;
-					}else{
-						arrow_pos_label.y++;
-					}
-				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
-				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
-				continue;
-				break;
-			case 'a':
-				do{
-					if(arrow_pos_label.x <= 0){
-						arrow_pos_label.x = width - 1;
-					}else{
-						arrow_pos_label.x--;
-					}
-				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
-				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
-				continue;
-				break;
-			case 'd':
-				do{
-					if(arrow_pos_label.x >= width - 1){
-						arrow_pos_label.x= 0;
-					}else{
-						arrow_pos_label.x++;
-					}
-				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
-				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
-				continue;
-				break;
-			case ENTERKEY:
-				break;
-			default:
-				continue;
-				break;
-		}
-		break;
-	}
-	return arrow_pos_label.x + width * arrow_pos_label.y;
-}
 
 /*
  * マップ上を移動する関数
@@ -702,7 +249,7 @@ int select_from_2dlist(int width, int height,arrow_pos tmp_pos[width][height]){
 arrow_pos move_on_map(int width, int height,arrow_pos *(tmp_pos)[WIDTH -2 ][HEIGHT - 2], arrow_pos offset){
 	arrow_pos arrow_pos_label = offset;
 	arrow_pos return_value;
-	struct input_assort tmp_input_list;
+	input_assort tmp_input_list;
 	print_line("●",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
 	while(1){
 		while(!(tmp_input_list = mykbhit()).kbhit_flag);
@@ -769,17 +316,6 @@ arrow_pos move_on_map(int width, int height,arrow_pos *(tmp_pos)[WIDTH -2 ][HEIG
 
 
 
-int check_window(int width, int height, int x, int y, char *string){
-	arrow_pos yesno_pos[2] = {
-		{x + width / 2 + 2,y+3},
-		{x + width / 2 - 3,y+3}
-	};
-	make_flame(width,height,x,y);
-	mvcur(x+2,y+1);
-	printf("%s",string);
-	print_line("y /  n",x + width / 2 - 2,y+3);
-	return select_from_hlist(yesno_pos,2);
-}
 
 /**
  *  タイトルロゴの出方が微妙に違うのでヘッダで定義
@@ -813,13 +349,6 @@ char *(gameover)[] = {
 	"┌─┐┌─┐┌┬┐┌─┐  ┌─┐┬  ┬┌─┐┬─┐",
 	"│ ┬├─┤│││├┤   │ │└┐┌┘├┤ ├┬┘",
 	"└─┘┴ ┴┴ ┴└─┘  └─┘ └┘ └─┘┴└─",
-};
-/**
- *  操作説明の出方が違うのでヘッダで定義
- */
-char control_explain[][100] = {
-	"  w            ↑   ",
-	"a s d   as  ← ↓ →"
 };
 
 /**
