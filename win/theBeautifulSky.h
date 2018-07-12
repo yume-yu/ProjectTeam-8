@@ -475,3 +475,9 @@ int onmap_manu();																																	//マップメニューを開く関数
 void update_map(stage now_stage);																									//表示するマップをステージに合わせて更新する関数
 /* ここまでmap_menu.cで定義する関数 */
 
+/* ここからdecide_event.cで定義する関数 */
+event decide_event(arrow_pos exit_point);
+/* ここまでdecide_event.cで定義する関数 */
+
+
+
