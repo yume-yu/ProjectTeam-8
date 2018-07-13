@@ -1,16 +1,14 @@
 /**
- * @file talk_event.h
- * @brief 各会話イベントごとに呼び出される処理をまとめたヘッダ
+ * @file talk_event.c
+ * @brief 各会話イベントごとに呼び出される処理をまとめたファイル
  * @author yume_yu
- * @date 
+ * @date
  */
 
-
-#ifdef STORYTEXT_H
-#define TALK_EVENT_H	//重複読み込み回避のための定義
+#include "thebeautifulsky.h"
 
 /* リーレルがポーションを見つけた時の挙動  */
-void lirel_find_potion(){		
+void lirel_find_potion(){
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
 	extendstr event_text[] = {
 		{"リーレル：「む、これは」▼  ",0,0},
@@ -29,7 +27,7 @@ void lirel_find_potion(){
 }
 
 /* ナオキがポーションを見つけた時の挙動  */
-void naoki_find_potion(){		
+void naoki_find_potion(){
 	//make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
 	extendstr event_text[] = {
 		{"ナオキ：「いいもの、発見！」▼  ",0,0},
@@ -47,7 +45,7 @@ void naoki_find_potion(){
 	}
 }
 
-int instory_yesno(int y){
+bool instory_yesno(int y){
 	arrow_pos yn[10] = {
 		{11,y,0,0},
 		{18,y,0,0}
@@ -113,7 +111,7 @@ void after_battle_st1(){
 
 /* ステージ2 右の部屋 */
 int talk_event_st2_0_arrived = 0;
-int talk_event_st2_0(){
+void talk_event_st2_0(){
 	flame_flush();
 	if(!talk_event_st2_0_arrived){
 		exstrcpy(now_text,talk_st2_0_1,sizeof(talk_st2_0_1)/sizeof(extendstr));
@@ -133,7 +131,7 @@ int talk_event_st2_0(){
 }
 
 int talk_event_st2_1_arrived = 0;
-int talk_event_st2_1(){
+void talk_event_st2_1(){
 	flame_flush();
 	extendstr error_text[] = {
 		{"ここにはなにもない▼  ",0,0},
@@ -160,7 +158,7 @@ void after_battle_st2(){
 }
 
 /* ステージ3 右マップ左上の部屋 */
-int talk_event_st3_0(){
+void talk_event_st3_0(){
 	flame_flush();
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
 	exstrcpy(now_text,talk_st3_0,sizeof(talk_st3_0)/sizeof(extendstr));
@@ -169,7 +167,7 @@ int talk_event_st3_0(){
 
 /* ステージ3 右マップ下の部屋 */
 int talk_event_st3_1_arrived = 0;
-int talk_event_st3_1(){
+void talk_event_st3_1(){
 	flame_flush();
 	if(!talk_event_st3_1_arrived){ //初めて来たときかどうか
 		exstrcpy(now_text,talk_st3_1,sizeof(talk_st3_1)/sizeof(extendstr));
@@ -237,7 +235,7 @@ void talk_event_st3_2(){
 
 /* ステージ3 中央マップ左の部屋 */
 int talk_event_st3_3_arrived = 0;
-int talk_event_st3_3(){
+void talk_event_st3_3(){
 	flame_flush();
 	if(!talk_event_st3_3_arrived){ //初めて来たときかどうか
 		exstrcpy(now_text,talk_st3_3,sizeof(talk_st3_3)/sizeof(extendstr));
@@ -280,7 +278,7 @@ int talk_event_st3_3(){
 }
 
 /* ステージ3 中央マップ左の部屋 */
-int talk_event_st3_5(){
+void talk_event_st3_5(){
 	flame_flush();
 	exstrcpy(now_text,talk_st3_5_1,sizeof(talk_st3_5_1)/sizeof(extendstr));
 	string_march(now_text,2,2,sizeof(talk_st3_5_1)/sizeof(extendstr));
@@ -294,7 +292,7 @@ int talk_event_st3_5(){
 }
 
 /* ステージ3 右マップ左の部屋 */
-int talk_event_st3_6(){
+void talk_event_st3_6(){
 	flame_flush();
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
 	exstrcpy(now_text,talk_st3_6,sizeof(talk_st3_6)/sizeof(extendstr));
@@ -321,7 +319,7 @@ void after_battle_st3(){
 
 /* ステージ4 右マップ左下の部屋 */
 int talk_event_st4_0_arrived = 0;
-int talk_event_st4_0(){
+void talk_event_st4_0(){
 	flame_flush();
 	if(!talk_event_st4_0_arrived){ //初めて来たときかどうか
 		exstrcpy(now_text,talk_st4_0,sizeof(talk_st4_0)/sizeof(extendstr));
@@ -355,7 +353,7 @@ int talk_event_st4_0(){
 
 /* ステージ4 右マップ下の部屋 */
 int talk_event_st4_1_arrived = 0;
-int talk_event_st4_1(){
+void talk_event_st4_1(){
 	flame_flush();
 	if(!talk_event_st4_1_arrived){ //初めて来たときかどうか
 		exstrcpy(now_text,talk_st4_1,sizeof(talk_st4_1)/sizeof(extendstr));
@@ -402,7 +400,7 @@ void talk_event_st4_2(){
 
 /* ステージ4 中央マップ左の部屋 */
 int battle_event_st4_3_arrived = 0;
-int talk_event_st4_3(){
+void talk_event_st4_3(){
 	flame_flush();
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
 	exstrcpy(now_text,talk_st4_3,sizeof(talk_st4_3)/sizeof(extendstr));
@@ -411,7 +409,7 @@ int talk_event_st4_3(){
 
 /* ステージ4 右マップ左の部屋 */
 int battle_event_st4_5_arrived = 0;
-int talk_event_st4_5(){
+void talk_event_st4_5(){
 	flame_flush();
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
 	exstrcpy(now_text,talk_st4_5,sizeof(talk_st4_5)/sizeof(extendstr));
@@ -419,7 +417,7 @@ int talk_event_st4_5(){
 }
 
 /* ステージ2 右の部屋 */
-int talk_event_st4_6(){
+void talk_event_st4_6(){
 	flame_flush();
 	exstrcpy(now_text,talk_st4_6,sizeof(talk_st4_6)/sizeof(extendstr));
 	string_march(now_text,2,2,sizeof(talk_st4_6)/sizeof(extendstr));
@@ -453,6 +451,4 @@ void after_battle_st5(){
 	string_march(now_text,2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,sizeof(afterbattle_stage5)/sizeof(extendstr));
 	flame_clean();
 }
-
-#endif
 

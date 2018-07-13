@@ -479,5 +479,37 @@ void update_map(stage now_stage);																									//表示するマップをステ
 event decide_event(arrow_pos exit_point);
 /* ここまでdecide_event.cで定義する関数 */
 
+/* ここからtalk_event.cで定義する関数 */
+void lirel_find_potion();
+void naoki_find_potion();
+bool instory_yesno(int y);
+void guide_st1();
+void noentry_st1();
+void talk_event_st1_1();
+void talk_event_st1_0();
+void before_battle_st1();
+void after_battle_st1();
+void talk_event_st2_0();
+void talk_event_st2_1();
+void before_battle_st2();
+void after_battle_st2();
+void talk_event_st3_0();
+void talk_event_st3_1();
+void talk_event_st3_2();
+void talk_event_st3_3();
+void talk_event_st3_5();
+void talk_event_st3_6();
+void before_battle_st3();
+void after_battle_st3();
+void talk_event_st4_0();
+void talk_event_st4_1();
+void talk_event_st4_2();
+void talk_event_st4_3();
+void talk_event_st4_5();
+void talk_event_st4_6();
+void before_battle_st4();
+void after_battle_st4();
+void after_battle_st5();
+/* ここまでtalk_event.cで定義する関数 */
 
 
