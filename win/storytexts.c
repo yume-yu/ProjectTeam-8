@@ -20,29 +20,29 @@
  * };
  */
 
-extendstr subtitle1[] = {
+extendstr subtitle1[HEIGHT - 2] = {
 	{"　第一章　プロローグ ",0,1},
 	{"▼  ",20,0}
 };
-extendstr subtitle2[] = {
+extendstr subtitle2[HEIGHT - 2] = {
 	{"　第二章　貴方と共に ",0,1},
 	{"▼  ",20,0}
 };
-extendstr subtitle3[] = {
+extendstr subtitle3[HEIGHT - 2] = {
 	{"　第三章　裁きの天秤 ",0,1},
 	{"▼  ",20,0}
 };
-extendstr subtitle4[] = {
+extendstr subtitle4[HEIGHT - 2] = {
 	{"　第四章　神の奇跡は偉大なり ",0,1},
 	{"▼  ",26,0}
 };
-extendstr subtitle5[] = {
+extendstr subtitle5[HEIGHT - 2] = {
 	{"　第五章　この広い世界で貴方と一緒に ",0,1},
 	{"▼  ",34,0}
 };
 
 /* ステージ1 プロローグ */
-extendstr cenario_stage1[] ={
+extendstr cenario_stage1[HEIGHT - 2] ={
 	{"ここは空の上浮かぶ島、オルディン▼ ",0,0},
 	{"陽気な気候に保たれた風の国の中で ",0,1},
 	{"最も気候がおだやかな場所である▼ ",26,0},
@@ -51,24 +51,24 @@ extendstr cenario_stage1[] ={
 };
 
 /* ステージ1 誘導 */
-extendstr lirel_said[] = {
+extendstr lirel_said[HEIGHT - 2] = {
 	{"リーレル：「建物等が崩れている. . .  ",0,1},
 	{"早く姫と祭壇に行かなくては」▼ ",12,0}
 };
 
 /* ステージ1 侵入禁止 */
-extendstr lirel_stop[] = {
+extendstr lirel_stop[HEIGHT - 2] = {
 	{"リーレル：「今はそれどころではない ",0,1},
 	{"一刻も早く逃げなければ」▼ ",20,0}
 };
 
 /* ステージ1 ボス戦前 */
-extendstr beforebattle_stage1[] = {
+extendstr beforebattle_stage1[HEIGHT - 2] = {
 	{"リーレル：「ここにも追手が…やむを得ん、行くぞ！」▼ ",0},
 };
 
 /* ステージ1 ボス戦後 */
-extendstr afterbattle_stage1[] = {
+extendstr afterbattle_stage1[HEIGHT - 2] = {
 	{"アリスト：「見てリーレル動くよ」▼ ",0},
 	{"リーレル：「・・・姫」▼ ",0},
 	{"突然の襲撃に為す術なく、地上へ逃れた姫と騎士▼ ",0},
@@ -77,7 +77,7 @@ extendstr afterbattle_stage1[] = {
 };
 
 /* ステージ2 プロローグ */
-extendstr cenario_stage2[] ={
+extendstr cenario_stage2[HEIGHT - 2] ={
 	{"リーレルとはぐれてしまったアリストは、 ",0,1},
 	{"地上で人間のナオキと出会い、 ",4,1},
 	{"人間がまだ生きている事を知った。▼ ",8,0},
@@ -93,7 +93,7 @@ extendstr cenario_stage2[] ={
 };
 
 /* ステージ2 右の家内シナリオ1 */
-extendstr talk_st2_0_1[] ={
+extendstr talk_st2_0_1[HEIGHT - 2] ={
 	{"アリスト：「貴方達人間は ",0,1},
 	{"どんな暮らしをしているの？」▼  ",10,0},
 	{"この質問に対してナオキは",0,1},
@@ -117,7 +117,7 @@ extendstr talk_st2_0_1[] ={
 };
 
 /* ステージ2 右の家内シナリオ2 */
-extendstr talk_st2_0_2[] ={
+extendstr talk_st2_0_2[HEIGHT - 2] ={
 	{"まるで、牢獄みたいだろ。」▼  ",10,0},
 	{"アリスト：「牢獄ね、けどこの國を見ていると ",0,1},
 	{"民は幸せな感じがする、 ",10,1},
@@ -125,7 +125,7 @@ extendstr talk_st2_0_2[] ={
 	{"ナオキ：「そんなものか。俺には良くわからないな。」▼  ",0,0},
 };
 
-extendstr beforebattle_stage2[] ={
+extendstr beforebattle_stage2[HEIGHT - 2] ={
 	{"王戦で彼らを待っていたのは ",0,1},
 	{"対戦相手であるタクトと協力者であるリーレルであった。▼ ",0,0},
 	{"４人の実力はほぼ互角で死闘を繰り広げた。▼ ",10,0},
@@ -141,7 +141,7 @@ extendstr beforebattle_stage2[] ={
 };
 
 /* ステージ2ボス戦後 */
-extendstr afterbattle_stage2[] ={
+extendstr afterbattle_stage2[HEIGHT - 2] ={
 	{"天地全てを満たす平和と繁栄を目指すナオキとアリスト。▼ ",0},
 	{"オルタナティブをまとめあげたが先はまだ長い。▼ ",0},
 	{"地上にいる人間こそ ",0,1},
@@ -151,7 +151,7 @@ extendstr afterbattle_stage2[] ={
 };
 
 /* ステージ3 プロローグ */
-extendstr cenario_stage3[] ={
+extendstr cenario_stage3[HEIGHT - 2] ={
 	{"時は流れて、３年、 ",8,1},
 	{"荒廃していく人の姿　▼ ",15,0},
 	{"悪へ傾く天秤に　 ",16,1},
@@ -163,7 +163,7 @@ extendstr cenario_stage3[] ={
 };
 
 /* 左マップ一番左の家 */
-extendstr talk_st3_0[] ={
+extendstr talk_st3_0[HEIGHT - 2] ={
 	{"村人：「今はアルタ大帝國が夜もおちおち寝ていられない」▼ ",0,1},
 	{"攻めてきているから ",8,1},
 	{"夜もおちおち寝ていられない。」▼ ",0,0},
@@ -171,7 +171,7 @@ extendstr talk_st3_0[] ={
 };
 
 /* 左マップ下 銃の入手イベント 初回 */
-extendstr talk_st3_1[] ={
+extendstr talk_st3_1[HEIGHT - 2] ={
 	{"仲間：「ナオキ例の銃手に入ったぞ、 ",0,1},
 	{"この銃の利点は２つ ",8,1},
 	{"２回攻撃と弾薬が尽きないことだ。▼  ",10,0},
@@ -179,74 +179,74 @@ extendstr talk_st3_1[] ={
 };
 
 /* 銃の入手イベント ２回め以降で銃を持っていなかった時 */
-extendstr talk_st3_1_1[] ={
+extendstr talk_st3_1_1[HEIGHT - 2] ={
 	{"仲間：「この銃の利点は２つ ",0,1},
 	{"２回攻撃と弾薬が尽きないことだ。▼  ",10,0},
 	{"やっぱり持っていく気になったか？」 ",8,1}
 };
 
 /* 銃の入手イベント 装備した時 */
-extendstr talk_st3_1_2[] ={
+extendstr talk_st3_1_2[HEIGHT - 2] ={
 	{"仲間：「大事に使ってやってくれ」▼ ",0,0},
 };
 
 /* 銃の入手イベント 装備しなかった時 */
-extendstr talk_st3_1_3[] ={
+extendstr talk_st3_1_3[HEIGHT - 2] ={
 	{"仲間：「そうか。必要ならまた来てくれ」▼ ",0,0},
 };
 
 /* 左マップ右上 防護服の入手イベント 初回 */
-extendstr talk_st3_2[] ={
+extendstr talk_st3_2[HEIGHT - 2] ={
 	{"仲間：「ナオキ念のため防護服着ていくか？」 ",0,1},
 };
 
 /* 防護服の入手イベント ２回め以降で持っていなかった時 */
-extendstr talk_st3_2_1[] ={
+extendstr talk_st3_2_1[HEIGHT - 2] ={
 	{"仲間：「念には念を、防護服着ていかないか？」 ",0,1},
 };
 
 /* 防護服の入手イベント 装備した時 */
-extendstr talk_st3_2_2[] ={
+extendstr talk_st3_2_2[HEIGHT - 2] ={
 	{"仲間：「気を付けてな」▼  ",0,0},
 };
 
 /* 防護服の入手イベント 装備しなかった時 */
-extendstr talk_st3_2_3[] ={
+extendstr talk_st3_2_3[HEIGHT - 2] ={
 	{"仲間：「そうか。必要ならまた来てくれ」▼  ",0,0},
 };
 
 /* 左マップ下 ナイフの入手イベント 初回 */
-extendstr talk_st3_3[] ={
+extendstr talk_st3_3[HEIGHT - 2] ={
 	{"仲間：「なにかと役に立つだろうし、 ",0,1},
 	{"ナイフ持っていくかい？▼  ",16,0},
 	{"もし持ってるものがあったら交換だけどな！」 ",8,1}
 };
 
 /* ナイフの入手イベント おまけポーション */
-extendstr talk_st3_3_0[] ={
+extendstr talk_st3_3_0[HEIGHT - 2] ={
 	{"仲間：「これから戦いに行くんだろう？▼ ",0,0},
 	{"ならこいつは絶対いるはずだ」▼  ",10,0},
 	{"ポーションを手に入れた▼  ",0,0},
 };
 
 /* ナイフの入手イベント ２回め以降で持っていなかった時 */
-extendstr talk_st3_3_1[] ={
+extendstr talk_st3_3_1[HEIGHT - 2] ={
 	{"仲間：「懸命な判断だな！ ",0,1},
 	{"やっぱりナイフ必要だろ？」  ",8,1},
 };
 
 /* ナイフの入手イベント 装備した時 */
-extendstr talk_st3_3_2[] ={
+extendstr talk_st3_3_2[HEIGHT - 2] ={
 	{"仲間：「がんばれよ！」▼ ",0,0},
 };
 
 /* ナイフの入手イベント 装備しなかった時 */
-extendstr talk_st3_3_3[] ={
+extendstr talk_st3_3_3[HEIGHT - 2] ={
 	{"仲間：「後悔すんなよ？」▼ ",0,0},
 };
 
 /* 中央マップ右 Nasu(予定地) */
-extendstr talk_st3_5_1[] ={
+extendstr talk_st3_5_1[HEIGHT - 2] ={
 	{"村人：「うむうむ。今年もしっかり実ったなぁ」▼ ",0,0},
 	{"ナオキ：「茄子畑か？」▼ ",0,0},
 	{"村人：「ナオキ様！さようでございます。▼ ",0,1},
@@ -269,7 +269,7 @@ extendstr talk_st3_5_1[] ={
 	{"他の茄子とは一線を画す存在感を放っていた。▼ ",0,0},
 };
 
-extendstr talk_st3_5_2[] ={
+extendstr talk_st3_5_2[HEIGHT - 2] ={
 	{"村人：「おお、お目が高い。▼ ",0,0},
 	{"この一つだけはとてもよく育っておりましてな、 ",6,1},
 	{"私も生まれて初めて見るほどの出来なのです。 ",6,1},
@@ -280,7 +280,7 @@ extendstr talk_st3_5_2[] ={
 	{"それが他の茄子とどの程度違うのかがわからなかった。▼ ",0,0},
 };
 
-extendstr talk_st3_5_3[] ={
+extendstr talk_st3_5_3[HEIGHT - 2] ={
 	{"村人：「この家で育てられたからでしょうか、感じるのです。 ",0,1},
 	{"たとえるならば楽園の禁断の果実、",8,1},
 	{"とでも言いましょうか。」▼ ",31,0},
@@ -302,18 +302,18 @@ extendstr talk_st3_5_3[] ={
 };
 
 /* 右マップ左 空 */
-extendstr talk_st3_6[] ={
+extendstr talk_st3_6[HEIGHT - 2] ={
 	{"なにもない▼  ",0,0},
 };
 
-extendstr beforebattle_stage3[] ={
+extendstr beforebattle_stage3[HEIGHT - 2] ={
 	{"アリスト：「帝國を統べるデジレ＝シニジェには ",0,1},
 	{"和平という考えなど初めから存在しない。」▼  ",10,0},
 	{"大切なのは想いの純度であり、意思の強さ。▼ ",8,0},
 	{"ナオキ：「強い意思を持って、悪辣なる支配者に挑もう」▼ ",0,0},
 };
 
-extendstr afterbattle_stage3[] ={
+extendstr afterbattle_stage3[HEIGHT - 2] ={
 	{"勝者の義務とは貫くことであり、 ",10,1},
 	{"何を選ぶかなどそんなことは ",15,1},
 	{"総じて馬鹿馬鹿しい概念である。▼ ",20,0},
@@ -321,7 +321,7 @@ extendstr afterbattle_stage3[] ={
 };
 
 /* ステージ4 プロローグ */
-extendstr cenario_stage4[] ={
+extendstr cenario_stage4[HEIGHT - 2] ={
 	{"『この世界において　 ",0,1},
 	{"かつてこれほど人間が幸福だったことがあるだろうか？』▼ ",2,0},
 	{"どのようにして幸福がもたらされたかは ",0,1},
@@ -335,61 +335,61 @@ extendstr cenario_stage4[] ={
 	{"アリスト：「私は何者なのだろう？」▼ ",0,0},
 };
 
-extendstr talk_st4_0[] = {
+extendstr talk_st4_0[HEIGHT - 2] = {
 	{"仲間：「頼まれてた弓、完成したぜ」 ",0,1},
 	{"ナオキ：「アリストのために頼んでおいたんだ。どうかな」 ",0,1},
 	{"アリストに装備しますか？ ",10,1}
 };
 
 /* ナイフの入手イベント ２回め以降で持っていなかった時 */
-extendstr talk_st4_0_1[] ={
+extendstr talk_st4_0_1[HEIGHT - 2] ={
 	{"仲間：「頼まれてた弓、まだとってあるぞ」 ",0,1},
 	{"ナオキ：「やっぱり弓を持ってたほうが有利じゃないか？」 ",0,1},
 	{"アリストに装備しますか？ ",10,1}
 };
 
 /* ナイフの入手イベント 装備した時 */
-extendstr talk_st4_0_2[] ={
+extendstr talk_st4_0_2[HEIGHT - 2] ={
 	{"ナオキ：「後ろは頼んだぜ！」▼ ",0,0},
 };
 
 /* ナイフの入手イベント 装備しなかった時 */
-extendstr talk_st4_0_3[] ={
+extendstr talk_st4_0_3[HEIGHT - 2] ={
 	{"ナオキ：「大丈夫かなぁ」▼ ",0,0},
 };
 
-extendstr talk_st4_1[] = {
+extendstr talk_st4_1[HEIGHT - 2] = {
 	{"仲間：「盾はどうだ？防御は最大の攻撃って言うだろう」▼ ",0,0},
 	{"アリスト：「私にはちょうどいい大きさかもしれませんね」 ",0,1},
 	{"アリストに装備しますか？ ",10,1},
 };
 
 /* ナイフの入手イベント ２回め以降で持っていなかった時 */
-extendstr talk_st4_1_1[] ={
+extendstr talk_st4_1_1[HEIGHT - 2] ={
 	{"仲間：「ほんとに持っていかなくていいのか？」▼ ",0,0},
 	{"ナオキ：「盾かぁ…アリスト、どうする？」 ",0,1},
 	{"アリストに装備しますか？▼ ",10,1}
 };
 
 /* ナイフの入手イベント 装備した時 */
-extendstr talk_st4_1_2[] ={
+extendstr talk_st4_1_2[HEIGHT - 2] ={
 	{"アリスト：「備えあれば憂い無し、ですね」▼ ",0,0},
 };
 
 /* ナイフの入手イベント 装備しなかった時 */
-extendstr talk_st4_1_3[] ={
+extendstr talk_st4_1_3[HEIGHT - 2] ={
 	{"ナオキ：「なにが飛んでくるかわからないぞ？」▼ ",0,0},
 };
 
-extendstr talk_st4_3[] = {
+extendstr talk_st4_3[HEIGHT - 2] = {
 	{"住民：「. . . なんて言おうとおもったんだっけ」▼ ",0,0},
 };
 
-extendstr talk_st4_5[] = {
+extendstr talk_st4_5[HEIGHT - 2] = {
 	{"特に変わったことはない▼ ",0,0},
 };
 
-extendstr talk_st4_6[] = {
+extendstr talk_st4_6[HEIGHT - 2] = {
 	{"住民１：「下からきて暴\れてるやつがいるって？」▼ ",0,0},
 	{"住民２：「大したことはないだろう。▼ ",0,0},
 	{"強力な修復機能\の開発に成功したと聞いているし。▼ ",10,0},
@@ -400,7 +400,7 @@ extendstr talk_st4_6[] = {
 	{"間に合わないかもしれない、油断はできないな」▼ ",10,0}
 };
 
-extendstr beforebattle_stage4[] = {
+extendstr beforebattle_stage4[HEIGHT - 2] = {
 	{"アリスト：「ここからどうやって行くの？」▼ ",0,0},
 	{"ナオキ：「これに乗って連中の所に行く。」▼ ",0,0},
 	{"そう言うとナオキは後ろにあった兵器を指さした▼ ",0,0},
@@ -414,7 +414,7 @@ extendstr beforebattle_stage4[] = {
 	{"どうして私は、貴方に協力しているのだろう？▼ ",0,0},
 };
 
-extendstr afterbattle_stage4_1[] ={
+extendstr afterbattle_stage4_1[HEIGHT - 2] ={
 	//メインストーリー戦闘後
 	{"アリスト：「やっと、終わった…」 ",0,1},
 	{"アリストは肩で息をしながら外の光景を見て安堵していた。▼ ",0,0},
@@ -425,7 +425,7 @@ extendstr afterbattle_stage4_1[] ={
 	{"二人と兵器の残骸は遠く地表\へと落ちていった。▼ ",12,0},
 };
 
-extendstr afterbattle_stage4_2[] ={
+extendstr afterbattle_stage4_2[HEIGHT - 2] ={
 	//画面切り替え
 	{"ナオトはお手柄だったと言う訳だな。▼ ",0,0},
 	{"彼の言葉がアリストを狂わせた。▼ ",0,0},
@@ -438,7 +438,7 @@ extendstr afterbattle_stage4_2[] ={
 	{"お前に認めてもらいたかったのだろう。　▼ ",12,0},
 };
 
-extendstr afterbattle_stage4_3[] ={
+extendstr afterbattle_stage4_3[HEIGHT - 2] ={
 	//画面切り替え
 	{"可愛いな　▼ ",0,0},
 	{"私が造ってやっただけはある。▼ ",0,0},
@@ -453,7 +453,7 @@ extendstr afterbattle_stage4_3[] ={
 };
 
 /* ステージ5 プロローグ */
-extendstr cenario_stage5[] ={
+extendstr cenario_stage5[HEIGHT - 2] ={
 	{"アリスト：「来なさい、リーレル」　▼ 　",0,0},
 	{"今荘厳な太陽に焼かれ、　",0,1},
 	{"蝋の体は融け墜ちた。　▼ ",10,0},
@@ -474,7 +474,7 @@ extendstr cenario_stage5[] ={
 	{"ナオキ：「当然ーおまえのすべてが必要だ。」　▼ ",0,0},
 };
 
-extendstr afterbattle_stage5[] ={
+extendstr afterbattle_stage5[HEIGHT - 2] ={
 	{"ナオキ：「共に生きて行こう　 ",0,1},
 	{"天も地も関係ない。　▼ ",12,0},
 	{"アリストとなら　 ",14,1},

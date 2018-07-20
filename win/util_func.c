@@ -150,6 +150,18 @@ void string_march(extendstr *(tmp)[],int x,int y,int lines){
 	}
 }
 
+int eslengthof(extendstr sxstr[HEIGHT - 2]){
+	int counter = 0;
+	while(true){
+		if(!strcmp(sxstr[counter].string,"")){
+			break;
+		}
+		counter++;
+	}
+	return counter;
+}
+
+
 /**
  *	表示文章を文章のアドレス配列に変換する関数
  */

@@ -5,8 +5,6 @@
 #include <string.h>
 #include "thebeautifulsky.h"
 #include "for_make_game.h"
-#include "talk_events.h"
-#include "decide_event.h"
 #include "operation_description.h"
 
 
@@ -44,24 +42,24 @@ void subtitle(stage now_stage){
 void story(stage now_stage){
 	switch(now_stage){
 		case stage1:
-			exstrcpy(now_text,cenario_stage1,sizeof(cenario_stage1) / sizeof(extendstr));
-			string_march(now_text,2,2,sizeof(cenario_stage1) / sizeof(extendstr));
+			exstrcpy(now_text,cenario_stage1,lengthof(cenario_stage1,extendstr));
+			string_march(now_text,2,2,lengthof(cenario_stage1,extendstr));
 			break;
 		case stage2:
-			exstrcpy(now_text,cenario_stage2,sizeof(cenario_stage2) / sizeof(extendstr));
-			string_march(now_text,2,2,sizeof(cenario_stage2) / sizeof(extendstr));
+			exstrcpy(now_text,cenario_stage2,lengthof(cenario_stage2,extendstr));
+			string_march(now_text,2,2,lengthof(cenario_stage2,extendstr));
 			break;
 		case stage3_1:
-			exstrcpy(now_text,cenario_stage3,sizeof(cenario_stage3) / sizeof(extendstr));
-			string_march(now_text,2,2,sizeof(cenario_stage3) / sizeof(extendstr));
+			exstrcpy(now_text,cenario_stage3,lengthof(cenario_stage3,extendstr));
+			string_march(now_text,2,2,lengthof(cenario_stage3,extendstr));
 			break;
 		case stage4_1:
-			exstrcpy(now_text,cenario_stage4,sizeof(cenario_stage4) / sizeof(extendstr));
-			string_march(now_text,2,2,sizeof(cenario_stage4) / sizeof(extendstr));
+			exstrcpy(now_text,cenario_stage4,lengthof(cenario_stage4,extendstr));
+			string_march(now_text,2,2,lengthof(cenario_stage4,extendstr));
 			break;
 		case stage5:
-			exstrcpy(now_text,cenario_stage5,sizeof(cenario_stage5) / sizeof(extendstr));
-			string_march(now_text,2,2,sizeof(cenario_stage5) / sizeof(extendstr));
+			exstrcpy(now_text,cenario_stage5,lengthof(cenario_stage5,extendstr));
+			string_march(now_text,2,2,lengthof(cenario_stage5,extendstr));
 			break;
 		default:
 			break;
@@ -85,7 +83,7 @@ int main(){
 			if(operation_description()){
 				continue;
 			}
-		}			
+		}
 		flame_flush();					//アニメーション付きフレームクリーン
 		//シナリオ表示
 		subtitle(now_stage);
@@ -103,11 +101,11 @@ int main(){
 				if(battle(front,back,enemies,enemy_amount)){
 					after_battle_st5();
 					gameover_win();
-				game_exit_flag = 1;	
+				game_exit_flag = 1;
 				continue;
 				}else{
 					gameover_win();
-				game_exit_flag = 1;	
+				game_exit_flag = 1;
 				continue;
 				}
 			}else{

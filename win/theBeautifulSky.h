@@ -40,7 +40,6 @@
 
 #endif
 
-
 /* 定数の定義(define) */
 
 /**
@@ -360,60 +359,72 @@ extern arrow_pos exp_pos[WIDTH - 2][HEIGHT - 2] ;
 /* ここまでmap_stX.cで定義する変数 */
 
 /* ここからstorytext.cで定義する*/
-extern extendstr subtitle1[];
-extern extendstr subtitle2[];
-extern extendstr subtitle3[];
-extern extendstr subtitle4[];
-extern extendstr subtitle5[];
-extern extendstr cenario_stage1[];
-extern extendstr lirel_said[];
-extern extendstr lirel_stop[];
-extern extendstr beforebattle_stage1[];
-extern extendstr afterbattle_stage1[];
-extern extendstr cenario_stage2[];
-extern extendstr talk_st2_0_1[];
-extern extendstr talk_st2_0_2[];
-extern extendstr beforebattle_stage2[];
-extern extendstr afterbattle_stage2[];
-extern extendstr cenario_stage3[];
-extern extendstr talk_st3_0[];
-extern extendstr talk_st3_1[];
-extern extendstr talk_st3_1_1[];
-extern extendstr talk_st3_1_3[];
-extern extendstr talk_st3_1_2[];
-extern extendstr talk_st3_2[];
-extern extendstr talk_st3_2_1[];
-extern extendstr talk_st3_2_2[];
-extern extendstr talk_st3_2_3[];
-extern extendstr talk_st3_3[];
-extern extendstr talk_st3_3_0[];
-extern extendstr talk_st3_3_1[];
-extern extendstr talk_st3_3_2[];
-extern extendstr talk_st3_3_3[];
-extern extendstr talk_st3_5_1[];
-extern extendstr talk_st3_5_2[];
-extern extendstr talk_st3_5_3[];
-extern extendstr talk_st3_6[];
-extern extendstr beforebattle_stage3[];
-extern extendstr afterbattle_stage3[];
-extern extendstr cenario_stage4[];
-extern extendstr talk_st4_0[];
-extern extendstr talk_st4_0_1[];
-extern extendstr talk_st4_0_2[];
-extern extendstr talk_st4_0_3[];
-extern extendstr talk_st4_1[];
-extern extendstr talk_st4_1_1[];
-extern extendstr talk_st4_1_2[];
-extern extendstr talk_st4_1_3[];
-extern extendstr talk_st4_3[];
-extern extendstr talk_st4_5[];
-extern extendstr talk_st4_6[];
-extern extendstr beforebattle_stage4[];
-extern extendstr afterbattle_stage4_1[];
-extern extendstr afterbattle_stage4_2[];
-extern extendstr afterbattle_stage4_3[];
-extern extendstr cenario_stage5[];
-extern extendstr afterbattle_stage5[];
+extern bool talk_event_st1_0_arrived;
+extern bool talk_event_st2_0_arrived;
+extern bool talk_event_st2_1_arrived;
+extern bool talk_event_st3_1_arrived;
+extern bool talk_event_st3_2_arrived;
+extern bool talk_event_st3_3_arrived;
+extern bool battle_event_st3_7_arrived;
+extern bool talk_event_st4_0_arrived;
+extern bool talk_event_st4_1_arrived;
+extern bool talk_event_st4_2_arrived;
+extern bool battle_event_st4_3_arrived;
+extern bool battle_event_st4_5_arrived;
+extern extendstr subtitle1[HEIGHT - 2];
+extern extendstr subtitle2[HEIGHT - 2];
+extern extendstr subtitle3[HEIGHT - 2];
+extern extendstr subtitle4[HEIGHT - 2];
+extern extendstr subtitle5[HEIGHT - 2];
+extern extendstr cenario_stage1[HEIGHT - 2];
+extern extendstr lirel_said[HEIGHT - 2];
+extern extendstr lirel_stop[HEIGHT - 2];
+extern extendstr beforebattle_stage1[HEIGHT - 2];
+extern extendstr afterbattle_stage1[HEIGHT - 2];
+extern extendstr cenario_stage2[HEIGHT - 2];
+extern extendstr talk_st2_0_1[HEIGHT - 2];
+extern extendstr talk_st2_0_2[HEIGHT - 2];
+extern extendstr beforebattle_stage2[HEIGHT - 2];
+extern extendstr afterbattle_stage2[HEIGHT - 2];
+extern extendstr cenario_stage3[HEIGHT - 2];
+extern extendstr talk_st3_0[HEIGHT - 2];
+extern extendstr talk_st3_1[HEIGHT - 2];
+extern extendstr talk_st3_1_1[HEIGHT - 2];
+extern extendstr talk_st3_1_3[HEIGHT - 2];
+extern extendstr talk_st3_1_2[HEIGHT - 2];
+extern extendstr talk_st3_2[HEIGHT - 2];
+extern extendstr talk_st3_2_1[HEIGHT - 2];
+extern extendstr talk_st3_2_2[HEIGHT - 2];
+extern extendstr talk_st3_2_3[HEIGHT - 2];
+extern extendstr talk_st3_3[HEIGHT - 2];
+extern extendstr talk_st3_3_0[HEIGHT - 2];
+extern extendstr talk_st3_3_1[HEIGHT - 2];
+extern extendstr talk_st3_3_2[HEIGHT - 2];
+extern extendstr talk_st3_3_3[HEIGHT - 2];
+extern extendstr talk_st3_5_1[HEIGHT - 2];
+extern extendstr talk_st3_5_2[HEIGHT - 2];
+extern extendstr talk_st3_5_3[HEIGHT - 2];
+extern extendstr talk_st3_6[HEIGHT - 2];
+extern extendstr beforebattle_stage3[HEIGHT - 2];
+extern extendstr afterbattle_stage3[HEIGHT - 2];
+extern extendstr cenario_stage4[HEIGHT - 2];
+extern extendstr talk_st4_0[HEIGHT - 2];
+extern extendstr talk_st4_0_1[HEIGHT - 2];
+extern extendstr talk_st4_0_2[HEIGHT - 2];
+extern extendstr talk_st4_0_3[HEIGHT - 2];
+extern extendstr talk_st4_1[HEIGHT - 2];
+extern extendstr talk_st4_1_1[HEIGHT - 2];
+extern extendstr talk_st4_1_2[HEIGHT - 2];
+extern extendstr talk_st4_1_3[HEIGHT - 2];
+extern extendstr talk_st4_3[HEIGHT - 2];
+extern extendstr talk_st4_5[HEIGHT - 2];
+extern extendstr talk_st4_6[HEIGHT - 2];
+extern extendstr beforebattle_stage4[HEIGHT - 2];
+extern extendstr afterbattle_stage4_1[HEIGHT - 2];
+extern extendstr afterbattle_stage4_2[HEIGHT - 2];
+extern extendstr afterbattle_stage4_3[HEIGHT - 2];
+extern extendstr cenario_stage5[HEIGHT - 2];
+extern extendstr afterbattle_stage5[HEIGHT - 2];
 /* ここまでstorytext.cで定義する*/
 
 /* 関数マクロ定義 */
@@ -435,6 +446,7 @@ void init_term();																																//ターミナルの初期化を行う関数
 void print_line(char string[], int x, int y);																		//指定した座標を行頭にに1行出力する関数
 void print_lines(char *string[], int x, int y, int num_lines);									//指定した座標を行頭に複数行出力する関数
 void string_march(extendstr *(tmp)[],int x,int y,int lines);										//指定した座標を行頭に複数行アニメーション出力する関数
+int eslengthof(extendstr sxstr[]);
 void exstrcpy(extendstr *(to)[],extendstr from[],int lines);										//アニメーション表示用構造体配列をアドレスの配列に変換する関数
 int select_from_list(arrow_pos tmp_pos[10], int length);												//縦方向のリストから選択させる関数
 int select_from_hlist(arrow_pos tmp_pos[10], int length);												//横方向のリストから選択させる関数
@@ -469,10 +481,10 @@ arrow_pos move_on_map(int width, int height,arrow_pos *(tmp_pos)[WIDTH -2 ][HEIG
 /* ここまでmap_func.cで定義する関数 */
 
 /* ここからmap_menu.cで定義する関数 */
-void view_status();																																//マップメニューでステータスを表示する関数
-void item_list_on_map();																													//マップメニューでアイテム一覧を表示する関数
-int onmap_manu();																																	//マップメニューを開く関数
-void update_map(stage now_stage);																									//表示するマップをステージに合わせて更新する関数
+void view_status();								//マップメニューでステータスを表示する関数
+void item_list_on_map();					//マップメニューでアイテム一覧を表示する関数
+int onmap_manu();									//マップメニューを開く関数
+void update_map(stage now_stage);	//表示するマップをステージに合わせて更新する関数
 /* ここまでmap_menu.cで定義する関数 */
 
 /* ここからdecide_event.cで定義する関数 */
@@ -512,4 +524,10 @@ void after_battle_st4();
 void after_battle_st5();
 /* ここまでtalk_event.cで定義する関数 */
 
+/* ここからbattle_func.cで定義する関数 */
+void print_bt_commands();																															//戦闘時行動コマンドを出力する関数
+void print_health_bar(character *target[],int amount);																//戦闘時敵のHPゲージを表示する関数
+void print_bt_status(character *front,character *back);																//戦闘時味方のHPを表示する関数
+int battle(character *front,character *back,character *enemies[3], int enemy_amount);	//戦闘そのものを行う関数
+/* ここまでbattle_func.cで定義する関数 */
 
