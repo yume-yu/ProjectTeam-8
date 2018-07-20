@@ -134,7 +134,7 @@ main {
   justify-content: center;
   align-content: flex-start;
   margin-top: 10px;
-  margin-left: 15px;
+  /*margin-left: 15px;*/
   background-color: #fbfbfb;
   width: 80%;
 }
