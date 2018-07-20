@@ -12,11 +12,21 @@
 	box-sizing: border-box;
 }
 
+html {
+	overflow: hidden;
+	scroll-behavior: smooth;
+}
+
 body {
+	overflow: hidden;
 	/*background-color: #f0f0f0;*/
 	/* 背景画像 */
 	background-attachment: fixed;
 	background-image:url("../img/background.png");
+}
+
+.canScroll {
+	overflow: visible;
 }
 
 header {
@@ -179,8 +189,6 @@ div.animation {
 	justify-content: center;
 	position: absolute;
 	background-color: #000000;
-	overflow: hidden;
-	overflow-y: hidden;
 	width: 100%;
 	height: 100%;
 }
@@ -224,17 +232,6 @@ h1.animation{
 	}
 }
 
-@-webkit-keyframes hide {
-	from {
-		opacity: 1;
-	}
-	to {
-		opacity: 0;
-		opacity: 0;
-		display: none;
-		height: 0px;
-	}
-}
 .float {
 	position: sticky;
 	top: 0;

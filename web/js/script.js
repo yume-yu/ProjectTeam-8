@@ -11,5 +11,7 @@ document.addEventListener("DOMContentLoaded",function(){
 				elem.style.height="0px";
 			}
 		})
+		document.querySelector('body').className = "canScroll";
+		document.querySelector('html').className = "canScroll";
 	})
 })
