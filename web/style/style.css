@@ -216,19 +216,22 @@ p.copyright {
 	color: #f0f0f0;
 }
 
-div.animation {
+.animation {
 	z-index: 10;
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
+	align-items: center;
 	justify-content: center;
 	position: absolute;
 	background-color: #000000;
 	width: 100%;
 	height: 100%;
+	visibility: visible;
+	-webkit-transition: opacity 1s, visibility 1s;
+	transition-timing-function: ease-in;
 }
 
-h1.animation{
+h1.ready{
 	font-family: 'Economica', sans-serif;
 /*	font-size: 1px;*/
 	color: #f0f0f0;
@@ -236,55 +239,51 @@ h1.animation{
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 200px;
-	font-size: 15vw;
+	font-size: 11vw;
 	transition: all 1.5s ease;
 	transition-delay: 0.5s;
 	transform: translateY(-120%);
-	/*
 	transition: 2s;
-	-webkit-transition: 2s;
+}
+
+h1.ready.loaded {
+	transform: translateY(0);
 	-webkit-animation: apper 5s;
 	-webkit-animation-timing-function: ease;
 	-webkit-animation-iteration-count: 1;
 	-webkit-animation-fill-mode: forwards;
-	*/
 }
 
-h1.loaded {
-	transform: translateY(0);
-	opacity: 1;
-}
 
-.afterAnimation, .afterAnimation * {
-	display: none;
-}
-
-#enter_button{
+.animation button{
 	padding:5px;
 	margin-left: auto;
 	margin-right: auto;
+	margin-top: 40vh;
 	background: none;
 	color: #f0f0f0;
 	cursor: pointer;
-	font-size: 5vw;
+	font-size: 3vw;
 	outline: none;
 	border: none;
 	font-family: "Economica";
 /*	border-radius: 20px;*/
 }
 
+.animation.started {
+	opacity: 0;
+	visibility: hidden;
+}
 
 @-webkit-keyframes apper {
 	from {
-		font-size: 1px;
 		opacity: 0;
 	}
 	to {
-		font-size: 200px;
 		opacity: 1;
-		transform: translateY(10px);
 	}
 }
+
 
 .float {
 	position: -webkit-sticky;		/* for Safari */
