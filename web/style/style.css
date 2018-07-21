@@ -179,21 +179,34 @@ main h2 {
 	margin: auto;
 	-webkit-box-pack: justify;
 	-ms-flex-pack: justify;
+	align-items: flex-end;
+	-webkit-box-pack: justify;
+     -ms-flex-pack: justify;
 	justify-content: space-between;
+}
+
+table {
 }
 
 #explain tbody {
 	justify-content: center;
 }
 
+#explain tr *{
+	font-size: 1.7vw;
+}
+
 #explain th {
 	padding-right: 20px;
 	font-weight: bold;
+	text-align: left;
 }
 #explain th:before {
 	content: "◆";
 	color: #234567;
 	font-size: 10px;
+}
+#explain td {
 }
 
 #explain img {
@@ -227,7 +240,7 @@ p.copyright {
 	width: 100%;
 	height: 100%;
 	visibility: visible;
-	-webkit-transition: opacity 1s, visibility 1s;
+	-webkit-transition: opacity 1s, visibility 1s, z-index 1.8s;
 	transition-timing-function: ease-in;
 }
 
@@ -273,6 +286,7 @@ h1.ready.loaded {
 .animation.started {
 	opacity: 0;
 	visibility: hidden;
+	z-index: 0;
 }
 
 @-webkit-keyframes apper {
