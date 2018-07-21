@@ -5,8 +5,7 @@
 		<meta charset="utf-8">
 		<title>おためしhtml5</title>
 		<link rel="stylesheet" href="./style/style.css">
-		<script src="./js/anime.js"></script>
-		<script src="./js/script.js"></script>
+		<script src="./js/node_modules/animejs/anime.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Economica:400,400i,700,700i&amp;subset=latin-ext" rel="stylesheet">
 	</head>
 
@@ -14,11 +13,11 @@
 
 		<div class="animation" id="title_menu">
 			<h1 class="animation">The beautiful sky</h1>
-			<button type="button" id="enter_button">Click to Enter</button>
+			<button type="button" id="enter_button" class="animation">Click to Enter</button>
 		</div>
 
-		<header class="float">
-			<div id="title">
+		<header class="float flex-container">
+			<div id="title" class="flex-container">
 				<h1>The beautiful sky</h1>
 			</div>
 
@@ -36,16 +35,23 @@
 		<div class="wrapper">
 			<main>
 				<div id="art-title">
-					<h2>ゲーム名</h2>
+					<h2>このゲームについて</h2>
+					<div id="explain" class="flex-container">
+						<table>
+							<tbody>
+								<th>ジャンル</th><td>RPG</td>
+							</tbody>
+						</table>
+						<img src="./img/poster.jpg">
+					</div>
 				</div>
 				<section>
 					<p>
-					ほげほげ
 					<br>
 					<br>
 					<br>
 					</p>
-					<h3 id="Story">Story</h3>
+					<h2 id="Story">Story</h2>
 					<p>
 					<br>
 					<br>
@@ -66,7 +72,7 @@
 					<br>
 					<br>
 					</p>
-					<h3 id="Charactor">Charactor</h3>
+					<h2 id="Charactor">Charactor</h2>
 					<p>
 					<br>
 					ほげほげ
@@ -81,7 +87,7 @@
 					<br>
 					<br>
 					</p>
-					<h3 id="Download">Download</h3>
+					<h2 id="Download">Download</h2>
 					<p>
 					<br>
 					ほげほげ
@@ -95,7 +101,7 @@
 					ほげほげ
 					<br>
 					</p>
-					<h3 id="About_us">About us</h3>
+					<h2 id="About_us">About us</h2>
 					<p>
 					<br>
 					<br>
@@ -226,6 +232,7 @@
 		</footer>
 
 
+		<script src="./js/script.js"></script>
 	</body>
 
 </html>

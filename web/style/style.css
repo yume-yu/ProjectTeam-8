@@ -25,21 +25,22 @@ body {
 	background-image:url("../img/background.png");
 }
 
+.flex-container {
+	display: flex;
+}
+
 .canScroll {
 	overflow: visible;
 }
 
 header {
-	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	width: 100%;
 	justify-content: center;
-	/*	padding-top: 30px;*/
 }
 
 div#title {
-	display: flex;
 	justify-content: center;
 	width: 100%;
 	height: 100px;
@@ -92,9 +93,11 @@ nav a {
 	text-align: center;
 	/* 文字修飾 */
 	color: #303030;
-	font-size: 17pt;
+	font-size: 23pt;
 	font-weight: bolder;
 	text-decoration: none;
+	font-family: "Economica";
+	font-weight: bold;
 	/* 枠線(点線)を描画 */
 	border: 1px dotted #ccc;
 	/* アニメーション用記述 */
@@ -147,7 +150,7 @@ main {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	align-content: flex-start;
+	align-content: center;
 	/*margin-top: 10px; ヘッダのフロート化前*/
 	margin-top: 10px;
 	/*margin-left: 15px;*/
@@ -165,6 +168,34 @@ main h2 {
 	margin-top: 20px;
 	margin-bottom: 20px;
 	font-size: 35px;
+}
+
+#explain {
+	width: 90%;
+	margin: auto;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+}
+
+#explain tbody {
+	justify-content: center;
+}
+
+#explain th {
+	padding-right: 20px;
+	font-weight: bold;
+}
+#explain th:before {
+	content: "◆";
+	color: #234567;
+	font-size: 10px;
+}
+
+#explain img {
+	opacity: 1;
+	width: 50%;
+	height:50%;
 }
 
 section {
@@ -195,16 +226,35 @@ div.animation {
 
 h1.animation{
 	font-family: 'Economica', sans-serif;
-	font-size: 1px;
+/*	font-size: 1px;*/
 	color: #f0f0f0;
-	opacity: 1;
+	opacity: 0;
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 200px;
+	font-size: 200px;
+	transition: all 1.5s ease;
+	transition-delay: 0.5s;
+	transform: translateY(-120%);
+	/*
+	transition: 2s;
+	-webkit-transition: 2s;
 	-webkit-animation: apper 5s;
 	-webkit-animation-timing-function: ease;
 	-webkit-animation-iteration-count: 1;
 	-webkit-animation-fill-mode: forwards;
+	*/
+}
+
+h1.loaded {
+	transform: translateY(0);
+	opacity: 1;
+}
+
+.afterAnimation {
+	z-index: 0;
+	margin: 0;
+	padding: 0;
 }
 
 #enter_button{
@@ -217,6 +267,7 @@ h1.animation{
 	font-size: 40px;
 	outline: none;
 	border: none;
+	font-family: "Economica";
 /*	border-radius: 20px;*/
 }
 
@@ -229,6 +280,7 @@ h1.animation{
 	to {
 		font-size: 200px;
 		opacity: 1;
+		transform: translateY(10px);
 	}
 }
 
