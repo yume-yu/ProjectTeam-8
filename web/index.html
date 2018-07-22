@@ -5,7 +5,6 @@
 		<meta charset="utf-8">
 		<title>おためしhtml5</title>
 		<link rel="stylesheet" href="./style/style.css">
-		<script src="./js/node_modules/animejs/anime.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Economica:400,400i,700,700i&amp;subset=latin-ext" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/earlyaccess/notosansjapanese.css" rel="stylesheet" />
 	</head>
@@ -26,7 +25,7 @@
 				<ul>
 					<li><a href="#">Top</a></li>
 					<li><a href="#Story">Story</a></li>
-					<li><a href="#Charactor">Charactor</a></li>
+					<li><a href="#Character">Character</a></li>
 					<li><a href="#Download">Download</a></li>
 					<li><a href="#About_us">About us</a></li>
 				</ul>
@@ -35,9 +34,9 @@
 
 		<div class="wrapper">
 			<main>
-				<section>
+				<section id="explain" >
 					<h2>About this game</h2>
-					<div id="explain" class="flex-container">
+					<div class="flex-container">
 						<img src="./img/poster.jpg">
 						<table>
 							<tbody>
@@ -59,8 +58,13 @@
 				<section>
 					<h2 id="Story">Story</h2>
 				</section>
-				<section>
-					<h2 id="Charactor">Charactor</h2>
+				<section id="Character">
+					<h2 >Character</h2>
+					<div class="flex-container">
+								<button class="selected" >アリスト</button>
+								<button>ナオキ</button>
+								<button>リーレル</button>
+					</div>
 				</section>
 				<section>
 					<p>

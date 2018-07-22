@@ -102,8 +102,6 @@ nav a {
 	border: 1px dotted #ccc;
 	/* アニメーション用記述 */
 	-webkit-transition: all 0.3s ease;
-	-moz-transition: all 0.3s ease;
-	-o-transition: all 0.3s ease;
 	transition: all 0.3s ease;
 }
 
@@ -169,23 +167,18 @@ main div {
 
 main h2 {
 	margin: auto;
-	margin-top: 35px;
 	margin-bottom: 20px;
 	font-size: 50px;
 }
 
-#explain {
+#explain div {
 	width: 90%;
-	margin: auto;
 	-webkit-box-pack: justify;
 	-ms-flex-pack: justify;
 	align-items: flex-end;
 	-webkit-box-pack: justify;
-     -ms-flex-pack: justify;
+	-ms-flex-pack: justify;
 	justify-content: space-between;
-}
-
-table {
 }
 
 #explain tbody {
@@ -217,8 +210,39 @@ table {
 
 section {
 	width: 90%;
+	margin-top:35px;
 }
 
+section div{
+	margin: auto;
+}
+
+#Character button {
+	background: none;
+	width: 33.3%;
+	border: none;
+	font-size: 25px;
+}
+
+#Character button:before,
+#Character button:after {
+	content: "";
+	opacity: 0;
+	transition: opacity 1s;
+}
+
+#Character button.selected {
+	/*border: solid 2px #a0a0a0;*/
+}
+
+#Character button.selected:before ,
+#Character button.selected:after {
+	content:"";
+	opacity: 1;
+	display:block;
+	height:2px;
+	background: linear-gradient(to right, #967d41 0%,#f0f0aa 48%,#967d41 100%);
+}
 footer {
 	margin: 0 auto;
 	width: 95%;
@@ -246,7 +270,7 @@ p.copyright {
 
 h1.ready{
 	font-family: 'Economica', sans-serif;
-/*	font-size: 1px;*/
+	/*	font-size: 1px;*/
 	color: #f0f0f0;
 	opacity: 0;
 	margin-left: auto;
@@ -277,10 +301,9 @@ h1.ready.loaded {
 	color: #f0f0f0;
 	cursor: pointer;
 	font-size: 3vw;
-	outline: none;
 	border: none;
 	font-family: "Economica";
-/*	border-radius: 20px;*/
+	/*	border-radius: 20px;*/
 }
 
 .animation.started {
@@ -298,6 +321,9 @@ h1.ready.loaded {
 	}
 }
 
+button {
+	outline: none;
+}
 
 .float {
 	position: -webkit-sticky;		/* for Safari */
@@ -307,7 +333,7 @@ h1.ready.loaded {
 	z-index: 5;
 }
 
-#Story,#Charactor,#Download,#About_us{
+#Story,#Character,#Download,#About_us{
 	padding-top: 180px;
 	margin-top: -180px;
 }
