@@ -255,7 +255,7 @@ h1.ready{
 	font-size: 11vw;
 	transition: all 1.5s ease;
 	transition-delay: 0.5s;
-	transform: translateY(-120%);
+	transform: translateY(-220%);
 	transition: 2s;
 }
 
