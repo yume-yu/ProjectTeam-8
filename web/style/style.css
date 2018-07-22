@@ -246,19 +246,29 @@ section {
 }
 
 #Character figure {
+	margin: auto;
 	margin-top: 20px;
-	height: 600px;
+	width: 90%;
 }
+
+#Character .white-space {
+	width: 100%;
+	visibility: hidden;
+	position: relative;
+}
+
 #Character div {
-	width: 0%;
-	height: 100%;
+	width: 100%;
 	align-items: center;
+	visibility: hidden;
+	position: absolute;
 	opacity: 0;
-	transition: opacity 0.5s,width 1s;
+	z-index: 1;
+	transition: opacity 1s,visibility 1s,transform 0.5s , z-index 1s;
+	transition-timing-function: ease-out;
 }
 
 #Character img {
-	width: 50%;
 }
 
 #Character figcaption {
@@ -266,9 +276,10 @@ section {
 }
 
 #Character div.selected {
-	width: 100%;
-	height: 100%;
 	opacity: 1;
+	visibility: visible;
+	z-index: 3;
+	transition-timing-function: ease-in;
 }
 
 footer {
@@ -351,6 +362,7 @@ h1.ready.loaded {
 
 button {
 	outline: none;
+	cursor: pointer;
 }
 
 .float {
