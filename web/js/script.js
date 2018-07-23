@@ -38,7 +38,13 @@ document.getElementById('Character').getElementsByTagName('button')[2].addEventL
 window.addEventListener('load', function(){
 	window.scroll(0,0);
 	/* タイトルアニメーション処理 */
-	var title_logo = document.querySelector('#title_menu h1');
-	title_logo.className="loaded " + title_logo.className;
+	//var title_logo = document.querySelector('#title_menu h1');
+	//var title_logo = document.getElementById('title_menu').querySelector('.ready');;
+	var title_logo = document.getElementsByClassName('ready');
+	var enter_button = document.getElementsByTagName('button');
+
+	for(var i = 0; i < title_logo.length; i++){
+		title_logo[i].classList.toggle("loaded");
+	}
 })
 
