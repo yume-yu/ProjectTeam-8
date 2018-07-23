@@ -13,6 +13,13 @@
 }
 
 @font-face {
+  font-family: 'stsukkiri';
+  src: url('./STSukkiriGothic-Regular.otf') format('opentype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
   font-family: 'fgkururin';
   src: url('./FGNewKururin.otf') format('opentype');
 }
