@@ -35,6 +35,13 @@ body {
 	overflow: visible;
 }
 
+p {
+	text-indent:1em;
+	margin: auto;
+	width: 95%;
+	font-size: 2vw;
+}
+
 header {
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -161,7 +168,8 @@ main {
 }
 
 main *{
-	font-family: "fgmirai";
+	font-family: "stsukkiri";
+	/*font-family: "fgmirai";*/
 }
 
 main div {
@@ -214,7 +222,9 @@ main h2 {
 
 section {
 	width: 90%;
+	margin: auto;
 	margin-top:35px;
+	margin-bottom:35px;
 }
 
 #Character menu{
