@@ -161,7 +161,7 @@ main {
 }
 
 main *{
-	font-family: "Noto Sans Japanese";
+	font-family: "fgmirai";
 }
 
 main div {
@@ -171,7 +171,8 @@ main div {
 main h2 {
 	margin: auto;
 	margin-bottom: 20px;
-	font-size: 50px;
+	font-family: 'Economica';
+	font-size: 4.8vw;
 }
 
 #explain div {
