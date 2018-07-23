@@ -333,21 +333,24 @@ button.ready {
 	font-size: 3vw;
 	border: none;
 	font-family: "Economica";
+	/*
 	transition: opacity 1s;
 	transition-delay: 2.3s;
-}
+*/
+	}
 
-.ready.loaded {
+h1.ready.loaded {
 	transform: translateY(0);
 	opacity: 1;
-	/*
-	-webkit-animation: apper 5s;
-	-webkit-animation-timing-function: ease;
-	-webkit-animation-iteration-count: 1;
-	-webkit-animation-fill-mode: forwards;
-	*/
 }
 
+button.ready.loaded {
+	-webkit-animation: apper 1s;
+	-webkit-animation-timing-function: ease;
+	-webkit-animation-delay: 2.3s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-direction: alternate;
+}
 
 .animation.started {
 	opacity: 0;
@@ -356,10 +359,10 @@ button.ready {
 }
 
 @-webkit-keyframes apper {
-	from {
+	0% {
 		opacity: 0;
 	}
-	to {
+	100% {
 		opacity: 1;
 	}
 }
