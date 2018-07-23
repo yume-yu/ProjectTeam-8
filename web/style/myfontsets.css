@@ -1,0 +1,11 @@
+@font-face {
+  font-family: 'fgmidium';
+  src: url('./FGMediumOldHankaku.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+  font-family: 'fgkururin';
+  src: url('./FGNewKururin.otf') format('opentype');
+}
