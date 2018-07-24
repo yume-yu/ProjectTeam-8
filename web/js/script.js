@@ -41,10 +41,11 @@ window.addEventListener('load', function(){
 	//var title_logo = document.querySelector('#title_menu h1');
 	//var title_logo = document.getElementById('title_menu').querySelector('.ready');;
 	var title_logo = document.getElementsByClassName('ready');
-	var enter_button = document.getElementsByTagName('button');
-
+	var title_background = document.getElementsByClassName('background');
 	for(var i = 0; i < title_logo.length; i++){
 		title_logo[i].classList.toggle("loaded");
 	}
+	title_background[0].classList.toggle('loaded');
+	
 })
 

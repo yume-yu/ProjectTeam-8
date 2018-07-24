@@ -336,9 +336,9 @@ h1.ready{
 	margin-right: auto;
 	margin-bottom: 200px;
 	font-size: 11vw;
-	transform: translateY(-220%);
-	transition: opacity 2s, transform 2s;
-	transition-delay: 0.5s;
+	transform: translateY(-100%);
+	transition: opacity 1s, transform 1s;
+	transition-delay: 1.8s;
 	transition-timing-function: ease-out;
 
 }
@@ -353,23 +353,73 @@ button.ready {
 	font-size: 3vw;
 	border: none;
 	font-family: "Economica";
+	transform: translateY(230%);
 	/*
 	transition: opacity 1s;
 	transition-delay: 2.3s;
 */
 	}
 
+img.background {
+	position: absolute;
+	height : 140%;
+	width: 100%;
+	transform: translateY(-10%);
+}
+
+
+.animation div {
+	align-items: center;
+	height: 50%;
+}
+
+img.ready {
+	opacity: 0;
+	height: 100%;
+}
+
+img.ready:nth-of-type(0) {
+	
+}
+
+img.background.loaded {
+	-webkit-animation: moveBackgrond 2.5s;
+	animation-delay: 0.4s;
+	animation-fill-mode: forwards;
+}
+
+img.ready.loaded {
+	/*-webkit-animation: zoomArist 1.3s;*/
+	-webkit-animation: apper 0.5s;
+	animation-fill-mode: forwards;
+	animation-timing-function: ease-in;
+}
+
+img.ready.loaded:nth-of-type(1) {
+	animation-delay: 0.1s;
+}
+
+img.ready.loaded:nth-of-type(2) {
+	animation-delay: 0.6s;
+}
+
 h1.ready.loaded {
-	transform: translateY(0);
+	transform: translateY(150%);
 	opacity: 1;
 }
 
 button.ready.loaded {
 	-webkit-animation: apper 1.3s;
 	-webkit-animation-timing-function: ease-in;
-	-webkit-animation-delay: 2.3s;
+	-webkit-animation-delay: 2.6s;
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-direction: alternate;
+}
+
+div.ready.loaded {
+	-webkit-animation: zoomCharas 1.3s;
+	animation-fill-mode: forwards;
+	animation-delay: 0.5s;
 }
 
 .animation.started {
@@ -384,6 +434,38 @@ button.ready.loaded {
 	}
 	100% {
 		opacity: 1;
+	}
+}
+
+@-webkit-keyframes moveBackgrond {
+	0% {
+	}
+	40% {
+		opacity: 1;
+		transform: scale(1,1) translateY(-10%);;
+	}
+	60% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		transform: scale(1,1) translateY(20%);
+	}
+
+}
+
+@-webkit-keyframes zoomCharas {
+	0% {
+		visibility: visible;
+	}
+	70% {
+		transform: translateY(0%);
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(50%);
+		opacity: 0;
+		visibility: hidden;
 	}
 }
 
