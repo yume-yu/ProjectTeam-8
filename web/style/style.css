@@ -324,7 +324,7 @@ p.copyright {
 	height: 100%;
 	visibility: visible;
 	-webkit-transition: opacity 0.5s, visibility 0.5s, z-index 1.3s;
-	transition-timing-function: ease-in;
+	-webkit-transition-timing-function: ease-in;
 }
 
 h1.ready{
@@ -337,9 +337,9 @@ h1.ready{
 	margin-bottom: 200px;
 	font-size: 11vw;
 	transform: translateY(-100%);
-	transition: opacity 1s, transform 1s;
-	transition-delay: 1.8s;
-	transition-timing-function: ease-out;
+	-webkit-transition: opacity 1s, transform 1s;
+	-webkit-transition-delay: 1.8s;
+	-webkit-transition-timing-function: ease-out;
 
 }
 
@@ -362,9 +362,10 @@ button.ready {
 
 img.background {
 	position: absolute;
-	height : 140%;
 	width: 100%;
-	transform: translateY(-10%);
+	height: 100%;
+	overflow: hidden;
+	transform: translateY(-10%) scale(1.4,1.4);
 }
 
 
@@ -384,15 +385,16 @@ img.ready:nth-of-type(0) {
 
 img.background.loaded {
 	-webkit-animation: moveBackgrond 2.5s;
-	animation-delay: 0.4s;
-	animation-fill-mode: forwards;
+	-webkit-animation-delay: 0.4s;
+	-webkit-animation-fill-mode: forwards;
+	transform: translateY(-10%) scale(1.4,1.4);
 }
 
 img.ready.loaded {
 	/*-webkit-animation: zoomArist 1.3s;*/
 	-webkit-animation: apper 0.5s;
-	animation-fill-mode: forwards;
-	animation-timing-function: ease-in;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-animation-timing-function: ease-in;
 }
 
 img.ready.loaded:nth-of-type(1) {
@@ -439,17 +441,16 @@ div.ready.loaded {
 
 @-webkit-keyframes moveBackgrond {
 	0% {
-	}
-	40% {
 		opacity: 1;
-		transform: scale(1,1) translateY(-10%);;
-	}
-	60% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0;
-		transform: scale(1,1) translateY(20%);
+		transform:  translateY(-10%) scale(1.4,1.4)
+	}                                            
+	40% {                                        
+		opacity: 1;                  
+		transform:  translateY(-10%) scale(1.4,1.4)
+	}                                            
+	100% {                                       
+		opacity: 0;                  
+		transform:	 translateY(20%) scale(1.4,1.4)
 	}
 
 }
