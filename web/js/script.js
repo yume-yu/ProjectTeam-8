@@ -1,7 +1,7 @@
 document.querySelector('.animation').addEventListener('click',function(){
 	document.querySelector('.animation').classList.add('started');
-	document.querySelector('body').className = "canScroll";
-	document.querySelector('html').className = "canScroll";
+	document.getElementsByTagName('body')[0].classList.toggle('canScroll');
+	document.getElementsByTagName('html')[0].classList.toggle('canScroll');
 })
 
 function switchExp(label){
@@ -36,7 +36,7 @@ document.getElementById('Character').getElementsByTagName('button')[2].addEventL
 })
 
 window.addEventListener('load', function(){
-	window.scroll(0,0);
+	window.scroll(top);
 	/* タイトルアニメーション処理 */
 	//var title_logo = document.querySelector('#title_menu h1');
 	//var title_logo = document.getElementById('title_menu').querySelector('.ready');;

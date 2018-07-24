@@ -254,7 +254,6 @@ section {
 
 #Character button.selected:before ,
 #Character button.selected:after {
-	content:"";
 	opacity: 1;
 	display:block;
 	height:2px;
@@ -297,6 +296,10 @@ section {
 	visibility: visible;
 	z-index: 3;
 	transition-timing-function: ease-in;
+}
+
+#Story p:nth-of-type(1) {
+	font-family: 'stsukkirib';
 }
 
 footer {
