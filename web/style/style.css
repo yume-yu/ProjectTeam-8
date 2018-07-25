@@ -214,7 +214,7 @@ main h2 {
 
 #explain th {
 	padding-right: 20px;
-	font-weight: bold;
+	font-family: "stsukkirib";
 	text-align: left;
 }
 #explain th:before {
@@ -534,7 +534,7 @@ button {
 	z-index: 5;
 }
 
-#Story,#Character,#System,#Download,#About_us{
+#Story,#Character,#Download,#About_us{
 	padding-top: 90px;
 	margin-top: -100px;
 }
