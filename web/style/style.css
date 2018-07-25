@@ -88,7 +88,7 @@ nav li {
 	/* li要素を横並びに */
 	display: inline-block;
 	background-color: #ffffff;
-	width: 20%;
+	width: calc(100% / 6);
 }
 
 nav a {
@@ -164,7 +164,7 @@ main {
 	/*margin-left: 15px;*/
 	background-color: #fbfbfb;
 	width: 80%;
-	opacity:0.8;
+	/*opacity:0.8;*/
 }
 
 main *{
@@ -178,9 +178,13 @@ main div {
 
 main h2 {
 	margin: auto;
-	margin-bottom: 20px;
+	margin-bottom: 0.5em;
 	font-family: 'Economica';
 	font-size: 4.8vw;
+}
+
+#Story p:last-child {
+	text-align: right;
 }
 
 #explain div {
@@ -195,6 +199,13 @@ main h2 {
 
 #explain tbody {
 	justify-content: center;
+}
+
+#explain caption {
+	font-family: "fgmirai";
+	font-weight: bold;
+	font-size: 2.5vw;
+	padding-bottom: 6em;
 }
 
 #explain tr *{
@@ -236,7 +247,7 @@ section {
 	font-family: inherit;
 	font-family: 'fgmidium';
 	background: none;
-	width: 33.3%;
+	width: calc(100% /3);
 	border: none;
 	font-size: 3vw;
 }
@@ -302,6 +313,46 @@ section {
 	font-family: 'stsukkirib';
 }
 
+#System div{
+	margin-top: 2vh;
+	margin-bottom: 2vh;
+	align-items: center;
+}
+
+.screenShot {
+	width: 50%;
+	height: 100%;
+}
+
+#System figcaption {
+	margin: auto;
+	width: 45%;
+}	
+
+#System figcaption h3{
+	text-align: center;
+	font-family: "stsukkirib";
+	margin-bottom: 1em;
+	font-size: 3vw;
+}	
+
+.arrow {
+	font-family: "notosansjapanese";
+}
+
+#System p {
+	text-indent: 0em;
+	text-align: center;
+}
+
+#System p:nth-of-type(1)  {
+	margin-bottom: 1em;
+}
+
+#System p:nth-of-type(2) {
+	font-size: 1.5vw;
+}
+
 footer {
 	margin: 0 auto;
 	width: 95%;
@@ -357,8 +408,8 @@ button.ready {
 	/*
 	transition: opacity 1s;
 	transition-delay: 2.3s;
-*/
-	}
+	 */
+}
 
 img.background {
 	position: absolute;
@@ -380,7 +431,7 @@ img.ready {
 }
 
 img.ready:nth-of-type(0) {
-	
+
 }
 
 img.background.loaded {
@@ -483,7 +534,7 @@ button {
 	z-index: 5;
 }
 
-#Story,#Character,#Download,#About_us{
+#Story,#Character,#System,#Download,#About_us{
 	padding-top: 90px;
 	margin-top: -100px;
 }
