@@ -198,7 +198,7 @@ main h2 {
 	justify-content: space-between;
 }
 
-#explain tbody {
+tbody {
 	justify-content: center;
 }
 
@@ -209,22 +209,21 @@ main h2 {
 	padding-bottom: 6em;
 }
 
-#explain tr *{
+tr *{
 	font-size: 1.7vw;
 	line-height: 1.6em;
 }
 
-#explain th {
+th {
 	padding-right: 20px;
 	font-family: "stsukkirib";
 	text-align: left;
 }
-#explain th:before {
+
+th:before {
 	content: "◆";
 	color: #234567;
 	font-size: 10px;
-}
-#explain td {
 }
 
 #explain img {
@@ -353,6 +352,58 @@ section {
 
 #System p:nth-of-type(2) {
 	font-size: 1.5vw;
+}
+
+#Download h2{
+	width: 100%;
+}
+
+#Download div {
+	margin: auto;
+}
+
+#Download caption {
+	font-size: 2.5vw;
+	text-align: left;
+	line-height: 1.6em;
+}
+
+#Download tbody {
+	text-indent: 1em;
+}
+
+#Download tbody:nth-of-type(2) {
+	text-indent: 3em;
+}
+
+#Download div div {
+	width: 50%;
+	padding-left: 7vw;
+}
+
+#Download a.button {
+	display: block;
+	height: 6vw;
+	width: 80%;
+	font-family: "Economica";
+	margin: auto;
+	font-size: 3vw;
+	padding-top: 1vw;
+	text-align: center;
+	text-decoration: inherit;
+	color: inherit;
+	border: 2px double;
+	transition: box-shadow 0.5s;
+}
+
+#Download a.button:hover {
+	box-shadow: 2px 2px 3px 1px #666;
+}
+
+#Download p {
+	text-align: center;
+	text-indent: 0em;
+	margin-top: 2em;
 }
 
 footer {
