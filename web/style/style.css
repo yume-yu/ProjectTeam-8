@@ -211,6 +211,7 @@ main h2 {
 
 #explain tr *{
 	font-size: 1.7vw;
+	line-height: 1.6em;
 }
 
 #explain th {
@@ -535,7 +536,7 @@ button {
 	z-index: 5;
 }
 
-#Story,#Character,#Download,#About_us{
+#Story,#Character,#System,#Download,#About_us{
 	padding-top: 90px;
 	margin-top: -100px;
 }
