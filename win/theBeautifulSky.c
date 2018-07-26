@@ -42,24 +42,24 @@ void subtitle(stage now_stage){
 void story(stage now_stage){
 	switch(now_stage){
 		case stage1:
-			exstrcpy(now_text,cenario_stage1,lengthof(cenario_stage1,extendstr));
-			string_march(now_text,2,2,lengthof(cenario_stage1,extendstr));
+			exstrcpy(now_text,cenario_stage1,eslengthof(cenario_stage1));
+			string_march(now_text,2,2,eslengthof(cenario_stage1));
 			break;
 		case stage2:
-			exstrcpy(now_text,cenario_stage2,lengthof(cenario_stage2,extendstr));
-			string_march(now_text,2,2,lengthof(cenario_stage2,extendstr));
+			exstrcpy(now_text,cenario_stage2,eslengthof(cenario_stage2));
+			string_march(now_text,2,2,eslengthof(cenario_stage2));
 			break;
 		case stage3_1:
-			exstrcpy(now_text,cenario_stage3,lengthof(cenario_stage3,extendstr));
-			string_march(now_text,2,2,lengthof(cenario_stage3,extendstr));
+			exstrcpy(now_text,cenario_stage3,eslengthof(cenario_stage3));
+			string_march(now_text,2,2,eslengthof(cenario_stage3));
 			break;
 		case stage4_1:
-			exstrcpy(now_text,cenario_stage4,lengthof(cenario_stage4,extendstr));
-			string_march(now_text,2,2,lengthof(cenario_stage4,extendstr));
+			exstrcpy(now_text,cenario_stage4,eslengthof(cenario_stage4));
+			string_march(now_text,2,2,eslengthof(cenario_stage4));
 			break;
 		case stage5:
-			exstrcpy(now_text,cenario_stage5,lengthof(cenario_stage5,extendstr));
-			string_march(now_text,2,2,lengthof(cenario_stage5,extendstr));
+			exstrcpy(now_text,cenario_stage5,eslengthof(cenario_stage5));
+			string_march(now_text,2,2,eslengthof(cenario_stage5));
 			break;
 		default:
 			break;
