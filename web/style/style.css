@@ -300,6 +300,7 @@ section {
 
 #Character div,
 #worldOutlook div {
+	width: 100%;
 	height: 100%;
 	align-items: center;
 	visibility: hidden;
@@ -307,7 +308,7 @@ section {
 	position: absolute;
 	opacity: 0;
 	z-index: 1;
-	transition: transform 1s,opacity 0.8s,visibility 1s, z-index 1s;
+	transition: transform 1s,opacity 0.5s,visibility 1s, z-index 1s;
 	transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
 	transform: translateY(100%);
 	/*transition-timing-function: ease-out;*/
@@ -332,7 +333,7 @@ section {
 	visibility: visible;
 	z-index: 3;
 	transform: translateY(0%);
-	transition: transform 1s,opacity 0.8s,visibility 1s, z-index 1s;
+	transition: transform 1s,opacity 0.5s,visibility 1s, z-index 1s;
 	transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
@@ -493,6 +494,10 @@ p a:hover {
 #worldOutlook figcaption {
 	margin: auto;
 	width: 45%;
+}
+
+#worldOutlook figcaption h3{
+	margin-bottom: 1em;
 }
 
 .separate {
