@@ -1638,12 +1638,12 @@ int battle(struct character *front,struct character *back,struct character *enem
 					player_can_act = !player_can_act;
 				}else if(!strcmp(enemies[i]->name,ST4_BOSS_NAME) && rand() % 10 == 5){
 					change_hp(enemies[i],-500);
-					print_line("Boss はケアルラを唱えた!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+					print_line("機械巨人はケアルラを唱えた!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					wait_anyinput();
-				}else if(!strcmp(enemies[i]->name,"St5Bs") && turn_count != 0 && turn_count % 4 == 0){
-					print_line("Stage5 Boss's action!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+				}else if(!strcmp(enemies[i]->name,ST5_BOSS_NAME) && turn_count != 0 && turn_count % 4 == 0){
+					print_line("ファールの特殊行動!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					wait_anyinput();
-					print_line("The Gaia!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
+					print_line("ザ ガイア!!▼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
 					wait_anyinput();
 					sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					char *(string)[] = {
@@ -1656,8 +1656,8 @@ int battle(struct character *front,struct character *back,struct character *enem
 					player_can_act = !player_can_act;
 				} else if(!strcmp(enemies[i]->name,ST5_BOSS_NAME) && rand() % 10 == 5 && enemies[i]->hp < enemies[i]->max_hp * 0.4){
 					char *(string)[] = {
-						"Stage5 Boss cast ",
-						"              'Tetragrammaton'!▼ "
+						"ファールは ",
+						"       テトラグラマトンを唱えた!▼ "
 					};
 					change_hp(enemies[i],-1500);
 					print_lines(string,BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,2);
@@ -1690,7 +1690,7 @@ int battle(struct character *front,struct character *back,struct character *enem
 			print_bt_status(front,back);
 			if(front->hp <= 0 || (back->hp <= 0 && strcmp(back->name,"dummy"))){
 				sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-				print_line("Lose...▼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+				print_line("敗北した...▼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 				finish_flag = 1;
 				return 0;
 				wait_anyinput();
@@ -1705,7 +1705,8 @@ int battle(struct character *front,struct character *back,struct character *enem
 }
 
 void gameover_lose(){
-
+	print_lines(gameover,(WIDTH - 27) / 2,(HEIGHT - 3) / 2,3);
+	wait_anyinput();
 }
 
 void gameover_win(){
