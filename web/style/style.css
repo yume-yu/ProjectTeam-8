@@ -52,6 +52,10 @@ header {
 	font-family: 'Economica';
 }
 
+#worldOutlookhead {
+	margin-left: 1vw;
+}
+
 div#title {
 	justify-content: center;
 	width: 100%;
@@ -252,30 +256,33 @@ section {
 	width: calc(100% /3);
 	border: none;
 	font-size: 3vw;
+	line-height: 1.6em;
 }
 
 #Character button:before,
-#Character button:after {
+#Character button:after ,
+#worldOutlook button:before,
+#worldOutlook button:after {
 	content: "";
 	opacity: 0;
 	transition: opacity 1s;
 }
 
-#Character button.selected {
-	/*border: solid 2px #a0a0a0;*/
-}
-
 #Character button.selected:before ,
-#Character button.selected:after {
+#Character button.selected:after,
+#worldOutlook button.selected:before,
+#worldOutlook button.selected:after {
 	opacity: 1;
 	display:block;
 	height:2px;
 	background: linear-gradient(to right, #967d41 0%,#f0f0aa 48%,#967d41 100%);
 }
 
-#Character figure {
+#Character figure,
+#worldOutlook figure {
 	margin: auto;
-	margin-top: 20px;
+	margin-top: 2.2vw;
+	margin-bottom: 2.2vw;
 	width: 90%;
 }
 
@@ -285,18 +292,24 @@ section {
 	position: relative;
 }
 
-#Character div {
+#Character div,
+#worldOutlook div {
 	width: 100%;
 	align-items: center;
 	visibility: hidden;
+	overflow: hidden;
 	position: absolute;
 	opacity: 0;
 	z-index: 1;
-	transition: opacity 1s,visibility 1s,transform 0.5s , z-index 1s;
-	transition-timing-function: ease-out;
+	height: 0%;
+	transition: height 0.5s,opacity 0.3s,visibility 0.3s, z-index 0.3s;
+	transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+	/*transition-timing-function: ease-out;*/
+	line-height: 1.6em;
 }
 
-#Character img {
+#Character img,
+#worldOutlook img{
 	width: 50%;
 }
 
@@ -304,10 +317,14 @@ section {
 	margin-left: 20px;
 }
 
-#Character div.selected {
+#Character div.selected,
+#worldOutlook div.selected {
+	height: 100%;
 	opacity: 1;
 	visibility: visible;
 	z-index: 3;
+	/*transition: height 0.5s,opacity 0.3s,visibility 0.5s, z-index 0.5s;*/
+	transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
 	transition-timing-function: ease-in;
 }
 
@@ -436,6 +453,27 @@ section {
 	height:	10%;
 	right:0;
 	bottom: 1vh;
+}
+
+#worldOutlook menu button {
+	width: calc(100% / 7);
+	font-family: inherit;
+	font-family: 'fgmidium';
+	background: none;
+	border: none;
+	font-size: 2.5vw;
+	line-height: 1.6em;
+}
+
+#worldOutlook .white-space {
+	width: 100%;
+	visibility: hidden;
+	position: relative;
+}
+
+#worldOutlook figcaption {
+	margin: auto;
+	width: 45%;
 }
 
 .separate {
