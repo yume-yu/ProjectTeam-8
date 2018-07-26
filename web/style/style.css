@@ -12,6 +12,7 @@
 	box-sizing: border-box;
 }
 
+
 html {
 	overflow: hidden;
 	scroll-behavior: smooth;
@@ -41,6 +42,10 @@ p {
 	margin: auto;
 	width: 95%;
 	font-size: 2vw;
+}
+
+img {
+	pointer-events: none;
 }
 
 header {
@@ -284,6 +289,7 @@ section {
 	margin-top: 2.2vw;
 	margin-bottom: 2.2vw;
 	width: 90%;
+	overflow: hidden;
 }
 
 #Character .white-space {
@@ -294,16 +300,16 @@ section {
 
 #Character div,
 #worldOutlook div {
-	width: 100%;
+	height: 100%;
 	align-items: center;
 	visibility: hidden;
 	overflow: hidden;
 	position: absolute;
 	opacity: 0;
 	z-index: 1;
-	height: 0%;
-	transition: height 0.5s,opacity 0.3s,visibility 0.3s, z-index 0.3s;
+	transition: transform 1s,opacity 0.8s,visibility 1s, z-index 1s;
 	transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+	transform: translateY(100%);
 	/*transition-timing-function: ease-out;*/
 	line-height: 1.6em;
 }
@@ -314,18 +320,20 @@ section {
 }
 
 #Character figcaption {
-	margin-left: 20px;
+	width:45%;
+	margin: auto;
 }
 
 #Character div.selected,
 #worldOutlook div.selected {
+	width: 100%;
 	height: 100%;
 	opacity: 1;
 	visibility: visible;
 	z-index: 3;
-	/*transition: height 0.5s,opacity 0.3s,visibility 0.5s, z-index 0.5s;*/
+	transform: translateY(0%);
+	transition: transform 1s,opacity 0.8s,visibility 1s, z-index 1s;
 	transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
-	transition-timing-function: ease-in;
 }
 
 #Story p:nth-of-type(1) {
@@ -428,6 +436,14 @@ section {
 	transition: box-shadow 0.5s;
 }
 
+p a {
+	transition: transform 0.5s;
+}
+
+p a:hover {
+	transform: scale(1.2,1.2);
+}
+
 #Download a.button:hover {
 	box-shadow: 2px 2px 3px 1px #666;
 }
@@ -438,7 +454,7 @@ section {
 	margin-top: 2em;
 }
 
-#About_us {
+#About_us div {
 	position: relative;
 }
 
@@ -450,9 +466,9 @@ section {
 #About_us img {
 	position:absolute;
 	z-index: 2;
-	height:	10%;
+	height:	20%;
 	right:0;
-	bottom: 1vh;
+	bottom: 1.5vh;
 }
 
 #worldOutlook menu button {
