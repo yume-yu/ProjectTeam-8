@@ -175,6 +175,7 @@ main *{
 
 main div {
 	width: 90%;
+	margin: auto;
 }
 
 main h2 {
@@ -362,18 +363,32 @@ section {
 	margin: auto;
 }
 
-#Download caption {
+#Download caption , #About_us caption {
 	font-size: 2.5vw;
 	text-align: left;
+	padding-bottom: 0.6em;
 	line-height: 1.6em;
 }
 
-#Download tbody {
+#Download table {
+	width: 70%;
+}
+
+#Download tbody ,#About_us tbody{
 	text-indent: 1em;
 }
 
 #Download tbody:nth-of-type(2) {
 	text-indent: 3em;
+}
+
+#Download th {
+	padding-right: 0;
+	width: 14em;
+}
+
+#Download td {
+	width: 11em;
 }
 
 #Download div div {
@@ -404,6 +419,27 @@ section {
 	text-align: center;
 	text-indent: 0em;
 	margin-top: 2em;
+}
+
+#About_us {
+	position: relative;
+}
+
+#About_us td:nth-of-type(odd) {
+	padding-right: 3em;
+}
+
+
+#About_us img {
+	position:absolute;
+	z-index: 2;
+	height:	10%;
+	right:0;
+	bottom: 1vh;
+}
+
+.separate {
+	height: 1em;
 }
 
 footer {
