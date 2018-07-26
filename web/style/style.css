@@ -462,6 +462,9 @@ p a:hover {
 	padding-right: 3em;
 }
 
+#About_us td {
+	text-align: right;
+}
 
 #About_us img {
 	position:absolute;
