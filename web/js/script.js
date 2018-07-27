@@ -36,6 +36,7 @@ document.getElementById('Character').getElementsByTagName('button')[2].addEventL
 })
 
 window.addEventListener('load', function(){
+	window.resizeTo(1280,720);
 	window.scroll(top);
 	/* タイトルアニメーション処理 */
 	//var title_logo = document.querySelector('#title_menu h1');
