@@ -475,6 +475,11 @@ p a:hover {
 	bottom: 1.5vh;
 }
 
+#worldOutlook {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 #worldOutlook menu button {
 	width: calc(100% / 7);
 	font-family: inherit;
