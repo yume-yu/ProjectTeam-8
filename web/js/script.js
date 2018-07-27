@@ -10,7 +10,7 @@ function switchExp(label){
 
 document.getElementById('Character').getElementsByTagName('button')[0].addEventListener('click',function(){
 	document.getElementById('Character').getElementsByClassName('selected')[1].classList.toggle('selected');
-	event.target.classList.add('selected');
+	document.getElementById('Character').getElementsByTagName('button')[0].classList.add('selected');
 	for(var i = 0; i < document.getElementById('Character').getElementsByTagName('div').length; i++){
 		document.getElementById('Character').getElementsByTagName('div')[i].classList.remove('selected');
 	}
@@ -19,7 +19,7 @@ document.getElementById('Character').getElementsByTagName('button')[0].addEventL
 document.getElementById('Character').getElementsByTagName('button')[1].addEventListener('click',function(){
 	document.getElementById('Character').getElementsByClassName('selected')[1].classList.toggle('selected');
 	//document.getElementById('Character').querySelector('.selected').classList.toggle('selected');
-	event.target.classList.add('selected');
+	document.getElementById('Character').getElementsByTagName('button')[1].classList.add('selected');
 	for(var i = 0; i < document.getElementById('Character').getElementsByTagName('div').length; i++){
 		document.getElementById('Character').getElementsByTagName('div')[i].classList.remove('selected');
 	}
@@ -28,7 +28,7 @@ document.getElementById('Character').getElementsByTagName('button')[1].addEventL
 document.getElementById('Character').getElementsByTagName('button')[2].addEventListener('click',function(){
 	document.getElementById('Character').getElementsByClassName('selected')[1].classList.toggle('selected');
 	//document.getElementById('Character').querySelector('.selected').classList.toggle('selected');
-	event.target.classList.add('selected');
+	document.getElementById('Character').getElementsByTagName('button')[2].classList.add('selected');
 	for(var i = 0; i < document.getElementById('Character').getElementsByTagName('div').length; i++){
 		document.getElementById('Character').getElementsByTagName('div')[i].classList.remove('selected');
 	}
