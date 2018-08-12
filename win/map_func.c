@@ -121,3 +121,29 @@ void update_map(stage now_stage){
 	coorcpy(now_map_coor,map_coors[now_stage]);
 }
 
+/*
+ *	マップ配列の初期化
+ */
+void initmaps(){
+	mapcpy(maps[stage1],map_st1);
+	mapcpy(maps[stage2],map_st2);
+	mapcpy(maps[stage3_1],map_st3_1);
+	mapcpy(maps[stage3_2],map_st3_2);
+	mapcpy(maps[stage3_3],map_st3_3);
+	mapcpy(maps[stage4_1],map_st4_1);
+	mapcpy(maps[stage4_2],map_st4_2);
+	mapcpy(maps[stage4_3],map_st4_3);
+	mapcpy(maps[ope_exp],map_exp);
+	coor_cnv_adr(map_coors[stage1],st1_pos);
+	coor_cnv_adr(map_coors[stage2],st2_pos);
+	coor_cnv_adr(map_coors[stage3_1],st3_1_pos);
+	coor_cnv_adr(map_coors[stage3_2],st3_2_pos);
+	coor_cnv_adr(map_coors[stage3_3],st3_3_pos);
+	coor_cnv_adr(map_coors[stage4_1],st4_1_pos);
+	coor_cnv_adr(map_coors[stage4_2],st4_2_pos);
+	coor_cnv_adr(map_coors[stage4_3],st4_3_pos);
+	coor_cnv_adr(map_coors[ope_exp],exp_pos);
+	mapcpy(now_map,maps[now_stage]);
+	coorcpy(now_map_coor,map_coors[now_stage]);
+	reset_state();
+}

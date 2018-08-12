@@ -471,6 +471,7 @@ bool get_potion();																																//ポーションを入手したときの関
 /* ここからcharacter.cで定義する関数 */
 void set_ch_stat(char name[10], character *tmpch, int hp, int max_hp,int min_atk, int max_atk);	//キャラクターのステータスを更新する関数
 void change_hp(character *tmpch, int damage);																										//キャラクターのダメージ/回復処理を行う関数
+void initchara();																																								//キャラクター変数の初期化
 /* ここまでcharacter.cで定義する関数 */
 
 /* ここからmap_func.cで定義する関数 */
@@ -478,6 +479,7 @@ void mapcpy(char *(to)[HEIGHT - 2],char *(from)[HEIGHT - 2]);																			
 void coor_cnv_adr(arrow_pos *(to)[WIDTH - 2][HEIGHT - 2],arrow_pos from[WIDTH - 2][HEIGHT - 2]);						//マップ座標をアドレス配列にしてコピーする関数
 void coorcpy(arrow_pos *(to)[WIDTH - 2][HEIGHT - 2],arrow_pos *(from)[WIDTH - 2][HEIGHT - 2]);							//マップ座標のアドレス配列をコピーする関数
 arrow_pos move_on_map(int width, int height,arrow_pos *(tmp_pos)[WIDTH -2 ][HEIGHT - 2], arrow_pos offset);	//マップ上を移動する関数
+void initmaps();																																														//各マップをアドレス配列にしておく関数
 /* ここまでmap_func.cで定義する関数 */
 
 /* ここからmap_menu.cで定義する関数 */
@@ -497,7 +499,7 @@ void naoki_find_potion();		//ナオキがポーションを見つけた時に呼ばれる関数
 bool instory_yesno(int y);	//ストーリー文中にyes/noをとる関数
 void guide_st1();						//ステージ1の冒頭に呼ばれる誘導を表示する関数
 void noentry_st1();					//ステージ1で呼ばれる通行不可の誘導を表示する関数
-void talk_event_st1_1();
+void talk_event_st1_1();		//
 void talk_event_st1_0();
 void before_battle_st1();
 void after_battle_st1();

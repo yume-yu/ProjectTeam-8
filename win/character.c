@@ -50,3 +50,20 @@ void change_hp(character *tmpch, int damage){
 	}
 }
 
+//各キャラクターのステータス初期化
+void initchara(){
+	set_ch_stat(FRONT2_NAME,&naoki,FRONT2_HP_ST2,FRONT2_HP_ST2,FRONT2_MINATK_ST2,FRONT2_MAXATK_ST2);
+	set_ch_stat(FRONT1_NAME,&lirel,FRONT1_HP,FRONT1_HP,FRONT1_MINATK,FRONT1_MAXATK);
+	set_ch_stat(BACK_NAME,&arist,BACK_HP_ST1,BACK_HP_ST1,0,BACK_HEAL_ST1);
+	set_ch_stat(FRONT3_NAME,&robo,FRONT3_HP,FRONT3_HP,FRONT3_MINATK,FRONT3_MAXATK);
+	set_ch_stat("boss1",&boss1,100,100,10,20);
+	set_ch_stat("boss2",&boss2,100,100,10,20);
+	set_ch_stat("dummy",&dummy,0,0,0,0);
+	//装備を素手に初期化
+	using_weapon = &all_weapons[0];
+	using_protector = &all_protectors[0];
+	arist_using_weapon = &all_weapons4back[0];
+	arist_using_protector = &all_protectors[0];
+}
+
+
