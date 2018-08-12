@@ -492,11 +492,11 @@ event decide_event(arrow_pos exit_point);
 /* ‚±‚±‚Ü‚Ådecide_event.c‚Å’è‹`‚·‚éŠÖ” */
 
 /* ‚±‚±‚©‚çtalk_event.c‚Å’è‹`‚·‚éŠÖ” */
-void lirel_find_potion();
-void naoki_find_potion();
-bool instory_yesno(int y);
-void guide_st1();
-void noentry_st1();
+void lirel_find_potion();		//ƒŠ[ƒŒƒ‹‚ªƒ|[ƒVƒ‡ƒ“‚ğŒ©‚Â‚¯‚½‚ÉŒÄ‚Î‚ê‚éŠÖ”
+void naoki_find_potion();		//ƒiƒIƒL‚ªƒ|[ƒVƒ‡ƒ“‚ğŒ©‚Â‚¯‚½‚ÉŒÄ‚Î‚ê‚éŠÖ”
+bool instory_yesno(int y);	//ƒXƒg[ƒŠ[•¶’†‚Éyes/no‚ğ‚Æ‚éŠÖ”
+void guide_st1();						//ƒXƒe[ƒW1‚Ì–`“ª‚ÉŒÄ‚Î‚ê‚é—U“±‚ğ•\¦‚·‚éŠÖ”
+void noentry_st1();					//ƒXƒe[ƒW1‚ÅŒÄ‚Î‚ê‚é’Ês•s‰Â‚Ì—U“±‚ğ•\¦‚·‚éŠÖ”
 void talk_event_st1_1();
 void talk_event_st1_0();
 void before_battle_st1();
@@ -531,3 +531,6 @@ void print_bt_status(character *front,character *back);																//í“¬–
 int battle(character *front,character *back,character *enemies[3], int enemy_amount);	//í“¬‚»‚Ì‚à‚Ì‚ğs‚¤ŠÖ”
 /* ‚±‚±‚Ü‚Åbattle_func.c‚Å’è‹`‚·‚éŠÖ” */
 
+/* ‚±‚±‚©‚çstate_init.c‚Å’è‹`‚·‚éŠÖ” */
+void reset_state();	//À•W‚âƒXƒe[ƒWî•ñ‚ğƒŠƒZƒbƒg‚·‚éŠÖ”
+/* ‚±‚±‚Ü‚Åstate_init.c‚Å’è‹`‚·‚éŠÖ” */
