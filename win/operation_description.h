@@ -96,7 +96,7 @@ void explain_command(){
 	extendstr sixth[] = {
 		{"では実際に戦ってみましょう▼ ",0,0},
 	};
-	
+
 	print_explain_out(first,sizeof(first)/sizeof(extendstr));
 	print_explain_out(second,sizeof(second)/sizeof(extendstr));
 	print_explain_out(third,sizeof(third)/sizeof(extendstr));
@@ -138,7 +138,7 @@ int demo_battle(character *front,character *back,character *enemies[3], int enem
 	print_health_bar(for_bar,enemy_amount_for_bar);																				//敵HPゲージの表示
 	mvcur(BATTLE_MODE_STATUS_FLAME_X + 2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT - 1);		//ターン数表示用カーソル移動
 	printf("Turn %2d",turn_count);																												//ターン数表示
-	
+
 	explain_battle();
 
 	print_bt_commands();																			//プレイヤーのコマンドを表示する
@@ -150,8 +150,8 @@ int demo_battle(character *front,character *back,character *enemies[3], int enem
 		/*プレイヤーの行動 ここから*/
 		if(player_can_act){
 			print_bt_commands();																			//プレイヤーのコマンドを表示する
-			int command = select_from_list(battle_menu_arrow,4);			//コマンド入力を受け付ける	
-			sub_flame_clean(																					//コマンド部分フレームクリーン	
+			int command = select_from_list(battle_menu_arrow,4);			//コマンド入力を受け付ける
+			sub_flame_clean(																					//コマンド部分フレームクリーン
 					BATTLE_MODE_STATUS_FLAME_SPLIT_X,
 					BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,
 					BATTLE_MODE_STATUS_FLAME_X + 1,
@@ -424,18 +424,18 @@ int operation_description(){
 	string_march(now_text,2,15,sizeof(second)/sizeof(extendstr));					//now_textを表示
 	coorcpy(now_map_coor,map_coors[now_stage]);																		//説明用マップ座標をnow_map_coorに用意
 	start_pos.x = 1;																															//マップ移動開始時のX座標をセット
-	start_pos.y = 0;																															//マップ移動開始時のY座標をセット	
+	start_pos.y = 0;																															//マップ移動開始時のY座標をセット
 	print_lines(map_exp,10,17,8);																									//説明用マップを表示
 	while(move_on_map(39, 6, now_map_coor,start_pos).x != 48){										//マップ移動開始
 		start_pos.x -= 8;
 		start_pos.y -= 16;
 	}
 	set_ch_stat("前衛",&lirel,FRONT1_HP,FRONT1_HP,FRONT1_MINATK,FRONT1_MAXATK);		//前衛ステータスセット
-	set_ch_stat("後衛",&arist,BACK_HP_ST1,BACK_HP_ST1,0,BACK_HEAL_ST1);						//後衛ステータスセット		
+	set_ch_stat("後衛",&arist,BACK_HP_ST1,BACK_HP_ST1,0,BACK_HEAL_ST1);						//後衛ステータスセット
 	front = &lirel;																																//前衛アドレスセット
 	back = &arist;																																//後衛アドレスセット
 	set_ch_stat("デモエネミー",&boss1,30,35,30,35);																//敵ステータスセット
-	enemies[0] = &boss1;																													//敵アドレスセット	
+	enemies[0] = &boss1;																													//敵アドレスセット
 	enemies[1] = &dummy;
 	potion_amount = 1;
 	enemy_amount = 1;																															//敵の数を設定
@@ -444,5 +444,6 @@ int operation_description(){
 	exstrcpy(now_text,after,sizeof(after)/sizeof(extendstr));
 	string_march(now_text,(WIDTH - 36) / 2,8,sizeof(after)/sizeof(extendstr));
 	reset_state();
+	initchara();					//チュートリアル後のキャラ情報初期化
 	return select_from_list(tobe,2);
 }
