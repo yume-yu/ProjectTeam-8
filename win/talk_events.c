@@ -18,11 +18,11 @@ void lirel_find_potion(){
 		{"ポーションはこれ以上持てないので諦めた▼  ",0,0},
 	};
 	exstrcpy(now_text,event_text,2);
-	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(event_text));
+	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,lengthof(event_text,extendstr));
 	if(get_potion()){
 	}else{
 		exstrcpy(now_text,error_text,1);
-		string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3,eslengthof(error_text));
+		string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3,lengthof(error_text,extendstr));
 	}
 }
 
@@ -77,7 +77,8 @@ void talk_event_st1_1(){
 		{"もぬけの殻だ▼  ",0,0},
 	};
 	exstrcpy(now_text,error_text,1);
-	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(error_text));
+	//string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(error_text));
+	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,lengthof(error_text,extendstr));
 }
 
 /* ステージ1 左の部屋 */
@@ -243,20 +244,20 @@ void talk_event_st3_3(){
 		if(instory_yesno(2 + eslengthof(talk_st3_3) + 1)){
 			using_weapon = &all_weapons[2];
 			exstrcpy(now_text,talk_st3_3_2,eslengthof(talk_st3_3_2));
-			string_march(now_text,2,2 + eslengthof(talk_st3_3) + 3,sizeof(talk_st3_3_2)/sizeof(extendstr));
+			string_march(now_text,2,2 + eslengthof(talk_st3_3) + 3,eslengthof(talk_st3_3_2));
 		}else{
 			exstrcpy(now_text,talk_st3_3_3,eslengthof(talk_st3_3_3));
-			string_march(now_text,2,2 + eslengthof(talk_st3_3) + 3,sizeof(talk_st3_3_3)/sizeof(extendstr));
+			string_march(now_text,2,2 + eslengthof(talk_st3_3) + 3,eslengthof(talk_st3_3_3));
 		}
 		exstrcpy(now_text,talk_st3_3_0,eslengthof(talk_st3_3_0));
-		string_march(now_text,2,2 + eslengthof(talk_st3_3) + 4,sizeof(talk_st3_3_0)/sizeof(extendstr));
+		string_march(now_text,2,2 + eslengthof(talk_st3_3) + 4,eslengthof(talk_st3_3_0));
 		extendstr error_text[] = {
 			{"ポーションはこれ以上持てないので返した▼  ",0,0},
 		};
 		if(get_potion()){
 		}else{
 			exstrcpy(now_text,error_text,1);
-			string_march(now_text,2,2 + eslengthof(talk_st3_3) + 7,sizeof(error_text)/sizeof(extendstr));
+			string_march(now_text,2,2 + eslengthof(talk_st3_3) + 7,lengthof(error_text,extendstr));
 		}
 		talk_event_st3_3_arrived = true;
 	}else if(using_weapon != &all_weapons[2]){ //初めてではなく、装備が銃ではない時
@@ -265,10 +266,10 @@ void talk_event_st3_3(){
 		if(instory_yesno(2 + eslengthof(talk_st3_3_1) + 1)){
 			using_weapon = &all_weapons[2];
 			exstrcpy(now_text,talk_st3_3_2,eslengthof(talk_st3_3_2));
-			string_march(now_text,2,2 + eslengthof(talk_st3_3) + 3,sizeof(talk_st3_3_2)/sizeof(extendstr));
+			string_march(now_text,2,2 + eslengthof(talk_st3_3) + 3,eslengthof(talk_st3_3_2));
 		}else{
 			exstrcpy(now_text,talk_st3_3_3,eslengthof(talk_st3_3_3));
-			string_march(now_text,2,2 + eslengthof(talk_st3_3) + 3,sizeof(talk_st3_3_3)/sizeof(extendstr));
+			string_march(now_text,2,2 + eslengthof(talk_st3_3) + 3,eslengthof(talk_st3_3_3));
 		}
 	}else{
 		make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
@@ -327,10 +328,10 @@ void talk_event_st4_0(){
 		if(instory_yesno(2 + eslengthof(talk_st4_0) + 1)){
 			arist_using_weapon = &all_weapons4back[1];
 			exstrcpy(now_text,talk_st4_0_2,eslengthof(talk_st4_0_2));
-			string_march(now_text,2,2 + eslengthof(talk_st4_0) + 3,sizeof(talk_st4_0_2)/sizeof(extendstr));
+			string_march(now_text,2,2 + eslengthof(talk_st4_0) + 3,eslengthof(talk_st4_0_2));
 		}else{
 			exstrcpy(now_text,talk_st4_0_3,eslengthof(talk_st4_0_3));
-			string_march(now_text,2,2 + eslengthof(talk_st4_0) + 3,sizeof(talk_st4_0_3)/sizeof(extendstr));
+			string_march(now_text,2,2 + eslengthof(talk_st4_0) + 3,eslengthof(talk_st4_0_3));
 		}
 		talk_event_st4_0_arrived = true;
 	}else if(arist_using_weapon != &all_weapons4back[1]){ //初めてではなく、装備が銃ではない時
@@ -339,10 +340,10 @@ void talk_event_st4_0(){
 		if(instory_yesno(2 + eslengthof(talk_st4_0_1) + 1)){
 			arist_using_weapon = &all_weapons4back[1];
 			exstrcpy(now_text,talk_st4_0_2,eslengthof(talk_st4_0_2));
-			string_march(now_text,2,2 + eslengthof(talk_st4_0) + 3,sizeof(talk_st4_0_2)/sizeof(extendstr));
+			string_march(now_text,2,2 + eslengthof(talk_st4_0) + 3,eslengthof(talk_st4_0_2));
 		}else{
 			exstrcpy(now_text,talk_st4_0_3,eslengthof(talk_st4_0_3));
-			string_march(now_text,2,2 + eslengthof(talk_st4_0) + 3,sizeof(talk_st4_0_3)/sizeof(extendstr));
+			string_march(now_text,2,2 + eslengthof(talk_st4_0) + 3,eslengthof(talk_st4_0_3));
 		}
 	}else{
 		make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
@@ -361,10 +362,10 @@ void talk_event_st4_1(){
 		if(instory_yesno(2 + eslengthof(talk_st4_1) + 1)){
 			arist_using_protector = &all_protectors[1];
 			exstrcpy(now_text,talk_st4_1_2,eslengthof(talk_st4_1_2));
-			string_march(now_text,2,2 + eslengthof(talk_st4_1) + 3,sizeof(talk_st4_1_2)/sizeof(extendstr));
+			string_march(now_text,2,2 + eslengthof(talk_st4_1) + 3,eslengthof(talk_st4_1_2));
 		}else{
 			exstrcpy(now_text,talk_st4_1_3,eslengthof(talk_st4_1_3));
-			string_march(now_text,2,2 + eslengthof(talk_st4_1) + 3,sizeof(talk_st4_1_3)/sizeof(extendstr));
+			string_march(now_text,2,2 + eslengthof(talk_st4_1) + 3,eslengthof(talk_st4_1_3));
 		}
 		talk_event_st4_1_arrived = true;
 	}else if(arist_using_protector != &all_protectors[1]){ //初めてではなく、装備が銃ではない時
@@ -373,10 +374,10 @@ void talk_event_st4_1(){
 		if(instory_yesno(2 + eslengthof(talk_st4_1_1) + 1)){
 			arist_using_protector = &all_protectors[1];
 			exstrcpy(now_text,talk_st4_1_2,eslengthof(talk_st4_1_2));
-			string_march(now_text,2,2 + eslengthof(talk_st4_1) + 3,sizeof(talk_st4_1_2)/sizeof(extendstr));
+			string_march(now_text,2,2 + eslengthof(talk_st4_1) + 3,eslengthof(talk_st4_1_2));
 		}else{
 			exstrcpy(now_text,talk_st4_1_3,eslengthof(talk_st4_1_3));
-			string_march(now_text,2,2 + eslengthof(talk_st4_1) + 3,sizeof(talk_st4_1_3)/sizeof(extendstr));
+			string_march(now_text,2,2 + eslengthof(talk_st4_1) + 3,eslengthof(talk_st4_1_3));
 		}
 	}else{
 		make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
