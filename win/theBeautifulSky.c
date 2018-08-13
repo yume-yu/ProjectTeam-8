@@ -5,7 +5,6 @@
 #include <string.h>
 #include "thebeautifulsky.h"
 #include "for_make_game.h"
-#include "operation_description.h"
 
 void subtitle(stage now_stage){
 	int length = 0;

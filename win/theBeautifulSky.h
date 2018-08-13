@@ -536,3 +536,12 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 /* ここからstate_init.cで定義する関数 */
 void reset_state();	//座標やステージ情報をリセットする関数
 /* ここまでstate_init.cで定義する関数 */
+
+/* ここからoperation_description.cで定義する関数 */
+void print_explain_in(extendstr explain[],int size);
+void print_explain_out(extendstr explain[],int size);
+void explain_battle();
+void explain_command();
+int demo_battle(character *front,character *back,character *enemies[3], int enemy_amount);
+int operation_description();
+/* ここまでoperation_description.cで定義する関数 */

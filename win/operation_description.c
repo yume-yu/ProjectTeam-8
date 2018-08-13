@@ -58,12 +58,12 @@ void explain_battle(){
 		{"パーティーのHPは右に表\示されます▼ ",0,0}
 	};
 
-	print_explain_in(first,sizeof(first)/sizeof(extendstr));
-	print_explain_in(second,sizeof(second)/sizeof(extendstr));
-	print_explain_in(third,sizeof(third)/sizeof(extendstr));
-	print_explain_in(fourth,sizeof(fourth)/sizeof(extendstr));
-	print_explain_in(fifth,sizeof(fifth)/sizeof(extendstr));
-	print_explain_in(sixth,sizeof(sixth)/sizeof(extendstr));
+	print_explain_in(first,lengthof(first,extendstr));
+	print_explain_in(second,lengthof(second,extendstr));
+	print_explain_in(third,lengthof(third,extendstr));
+	print_explain_in(fourth,lengthof(fourth,extendstr));
+	print_explain_in(fifth,lengthof(fifth,extendstr));
+	print_explain_in(sixth,lengthof(sixth,extendstr));
 }
 
 /* 戦闘コマンドの説明 */
@@ -97,12 +97,12 @@ void explain_command(){
 		{"では実際に戦ってみましょう▼ ",0,0},
 	};
 
-	print_explain_out(first,sizeof(first)/sizeof(extendstr));
-	print_explain_out(second,sizeof(second)/sizeof(extendstr));
-	print_explain_out(third,sizeof(third)/sizeof(extendstr));
-	print_explain_out(fourth,sizeof(fourth)/sizeof(extendstr));
-	print_explain_out(fifth,sizeof(fifth)/sizeof(extendstr));
-	print_explain_out(sixth,sizeof(sixth)/sizeof(extendstr));
+	print_explain_out(first,lengthof(first,extendstr));
+	print_explain_out(second,lengthof(second,extendstr));
+	print_explain_out(third,lengthof(third,extendstr));
+	print_explain_out(fourth,lengthof(fourth,extendstr));
+	print_explain_out(fifth,lengthof(fifth,extendstr));
+	print_explain_out(sixth,lengthof(sixth,extendstr));
 }
 /* チュートリアル戦闘モード */
 int demo_battle(character *front,character *back,character *enemies[3], int enemy_amount){
@@ -414,14 +414,14 @@ int operation_description(){
 		{(WIDTH - 36)/2 + 6,12,0,0},
 	};
 	print_line("How to play game",(WIDTH - 16)/2,2);															//タイトルテキストを出す
-	exstrcpy(now_text,first,sizeof(first)/sizeof(extendstr));
-	string_march(now_text,2,4,sizeof(first)/sizeof(extendstr));
+	exstrcpy(now_text,first,lengthof(first,extendstr));
+	string_march(now_text,2,4,lengthof(first,extendstr));
 	print_line("次に進む場合は「はい」を選んでください",(WIDTH - 38)/2,15);				//確認の文章を表示
 	print_line("はい   いいえ",(WIDTH - 16)/2 + 2,16);
 	while(!select_from_hlist(yesno,2));																						//｢はい｣の入力をまつ
 	sub_flame_clean(WIDTH - 2,2,2,15);																						//次に進む場合は～の文章を消す
-	exstrcpy(now_text,second,sizeof(second)/sizeof(extendstr));						//次に表示する文章をnow_textに用意
-	string_march(now_text,2,15,sizeof(second)/sizeof(extendstr));					//now_textを表示
+	exstrcpy(now_text,second,lengthof(second,extendstr));						//次に表示する文章をnow_textに用意
+	string_march(now_text,2,15,lengthof(second,extendstr));					//now_textを表示
 	coorcpy(now_map_coor,map_coors[now_stage]);																		//説明用マップ座標をnow_map_coorに用意
 	start_pos.x = 1;																															//マップ移動開始時のX座標をセット
 	start_pos.y = 0;																															//マップ移動開始時のY座標をセット
@@ -441,8 +441,8 @@ int operation_description(){
 	enemy_amount = 1;																															//敵の数を設定
 	demo_battle(front,back,enemies,enemy_amount);
 	make_flame(39,7,(WIDTH - 36) / 2 - 2,7);
-	exstrcpy(now_text,after,sizeof(after)/sizeof(extendstr));
-	string_march(now_text,(WIDTH - 36) / 2,8,sizeof(after)/sizeof(extendstr));
+	exstrcpy(now_text,after,lengthof(after,extendstr));
+	string_march(now_text,(WIDTH - 36) / 2,8,lengthof(after,extendstr));
 	reset_state();
 	initchara();					//チュートリアル後のキャラ情報初期化
 	return select_from_list(tobe,2);
