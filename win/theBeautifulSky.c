@@ -3,20 +3,11 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include "for_make_game.h"
-#include "talk_events.h"
-#include "decide_event.h"
-#include "map_menu.h"
-#include "operation_description.h"
+#include "thebeautifulsky.h"
 
-void update_map(enum stage now_stage){
-	mapcpy(now_map,maps[now_stage]);
-	coorcpy(now_map_coor,map_coors[now_stage]);
-}
-
-void subtitle(enum stage now_stage){
+void subtitle(stage now_stage){
 	int length = 0;
-	struct extendstr *nowsubtitle[HEIGHT];
+	extendstr *nowsubtitle[HEIGHT];
 	switch(now_stage){
 		case stage1:
 			exstrcpy(nowsubtitle,subtitle1,2);
@@ -45,27 +36,27 @@ void subtitle(enum stage now_stage){
 	flame_clean();
 }
 
-void story(enum stage now_stage){
+void story(stage now_stage){
 	switch(now_stage){
 		case stage1:
-			exstrcpy(now_text,cenario_stage1,sizeof(cenario_stage1) / sizeof(struct extendstr));
-			string_march(now_text,2,2,sizeof(cenario_stage1) / sizeof(struct extendstr));
+			exstrcpy(now_text,cenario_stage1,eslengthof(cenario_stage1));
+			string_march(now_text,2,2,eslengthof(cenario_stage1));
 			break;
 		case stage2:
-			exstrcpy(now_text,cenario_stage2,sizeof(cenario_stage2) / sizeof(struct extendstr));
-			string_march(now_text,2,2,sizeof(cenario_stage2) / sizeof(struct extendstr));
+			exstrcpy(now_text,cenario_stage2,eslengthof(cenario_stage2));
+			string_march(now_text,2,2,eslengthof(cenario_stage2));
 			break;
 		case stage3_1:
-			exstrcpy(now_text,cenario_stage3,sizeof(cenario_stage3) / sizeof(struct extendstr));
-			string_march(now_text,2,2,sizeof(cenario_stage3) / sizeof(struct extendstr));
+			exstrcpy(now_text,cenario_stage3,eslengthof(cenario_stage3));
+			string_march(now_text,2,2,eslengthof(cenario_stage3));
 			break;
 		case stage4_1:
-			exstrcpy(now_text,cenario_stage4,sizeof(cenario_stage4) / sizeof(struct extendstr));
-			string_march(now_text,2,2,sizeof(cenario_stage4) / sizeof(struct extendstr));
+			exstrcpy(now_text,cenario_stage4,eslengthof(cenario_stage4));
+			string_march(now_text,2,2,eslengthof(cenario_stage4));
 			break;
 		case stage5:
-			exstrcpy(now_text,cenario_stage5,sizeof(cenario_stage5) / sizeof(struct extendstr));
-			string_march(now_text,2,2,sizeof(cenario_stage5) / sizeof(struct extendstr));
+			exstrcpy(now_text,cenario_stage5,eslengthof(cenario_stage5));
+			string_march(now_text,2,2,eslengthof(cenario_stage5));
 			break;
 		default:
 			break;
@@ -75,6 +66,7 @@ void story(enum stage now_stage){
 int main(){
 	int game_exit_flag = 0;
 	while(1){
+		reset_state();
 		initmaps();							//マップ/座標一覧の初期化
 		initchara();						//キャラクターの初期化
 		init_term();						//コンソールの初期化
@@ -89,7 +81,7 @@ int main(){
 			if(operation_description()){
 				continue;
 			}
-		}			
+		}
 		flame_flush();					//アニメーション付きフレームクリーン
 		//シナリオ表示
 		subtitle(now_stage);
@@ -107,11 +99,11 @@ int main(){
 				if(battle(front,back,enemies,enemy_amount)){
 					after_battle_st5();
 					gameover_win();
-				game_exit_flag = 1;	
+				game_exit_flag = 1;
 				continue;
 				}else{
 					gameover_win();
-				game_exit_flag = 1;	
+				game_exit_flag = 1;
 				continue;
 				}
 			}else{

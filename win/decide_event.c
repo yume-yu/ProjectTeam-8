@@ -1,5 +1,14 @@
-enum event decide_event(struct arrow_pos exit_point){
-	enum event selected_event;
+/**
+ * @file		decide_event.c
+ * @brief		マップ移動関数からの戻り値を見て発生イベントを決定する関数を書いたファイル
+ * @author	yume_yu
+ * @date		2018/07/12
+ */
+
+#include "thebeautifulsky.h"
+
+event decide_event(arrow_pos exit_point){
+	event selected_event;
 	/* メニュー表示かどうかを判定 */
 	if(exit_point.x == 58 && exit_point.y == 24){
 		selected_event = open_menu;
