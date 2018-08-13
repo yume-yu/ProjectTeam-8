@@ -7,6 +7,16 @@
 
 #include "thebeautifulsky.h"
 
+
+char *(maps)[9][HEIGHT - 2];												//全ステージのマップ図
+arrow_pos *(map_coors)[10][WIDTH - 2][HEIGHT - 2];	//全ステージのマップ座標
+stage now_stage;																		//現在のステージ
+char *(now_map)[WIDTH - 2];												//現在のマップ図
+arrow_pos *(now_map_coor)[WIDTH - 2][HEIGHT - 2];	//現在のマップ座標
+int room_id;																				//侵入した部屋のid
+arrow_pos start_pos;																//マップ描画時のキャラクターの初期位置
+extendstr *now_text[HEIGHT];												//アニメーションで表示する文字列
+
 /**
  * @fn
  * ゲーム開始時の座標とステージを初期化する関数

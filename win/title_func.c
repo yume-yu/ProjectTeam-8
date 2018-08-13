@@ -2,20 +2,7 @@
  * Written by yume_yu
  * printf()のみを使用したゲームを作るためのヘッダ
  */
-
 #include "thebeautifulsky.h"
-//現在のステージ
-stage now_stage = stage1;
-char *(now_map)[WIDTH - 2];
-arrow_pos *(now_map_coor)[WIDTH - 2][HEIGHT - 2];
-int room_id = 0;
-arrow_pos start_pos = {0,15,0,0};
-extendstr *now_text[HEIGHT];
-
-//マップと座標系一覧の宣言
-char *(maps)[9][HEIGHT - 2];
-arrow_pos *(map_coors)[10][WIDTH - 2][HEIGHT - 2];
-
 
 /**
  *  タイトルロゴの出方が微妙に違うのでヘッダで定義

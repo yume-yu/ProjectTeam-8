@@ -358,7 +358,7 @@ extern arrow_pos exp_pos[WIDTH - 2][HEIGHT - 2] ;
 
 /* ここまでmap_stX.cで定義する変数 */
 
-/* ここからstorytext.cで定義する*/
+/* ここからstorytext.cで定義する変数 */
 extern bool talk_event_st1_0_arrived;
 extern bool talk_event_st2_0_arrived;
 extern bool talk_event_st2_1_arrived;
@@ -425,7 +425,7 @@ extern extendstr afterbattle_stage4_2[HEIGHT - 2];
 extern extendstr afterbattle_stage4_3[HEIGHT - 2];
 extern extendstr cenario_stage5[HEIGHT - 2];
 extern extendstr afterbattle_stage5[HEIGHT - 2];
-/* ここまでstorytext.cで定義する*/
+/* ここまでstorytext.cで定義する変数 */
 
 /* 関数マクロ定義 */
 //char配列やextendstr配列の文字数/行数を返すマクロ
@@ -545,3 +545,11 @@ void explain_command();
 int demo_battle(character *front,character *back,character *enemies[3], int enemy_amount);
 int operation_description();
 /* ここまでoperation_description.cで定義する関数 */
+
+
+/* ここからtitle_func.cで定義する関数 */
+void stars(int x[],int y[],int amount);
+int maintitle();
+void gameover_lose();
+void gameover_win();
+/* ここまでtitle_func.cで定義する関数 */

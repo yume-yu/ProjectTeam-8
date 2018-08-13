@@ -4,7 +4,6 @@
 #include <time.h>
 #include <string.h>
 #include "thebeautifulsky.h"
-#include "for_make_game.h"
 
 void subtitle(stage now_stage){
 	int length = 0;
@@ -67,6 +66,7 @@ void story(stage now_stage){
 int main(){
 	int game_exit_flag = 0;
 	while(1){
+		reset_state();
 		initmaps();							//マップ/座標一覧の初期化
 		initchara();						//キャラクターの初期化
 		init_term();						//コンソールの初期化
