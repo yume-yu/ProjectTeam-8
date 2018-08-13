@@ -1,7 +1,10 @@
-#include "thebeautifulsky.h"
 /**
- * 操作説明の関数
+ * @file operation_description.c
+ * @brief 操作説明用関数を定義するファイル
+ * @author yume_yu
+ * @date 2018/08/13
  */
+#include "thebeautifulsky.h"
 
 /* 枠内への文表示 */
 void print_explain_in(extendstr explain[],int size){
