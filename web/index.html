@@ -1,102 +1,202 @@
 <!DOCTYPE html>
 <html lang="ja">
 
-<head>
-	<meta charset="utf-8">
-	<title>おためしhtml5</title>
-	<link rel="stylesheet" href="./style.css">
-	<script src="script.js"></script>
-</head>
+	<head>
+		<meta charset="utf-8">
+		<title>The beautiful sky</title>
+		<link rel="stylesheet" href="./style/myfontsets.css">
+		<link rel="stylesheet" href="./style/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Economica:400,400i,700,700i&amp;subset=latin-ext" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/earlyaccess/notosansjapanese.css" rel="stylesheet" />
+	</head>
 
-<body>
-	<header>
-		<div id="title">
-			<h1>Project-Group8</h1>
+	<body>
+
+		<div class="animation" id="title_menu">
+			<img src="./img/background.png" class="background">
+			<h1 class="ready">The beautiful sky</h1>
+			<button type="button" class="ready">Click to Enter</button>
+			<div class="flex-container ready">
+				<img src="./img/airst.png" class="ready">
+				<img src="./img/naoki.png" class="ready">
+			</div>
 		</div>
 
-		<nav>
-			<ul>
-				<li><a href="#">Home</a></li>
-				<li><a href="#">Story</a></li>
-				<li><a href="#">Charactor</a></li>
-				<li><a href="#">Download</a></li>
-				<li><a href="#">About us</a></li>
-			</ul>
-		<nav>
-	</header>
-
-	<div class="wrapper">
-		<aside>
-			<div>
-				<h3>Side Bar</h3>
+		<header class="float flex-container">
+			<div id="title" class="flex-container">
+				<h1>The beautiful sky</h1>
 			</div>
-			<div>
+			<nav>
 				<ul>
-					<li>item</li>
-					<li>item</li>
-					<li>item</li>
-					<li>item</li>
-					<li>item</li>
-					<ul>
-						<li>item</li>
-					</ul>
+					<li><a href="#">Top</a></li>
+					<li><a href="#Story">Story</a></li>
+					<li><a href="#Character">Character</a></li>
+					<li><a href="#System">System</a></li>
+					<li><a href="#Download">Download</a></li>
+					<li><a href="#About_us">About us</a></li>
 				</ul>
-			</div>
-		</aside>
+			</nav>
+		</header>
 
-		<main>
-				<div id="art-title">
-					<h2>ゲーム名</h2>
-				</div>
-				<section>
-					<p>
-						ほげほげ
-						<br>
-						<br>
-						<br>
-						ほげほげ
-						<br>
-						<br>
-						<br>
-						ほげほげ
-						<br>
-						<br>
-						<br>
-						ほげほげ
-						<br>
-						<br>
-						<br>
-						ほげほげ
-						<br>
-						<br>
-						<br>
-						ほげほげ
-						<br>
-						<br>
-						<br>
-						ほげほげ
-						<br>
-						<br>
-						<br>
-						ほげほげ
-						<br>
-						<br>
-						<br>
-						ほげほげ
-						<br>
-						<br>
-						<br>
-						ほげほげ
-					</p>
+		<div class="wrapper">
+			<main>
+				<section id="explain" >
+					<div class="flex-container">
+						<img src="./img/poster.jpg">
+						<table>
+							<caption>
+								――これは「再生の物語」――
+							</caption>
+					<tbody>
+						<tr><th>タイトル</th><td>The beautiful sky</td></tr>
+						<tr><th>ジャンル</th><td>テキストベースRPG</td></tr>
+						<tr><th>発売日</th><td>2018年7月27日</td></tr>
+						<tr><th>シナリオ原案</th><td>加藤昌宏</td></tr>
+						<tr><th>キャラクターデザイン</th><td>武下和輝 / 大場真人</td></tr>
+					</tbody>
+						</table>
+					</div>
 				</section>
-		</main>
-	</div>
+				<section id="Story">
+					<h2 >Story</h2>
+					<p>「…………姫様を……頼む……」</p>
+					<br>
+					<p>
+					風の國の未来をアリストとリーレルは託されて、國の民の肉体と魂は、大気に溶け、この世界の一部と化した。
+					そして、アリストとリーレルも姿を消すこととなる。
+					皆を助けるため、託された思いと共に、地上に降り生きることを選んだのだ。
+					新たなる戦乱の世を、己の知略とナオキの名声をもって乗り越えんとするアリスト。
+					リーレルを失った悲しみに沈むアリスト。
+					避けられぬ戦の炎が、今まさにオルタナティブを飲み込もうとしていた。
+					それは、地下全土に広がる戦乱の幕開けでもあった...
+					</p>
+					<p>詳細な世界観については<a href="./world.html">こちら</a></p>
+				</section>
+				<section id="Character">
+					<h2 >Character</h2>
+					<figure class="flex-container">
+						<div class="white-space">
+							<img src="./img/arist-chara.png"></img>
+						</div>
+						<div id="arist_exp" class="flex-container selected">
+							<img src="./img/arist-chara.png"></img>
+							<figcaption>
+								<h3>アリスト</h3>
+								天の國の第三姫だが生まれてすぐ父により王宮よりかけ離れた塔の中で幽閉されていた。
+性格は優しく、常に笑顔でいる。
+							</figcaption>
+						</div>
+						<div id="naoki_exp" class="flex-container">
+							<img src="./img/naoki-chara.png"></img>
+							<figcaption>
+								<h3>ナオキ</h3>
+								地にある國のオルタナティブの第一王子好奇心が強くどんな事でも興味を持ち一度調べてしまうとやめられない性格。
+							</figcaption>
+						</div>
+						<div id="lirel_exp" class="flex-container">
+							<img src="./img/lirel.png"></img>
+							<figcaption>
+								<h3>リーレル</h3>
+								天の國第三姫の騎士古代兵器を使う事ができる。そのため平民でありながらアリストの騎士になる事ができた。
+							</figcaption>
+						</div>
+					</figure>
+					<menu class="flex-container">
+						<button class="selected" >アリスト</button>
+						<button>ナオキ</button>
+						<button>リーレル</button>
+					</menu>
+				</section>
+				<section id="System">
+					<h2>System</h2>
+					<div class="flex-container">
+						<img class="screenShot" src="./img/scenariodemo.png">
+						<figcaption>
+							<h3>シナリオ</h3>
+							<p>
+							オリジナルのシナリオ
+							</p>
+							<p>
+							このゲームのためのオリジナルのシナリオ。<br>メインストーリーの他にも<br>ミニシナリオイベントが実装されています。
+							</p>
+						</figcaption>
+					</div>
+					<div class="flex-container">
+						<figcaption>
+							<h3>マップ</h3>
+							<p>
+							マップ上をカーソルで移動
+							</p>
+							<p>
+							それぞれのキーをA=<span class="arrow">←</span>  W=<span class="arrow">↑</span> S=<span class="arrow">↓</span> D=<span class="arrow">→</span> としてマップ上を移動できます。<br>スペースキーを使えばステータスやアイテムを確認することもできます。
+							</p>
+						</figcaption>
+						<img class="screenShot" src="./img/mapdemo.png">
+					</div>
+					<div class="flex-container">
+						<img class="screenShot" src="./img/battledemo.png">
+						<figcaption>
+							<h3>戦闘</h3>
+							<p>
+							馴染み深いコマンド戦闘
+							</p>
+							<p>
+							初期RPGをイメージしたコマンド戦闘を採用。<br>状況に応じた選択や装備が勝敗を左右します。
+							</p>
+						</figcaption>
+					</div>
+				</section>
+				<section id="Download">
+					<h2>Download</h2>
+					<div class="flex-container">
+						<table>
+							<caption>推奨動作環境</caption>
+							<tbody>
+								<tr><th>対応OS</th><td>Windows 8.1以上</td></tr>
+								<tr><th>コマンドプロンプト設定</th>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr><th>フォント</th><td>MSゴシック</td></tr>
+								<tr><th>画面バッファサイズ</th><td>100*100以上</td></tr>
+							</tbody>
+							</tr>
+							</tbody>
+						</table>
+						<div>
+							<a class="button" href="./TheBeautifulSky.exe" download="TheBeautifulSky.exe">Download</a>
+							<p>
+							Source on <a href="https://github.com/yume-yu/ProjectTeam-8">github</a>
+							</p>
+						</div>
+					</div>
+				</section>
+				<section id="About_us">
+					<h2>About us</h2>
+					<div>
+						<table>
+							<caption>ProjectTeam-8</caption>
+							<tbody>
+								<tr><th>プロジェクトリーダー</th><td rowspan="3">C0116080<br>加藤昌宏</td><th>キャラクターデザイン</th><td rowspan="3">C0116318<br>武下和輝</td></tr>
+								<tr><th>ゲーム設計</th><th>マーケティング</th></tr>
+								<tr><th>シナリオ</th></tr>
+								<tr class="separate"> </tr>
+								<tr><th>キャラクターデザイン</th><td rowspan="2">C0116061<br>大場真人</td><th>メインプログラム</th><td rowspan="2">C0116248<br>松田悠</td></tr>
+								<tr><th>記録･資料</th><th>Webデザイン</th></tr>
+							</tbody>
+						</table>
+						<img src="./img/nasu.png">
+					</div>
+				</section>
+			</main>
+		</div>
 
-	<footer>
-		<p class="copyright">©グループ8</p>
-	</footer>
+		<footer>
+			<p class="copyright">©ProjectTeam-8</p>
+		</footer>
 
 
-</body>
+		<script src="./js/script.js"></script>
+	</body>
 
 </html>

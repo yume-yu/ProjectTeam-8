@@ -1,0 +1,24 @@
+@font-face {
+  font-family: 'fgmidium';
+  src: url('./FGMediumOldHankaku.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'fgmirai';
+  src: url('./FGMirai.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'stsukkiri';
+  src: url('./STSukkiriGothic-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'stsukkirib';
+  src: url('./STSukkiriGothic-Bold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'fgkururin';
+  src: url('./FGNewKururin.otf') format('opentype');
+}

@@ -1,0 +1,692 @@
+* {
+	/* resetCSS */
+	margin: 0;
+	padding: 0;
+	/* ulのスタイルを消す */
+	list-style: none;
+	/* boxの大きさをmarginまで含めて計算する */
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+
+html {
+	overflow: hidden;
+	scroll-behavior: smooth;
+}
+
+body {
+	overflow: hidden;
+	/*background-color: #f0f0f0;*/
+	/* 背景画像 */
+	background-attachment: fixed;
+	background-image:url("../img/background.png");
+}
+
+.flex-container {
+	display: flex;
+	position: relative;
+	margin: auto;
+}
+
+.canScroll {
+	overflow: visible;
+}
+
+p {
+	text-indent:1em;
+	line-height: 1.6em;
+	margin: auto;
+	width: 95%;
+	font-size: 2vw;
+}
+
+img {
+	pointer-events: none;
+}
+
+header {
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+	height: 10vh;
+	justify-content: center;
+	font-family: 'Economica';
+}
+
+#worldOutlookhead {
+	margin-left: 1vw;
+}
+
+div#title {
+	justify-content: center;
+	width: 100%;
+	height: 60%;
+	background-color: #ffffff;
+}
+
+header h1 {
+	display: inline-flex;
+	align-content: flex-end;
+	margin: auto;
+	margin-bottom: 8px;
+	width: 90%;
+	font-family: inherit;
+	font-size: 5vh;
+}
+
+nav {
+	width: 100%;
+	height: 40%;
+}
+
+nav ul {
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+nav li {
+	/* li要素を横並びに */
+	display: inline-block;
+	background-color: #ffffff;
+	width: calc(100% / 6);
+}
+
+nav a {
+	/* 位置調整のためflexにする */
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	/* <li>の大きさと合うように大きさを指定 */
+	height: 100%;
+	width: 100%;
+	/* 横中央揃え */
+	text-align: center;
+	/* 文字修飾 */
+	color: #303030;
+	font-size: 3.5vh;
+	font-weight: bolder;
+	text-decoration: none;
+	font-family: inherit;
+	font-weight: bold;
+	/* 枠線(点線)を描画 */
+	border: 1px dotted #ccc;
+	/* アニメーション用記述 */
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+nav a:hover {
+	color: #ffffff;
+	background-color: #303030;
+}
+
+.wrapper {
+	width: 95%;
+	display: flex;
+	flex-wrap: nowrap;
+	margin: auto;
+}
+
+aside {
+	width: 200px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	align-content: flex-start;
+	margin-top: 10px;
+	margin-right: auto;
+	background-color: #ffffff;
+}
+
+aside div {
+	display: flex;
+	width: 90%;
+	justify-content: flex-start;
+}
+
+aside h3 {
+	margin-top: 15px;
+	margin-bottom: 13px;
+}
+
+aside ul{
+	padding-left: 13px;
+}
+
+main {
+	flex-grow: 2;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: center;
+	/*margin-top: 10px; ヘッダのフロート化前*/
+	margin-top: 10px;
+	/*margin-left: 15px;*/
+	background-color: #fbfbfb;
+	width: 80%;
+	/*opacity:0.8;*/
+}
+
+main *{
+	font-family: "stsukkiri";
+	/*font-family: "fgmirai";*/
+}
+
+main div {
+	width: 90%;
+	margin: auto;
+}
+
+main h2 {
+	margin: auto;
+	margin-bottom: 0.5em;
+	font-family: 'Economica';
+	font-size: 4.8vw;
+}
+
+#Story p:last-child {
+	text-align: right;
+}
+
+#explain div {
+	width: 90%;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	align-items: flex-end;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+}
+
+tbody {
+	justify-content: center;
+}
+
+#explain caption {
+	font-family: "fgmirai";
+	font-weight: bold;
+	font-size: 2.5vw;
+	padding-bottom: 6em;
+}
+
+tr *{
+	font-size: 1.7vw;
+	line-height: 1.6em;
+}
+
+th {
+	padding-right: 20px;
+	font-family: "stsukkirib";
+	text-align: left;
+}
+
+th:before {
+	content: "◆";
+	color: #234567;
+	font-size: 10px;
+}
+
+#explain img {
+	opacity: 1;
+	width: 50%;
+	height:50%;
+}
+
+section {
+	width: 90%;
+	margin: auto;
+	margin-top:35px;
+	margin-bottom:35px;
+}
+
+#Character menu{
+	width: 90%;
+	margin: auto;
+}
+
+#Character button {
+	font-family: inherit;
+	font-family: 'fgmidium';
+	background: none;
+	width: calc(100% /3);
+	border: none;
+	font-size: 3vw;
+	line-height: 1.6em;
+}
+
+#Character button:before,
+#Character button:after ,
+#worldOutlook button:before,
+#worldOutlook button:after {
+	content: "";
+	opacity: 0;
+	transition: opacity 1s;
+}
+
+#Character button.selected:before ,
+#Character button.selected:after,
+#worldOutlook button.selected:before,
+#worldOutlook button.selected:after {
+	opacity: 1;
+	display:block;
+	height:2px;
+	background: linear-gradient(to right, #967d41 0%,#f0f0aa 48%,#967d41 100%);
+}
+
+#Character figure,
+#worldOutlook figure {
+	margin: auto;
+	margin-top: 2.2vw;
+	margin-bottom: 2.2vw;
+	width: 90%;
+	overflow: hidden;
+}
+
+#Character .white-space {
+	width: 100%;
+	visibility: hidden;
+	position: relative;
+}
+
+#Character div,
+#worldOutlook div {
+	width: 100%;
+	height: 100%;
+	align-items: center;
+	visibility: hidden;
+	overflow: hidden;
+	position: absolute;
+	opacity: 0;
+	z-index: 1;
+	transition: transform 1s,opacity 0.5s,visibility 1s, z-index 1s;
+	transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+	transform: translateY(100%);
+	/*transition-timing-function: ease-out;*/
+	line-height: 1.6em;
+}
+
+#Character img,
+#worldOutlook img{
+	width: 50%;
+}
+
+#Character figcaption {
+	width:45%;
+	margin: auto;
+}
+
+#Character div.selected,
+#worldOutlook div.selected {
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+	visibility: visible;
+	z-index: 3;
+	transform: translateY(0%);
+	transition: transform 1s,opacity 0.5s,visibility 1s, z-index 1s;
+	transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+#Story p:nth-of-type(1) {
+	font-family: 'stsukkirib';
+}
+
+#System div{
+	margin-top: 2vh;
+	margin-bottom: 2vh;
+	align-items: center;
+}
+
+.screenShot {
+	width: 50%;
+	height: 100%;
+}
+
+#System figcaption {
+	margin: auto;
+	width: 45%;
+}	
+
+#System figcaption h3{
+	text-align: center;
+	font-family: "stsukkirib";
+	margin-bottom: 1em;
+	font-size: 3vw;
+}	
+
+.arrow {
+	font-family: "notosansjapanese";
+}
+
+#System p {
+	text-indent: 0em;
+	text-align: center;
+}
+
+#System p:nth-of-type(1)  {
+	margin-bottom: 1em;
+}
+
+#System p:nth-of-type(2) {
+	font-size: 1.5vw;
+}
+
+#Download h2{
+	width: 100%;
+}
+
+#Download div {
+	margin: auto;
+}
+
+#Download caption , #About_us caption {
+	font-size: 2.5vw;
+	text-align: left;
+	padding-bottom: 0.6em;
+	line-height: 1.6em;
+}
+
+#Download table {
+	width: 70%;
+}
+
+#Download tbody ,#About_us tbody{
+	text-indent: 1em;
+}
+
+#Download tbody:nth-of-type(2) {
+	text-indent: 3em;
+}
+
+#Download th {
+	padding-right: 0;
+	width: 14em;
+}
+
+#Download td {
+	width: 11em;
+}
+
+#Download div div {
+	width: 50%;
+	padding-left: 7vw;
+}
+
+#Download a.button {
+	display: block;
+	height: 6vw;
+	width: 80%;
+	font-family: "Economica";
+	margin: auto;
+	font-size: 3vw;
+	padding-top: 1vw;
+	text-align: center;
+	text-decoration: inherit;
+	color: inherit;
+	border: 2px double;
+	transition: box-shadow 0.5s;
+}
+
+p a {
+	transition: transform 0.5s;
+}
+
+p a:hover {
+	transform: scale(1.2,1.2);
+}
+
+#Download a.button:hover {
+	box-shadow: 2px 2px 3px 1px #666;
+}
+
+#Download p {
+	text-align: center;
+	text-indent: 0em;
+	margin-top: 2em;
+}
+
+#About_us div {
+	position: relative;
+}
+
+#About_us td:nth-of-type(odd) {
+	padding-right: 3em;
+}
+
+#About_us td {
+	text-align: right;
+}
+
+#About_us img {
+	position:absolute;
+	z-index: 2;
+	height:	20%;
+	right:0;
+	bottom: 1.5vh;
+}
+
+#worldOutlook menu button {
+	width: calc(100% / 7);
+	font-family: inherit;
+	font-family: 'fgmidium';
+	background: none;
+	border: none;
+	font-size: 2.5vw;
+	line-height: 1.6em;
+}
+
+#worldOutlook .white-space {
+	width: 100%;
+	visibility: hidden;
+	position: relative;
+}
+
+#worldOutlook figcaption {
+	margin: auto;
+	width: 45%;
+}
+
+#worldOutlook figcaption h3{
+	margin-bottom: 1em;
+}
+
+.separate {
+	height: 1em;
+}
+
+footer {
+	margin: 0 auto;
+	width: 95%;
+}
+
+p.copyright {
+	text-align: right;
+	color: #f0f0f0;
+}
+
+.animation {
+	position: fixed;
+	z-index: 10;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: #000000;
+	width: 100%;
+	height: 100%;
+	visibility: visible;
+	-webkit-transition: opacity 0.5s, visibility 0.5s, z-index 1.3s;
+	-webkit-transition-timing-function: ease-in;
+}
+
+h1.ready{
+	font-family: 'Economica', sans-serif;
+	/*	font-size: 1px;*/
+	color: #f0f0f0;
+	opacity: 0;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 200px;
+	font-size: 11vw;
+	transform: translateY(-100%);
+	-webkit-transition: opacity 1s, transform 1s;
+	-webkit-transition-delay: 1.8s;
+	-webkit-transition-timing-function: ease-out;
+
+}
+
+button.ready {
+	padding:5px;
+	margin-left: auto;
+	margin-right: auto;
+	background: none;
+	opacity: 0;
+	color: #f0f0f0;
+	font-size: 3vw;
+	border: none;
+	font-family: "Economica";
+	transform: translateY(230%);
+	/*
+	transition: opacity 1s;
+	transition-delay: 2.3s;
+	 */
+}
+
+img.background {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	transform: translateY(-10%) scale(1.4,1.4);
+}
+
+
+.animation div {
+	align-items: center;
+	height: 50%;
+}
+
+img.ready {
+	opacity: 0;
+	height: 100%;
+}
+
+img.ready:nth-of-type(0) {
+
+}
+
+img.background.loaded {
+	-webkit-animation: moveBackgrond 2.5s;
+	-webkit-animation-delay: 0.4s;
+	-webkit-animation-fill-mode: forwards;
+	transform: translateY(-10%) scale(1.4,1.4);
+}
+
+img.ready.loaded {
+	/*-webkit-animation: zoomArist 1.3s;*/
+	-webkit-animation: apper 0.5s;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-animation-timing-function: ease-in;
+}
+
+img.ready.loaded:nth-of-type(1) {
+	animation-delay: 0.1s;
+}
+
+img.ready.loaded:nth-of-type(2) {
+	animation-delay: 0.6s;
+}
+
+h1.ready.loaded {
+	transform: translateY(150%);
+	opacity: 1;
+}
+
+button.ready.loaded {
+	-webkit-animation: apper 1.3s;
+	-webkit-animation-timing-function: ease-in;
+	-webkit-animation-delay: 2.6s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-direction: alternate;
+}
+
+div.ready.loaded {
+	-webkit-animation: zoomCharas 1.3s;
+	animation-fill-mode: forwards;
+	animation-delay: 0.5s;
+}
+
+.animation.started {
+	opacity: 0;
+	visibility: hidden;
+	z-index: 0;
+}
+
+@-webkit-keyframes apper {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes moveBackgrond {
+	0% {
+		opacity: 1;
+		transform:  translateY(-10%) scale(1.4,1.4)
+	}                                            
+	40% {                                        
+		opacity: 1;                  
+		transform:  translateY(-10%) scale(1.4,1.4)
+	}                                            
+	100% {                                       
+		opacity: 0;                  
+		transform:	 translateY(20%) scale(1.4,1.4)
+	}
+
+}
+
+@-webkit-keyframes zoomCharas {
+	0% {
+		visibility: visible;
+	}
+	70% {
+		transform: translateY(0%);
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(50%);
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+
+button {
+	outline: none;
+	cursor: pointer;
+}
+
+.float {
+	position: -webkit-sticky;		/* for Safari */
+	position: sticky;		/* for Chrome */
+	top: 0;
+	left right: auto;
+	z-index: 5;
+}
+
+#Story,#Character,#System,#Download,#About_us{
+	padding-top: 90px;
+	margin-top: -100px;
+}
+
