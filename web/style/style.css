@@ -23,7 +23,7 @@ body {
 	/*background-color: #f0f0f0;*/
 	/* 背景画像 */
 	background-attachment: fixed;
-	background-image:url("../img/background.png");
+	background-image:url("../img/background.jpg");
 }
 
 .flex-container {
@@ -473,6 +473,11 @@ p a:hover {
 	height:	20%;
 	right:0;
 	bottom: 1.5vh;
+}
+
+#worldOutlook {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 #worldOutlook menu button {
