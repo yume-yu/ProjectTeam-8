@@ -90,7 +90,11 @@ void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x
 			printf("─");
 		}
 	}
-	printf("┘\n");
+#if defined WINDOWS
+	printf("\n");
+#elif defined MAC
+	printf("%c",ENTERKEY);
+#endif
 	//カーソル位置の初期化
 	mvcur(1,HEIGHT+1);
 }
