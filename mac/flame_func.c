@@ -1,102 +1,102 @@
 /**
  * @file flame_func.c
- * @brief ƒtƒŒ[ƒ€‘€ì‚ÉŠÖ‚·‚éŠÖ”‚ğ’è‹`‚·‚éƒtƒ@ƒCƒ‹
+ * @brief ãƒ•ãƒ¬ãƒ¼ãƒ æ“ä½œã«é–¢ã™ã‚‹é–¢æ•°ã‚’å®šç¾©ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«
  * @author yume_yu
  * @date 2018/07/09
  */
 #include "thebeautifulsky.h"
 
 /*
- * ƒtƒŒ[ƒ€‚Ìì¬ŠÖ”
- * width    ì¬‚·‚éƒtƒŒ[ƒ€‚Ì•
- * height   ì¬‚·‚éƒtƒŒ[ƒ€‚Ì‚‚³
- * offset_x ì¬‚·‚éƒtƒŒ[ƒ€‚ÌŠJnˆÊ’u‚ÌxÀ•W
- * offset_y ì¬‚·‚éƒtƒŒ[ƒ€‚ÌŠJnˆÊ’u‚ÌyÀ•W
+ * ãƒ•ãƒ¬ãƒ¼ãƒ ã®ä½œæˆé–¢æ•°
+ * width    ä½œæˆã™ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ ã®å¹…
+ * height   ä½œæˆã™ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ ã®é«˜ã•
+ * offset_x ä½œæˆã™ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ ã®é–‹å§‹ä½ç½®ã®xåº§æ¨™
+ * offset_y ä½œæˆã™ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ ã®é–‹å§‹ä½ç½®ã®yåº§æ¨™
  */
 void make_flame(int width, int height, int offset_x, int offset_y){
 	int print_width = width - 2;
 	int print_height = height - 2;
-	//1s–Ú‚Ì•`‰æ
+	//1è¡Œç›®ã®æç”»
 	mvcur(offset_x,offset_y);
-	printf("„¡");
+	printf("â”Œ");
 	for(int i = 0; i < print_width; i++){
-		printf("„Ÿ");
+		printf("â”€");
 	}
-	printf("„¢");
-	//’†ŠÔ•”•ª‚Ì•`‰æ
+	printf("â”");
+	//ä¸­é–“éƒ¨åˆ†ã®æç”»
 	for(int i = 0; i < print_height; i++){
 		mvcur(offset_x,offset_y + 1 + i);
-		printf("„ ");
+		printf("â”‚");
 		for(int j = 0; j < print_width; j++){
 			printf(" ");
 		}
-		printf("„ ");
+		printf("â”‚");
 	}
 
-	//ÅIs•”•ª‚Ì•`‰æ
+	//æœ€çµ‚è¡Œéƒ¨åˆ†ã®æç”»
 	mvcur(offset_x,offset_y + height - 1);
-	printf("„¤");
+	printf("â””");
 	for(int i = 0; i < print_width; i++){
-		printf("„Ÿ");
+		printf("â”€");
 	}
-	printf("„£");
+	printf("â”˜");
 
-	//ƒJ[ƒ\ƒ‹ˆÊ’u‚Ì‰Šú‰»
+	//ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ã®åˆæœŸåŒ–
 	mvcur(1,HEIGHT+1);
 }
 
 /**
- * ‰¡•ªŠ„ƒtƒŒ[ƒ€‚Ìì¬ŠÖ”
- * width    ì¬‚·‚éƒtƒŒ[ƒ€‚Ì•
- * height   ì¬‚·‚éƒtƒŒ[ƒ€‚Ì‚‚³
- * offset_x ì¬‚·‚éƒtƒŒ[ƒ€‚ÌŠJnˆÊ’u‚ÌxÀ•W
- * offset_y ì¬‚·‚éƒtƒŒ[ƒ€‚ÌŠJnˆÊ’u‚ÌyÀ•W
- * split_x  ƒtƒŒ[ƒ€‚Ì‹æØ‚èü‚ğ“ü‚ê‚éxÀ•W
+ * æ¨ªåˆ†å‰²ãƒ•ãƒ¬ãƒ¼ãƒ ã®ä½œæˆé–¢æ•°
+ * width    ä½œæˆã™ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ ã®å¹…
+ * height   ä½œæˆã™ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ ã®é«˜ã•
+ * offset_x ä½œæˆã™ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ ã®é–‹å§‹ä½ç½®ã®xåº§æ¨™
+ * offset_y ä½œæˆã™ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ ã®é–‹å§‹ä½ç½®ã®yåº§æ¨™
+ * split_x  ãƒ•ãƒ¬ãƒ¼ãƒ ã®åŒºåˆ‡ã‚Šç·šã‚’å…¥ã‚Œã‚‹xåº§æ¨™
  */
 void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x){
 	int print_width = width - 2;
 	int print_height = height - 2;
-	//1s–Ú‚Ì•`‰æ
+	//1è¡Œç›®ã®æç”»
 	mvcur(offset_x,offset_y);
-	printf("„¡");
+	printf("â”Œ");
 	for(int i = 0; i < print_width; i++){
 		if(i == split_x){
-			printf("„¦");
+			printf("â”¬");
 		}else{
-			printf("„Ÿ");
+			printf("â”€");
 		}
 	}
-	printf("„¢");
-	//’†ŠÔ•”•ª‚Ì•`‰æ
+	printf("â”");
+	//ä¸­é–“éƒ¨åˆ†ã®æç”»
 	for(int i = 0; i < print_height; i++){
 		mvcur(offset_x,offset_y + 1 + i);
-		printf("„ ");
+		printf("â”‚");
 		for(int j = 0; j < print_width; j++){
 			if(j == split_x){
-				printf("„ ");
+				printf("â”‚");
 			}else{
 				printf(" ");
 			}
 		}
-		printf("„ ");
+		printf("â”‚");
 	}
-	//ÅIs•”•ª‚Ì•`‰æ
+	//æœ€çµ‚è¡Œéƒ¨åˆ†ã®æç”»
 	mvcur(offset_x,offset_y + height - 1);
-	printf("„¤");
+	printf("â””");
 	for(int i = 0; i < print_width; i++){
 		if(i == split_x){
-			printf("„¨");
+			printf("â”´");
 		}else{
-			printf("„Ÿ");
+			printf("â”€");
 		}
 	}
-	printf("„£\n");
-	//ƒJ[ƒ\ƒ‹ˆÊ’u‚Ì‰Šú‰»
+	printf("â”˜Â¥n");
+	//ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ã®åˆæœŸåŒ–
 	mvcur(1,HEIGHT+1);
 }
 
 /**
- * ƒtƒŒ[ƒ€“à‚ğƒAƒjƒ[ƒVƒ‡ƒ“‚ÅƒXƒy[ƒX–„‚ß‚É‚·‚éŠÖ”
+ * ãƒ•ãƒ¬ãƒ¼ãƒ å†…ã‚’ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã§ã‚¹ãƒšãƒ¼ã‚¹åŸ‹ã‚ã«ã™ã‚‹é–¢æ•°
  */
 void flame_flush(){
 	for(int i = 2; i < HEIGHT; i++){
@@ -109,7 +109,7 @@ void flame_flush(){
 }
 
 /**
- * ƒtƒŒ[ƒ€“à‚ğƒXƒy[ƒX–„‚ß‚É‚·‚éŠÖ”
+ * ãƒ•ãƒ¬ãƒ¼ãƒ å†…ã‚’ã‚¹ãƒšãƒ¼ã‚¹åŸ‹ã‚ã«ã™ã‚‹é–¢æ•°
  */
 void flame_clean(){
 	for(int i = 2; i < HEIGHT; i++){
@@ -123,7 +123,7 @@ void flame_clean(){
 }
 
 /**
- * w’èƒtƒŒ[ƒ€“à‚ğƒXƒy[ƒX–„‚ß‚É‚·‚éŠÖ”
+ * æŒ‡å®šãƒ•ãƒ¬ãƒ¼ãƒ å†…ã‚’ã‚¹ãƒšãƒ¼ã‚¹åŸ‹ã‚ã«ã™ã‚‹é–¢æ•°
  */
 void sub_flame_clean(int width, int height, int x, int y){
 	for(int i = y; i < y + height; i++){
@@ -135,7 +135,7 @@ void sub_flame_clean(int width, int height, int x, int y){
 }
 
 /**
- * w’èˆÊ’u,ƒTƒCƒY‚ÅŠm”F‘‹‚ğo‚·ŠÖ”
+ * æŒ‡å®šä½ç½®,ã‚µã‚¤ã‚ºã§ç¢ºèªçª“ã‚’å‡ºã™é–¢æ•°
  */
 int check_window(int width, int height, int x, int y, char *string){
 	arrow_pos yesno_pos[2] = {

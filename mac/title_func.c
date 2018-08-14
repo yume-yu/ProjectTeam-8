@@ -1,25 +1,25 @@
 /**
  * Written by yume_yu
- * printf()‚Ì‚Ý‚ðŽg—p‚µ‚½ƒQ[ƒ€‚ðì‚é‚½‚ß‚Ìƒwƒbƒ_
+ * printf()ã®ã¿ã‚’ä½¿ç”¨ã—ãŸã‚²ãƒ¼ãƒ ã‚’ä½œã‚‹ãŸã‚ã®ãƒ˜ãƒƒãƒ€
  */
 #include "thebeautifulsky.h"
 
 /**
- *  ƒ^ƒCƒgƒ‹ƒƒS‚Ìo•û‚ª”÷–­‚Éˆá‚¤‚Ì‚Åƒwƒbƒ_‚Å’è‹`
+ *  ã‚¿ã‚¤ãƒˆãƒ«ãƒ­ã‚´ã®å‡ºæ–¹ãŒå¾®å¦™ã«é•ã†ã®ã§ãƒ˜ãƒƒãƒ€ã§å®šç¾©
  */
-//ƒ^ƒCƒgƒ‹ƒƒSéŒ¾
+//ã‚¿ã‚¤ãƒˆãƒ«ãƒ­ã‚´å®£è¨€
 char *(title)[9] = {
-	"„¡„¦„¢„¦ „¦„¡„Ÿ„¢                       ",
-	" „  „¥„Ÿ„§„¥„§                        ",
-	" „¨ „¨ „¨„¤„Ÿ„£                       ",
-	"   „¡„¢ „¡„Ÿ„¢„¡„Ÿ„¢„¦ „¦„¡„¦„¢„¦„¡„Ÿ„¢„¦ „¦„¦      ",
-	"   „¥„¨„¢„¥„§ „¥„Ÿ„§„  „  „  „ „¥„§ „  „ „       ",
-	"   „¤„Ÿ„£„¤„Ÿ„£„¨ „¨„¤„Ÿ„£ „¨ „¨„¤  „¤„Ÿ„£„¨„Ÿ„£    ",
-	"                      „¡„Ÿ„¢„¦„¡„Ÿ„¦ „¦ ",
-	"	                     „¤„Ÿ„¢„¥„¨„¢„¤„¦„£ ",
-	"                      „¤„Ÿ„£„¨ „¨ „¨  "
+	"â”Œâ”¬â”â”¬ â”¬â”Œâ”€â”                       ",
+	" â”‚ â”œâ”€â”¤â”œâ”¤                        ",
+	" â”´ â”´ â”´â””â”€â”˜                       ",
+	"   â”Œâ” â”Œâ”€â”â”Œâ”€â”â”¬ â”¬â”Œâ”¬â”â”¬â”Œâ”€â”â”¬ â”¬â”¬      ",
+	"   â”œâ”´â”â”œâ”¤ â”œâ”€â”¤â”‚ â”‚ â”‚ â”‚â”œâ”¤ â”‚ â”‚â”‚      ",
+	"   â””â”€â”˜â””â”€â”˜â”´ â”´â””â”€â”˜ â”´ â”´â””  â””â”€â”˜â”´â”€â”˜    ",
+	"                      â”Œâ”€â”â”¬â”Œâ”€â”¬ â”¬ ",
+	"	                     â””â”€â”â”œâ”´â”â””â”¬â”˜ ",
+	"                      â””â”€â”˜â”´ â”´ â”´  "
 };
-//ƒƒSˆÚ“®’†‚Ì•Ð•t‚¯éŒ¾
+//ãƒ­ã‚´ç§»å‹•ä¸­ã®ç‰‡ä»˜ã‘å®£è¨€
 char *(title_space)[9] = {
 	"                                ",
 	"                                ",
@@ -33,13 +33,13 @@ char *(title_space)[9] = {
 };
 
 char *(gameover)[] = {
-	"„¡„Ÿ„¢„¡„Ÿ„¢„¡„¦„¢„¡„Ÿ„¢  „¡„Ÿ„¢„¦  „¦„¡„Ÿ„¢„¦„Ÿ„¢",
-	"„  „¦„¥„Ÿ„§„ „ „ „¥„§   „  „ „¤„¢„¡„£„¥„§ „¥„¦„£",
-	"„¤„Ÿ„£„¨ „¨„¨ „¨„¤„Ÿ„£  „¤„Ÿ„£ „¤„£ „¤„Ÿ„£„¨„¤„Ÿ",
+	"â”Œâ”€â”â”Œâ”€â”â”Œâ”¬â”â”Œâ”€â”  â”Œâ”€â”â”¬  â”¬â”Œâ”€â”â”¬â”€â”",
+	"â”‚ â”¬â”œâ”€â”¤â”‚â”‚â”‚â”œâ”¤   â”‚ â”‚â””â”â”Œâ”˜â”œâ”¤ â”œâ”¬â”˜",
+	"â””â”€â”˜â”´ â”´â”´ â”´â””â”€â”˜  â””â”€â”˜ â””â”˜ â””â”€â”˜â”´â””â”€",
 };
 
 /**
- *	ƒ^ƒCƒgƒ‹‰æ–Ê‚Ì¯‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ª‘‚©‚ê‚½ŠÖ”
+ *	ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ã®æ˜Ÿã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒæ›¸ã‹ã‚ŒãŸé–¢æ•°
  */
 void stars(int x[],int y[],int amount){
 	//for(int i = 0; i < 10; i++){
@@ -56,12 +56,12 @@ void stars(int x[],int y[],int amount){
 }
 
 /**
- *	ƒ^ƒCƒgƒ‹‰æ–Ê‚ð•\Ž¦‚·‚éŠÖ”
+ *	ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ã‚’è¡¨ç¤ºã™ã‚‹é–¢æ•°
  */
 int maintitle(){
 	/**
-	 * ‚±‚±‚©‚çƒƒS‚ÌƒXƒNƒ[ƒ‹ŠJŽn
-	 * ‘S•”Œ©‚¦‚Ä‚È‚¢ƒXƒNƒ[ƒ‹¨ ‘S•”Œ©‚¦‚½ó‘Ô‚ÌƒXƒNƒ[ƒ‹
+	 * ã“ã“ã‹ã‚‰ãƒ­ã‚´ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«é–‹å§‹
+	 * å…¨éƒ¨è¦‹ãˆã¦ãªã„ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«â†’ å…¨éƒ¨è¦‹ãˆãŸçŠ¶æ…‹ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«
 	 */
 	for(int i = 0; i < 9; i++){
 		for(int j = 0; j < i; j++){
@@ -95,42 +95,42 @@ int maintitle(){
 	print_line("Press Enter",25,HEIGHT - 4);
 	fflush(stdout);
 	mykbhit();
-	/* ‚±‚±‚Ü‚ÅƒƒSƒXƒNƒ[ƒ‹•”•ª
-	 * ‚±‚Ì’iŠK‚ÅƒƒS‚ÆPressEnter‚ªŒ©‚¦‚é
+	/* ã“ã“ã¾ã§ãƒ­ã‚´ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«éƒ¨åˆ†
+	 * ã“ã®æ®µéšŽã§ãƒ­ã‚´ã¨PressEnterãŒè¦‹ãˆã‚‹
 	 */
 
-	//‚±‚±‚©‚ç¯‚Ì•`‰æ
-	//¯‚ÌÀ•W•Ï”‚ðéŒ¾
+	//ã“ã“ã‹ã‚‰æ˜Ÿã®æç”»
+	//æ˜Ÿã®åº§æ¨™å¤‰æ•°ã‚’å®£è¨€
 	int star_x[STAR_AMOUNT];// ={10,15,20};
 	int star_y[STAR_AMOUNT];// ={20,15,10};
-	//—”‚Ì‰Šú‰»
+	//ä¹±æ•°ã®åˆæœŸåŒ–
 	srand(time(NULL));
-	//•¶Žš‚Æ‚©‚Ô‚ç‚È‚¢‚æ‚¤‚ÉÀ•W‚ðÝ’è‚·‚é
+	//æ–‡å­—ã¨ã‹ã¶ã‚‰ãªã„ã‚ˆã†ã«åº§æ¨™ã‚’è¨­å®šã™ã‚‹
 	for(int i = 0; i< STAR_AMOUNT;i++){
-		//‚Ü‚¸—”‚ðU‚é
+		//ã¾ãšä¹±æ•°ã‚’æŒ¯ã‚‹
 		star_x[i] = rand() % (WIDTH - 2) + 2;
 		star_y[i] = rand() % (HEIGHT - 2) + 2;
-		//‚à‚µÀ•W‚ªƒ^ƒCƒgƒ‹ƒƒS‚Ì‚ ‚é”ÍˆÍ‚Æ‚©‚Ô‚Á‚Ä‚¢‚½‚ç
+		//ã‚‚ã—åº§æ¨™ãŒã‚¿ã‚¤ãƒˆãƒ«ãƒ­ã‚´ã®ã‚ã‚‹ç¯„å›²ã¨ã‹ã¶ã£ã¦ã„ãŸã‚‰
 		if(star_y[i] >= 5 && star_y[i] < 15){
 			if(star_x[i] >= 15 && star_x[i] <= 46){
-				i--;	//¡‚Ì•Ï”‚É—”‚ðU‚è’¼‚·‚½‚ßAƒ‰ƒxƒ‹‚ðŒ¸ŽZ
+				i--;	//ä»Šã®å¤‰æ•°ã«ä¹±æ•°ã‚’æŒ¯ã‚Šç›´ã™ãŸã‚ã€ãƒ©ãƒ™ãƒ«ã‚’æ¸›ç®—
 			}
-			//PressEnter‚Æ‚©‚Ô‚Á‚Ä‚¢‚½Žž‚à“¯‚¶ˆ—‚ð‚·‚é
+			//PressEnterã¨ã‹ã¶ã£ã¦ã„ãŸæ™‚ã‚‚åŒã˜å‡¦ç†ã‚’ã™ã‚‹
 		}else if(star_y[i] >= HEIGHT - 5 && star_y[i] <= HEIGHT - 3){
 			if(star_x[i] >= 24 && star_x[i] <= 37){
 				i--;
 			}
 		}
 	}
-	//¯‚Ì“_–ÅŠJŽn Enter“ü—Í‚ð‘Ò‹@‚µA‰Ÿ‚³‚ê‚½‚çƒ‹[ƒv’Eo
+	//æ˜Ÿã®ç‚¹æ»…é–‹å§‹ Enterå…¥åŠ›ã‚’å¾…æ©Ÿã—ã€æŠ¼ã•ã‚ŒãŸã‚‰ãƒ«ãƒ¼ãƒ—è„±å‡º
 	do{
 		stars(star_x,star_y,STAR_AMOUNT);
 	}while((mykbhit().input_char) != ENTERKEY);
-	char *(select_start)[] =	{										//ƒQ[ƒ€ŠJŽn‚Ì‘I‘ðŽˆ‚Ì•¶Žš—ñ
-		"     ‘€ìà–¾‚ð‚Ý‚é",
-		"     ƒQ[ƒ€‚ðŽn‚ß‚é",
+	char *(select_start)[] =	{										//ã‚²ãƒ¼ãƒ é–‹å§‹ã®é¸æŠžè‚¢ã®æ–‡å­—åˆ—
+		"     æ“ä½œèª¬æ˜Žã‚’ã¿ã‚‹",
+		"     ã‚²ãƒ¼ãƒ ã‚’å§‹ã‚ã‚‹",
 		"",
-		"W/S ‘I‘ð      Enter Œˆ’è"
+		"W/S é¸æŠž      Enter æ±ºå®š"
 	};
 	arrow_pos title_command_pos[] = {
 		{TITLE_MENU_BASE_X + 4,TITLE_MENU_BASE_Y,0,0},

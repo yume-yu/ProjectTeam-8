@@ -1,6 +1,6 @@
 /**
  * @file map_func.c
- * @brief ┐}┐b┐v▐Ц┌л┐│┐j┐┘│[┌и┼ж┌╥┌И┼ж░■┌П▓Х▀`┌╥┌И┐t┐@┐C┐▀
+ * @brief Ц┐·Ц┐┐Ц┐≈Д╦┼Ц│╝Ц┐║Ц┐▀Ц┐╔Ц┐╪Ц│╚И√╒Ц│≥Ц┌▀И√╒Ф∙╟Ц┌▓Е╝ Г╬╘Ц│≥Ц┌▀Ц┐∙Ц┌║Ц┌╓Ц┐╚
  * @author yume_yu
  * @date 2018/07/12
  */
@@ -15,30 +15,30 @@ void view_status(){
 		default:
 			front = &naoki;
 	}
-	make_flame(STAT_WIN_WIDTH,STAT_WIN_HEIGHT,STAT_WIN_X,MAP_WIN_Y);	
+	make_flame(STAT_WIN_WIDTH,STAT_WIN_HEIGHT,STAT_WIN_X,MAP_WIN_Y);
 	mvcur(STAT_WIN_X + STAT_WIN_WIDTH - 11, MAP_WIN_Y + 1);
 	printf("%3d / %3d",front->hp,front->max_hp);
 	mvcur(STAT_WIN_X + 2, MAP_WIN_Y + 1);
-	printf("▒O┴q: %s",front->name);
+	printf("Е┴█Х║⌡: %s",front->name);
 	mvcur(STAT_WIN_X + 6, MAP_WIN_Y + 2);
-	printf("∙░┼М: %s",using_weapon->name);	
+	printf("Ф╜╕Е≥╗: %s",using_weapon->name);
 	mvcur(STAT_WIN_X + 6, MAP_WIN_Y + 3);
-	printf("√h▀О: %s",using_protector->name);	
+	printf("И≤╡Е┘╥: %s",using_protector->name);
 	mvcur(STAT_WIN_X + STAT_WIN_WIDTH - 11, MAP_WIN_Y + 4);
 	printf("%3d / %3d",arist.hp,arist.max_hp);
 	mvcur(STAT_WIN_X + 2, MAP_WIN_Y + 4);
-	printf("▄Ц┴q: %s",arist.name);
+	printf("Е╬▄Х║⌡: %s",arist.name);
 	mvcur(STAT_WIN_X + 6, MAP_WIN_Y + 5);
-	printf("∙░┼М: %s",arist_using_weapon->name);	
+	printf("Ф╜╕Е≥╗: %s",arist_using_weapon->name);
 	mvcur(STAT_WIN_X + 6, MAP_WIN_Y + 6);
-	printf("√h▀О: %s",arist_using_protector->name);	
+	printf("И≤╡Е┘╥: %s",arist_using_protector->name);
 	wait_input_without_arrow();
 	print_lines(now_map,2,2,HEIGHT - 2);
 }
 
-/* ┐A┐C┐e┐─≈⌠ */
+/* Ц┌╒Ц┌╓Ц┐├Ц┐═Ф╛└ */
 void item_list_on_map(){
-	/* █ю∙W┌л▓Х▀` */
+	/* Е╨╖Ф╗≥Ц│╝Е╝ Г╬╘ */
 	arrow_pos item_pos[] = {
 		{MAP_WIN_X - MAP_WIN_WIDTH + 2,MAP_WIN_Y + 1,0,0},
 		{MAP_WIN_X - MAP_WIN_WIDTH + 2,MAP_WIN_Y + 2,0,0},
@@ -47,21 +47,21 @@ void item_list_on_map(){
 		{MAP_WIN_X - MAP_WIN_WIDTH + 2,MAP_WIN_Y + 5,0,0}
 	};
 	extendstr use_potion_message[] = {
-		{"┐|│[┐V┐┤┐⌠┌П▌g┌а┌╫│I│╔ ",0,0}
+		{"Ц┐²Ц┐╪Ц┌╥Ц┐╖Ц┐ЁЦ┌▓Д╫©Ц│ёЦ│÷О╪│Б√╪ ",0,0}
 	};
 	extendstr use_nasu_message[] = {
-		{"┌╠┌╠┌е░H┌в┌И┌л┌м┌Ю┌а┌╫┌╒┌х┌╒│╔ ",0,0},
-		{"░М⌠╛▓├┌л∙Б▀▀┌и┌Ф┌Ё┌╩┌╓┌╬│╔ ",0,0}
+		{"Ц│⌠Ц│⌠Ц│╖Иё÷Ц│╧Ц┌▀Ц│╝Ц│╞Ц┌┌Ц│ёЦ│÷Ц│└Ц│╙Ц│└Б√╪ ",0,0},
+		{"Ф┬╕И≈≤Д╦╜Ц│╝Хё°Г╣╕Ц│╚Ц┌┬Ц│∙Ц│²Ц│├Ц│═Б√╪ ",0,0}
 	};
-	make_flame(MAP_WIN_WIDTH,MAP_WIN_HEIGHT + 1,MAP_WIN_X - MAP_WIN_WIDTH,MAP_WIN_Y);	
+	make_flame(MAP_WIN_WIDTH,MAP_WIN_HEIGHT + 1,MAP_WIN_X - MAP_WIN_WIDTH,MAP_WIN_Y);
 	for(int i = 0; i <= potion_amount + have_nasu; i++){
 		if(i == potion_amount + have_nasu){
-			print_line("√ъ┌И",MAP_WIN_X - MAP_WIN_WIDTH + 4,MAP_WIN_Y + 1 + i);
-		}else if(i == potion_amount && have_nasu){	//┌╠┌╠┌е┴ж▌q▐┼▌²┌л┌ф┌╚┌л∙╙┼Р
-			print_line("©вея╔ршщ╧че",MAP_WIN_X - MAP_WIN_WIDTH + 4,MAP_WIN_Y + 1 + i);
+			print_line("Ф┬╩Ц┌▀",MAP_WIN_X - MAP_WIN_WIDTH + 4,MAP_WIN_Y + 1 + i);
+		}else if(i == potion_amount && have_nasu){	//Ц│⌠Ц│⌠Ц│╖Х▄└Е╜░Ф┴─Ф▄│Ц│╝Ц│╗Ц│█Ц│╝Е┬├Е╡░
+			print_line("О╫©О╬≈О╬┘О╬▒О╫╔О╬▓О╬⌡О╬²О╫╧О╬·О╬┘",MAP_WIN_X - MAP_WIN_WIDTH + 4,MAP_WIN_Y + 1 + i);
 		}else{
-			print_line("┐|│[┐V┐┤┐⌠",MAP_WIN_X - MAP_WIN_WIDTH + 4,MAP_WIN_Y + 1 + i);
-			//print_line("©вея╔ршщ╧че",MAP_WIN_X - MAP_WIN_WIDTH + 4,MAP_WIN_Y + 1 + i);
+			print_line("Ц┐²Ц┐╪Ц┌╥Ц┐╖Ц┐Ё",MAP_WIN_X - MAP_WIN_WIDTH + 4,MAP_WIN_Y + 1 + i);
+			//print_line("О╫©О╬≈О╬┘О╬▒О╫╔О╬▓О╬⌡О╬²О╫╧О╬·О╬┘",MAP_WIN_X - MAP_WIN_WIDTH + 4,MAP_WIN_Y + 1 + i);
 		}
 	}
 	int selected_item = select_from_list(item_pos,potion_amount + have_nasu +1);
@@ -81,16 +81,16 @@ void item_list_on_map(){
 	print_lines(now_map,2,2,HEIGHT - 2);
 }
 
-/* ┐}┐b┐v▐Ц┌е┼J┌╜┐│┐j┐┘│[ */
+/* Ц┐·Ц┐┐Ц┐≈Д╦┼Ц│╖И√▀Ц│▐Ц┐║Ц┐▀Ц┐╔Ц┐╪ */
 int onmap_manu(){
-	/* ┐│┐j┐┘│[┌л▐I≈╧┐t┐┴┐O */
+	/* Ц┐║Ц┐▀Ц┐╔Ц┐╪Ц│╝Г╣┌Д╨├Ц┐∙Ц┐╘Ц┌╟ */
 	int close_menu_flag = 0;
-	/* █─√з┌л▓Х▀`  */
+	/* И═┘Г⌡╝Ц│╝Е╝ Г╬╘  */
 	char *(menu_items)[] = {
-		"┐X┐e│[┐^┐X",
-		"┐A┐C┐e┐─",
-		"┐^┐C┐g┐▀┌и√ъ┌И",
-		"∙б┌╤┌И"
+		"Ц┌╧Ц┐├Ц┐╪Ц┌©Ц┌╧",
+		"Ц┌╒Ц┌╓Ц┐├Ц┐═",
+		"Ц┌©Ц┌╓Ц┐┬Ц┐╚Ц│╚Ф┬╩Ц┌▀",
+		"И√┴Ц│≤Ц┌▀"
 	};
 	enum menu_id {
 		status,
@@ -98,7 +98,7 @@ int onmap_manu(){
 		back_title,
 		close
 	};
-	/* █ю∙W┌л▓Х▀` */
+	/* Е╨╖Ф╗≥Ц│╝Е╝ Г╬╘ */
 	arrow_pos menu_pos[] = {
 		{MAP_WIN_X + 2,MAP_WIN_Y + 1,0,0},
 		{MAP_WIN_X + 2,MAP_WIN_Y + 2,0,0},
@@ -106,7 +106,7 @@ int onmap_manu(){
 		{MAP_WIN_X + 2,MAP_WIN_Y + 4,0,0}
 	};
 	while(!close_menu_flag){
-		make_flame(MAP_WIN_WIDTH,MAP_WIN_HEIGHT,MAP_WIN_X,MAP_WIN_Y);	
+		make_flame(MAP_WIN_WIDTH,MAP_WIN_HEIGHT,MAP_WIN_X,MAP_WIN_Y);
 		print_lines(menu_items,MAP_WIN_X + 3,MAP_WIN_Y + 1,4);
 
 		switch(select_from_list(menu_pos,4)){

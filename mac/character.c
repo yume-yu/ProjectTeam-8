@@ -1,13 +1,13 @@
 /**
  * @file character.c
- * @brief ƒLƒƒƒ‰ƒNƒ^[ŠÖ˜A‚Ì•Ï”‚âŠÖ”‚ğ’è‹`‚·‚éƒtƒ@ƒCƒ‹
+ * @brief ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼é–¢é€£ã®å¤‰æ•°ã‚„é–¢æ•°ã‚’å®šç¾©ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«
  * @author yume_yu
  * @date 2018/07/12
  */
 
 #include "thebeautifulsky.h"
 
-//•K—vƒLƒƒƒ‰ƒNƒ^-‚Ì’è‹`
+//å¿…è¦ã‚­ãƒ£ãƒ©ã‚¯ã‚¿-ã®å®šç¾©
 character naoki;
 character lirel;
 character arist;
@@ -21,12 +21,12 @@ character *(enemies)[3];
 int enemy_amount = 0;
 
 /**
- * ƒLƒƒƒ‰ƒNƒ^[‚ÌƒXƒe[ƒ^ƒXİ’è‚ğ‚·‚éŠÖ”
- * name[10] ƒLƒƒƒ‰ƒNƒ^[‚Ì–¼‘O
- * tmpch    ƒXƒe[ƒ^ƒX‚ğİ’è‚·‚éƒLƒƒƒ‰ƒNƒ^[\‘¢‘Ì‚ÌƒAƒhƒŒƒX
- * hp       İ’è‚·‚éhp
- * min_atk  —^ƒ_ƒ[ƒW‚Ì‰ºŒÀ
- * max_atk  —^ƒ_ƒ[ƒW‚ÌãŒÀ
+ * ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹è¨­å®šã‚’ã™ã‚‹é–¢æ•°
+ * name[10] ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®åå‰
+ * tmpch    ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’è¨­å®šã™ã‚‹ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼æ§‹é€ ä½“ã®ã‚¢ãƒ‰ãƒ¬ã‚¹
+ * hp       è¨­å®šã™ã‚‹hp
+ * min_atk  ä¸ãƒ€ãƒ¡ãƒ¼ã‚¸ã®ä¸‹é™
+ * max_atk  ä¸ãƒ€ãƒ¡ãƒ¼ã‚¸ã®ä¸Šé™
  */
 void set_ch_stat(char name[10], character *tmpch, int hp, int max_hp,int min_atk, int max_atk){
 	tmpch->name = name;
@@ -37,9 +37,9 @@ void set_ch_stat(char name[10], character *tmpch, int hp, int max_hp,int min_atk
 }
 
 /**
- * ƒLƒƒƒ‰ƒNƒ^[‚ÌHP‚ğ•Ï“®‚³‚¹‚éŠÖ”
- * tmpch    hp‚ª•Ï“®‚·‚éƒLƒƒƒ‰ƒNƒ^[\‘¢‘Ì‚ÌƒAƒhƒŒƒX
- * damage   ƒ_ƒ[ƒW—Ê ³‚È‚çŒ¸Z/•‰‚È‚ç‰ÁZ‚³‚ê‚é ex.damage‚ª-20 ¨ 20‰ñ•œ
+ * ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®HPã‚’å¤‰å‹•ã•ã›ã‚‹é–¢æ•°
+ * tmpch    hpãŒå¤‰å‹•ã™ã‚‹ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼æ§‹é€ ä½“ã®ã‚¢ãƒ‰ãƒ¬ã‚¹
+ * damage   ãƒ€ãƒ¡ãƒ¼ã‚¸é‡ æ­£ãªã‚‰æ¸›ç®—/è² ãªã‚‰åŠ ç®—ã•ã‚Œã‚‹ ex.damageãŒ-20 â†’ 20å›å¾©
  */
 void change_hp(character *tmpch, int damage){
 	tmpch->hp -= damage;
@@ -50,7 +50,7 @@ void change_hp(character *tmpch, int damage){
 	}
 }
 
-//ŠeƒLƒƒƒ‰ƒNƒ^[‚ÌƒXƒe[ƒ^ƒX‰Šú‰»
+//å„ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹åˆæœŸåŒ–
 void initchara(){
 	set_ch_stat(FRONT2_NAME,&naoki,FRONT2_HP_ST2,FRONT2_HP_ST2,FRONT2_MINATK_ST2,FRONT2_MAXATK_ST2);
 	set_ch_stat(FRONT1_NAME,&lirel,FRONT1_HP,FRONT1_HP,FRONT1_MINATK,FRONT1_MAXATK);
@@ -59,7 +59,7 @@ void initchara(){
 	set_ch_stat("boss1",&boss1,100,100,10,20);
 	set_ch_stat("boss2",&boss2,100,100,10,20);
 	set_ch_stat("dummy",&dummy,0,0,0,0);
-	//‘•”õ‚ğ‘fè‚É‰Šú‰»
+	//è£…å‚™ã‚’ç´ æ‰‹ã«åˆæœŸåŒ–
 	using_weapon = &all_weapons[0];
 	using_protector = &all_protectors[0];
 	arist_using_weapon = &all_weapons4back[0];

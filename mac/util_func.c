@@ -1,6 +1,6 @@
 /**
  * @file util_func.c
- * @brief ”Ä—p“I‚ÈŠÖ”‚ğ’è‹`‚·‚éƒtƒ@ƒCƒ‹
+ * @brief æ±ç”¨çš„ãªé–¢æ•°ã‚’å®šç¾©ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«
  * @author yume_yu
  * @date 2018/07/08
  */
@@ -8,17 +8,17 @@
 #ifdef WINDOWS
 
 /**
- * Windows‚É‚Íƒ}ƒCƒNƒ•b‚Åsleep‚·‚éusleep(int)‚ª‚È‚¢‚Ì‚Å
- * time ˆ—‚ğ’â~‚·‚éŠÔ[ms]
+ * Windowsã«ã¯ãƒã‚¤ã‚¯ãƒ­ç§’ã§sleepã™ã‚‹usleep(int)ãŒãªã„ã®ã§
+ * time å‡¦ç†ã‚’åœæ­¢ã™ã‚‹æ™‚é–“[ms]
  */
 void usleep(int time){
 	Sleep(time/1000);
 }
 
 /**
- * ¶ã‚ğ(1,1)‚Æ‚µ‚ÄƒJ[ƒ\ƒ‹‚ğw’èˆÊ’u‚ÖˆÚ“®‚³‚¹‚éŠÖ”
- * x ƒJ[ƒ\ƒ‹‚ÌxÀ•W
- * y ƒJ[ƒ\ƒ‹‚ÌyÀ•W
+ * å·¦ä¸Šã‚’(1,1)ã¨ã—ã¦ã‚«ãƒ¼ã‚½ãƒ«ã‚’æŒ‡å®šä½ç½®ã¸ç§»å‹•ã•ã›ã‚‹é–¢æ•°
+ * x ã‚«ãƒ¼ã‚½ãƒ«ã®xåº§æ¨™
+ * y ã‚«ãƒ¼ã‚½ãƒ«ã®yåº§æ¨™
  */
 void mvcur(int x, int y){
 	COORD coord;
@@ -32,9 +32,9 @@ void mvcur(int x, int y){
 }
 
 /*
- * ƒL[ƒ{[ƒh‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©‚Æ‚»‚Ì“ü—ÍƒL[‚ğ‚Æ‚éŠÖ”
- * –ß‚è’l
- * input_assort temp	2‚Â‚Ìƒtƒ‰ƒO‚Ì\‘¢‘Ì
+ * ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹ã‹ã¨ãã®å…¥åŠ›ã‚­ãƒ¼ã‚’ã¨ã‚‹é–¢æ•°
+ * æˆ»ã‚Šå€¤
+ * input_assort temp	2ã¤ã®ãƒ•ãƒ©ã‚°ã®æ§‹é€ ä½“
  */
 input_assort mykbhit(){
 	input_assort temp;
@@ -49,17 +49,17 @@ input_assort mykbhit(){
 }
 
 /**
- * •W€o—Í‚Ì‰Šú‰»
+ * æ¨™æº–å‡ºåŠ›ã®åˆæœŸåŒ–
  */
 void init_term(){
-	//ƒJ[ƒ\ƒ‹ˆÊ’u‚ğ(1,1)‚ÉˆÚ“®
+	//ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ã‚’(1,1)ã«ç§»å‹•
 	mvcur(1,1);
 }
 
 #endif
 
 /**
- *  ‚È‚É‚©‚Ì“ü—Í‚Ì‘Ò‹@‚ğ‚·‚éŠÖ”
+ *  ãªã«ã‹ã®å…¥åŠ›ã®å¾…æ©Ÿã‚’ã™ã‚‹é–¢æ•°
  */
 void wait_anyinput(){
 	mvcur(0,HEIGHT + 1);
@@ -69,7 +69,7 @@ void wait_anyinput(){
 }
 
 /**
- *  •ûŒüƒL[ˆÈŠO‚Ì“ü—Í‚Ì‘Ò‹@‚ğ‚·‚éŠÖ”
+ *  æ–¹å‘ã‚­ãƒ¼ä»¥å¤–ã®å…¥åŠ›ã®å¾…æ©Ÿã‚’ã™ã‚‹é–¢æ•°
  */
 void wait_input_without_arrow(){
 	int flag = 1;
@@ -95,10 +95,10 @@ void wait_input_without_arrow(){
 }
 
 /**
- * w’è‰ÓŠ‚Ö‚Ì1s‚Ì•¶šo—Í‚ğs‚¤ŠÖ”
- * string o—Í‚·‚é•¶š—ñ
- * x      o—Í‚·‚éxÀ•W
- * y      o—Í‚·‚éyÀ•W
+ * æŒ‡å®šç®‡æ‰€ã¸ã®1è¡Œã®æ–‡å­—å‡ºåŠ›ã‚’è¡Œã†é–¢æ•°
+ * string å‡ºåŠ›ã™ã‚‹æ–‡å­—åˆ—
+ * x      å‡ºåŠ›ã™ã‚‹xåº§æ¨™
+ * y      å‡ºåŠ›ã™ã‚‹yåº§æ¨™
  */
 void print_line(char string[], int x, int y){
 	mvcur(x,y);
@@ -107,11 +107,11 @@ void print_line(char string[], int x, int y){
 }
 
 /*
- * w’è‰ÓŠ‚Ö‚Ì•¡”ss‚Ì•¶šo—Í‚ğs‚¤ŠÖ”
- * string    o—Í‚·‚é•¶š—ñ”z—ñ
- * x         o—Í‚ğŠJn‚·‚éxÀ•W
- * y         o—Í‚ğŠJn‚·‚éyÀ•W
- * num_lines o—Í‚·‚és”
+ * æŒ‡å®šç®‡æ‰€ã¸ã®è¤‡æ•°è¡Œè¡Œã®æ–‡å­—å‡ºåŠ›ã‚’è¡Œã†é–¢æ•°
+ * string    å‡ºåŠ›ã™ã‚‹æ–‡å­—åˆ—é…åˆ—
+ * x         å‡ºåŠ›ã‚’é–‹å§‹ã™ã‚‹xåº§æ¨™
+ * y         å‡ºåŠ›ã‚’é–‹å§‹ã™ã‚‹yåº§æ¨™
+ * num_lines å‡ºåŠ›ã™ã‚‹è¡Œæ•°
  */
 void print_lines(char *string[], int x, int y, int num_lines){
 	for(int i = 0; i < num_lines; i++){
@@ -121,11 +121,11 @@ void print_lines(char *string[], int x, int y, int num_lines){
 }
 
 /**
- * w’è‰ÓŠ‚Ö‚Ì•¡”s‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚Â‚«•¶šo—Í‚ğs‚¤ŠÖ”
- * string    o—Í‚·‚é•¶š—ñ2ŸŒ³”z—ñ
- * x         o—Í‚ğŠJn‚·‚éxÀ•W
- * y         o—Í‚ğŠJn‚·‚éyÀ•W
- * num_lines o—Í‚·‚és”
+ * æŒ‡å®šç®‡æ‰€ã¸ã®è¤‡æ•°è¡Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã¤ãæ–‡å­—å‡ºåŠ›ã‚’è¡Œã†é–¢æ•°
+ * string    å‡ºåŠ›ã™ã‚‹æ–‡å­—åˆ—2æ¬¡å…ƒé…åˆ—
+ * x         å‡ºåŠ›ã‚’é–‹å§‹ã™ã‚‹xåº§æ¨™
+ * y         å‡ºåŠ›ã‚’é–‹å§‹ã™ã‚‹yåº§æ¨™
+ * num_lines å‡ºåŠ›ã™ã‚‹è¡Œæ•°
  */
 void string_march(extendstr *(tmp)[],int x,int y,int lines){
 	char substring[100];
@@ -133,7 +133,7 @@ void string_march(extendstr *(tmp)[],int x,int y,int lines){
 		for(int j = MULTIBYTE_CHAR_SIZE ; j < strlen(tmp[i]->string); j += MULTIBYTE_CHAR_SIZE ){
 			mvcur(x + tmp[i]->offset,y + i);
 			strncpy(substring,tmp[i]->string,j);
-			substring[j] = '\0';
+			substring[j] = 'Â¥0';
 			printf("%s",substring);
 			mvcur(0,HEIGHT + 1);
 			fflush(stdout);
@@ -163,7 +163,7 @@ int eslengthof(extendstr sxstr[HEIGHT - 2]){
 
 
 /**
- *	•\¦•¶Í‚ğ•¶Í‚ÌƒAƒhƒŒƒX”z—ñ‚É•ÏŠ·‚·‚éŠÖ”
+ *	è¡¨ç¤ºæ–‡ç« ã‚’æ–‡ç« ã®ã‚¢ãƒ‰ãƒ¬ã‚¹é…åˆ—ã«å¤‰æ›ã™ã‚‹é–¢æ•°
  */
 void exstrcpy(extendstr *(to)[],extendstr from[],int lines){
 	for(int i = 0; i < lines; i++){
@@ -172,10 +172,10 @@ void exstrcpy(extendstr *(to)[],extendstr from[],int lines){
 }
 
 /**
- * ƒŠƒXƒg‚ğ•\¦‚µ‚½Û‚ÉƒJ[ƒ\ƒ‹‚ÌcˆÚ“®‚ÆŒˆ’è‚µ‚½€–Ú‚ğŠÇ—‚·‚éŠÖ”
- * tmp_pos[10] ƒJ[ƒ\ƒ‹‚ğ•\¦‚·‚éˆÊ’u‚ğ’è‹`‚µ‚½arrow_posŒ^‚Ì”z—ñ
- * length      ƒŠƒXƒg€–Ú‚Ì”
- * –ß‚è’l length/Enter‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚Ì€–Ú‚Ìƒ‰ƒxƒ‹(‰½ŒÂ–Ú‚Ìƒƒjƒ…[‚¾‚Á‚½‚©)
+ * ãƒªã‚¹ãƒˆã‚’è¡¨ç¤ºã—ãŸéš›ã«ã‚«ãƒ¼ã‚½ãƒ«ã®ç¸¦ç§»å‹•ã¨æ±ºå®šã—ãŸé …ç›®ã‚’ç®¡ç†ã™ã‚‹é–¢æ•°
+ * tmp_pos[10] ã‚«ãƒ¼ã‚½ãƒ«ã‚’è¡¨ç¤ºã™ã‚‹ä½ç½®ã‚’å®šç¾©ã—ãŸarrow_poså‹ã®é…åˆ—
+ * length      ãƒªã‚¹ãƒˆé …ç›®ã®æ•°
+ * æˆ»ã‚Šå€¤ length/EnterãŒæŠ¼ã•ã‚ŒãŸã¨ãã®é …ç›®ã®ãƒ©ãƒ™ãƒ«(ä½•å€‹ç›®ã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã ã£ãŸã‹)
  */
 int select_from_list(arrow_pos tmp_pos[10], int length){
 	int arrow_pos_label = 0;
@@ -216,10 +216,10 @@ int select_from_list(arrow_pos tmp_pos[10], int length){
 }
 
 /**
- * ƒŠƒXƒg‚ğ•\¦‚µ‚½Û‚ÉƒJ[ƒ\ƒ‹‚Ì‰¡ˆÚ“®‚ÆŒˆ’è‚µ‚½€–Ú‚ğŠÇ—‚·‚éŠÖ”
- * tmp_pos[10] ƒJ[ƒ\ƒ‹‚ğ•\¦‚·‚éˆÊ’u‚ğ’è‹`‚µ‚½arrow_posŒ^‚Ì”z—ñ
- * length      ƒŠƒXƒg€–Ú‚Ì”
- * –ß‚è’l length/Enter‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚Ì€–Ú‚Ìƒ‰ƒxƒ‹(‰½ŒÂ–Ú‚Ìƒƒjƒ…[‚¾‚Á‚½‚©)
+ * ãƒªã‚¹ãƒˆã‚’è¡¨ç¤ºã—ãŸéš›ã«ã‚«ãƒ¼ã‚½ãƒ«ã®æ¨ªç§»å‹•ã¨æ±ºå®šã—ãŸé …ç›®ã‚’ç®¡ç†ã™ã‚‹é–¢æ•°
+ * tmp_pos[10] ã‚«ãƒ¼ã‚½ãƒ«ã‚’è¡¨ç¤ºã™ã‚‹ä½ç½®ã‚’å®šç¾©ã—ãŸarrow_poså‹ã®é…åˆ—
+ * length      ãƒªã‚¹ãƒˆé …ç›®ã®æ•°
+ * æˆ»ã‚Šå€¤ length/EnterãŒæŠ¼ã•ã‚ŒãŸã¨ãã®é …ç›®ã®ãƒ©ãƒ™ãƒ«(ä½•å€‹ç›®ã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã ã£ãŸã‹)
  */
 int select_from_hlist(arrow_pos tmp_pos[10], int length){
 	int arrow_pos_label = 0;
@@ -260,11 +260,11 @@ int select_from_hlist(arrow_pos tmp_pos[10], int length){
 }
 
 /*
- * ƒŠƒXƒg‚ğ•\¦‚µ‚½Û‚ÉƒJ[ƒ\ƒ‹‚Ì“ñŸŒ³ˆÚ“®‚ÆŒˆ’è‚µ‚½€–Ú‚ğŠÇ—‚·‚éŠÖ”
- * tmp_pos[10][10]	ƒJ[ƒ\ƒ‹‚ğ•\¦‚·‚éˆÊ’u‚ğ’è‹`‚µ‚½arrow_posŒ^‚Ì”z—ñ
- * length			ƒŠƒXƒg€–Ú‚Ì”
- * –ß‚è’l
- * int length		Enter‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚Ì€–Ú‚Ìƒ‰ƒxƒ‹(‰½ŒÂ–Ú‚Ìƒƒjƒ…[‚¾‚Á‚½‚©)
+ * ãƒªã‚¹ãƒˆã‚’è¡¨ç¤ºã—ãŸéš›ã«ã‚«ãƒ¼ã‚½ãƒ«ã®äºŒæ¬¡å…ƒç§»å‹•ã¨æ±ºå®šã—ãŸé …ç›®ã‚’ç®¡ç†ã™ã‚‹é–¢æ•°
+ * tmp_pos[10][10]	ã‚«ãƒ¼ã‚½ãƒ«ã‚’è¡¨ç¤ºã™ã‚‹ä½ç½®ã‚’å®šç¾©ã—ãŸarrow_poså‹ã®é…åˆ—
+ * length			ãƒªã‚¹ãƒˆé …ç›®ã®æ•°
+ * æˆ»ã‚Šå€¤
+ * int length		EnterãŒæŠ¼ã•ã‚ŒãŸã¨ãã®é …ç›®ã®ãƒ©ãƒ™ãƒ«(ä½•å€‹ç›®ã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã ã£ãŸã‹)
  */
 int select_from_2dlist(int width, int height,arrow_pos tmp_pos[width][height]){
 	arrow_pos arrow_pos_label = {0,0};

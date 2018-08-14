@@ -1,21 +1,21 @@
 /**
  * @file talk_event.c
- * @brief Še‰ï˜bƒCƒxƒ“ƒg‚²‚Æ‚ÉŒÄ‚Ño‚³‚ê‚éˆ—‚ğ‚Ü‚Æ‚ß‚½ƒtƒ@ƒCƒ‹
+ * @brief å„ä¼šè©±ã‚¤ãƒ™ãƒ³ãƒˆã”ã¨ã«å‘¼ã³å‡ºã•ã‚Œã‚‹å‡¦ç†ã‚’ã¾ã¨ã‚ãŸãƒ•ã‚¡ã‚¤ãƒ«
  * @author yume_yu
  * @date
  */
 
 #include "thebeautifulsky.h"
 
-/* ƒŠ[ƒŒƒ‹‚ªƒ|[ƒVƒ‡ƒ“‚ğŒ©‚Â‚¯‚½‚Ì‹““®  */
+/* ãƒªãƒ¼ãƒ¬ãƒ«ãŒãƒãƒ¼ã‚·ãƒ§ãƒ³ã‚’è¦‹ã¤ã‘ãŸæ™‚ã®æŒ™å‹•  */
 void lirel_find_potion(){
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
 	extendstr event_text[] = {
-		{"ƒŠ[ƒŒƒ‹Fu‚ŞA‚±‚ê‚Ív¥  ",0,0},
-		{"ƒ|[ƒVƒ‡ƒ“‚ğŒ©‚Â‚¯‚½¥  ",0,0}
+		{"ãƒªãƒ¼ãƒ¬ãƒ«ï¼šã€Œã‚€ã€ã“ã‚Œã¯ã€â–¼  ",0,0},
+		{"ãƒãƒ¼ã‚·ãƒ§ãƒ³ã‚’è¦‹ã¤ã‘ãŸâ–¼  ",0,0}
 	};
 	extendstr error_text[] = {
-		{"ƒ|[ƒVƒ‡ƒ“‚Í‚±‚êˆÈã‚Ä‚È‚¢‚Ì‚Å’ú‚ß‚½¥  ",0,0},
+		{"ãƒãƒ¼ã‚·ãƒ§ãƒ³ã¯ã“ã‚Œä»¥ä¸ŠæŒã¦ãªã„ã®ã§è«¦ã‚ãŸâ–¼  ",0,0},
 	};
 	exstrcpy(now_text,event_text,2);
 	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,lengthof(event_text,extendstr));
@@ -26,15 +26,15 @@ void lirel_find_potion(){
 	}
 }
 
-/* ƒiƒIƒL‚ªƒ|[ƒVƒ‡ƒ“‚ğŒ©‚Â‚¯‚½‚Ì‹““®  */
+/* ãƒŠã‚ªã‚­ãŒãƒãƒ¼ã‚·ãƒ§ãƒ³ã‚’è¦‹ã¤ã‘ãŸæ™‚ã®æŒ™å‹•  */
 void naoki_find_potion(){
 	//make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
 	extendstr event_text[] = {
-		{"ƒiƒIƒLFu‚¢‚¢‚à‚ÌA”­Œ©Iv¥  ",0,0},
-		{"ƒ|[ƒVƒ‡ƒ“‚ğŒ©‚Â‚¯‚½¥  ",0,0}
+		{"ãƒŠã‚ªã‚­ï¼šã€Œã„ã„ã‚‚ã®ã€ç™ºè¦‹ï¼ã€â–¼  ",0,0},
+		{"ãƒãƒ¼ã‚·ãƒ§ãƒ³ã‚’è¦‹ã¤ã‘ãŸâ–¼  ",0,0}
 	};
 	extendstr error_text[] = {
-		{"ƒ|[ƒVƒ‡ƒ“‚Í‚±‚êˆÈã‚Ä‚È‚¢c¥  ",0,0},
+		{"ãƒãƒ¼ã‚·ãƒ§ãƒ³ã¯ã“ã‚Œä»¥ä¸ŠæŒã¦ãªã„â€¦â–¼  ",0,0},
 	};
 	exstrcpy(now_text,event_text,2);
 	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(event_text));
@@ -50,38 +50,38 @@ bool instory_yesno(int y){
 		{11,y,0,0},
 		{18,y,0,0}
 	};
-	char *yesno = "  ‚Í‚¢   ‚¢‚¢‚¦";
+	char *yesno = "  ã¯ã„   ã„ã„ãˆ";
 	print_line(yesno,10,y);
 	return !select_from_hlist(yn,2);
 }
 
-/* ƒXƒe[ƒW1 ŠJn’¼Œã */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸1 é–‹å§‹ç›´å¾Œ */
 void guide_st1(){
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
 	exstrcpy(now_text,lirel_said,eslengthof(lirel_said));
 	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(lirel_said));
 }
 
-/* ƒXƒe[ƒW1 N“ü‹Ö~ */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸1 ä¾µå…¥ç¦æ­¢ */
 void noentry_st1(){
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
 	exstrcpy(now_text,lirel_stop,eslengthof(lirel_stop));
 	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(lirel_said));
 }
 
-/* ƒXƒe[ƒW1 ^‚ñ’†‚Ì•”‰® */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸1 çœŸã‚“ä¸­ã®éƒ¨å±‹ */
 void talk_event_st1_1(){
 	flame_flush();
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
 	extendstr error_text[] = {
-		{"‚à‚Ê‚¯‚ÌŠk‚¾¥  ",0,0},
+		{"ã‚‚ã¬ã‘ã®æ®»ã â–¼  ",0,0},
 	};
 	exstrcpy(now_text,error_text,1);
 	//string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(error_text));
 	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,lengthof(error_text,extendstr));
 }
 
-/* ƒXƒe[ƒW1 ¶‚Ì•”‰® */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸1 å·¦ã®éƒ¨å±‹ */
 bool talk_event_st1_0_arrived = false;
 void talk_event_st1_0(){
 	if(talk_event_st1_0_arrived){
@@ -93,7 +93,7 @@ void talk_event_st1_0(){
 	}
 }
 
-/* ƒXƒe[ƒW1 ƒ{ƒXí‘O */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸1 ãƒœã‚¹æˆ¦å‰ */
 void before_battle_st1(){
 	flame_flush();
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
@@ -101,7 +101,7 @@ void before_battle_st1(){
 	string_march(now_text,BATTLE_MODE_COMMAND_POS - 2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(beforebattle_stage1));
 }
 
-/* ƒXƒe[ƒW1 ƒ{ƒXíŒã */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸1 ãƒœã‚¹æˆ¦å¾Œ */
 void after_battle_st1(){
 	flame_flush();
 	//make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
@@ -110,7 +110,7 @@ void after_battle_st1(){
 	flame_clean();
 }
 
-/* ƒXƒe[ƒW2 ‰E‚Ì•”‰® */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸2 å³ã®éƒ¨å±‹ */
 bool talk_event_st2_0_arrived = false;
 void talk_event_st2_0(){
 	flame_flush();
@@ -123,7 +123,7 @@ void talk_event_st2_0(){
 		talk_event_st2_0_arrived = true;
 	}else{
 		extendstr error_text[] = {
-			{"‚±‚±‚É‚Í‚È‚É‚à‚È‚¢¥  ",0,0},
+			{"ã“ã“ã«ã¯ãªã«ã‚‚ãªã„â–¼  ",0,0},
 		};
 		exstrcpy(now_text,error_text,1);
 		make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
@@ -135,21 +135,21 @@ bool talk_event_st2_1_arrived = false;
 void talk_event_st2_1(){
 	flame_flush();
 	extendstr error_text[] = {
-		{"‚±‚±‚É‚Í‚È‚É‚à‚È‚¢¥  ",0,0},
+		{"ã“ã“ã«ã¯ãªã«ã‚‚ãªã„â–¼  ",0,0},
 	};
 	exstrcpy(now_text,error_text,1);
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
 	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(error_text));
 }
 
-/* ƒXƒe[ƒW2 ƒ{ƒXí‘O */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸2 ãƒœã‚¹æˆ¦å‰ */
 void before_battle_st2(){
 	flame_flush();
 	exstrcpy(now_text,beforebattle_stage2, eslengthof(beforebattle_stage2));
 	string_march(now_text,2,2,eslengthof(beforebattle_stage2));
 }
 
-/* ƒXƒe[ƒW2 ƒ{ƒXíŒã */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸2 ãƒœã‚¹æˆ¦å¾Œ */
 void after_battle_st2(){
 	flame_flush();
 	//make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
@@ -158,7 +158,7 @@ void after_battle_st2(){
 	flame_clean();
 }
 
-/* ƒXƒe[ƒW3 ‰Eƒ}ƒbƒv¶ã‚Ì•”‰® */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸3 å³ãƒãƒƒãƒ—å·¦ä¸Šã®éƒ¨å±‹ */
 void talk_event_st3_0(){
 	flame_flush();
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
@@ -166,11 +166,11 @@ void talk_event_st3_0(){
 	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(talk_st3_0));
 }
 
-/* ƒXƒe[ƒW3 ‰Eƒ}ƒbƒv‰º‚Ì•”‰® */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸3 å³ãƒãƒƒãƒ—ä¸‹ã®éƒ¨å±‹ */
 bool talk_event_st3_1_arrived = false;
 void talk_event_st3_1(){
 	flame_flush();
-	if(!talk_event_st3_1_arrived){ //‰‚ß‚Ä—ˆ‚½‚Æ‚«‚©‚Ç‚¤‚©
+	if(!talk_event_st3_1_arrived){ //åˆã‚ã¦æ¥ãŸã¨ãã‹ã©ã†ã‹
 		exstrcpy(now_text,talk_st3_1,eslengthof(talk_st3_1));
 		string_march(now_text,2,2,eslengthof(talk_st3_1));
 		if(instory_yesno(2 + eslengthof(talk_st3_1) + 1)){
@@ -182,7 +182,7 @@ void talk_event_st3_1(){
 			string_march(now_text,2,2 + eslengthof(talk_st3_1) + 3,sizeof(talk_st3_1_3)/sizeof(extendstr));
 		}
 		talk_event_st3_1_arrived = true;
-	}else if(using_weapon != &all_weapons[1]){ //‰‚ß‚Ä‚Å‚Í‚È‚­A‘•”õ‚ªe‚Å‚Í‚È‚¢
+	}else if(using_weapon != &all_weapons[1]){ //åˆã‚ã¦ã§ã¯ãªãã€è£…å‚™ãŒéŠƒã§ã¯ãªã„æ™‚
 		exstrcpy(now_text,talk_st3_1_1,eslengthof(talk_st3_1_1));
 		string_march(now_text,2,2,eslengthof(talk_st3_1_1));
 		if(instory_yesno(2 + eslengthof(talk_st3_1_1) + 1)){
@@ -200,11 +200,11 @@ void talk_event_st3_1(){
 	}
 }
 
-/* ƒXƒe[ƒW3 ‰Eƒ}ƒbƒv‰Eã‚Ì•”‰® */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸3 å³ãƒãƒƒãƒ—å³ä¸Šã®éƒ¨å±‹ */
 bool talk_event_st3_2_arrived = false;
 void talk_event_st3_2(){
 	flame_flush();
-	if(!talk_event_st3_2_arrived){ //‰‚ß‚Ä—ˆ‚½‚Æ‚«‚©‚Ç‚¤‚©
+	if(!talk_event_st3_2_arrived){ //åˆã‚ã¦æ¥ãŸã¨ãã‹ã©ã†ã‹
 		exstrcpy(now_text,talk_st3_2,eslengthof(talk_st3_2));
 		string_march(now_text,2,2,eslengthof(talk_st3_2));
 		if(instory_yesno(2 + eslengthof(talk_st3_2) + 1)){
@@ -216,7 +216,7 @@ void talk_event_st3_2(){
 			string_march(now_text,2,2 + eslengthof(talk_st3_2) + 3,sizeof(talk_st3_2_3)/sizeof(extendstr));
 		}
 		talk_event_st3_2_arrived = true;
-	}else if(using_protector != &all_protectors[2]){ //‰‚ß‚Ä‚Å‚Í‚È‚­A‘•”õ‚ª–hŒì•‚Å‚Í‚È‚¢
+	}else if(using_protector != &all_protectors[2]){ //åˆã‚ã¦ã§ã¯ãªãã€è£…å‚™ãŒé˜²è­·æœã§ã¯ãªã„æ™‚
 		exstrcpy(now_text,talk_st3_2_1,eslengthof(talk_st3_2_1));
 		string_march(now_text,2,2,eslengthof(talk_st3_2_1));
 		if(instory_yesno(2 + eslengthof(talk_st3_2_1) + 1)){
@@ -234,11 +234,11 @@ void talk_event_st3_2(){
 	}
 }
 
-/* ƒXƒe[ƒW3 ’†‰›ƒ}ƒbƒv¶‚Ì•”‰® */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸3 ä¸­å¤®ãƒãƒƒãƒ—å·¦ã®éƒ¨å±‹ */
 bool talk_event_st3_3_arrived = false;
 void talk_event_st3_3(){
 	flame_flush();
-	if(!talk_event_st3_3_arrived){ //‰‚ß‚Ä—ˆ‚½‚Æ‚«‚©‚Ç‚¤‚©
+	if(!talk_event_st3_3_arrived){ //åˆã‚ã¦æ¥ãŸã¨ãã‹ã©ã†ã‹
 		exstrcpy(now_text,talk_st3_3,eslengthof(talk_st3_3));
 		string_march(now_text,2,2,eslengthof(talk_st3_3));
 		if(instory_yesno(2 + eslengthof(talk_st3_3) + 1)){
@@ -252,7 +252,7 @@ void talk_event_st3_3(){
 		exstrcpy(now_text,talk_st3_3_0,eslengthof(talk_st3_3_0));
 		string_march(now_text,2,2 + eslengthof(talk_st3_3) + 4,eslengthof(talk_st3_3_0));
 		extendstr error_text[] = {
-			{"ƒ|[ƒVƒ‡ƒ“‚Í‚±‚êˆÈã‚Ä‚È‚¢‚Ì‚Å•Ô‚µ‚½¥  ",0,0},
+			{"ãƒãƒ¼ã‚·ãƒ§ãƒ³ã¯ã“ã‚Œä»¥ä¸ŠæŒã¦ãªã„ã®ã§è¿”ã—ãŸâ–¼  ",0,0},
 		};
 		if(get_potion()){
 		}else{
@@ -260,7 +260,7 @@ void talk_event_st3_3(){
 			string_march(now_text,2,2 + eslengthof(talk_st3_3) + 7,lengthof(error_text,extendstr));
 		}
 		talk_event_st3_3_arrived = true;
-	}else if(using_weapon != &all_weapons[2]){ //‰‚ß‚Ä‚Å‚Í‚È‚­A‘•”õ‚ªe‚Å‚Í‚È‚¢
+	}else if(using_weapon != &all_weapons[2]){ //åˆã‚ã¦ã§ã¯ãªãã€è£…å‚™ãŒéŠƒã§ã¯ãªã„æ™‚
 		exstrcpy(now_text,talk_st3_3_1,eslengthof(talk_st3_3_1));
 		string_march(now_text,2,2,eslengthof(talk_st3_3_1));
 		if(instory_yesno(2 + eslengthof(talk_st3_3_1) + 1)){
@@ -278,7 +278,7 @@ void talk_event_st3_3(){
 	}
 }
 
-/* ƒXƒe[ƒW3 ’†‰›ƒ}ƒbƒv¶‚Ì•”‰® */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸3 ä¸­å¤®ãƒãƒƒãƒ—å·¦ã®éƒ¨å±‹ */
 void talk_event_st3_5(){
 	flame_flush();
 	exstrcpy(now_text,talk_st3_5_1,eslengthof(talk_st3_5_1));
@@ -292,7 +292,7 @@ void talk_event_st3_5(){
 	have_nasu = 1;
 }
 
-/* ƒXƒe[ƒW3 ‰Eƒ}ƒbƒv¶‚Ì•”‰® */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸3 å³ãƒãƒƒãƒ—å·¦ã®éƒ¨å±‹ */
 void talk_event_st3_6(){
 	flame_flush();
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
@@ -300,17 +300,17 @@ void talk_event_st3_6(){
 	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(talk_st3_6));
 }
 
-/* ƒXƒe[ƒW3 ‰Eƒ}ƒbƒv‰E‚Ì•”‰® */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸3 å³ãƒãƒƒãƒ—å³ã®éƒ¨å±‹ */
 bool battle_event_st3_7_arrived = false;
 
-/* ƒXƒe[ƒW3 ƒ{ƒXí‘O */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸3 ãƒœã‚¹æˆ¦å‰ */
 void before_battle_st3(){
 	flame_flush();
 	exstrcpy(now_text,beforebattle_stage3, eslengthof(beforebattle_stage3));
 	string_march(now_text,2,2,eslengthof(beforebattle_stage3));
 }
 
-/* ƒXƒe[ƒW3 ƒ{ƒXíŒã */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸3 ãƒœã‚¹æˆ¦å¾Œ */
 void after_battle_st3(){
 	flame_flush();
 	exstrcpy(now_text,afterbattle_stage3, eslengthof(afterbattle_stage3));
@@ -318,11 +318,11 @@ void after_battle_st3(){
 	flame_clean();
 }
 
-/* ƒXƒe[ƒW4 ‰Eƒ}ƒbƒv¶‰º‚Ì•”‰® */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸4 å³ãƒãƒƒãƒ—å·¦ä¸‹ã®éƒ¨å±‹ */
 bool talk_event_st4_0_arrived = false;
 void talk_event_st4_0(){
 	flame_flush();
-	if(!talk_event_st4_0_arrived){ //‰‚ß‚Ä—ˆ‚½‚Æ‚«‚©‚Ç‚¤‚©
+	if(!talk_event_st4_0_arrived){ //åˆã‚ã¦æ¥ãŸã¨ãã‹ã©ã†ã‹
 		exstrcpy(now_text,talk_st4_0,eslengthof(talk_st4_0));
 		string_march(now_text,2,2,eslengthof(talk_st4_0));
 		if(instory_yesno(2 + eslengthof(talk_st4_0) + 1)){
@@ -334,7 +334,7 @@ void talk_event_st4_0(){
 			string_march(now_text,2,2 + eslengthof(talk_st4_0) + 3,eslengthof(talk_st4_0_3));
 		}
 		talk_event_st4_0_arrived = true;
-	}else if(arist_using_weapon != &all_weapons4back[1]){ //‰‚ß‚Ä‚Å‚Í‚È‚­A‘•”õ‚ªe‚Å‚Í‚È‚¢
+	}else if(arist_using_weapon != &all_weapons4back[1]){ //åˆã‚ã¦ã§ã¯ãªãã€è£…å‚™ãŒéŠƒã§ã¯ãªã„æ™‚
 		exstrcpy(now_text,talk_st4_0_1,eslengthof(talk_st4_0_1));
 		string_march(now_text,2,2,eslengthof(talk_st4_0_1));
 		if(instory_yesno(2 + eslengthof(talk_st4_0_1) + 1)){
@@ -352,11 +352,11 @@ void talk_event_st4_0(){
 	}
 }
 
-/* ƒXƒe[ƒW4 ‰Eƒ}ƒbƒv‰º‚Ì•”‰® */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸4 å³ãƒãƒƒãƒ—ä¸‹ã®éƒ¨å±‹ */
 bool talk_event_st4_1_arrived = false;
 void talk_event_st4_1(){
 	flame_flush();
-	if(!talk_event_st4_1_arrived){ //‰‚ß‚Ä—ˆ‚½‚Æ‚«‚©‚Ç‚¤‚©
+	if(!talk_event_st4_1_arrived){ //åˆã‚ã¦æ¥ãŸã¨ãã‹ã©ã†ã‹
 		exstrcpy(now_text,talk_st4_1,eslengthof(talk_st4_1));
 		string_march(now_text,2,2,eslengthof(talk_st4_1));
 		if(instory_yesno(2 + eslengthof(talk_st4_1) + 1)){
@@ -368,7 +368,7 @@ void talk_event_st4_1(){
 			string_march(now_text,2,2 + eslengthof(talk_st4_1) + 3,eslengthof(talk_st4_1_3));
 		}
 		talk_event_st4_1_arrived = true;
-	}else if(arist_using_protector != &all_protectors[1]){ //‰‚ß‚Ä‚Å‚Í‚È‚­A‘•”õ‚ªe‚Å‚Í‚È‚¢
+	}else if(arist_using_protector != &all_protectors[1]){ //åˆã‚ã¦ã§ã¯ãªãã€è£…å‚™ãŒéŠƒã§ã¯ãªã„æ™‚
 		exstrcpy(now_text,talk_st4_1_1,eslengthof(talk_st4_1_1));
 		string_march(now_text,2,2,eslengthof(talk_st4_1_1));
 		if(instory_yesno(2 + eslengthof(talk_st4_1_1) + 1)){
@@ -387,7 +387,7 @@ void talk_event_st4_1(){
 }
 
 
-/* ƒXƒe[ƒW4 ¶ƒ}ƒbƒv‰E‚Ì•”‰® */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸4 å·¦ãƒãƒƒãƒ—å³ã®éƒ¨å±‹ */
 bool talk_event_st4_2_arrived = false;
 void talk_event_st4_2(){
 	if(talk_event_st4_2_arrived){
@@ -399,7 +399,7 @@ void talk_event_st4_2(){
 	}
 }
 
-/* ƒXƒe[ƒW4 ’†‰›ƒ}ƒbƒv¶‚Ì•”‰® */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸4 ä¸­å¤®ãƒãƒƒãƒ—å·¦ã®éƒ¨å±‹ */
 bool battle_event_st4_3_arrived = false;
 void talk_event_st4_3(){
 	flame_flush();
@@ -408,7 +408,7 @@ void talk_event_st4_3(){
 	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(talk_st4_3));
 }
 
-/* ƒXƒe[ƒW4 ‰Eƒ}ƒbƒv¶‚Ì•”‰® */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸4 å³ãƒãƒƒãƒ—å·¦ã®éƒ¨å±‹ */
 bool battle_event_st4_5_arrived = false;
 void talk_event_st4_5(){
 	flame_flush();
@@ -417,21 +417,21 @@ void talk_event_st4_5(){
 	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(talk_st4_5));
 }
 
-/* ƒXƒe[ƒW2 ‰E‚Ì•”‰® */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸2 å³ã®éƒ¨å±‹ */
 void talk_event_st4_6(){
 	flame_flush();
 	exstrcpy(now_text,talk_st4_6,eslengthof(talk_st4_6));
 	string_march(now_text,2,2,eslengthof(talk_st4_6));
 }
 
-/* ƒXƒe[ƒW4 ƒ{ƒXí‘O */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸4 ãƒœã‚¹æˆ¦å‰ */
 void before_battle_st4(){
 	flame_flush();
 	exstrcpy(now_text,beforebattle_stage4, eslengthof(beforebattle_stage4));
 	string_march(now_text,2,2,eslengthof(beforebattle_stage4));
 }
 
-/* ƒXƒe[ƒW4 ƒ{ƒXíŒã */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸4 ãƒœã‚¹æˆ¦å¾Œ */
 void after_battle_st4(){
 	flame_flush();
 	exstrcpy(now_text,afterbattle_stage4_1, eslengthof(afterbattle_stage4_1));
@@ -445,7 +445,7 @@ void after_battle_st4(){
 	flame_clean();
 }
 
-/* ƒXƒe[ƒW5 ƒ{ƒXíŒã */
+/* ã‚¹ãƒ†ãƒ¼ã‚¸5 ãƒœã‚¹æˆ¦å¾Œ */
 void after_battle_st5(){
 	flame_flush();
 	exstrcpy(now_text,afterbattle_stage5, eslengthof(afterbattle_stage5));

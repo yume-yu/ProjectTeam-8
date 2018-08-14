@@ -1,6 +1,6 @@
 /**
  * @file map_func.c
- * @brief ƒ}ƒbƒvŠÖ˜A‚Ì•Ï”‚âŠÖ”‚ğ’è‹`‚·‚éƒtƒ@ƒCƒ‹
+ * @brief ãƒãƒƒãƒ—é–¢é€£ã®å¤‰æ•°ã‚„é–¢æ•°ã‚’å®šç¾©ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«
  * @author yume_yu
  * @date 2018/07/12
  */
@@ -8,7 +8,7 @@
 #include "thebeautifulsky.h"
 
 /**
- *	ƒ}ƒbƒv‚ğƒRƒs[‚·‚éŠÖ”
+ *	ãƒãƒƒãƒ—ã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹é–¢æ•°
  */
 void mapcpy(char *(to)[HEIGHT - 2],char *(from)[HEIGHT - 2]){
 	for(int i = 0; i <  HEIGHT -2; i++){
@@ -18,7 +18,7 @@ void mapcpy(char *(to)[HEIGHT - 2],char *(from)[HEIGHT - 2]){
 }
 
 /**
- *	À•W”z—ñ‚ğÀ•W‚ÌƒAƒhƒŒƒX”z—ñ‚É•ÏŠ·‚·‚éŠÖ”
+ *	åº§æ¨™é…åˆ—ã‚’åº§æ¨™ã®ã‚¢ãƒ‰ãƒ¬ã‚¹é…åˆ—ã«å¤‰æ›ã™ã‚‹é–¢æ•°
  */
 void coor_cnv_adr(arrow_pos *(to)[WIDTH - 2][HEIGHT - 2],arrow_pos from[WIDTH - 2][HEIGHT - 2]){
 	for(int i = 0; i < WIDTH - 2; i++){
@@ -29,7 +29,7 @@ void coor_cnv_adr(arrow_pos *(to)[WIDTH - 2][HEIGHT - 2],arrow_pos from[WIDTH - 
 }
 
 /**
- *	À•W‚ÌƒAƒhƒŒƒX”z—ñ‚ğƒRƒs[‚·‚éŠÖ”
+ *	åº§æ¨™ã®ã‚¢ãƒ‰ãƒ¬ã‚¹é…åˆ—ã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹é–¢æ•°
  */
 void coorcpy(arrow_pos *(to)[WIDTH - 2][HEIGHT - 2],arrow_pos *(from)[WIDTH - 2][HEIGHT - 2]){
 	for(int i = 0; i < WIDTH - 2; i++){
@@ -40,19 +40,19 @@ void coorcpy(arrow_pos *(to)[WIDTH - 2][HEIGHT - 2],arrow_pos *(from)[WIDTH - 2]
 }
 
 /*
- * ƒ}ƒbƒvã‚ğˆÚ“®‚·‚éŠÖ”
- * width						ƒ}ƒbƒv‚Ì•
- * hright 					ƒ}ƒbƒv‚Ì‚‚³
- * tmp_pos[10][10]	ƒ}ƒbƒvÀ•W‚Ì”z—ñ
- * offset						‘€ìó‚¯•t‚¯ŠJn‚ÌÀ•W
- * –ß‚è’l
- * int tmp_pos			ƒ‹[ƒv‚ğ”²‚¯‚½Û‚ÌÀ•W
+ * ãƒãƒƒãƒ—ä¸Šã‚’ç§»å‹•ã™ã‚‹é–¢æ•°
+ * width						ãƒãƒƒãƒ—ã®å¹…
+ * hright 					ãƒãƒƒãƒ—ã®é«˜ã•
+ * tmp_pos[10][10]	ãƒãƒƒãƒ—åº§æ¨™ã®é…åˆ—
+ * offset						æ“ä½œå—ã‘ä»˜ã‘é–‹å§‹æ™‚ã®åº§æ¨™
+ * æˆ»ã‚Šå€¤
+ * int tmp_pos			ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ãŸéš›ã®åº§æ¨™
  */
 arrow_pos move_on_map(int width, int height,arrow_pos *(tmp_pos)[WIDTH -2 ][HEIGHT - 2], arrow_pos offset){
 	arrow_pos arrow_pos_label = offset;
 	arrow_pos return_value;
 	input_assort tmp_input_list;
-	print_line("œ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+	print_line("â—",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
 	while(1){
 		while(!(tmp_input_list = mykbhit()).kbhit_flag);
 		switch(tmp_input_list.input_char){
@@ -62,7 +62,7 @@ arrow_pos move_on_map(int width, int height,arrow_pos *(tmp_pos)[WIDTH -2 ][HEIG
 				}else{
 					arrow_pos_label.y--;
 				}
-				print_line("œ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				print_line("â—",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
 				break;
 
 			case 's':
@@ -71,7 +71,7 @@ arrow_pos move_on_map(int width, int height,arrow_pos *(tmp_pos)[WIDTH -2 ][HEIG
 				}else{
 					arrow_pos_label.y++;
 				}
-				print_line("œ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				print_line("â—",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
 				break;
 
 			case 'a':
@@ -80,7 +80,7 @@ arrow_pos move_on_map(int width, int height,arrow_pos *(tmp_pos)[WIDTH -2 ][HEIG
 				}else{
 					arrow_pos_label.x--;
 				}
-				print_line("œ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				print_line("â—",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
 				break;
 
 			case 'd':
@@ -89,7 +89,7 @@ arrow_pos move_on_map(int width, int height,arrow_pos *(tmp_pos)[WIDTH -2 ][HEIG
 				}else{
 					arrow_pos_label.x++;
 				}
-				print_line("œ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				print_line("â—",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
 				break;
 			case ENTERKEY:
 				break;
@@ -102,11 +102,11 @@ arrow_pos move_on_map(int width, int height,arrow_pos *(tmp_pos)[WIDTH -2 ][HEIG
 				return *tmp_pos[arrow_pos_label.x][arrow_pos_label.y];
 				break;
 			default:
-				//print_line("œ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				//print_line("â—",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
 				continue;
 				//break;
 		}
-		//ƒfƒoƒbƒO—pÀ•W•\¦
+		//ãƒ‡ãƒãƒƒã‚°ç”¨åº§æ¨™è¡¨ç¤º
 		//printf("%2d,%2d",arrow_pos_label.x,arrow_pos_label.y);
 		//printf("%2d,%2d %2d,%2d %d",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y,arrow_pos_label.x,arrow_pos_label.y,tmp_pos[arrow_pos_label.x][arrow_pos_label.y + 1]->not_active);
 		if(tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->at_event){
@@ -122,7 +122,7 @@ void update_map(stage now_stage){
 }
 
 /*
- *	ƒ}ƒbƒv”z—ñ‚Ì‰Šú‰»
+ *	ãƒãƒƒãƒ—é…åˆ—ã®åˆæœŸåŒ–
  */
 void initmaps(){
 	mapcpy(maps[stage1],map_st1);

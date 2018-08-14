@@ -1,6 +1,6 @@
 /**
  * @file		decide_event.c
- * @brief		ƒ}ƒbƒvˆÚ“®ŠÖ”‚©‚ç‚Ì–ß‚è’l‚ğŒ©‚Ä”­¶ƒCƒxƒ“ƒg‚ğŒˆ’è‚·‚éŠÖ”‚ğ‘‚¢‚½ƒtƒ@ƒCƒ‹
+ * @brief		ãƒãƒƒãƒ—ç§»å‹•é–¢æ•°ã‹ã‚‰ã®æˆ»ã‚Šå€¤ã‚’è¦‹ã¦ç™ºç”Ÿã‚¤ãƒ™ãƒ³ãƒˆã‚’æ±ºå®šã™ã‚‹é–¢æ•°ã‚’æ›¸ã„ãŸãƒ•ã‚¡ã‚¤ãƒ«
  * @author	yume_yu
  * @date		2018/07/12
  */
@@ -9,14 +9,14 @@
 
 event decide_event(arrow_pos exit_point){
 	event selected_event;
-	/* ƒƒjƒ…[•\¦‚©‚Ç‚¤‚©‚ğ”»’è */
+	/* ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤ºã‹ã©ã†ã‹ã‚’åˆ¤å®š */
 	if(exit_point.x == 58 && exit_point.y == 24){
 		selected_event = open_menu;
 	}else{
 		switch(now_stage){
 			case stage1:
 				if(exit_point.x == 31 && exit_point.y == 7){
-					/* ƒ{ƒX“’B */
+					/* ãƒœã‚¹åˆ°é” */
 					selected_event = battle_event;
 					front = &lirel;
 					back = &arist;
@@ -24,33 +24,33 @@ event decide_event(arrow_pos exit_point){
 					enemies[0] = &boss1;
 					enemies[1] = &dummy;
 					enemy_amount = 1;
-					/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+					/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 					start_pos.x = exit_point.x - 2;
 					start_pos.y = (exit_point.y + 1 ) - 2;
 					before_battle_st1();
 				}else if((exit_point.x == 4 || exit_point.x == 5) && exit_point.y == 15){
-					/* ˆê”Ô¶‚Ì•”‰®“’B */
+					/* ä¸€ç•ªå·¦ã®éƒ¨å±‹åˆ°é” */
 					selected_event = talk_event;
 					room_id = 0;
-					/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+					/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 					start_pos.x = exit_point.x - 2;
 					start_pos.y = (exit_point.y + 1 ) - 2;
 				}else if(exit_point.x == 25 && exit_point.y == 14){
-					/* ^‚ñ’†‚Ì•”‰®“’B */
+					/* çœŸã‚“ä¸­ã®éƒ¨å±‹åˆ°é” */
 					selected_event = talk_event;
 					room_id = 1;
-					/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+					/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 					start_pos.x = exit_point.x - 2;
 					start_pos.y = (exit_point.y + 1 ) - 2;
 				}
-				/* ‰E‘¤‚ÌN“ü‹Ö~ */
+				/* å³å´ã®ä¾µå…¥ç¦æ­¢ */
 				if(exit_point.x == 35 && exit_point.y == 17){
 					room_id = 2;
 					selected_event = talk_event;
-					/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+					/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 					start_pos.x = exit_point.x - 1 - 2;
 					start_pos.y = exit_point.y - 2;
-					/* ‰E‘¤‚ÌN“ü‹Ö~ */
+					/* å³å´ã®ä¾µå…¥ç¦æ­¢ */
 					if(exit_point.x == 35 && exit_point.y == 17){
 						selected_event = talk_event;
 					}
@@ -58,7 +58,7 @@ event decide_event(arrow_pos exit_point){
 				break;
 			case stage2:
 				if(exit_point.x == 28 && exit_point.y == 9){
-					/* ƒ{ƒX“’B */
+					/* ãƒœã‚¹åˆ°é” */
 					room_id = 2;
 					selected_event = battle_event;
 					front = &naoki;
@@ -69,7 +69,7 @@ event decide_event(arrow_pos exit_point){
 					enemy_amount = 1;
 					before_battle_st2();
 				}else if(exit_point.x == 15 && exit_point.y == 15){
-					/* ¶‚Ì•”‰® */
+					/* å·¦ã®éƒ¨å±‹ */
 					room_id = 1;
 					if(!talk_event_st2_1_arrived){
 						room_id = 1;
@@ -85,37 +85,37 @@ event decide_event(arrow_pos exit_point){
 						selected_event = talk_event;
 					}
 				}else if(exit_point.x == 41 && exit_point.y == 15){
-					/* ‰E‚Ì•”‰® */
+					/* å³ã®éƒ¨å±‹ */
 					room_id = 0;
 					selected_event = talk_event;
 				}else{
 				}
-				/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+				/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 				start_pos.x = exit_point.x - 2;
 				start_pos.y = (exit_point.y + 1 ) - 2;
 				break;
-			case stage3_1:	//’†‰›ƒ}ƒbƒv
+			case stage3_1:	//ä¸­å¤®ãƒãƒƒãƒ—
 				if(exit_point.x == 58 && exit_point.y == 18){
-					/* ‰Eƒ}ƒbƒv‚Ö‚ÌˆÚ“® */
+					/* å³ãƒãƒƒãƒ—ã¸ã®ç§»å‹• */
 					selected_event = move_map;
 					now_stage = stage3_2;
 					start_pos.x= 1;
 					start_pos.y = 17 -  2;
 				}else if(exit_point.x == 2 && exit_point.y == 18){
-					/* ¶ƒ}ƒbƒv‚Ö‚ÌˆÚ“® */
+					/* å·¦ãƒãƒƒãƒ—ã¸ã®ç§»å‹• */
 					selected_event = move_map;
 					now_stage = stage3_3;
 					start_pos.x= 56 - 2;
 					start_pos.y = 17 -  2;
 				}else if(exit_point.x == 15 && exit_point.y == 15){
-					/* ¶‚Ì‰Æ */
+					/* å·¦ã®å®¶ */
 					room_id = 3;
 					selected_event = talk_event;
-					/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+					/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 					start_pos.x= 15 - 2;
 					start_pos.y = 15 + 1 - 2;
 				}else if(exit_point.x == 28 && exit_point.y == 9){
-					/* ƒ{ƒX“’B */
+					/* ãƒœã‚¹åˆ°é” */
 					room_id = 4;
 					selected_event = battle_event;
 					front = &naoki;
@@ -126,27 +126,27 @@ event decide_event(arrow_pos exit_point){
 					enemy_amount = 1;
 					before_battle_st3();
 				}else if(exit_point.x == 41 && exit_point.y == 15){
-					/* ‰E‚Ì‰Æ */
+					/* å³ã®å®¶ */
 					room_id = 5;
 					selected_event = talk_event;
-					/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+					/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 					start_pos.x= 41 - 2;
 					start_pos.y = 15 + 1 - 2;
 				}
 				break;
-			case stage3_2:	//‰Eƒ}ƒbƒv
+			case stage3_2:	//å³ãƒãƒƒãƒ—
 				if(exit_point.x == 3 && exit_point.y == 17){
-					/* ’†‰›ƒ}ƒbƒv‚Ö‚ÌˆÚ“® */
+					/* ä¸­å¤®ãƒãƒƒãƒ—ã¸ã®ç§»å‹• */
 					selected_event = move_map;
 					now_stage = stage3_1;
 					start_pos.x = 57 - 2;
 					start_pos.y = 18 - 2;
 				}else if(exit_point.x == 43 && exit_point.y == 14){
-					/* ¶‚Ì‰Æ */
+					/* å·¦ã®å®¶ */
 					room_id = 7;
-					if(!battle_event_st3_7_arrived){ //n‚ß‚Ä‚Ì–K–â‚Ì
+					if(!battle_event_st3_7_arrived){ //å§‹ã‚ã¦ã®è¨ªå•ã®æ™‚
 						selected_event = battle_event;
-						/* ƒLƒƒƒ‰ƒNƒ^[ƒZƒbƒg */
+						/* ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚»ãƒƒãƒˆ */
 						front = &naoki;
 						back = &arist;
 						set_ch_stat(ST31_WEAK_NAME,&boss1,ST1_BOSS_HP,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
@@ -155,55 +155,55 @@ event decide_event(arrow_pos exit_point){
 						enemies[1] = &boss2;
 						enemy_amount = 2;
 						battle_event_st3_7_arrived = 1;
-					}else{ //2‰ñ‚ßˆÈ~‚Ì
-						room_id = 6; //‚ß‚ñ‚Ç‚­‚³‚©‚Á‚½‚Ì‚ÅA—×‚Ì•”‰®‚É‹U‘•‚µ‚Ä“¯‚¶ƒCƒxƒ“ƒg‚ğ‹N‚±‚·
+					}else{ //2å›ã‚ä»¥é™ã®æ™‚
+						room_id = 6; //ã‚ã‚“ã©ãã•ã‹ã£ãŸã®ã§ã€éš£ã®éƒ¨å±‹ã«å½è£…ã—ã¦åŒã˜ã‚¤ãƒ™ãƒ³ãƒˆã‚’èµ·ã“ã™
 						selected_event = talk_event;
 					}
-					/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+					/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 					start_pos.x= 43 - 2;
 					start_pos.y = 14 + 1 - 2;
 				}else if(exit_point.x == 15 && exit_point.y == 14){
-					/* ‰E‚Ì‰Æ */
+					/* å³ã®å®¶ */
 					room_id = 6;
 					selected_event = talk_event;
-					/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+					/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 					start_pos.x= 15 - 2;
 					start_pos.y = 14 + 1 - 2;
 				}
 				break;
-			case stage3_3:	//¶ƒ}ƒbƒv
+			case stage3_3:	//å·¦ãƒãƒƒãƒ—
 				if(exit_point.x == 57 && exit_point.y == 17){
-					/* ’†‰›ƒ}ƒbƒv‚Ö‚ÌˆÚ“® */
+					/* ä¸­å¤®ãƒãƒƒãƒ—ã¸ã®ç§»å‹• */
 					selected_event = move_map;
 					now_stage = stage3_1;
 					start_pos.x = 2;
 					start_pos.y = 18 - 2;
 				}else if(exit_point.x == 43 && exit_point.y == 14){
-					/* ¶ã‚Ì‰Æ */
+					/* å·¦ä¸Šã®å®¶ */
 					room_id = 2;
 					selected_event = talk_event;
-					/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+					/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 					start_pos.x= 43 - 2;
 					start_pos.y = 14 + 1 - 2;
 				}else if(exit_point.x == 27 && exit_point.y == 20){
-					/* ‰º‚Ì‰Æ */
+					/* ä¸‹ã®å®¶ */
 					room_id = 1;
 					selected_event = talk_event;
-					/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+					/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 					start_pos.x= 27 - 2;
 					start_pos.y = 20 - 1 - 2;
 				}else if(exit_point.x == 15 && exit_point.y == 14){
-					/* ‰Eã‚Ì‰Æ */
+					/* å³ä¸Šã®å®¶ */
 					room_id = 0;
 					selected_event = talk_event;
-					/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+					/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 					start_pos.x= 15 - 2;
 					start_pos.y = 14 + 1 - 2;
 				}
 				break;
-			case stage4_1: //¶ƒ}ƒbƒv
+			case stage4_1: //å·¦ãƒãƒƒãƒ—
 				if(exit_point.x == 55 && (exit_point.y == 13 || exit_point.y == 14)){
-					/* ’†‰›ƒ}ƒbƒv‚Ö‚ÌˆÚ“® */
+					/* ä¸­å¤®ãƒãƒƒãƒ—ã¸ã®ç§»å‹• */
 					selected_event = move_map;
 					now_stage = stage4_2;
 					mapcpy(now_map,maps[now_stage]);
@@ -211,31 +211,31 @@ event decide_event(arrow_pos exit_point){
 					start_pos.x = 4 - 2;
 					start_pos.y = 14 - 2;
 				}else if((exit_point.x == 14 || exit_point.x == 15) && exit_point.y == 11){
-					/* ¶‰º‚Ì‰Æ */
+					/* å·¦ä¸‹ã®å®¶ */
 					selected_event = talk_event;
 					room_id = 0;
-					/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+					/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 					start_pos.x = exit_point.x - 2;;
 					start_pos.y = 12 - 2;
 				}else if(exit_point.x == 40 && exit_point.y == 6){
-					/* ã‚Ì‰Æ */
+					/* ä¸Šã®å®¶ */
 					room_id = 1;
 					selected_event = talk_event;
-					/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+					/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 					start_pos.x= 40 - 1 - 2;
 					start_pos.y = 6 - 2;
 				}else if(exit_point.x == 38 && exit_point.y == 11){
-					/* ‰E‰º‚Ì‰Æ */
+					/* å³ä¸‹ã®å®¶ */
 					room_id = 2;
 					selected_event = talk_event;
-					/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+					/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 					start_pos.x= exit_point.x - 2;
 					start_pos.y = 11 + 1 - 2;
 				}
 				break;
-			case stage4_2: //’†‰›ƒ}ƒbƒv
+			case stage4_2: //ä¸­å¤®ãƒãƒƒãƒ—
 				if(exit_point.x == 55 && (exit_point.y == 14 || exit_point.y == 15)){
-					/* ‰Eƒ}ƒbƒv‚Ö‚ÌˆÚ“® */
+					/* å³ãƒãƒƒãƒ—ã¸ã®ç§»å‹• */
 					selected_event = move_map;
 					now_stage = stage4_3;
 					mapcpy(now_map,maps[now_stage]);
@@ -243,7 +243,7 @@ event decide_event(arrow_pos exit_point){
 					start_pos.x = 2;
 					start_pos.y = 14 - 2;
 				}else if(exit_point.x == 3 && (exit_point.y == 14 || exit_point.y == 13)){
-					/* ¶ƒ}ƒbƒv‚Ö‚ÌˆÚ“® */
+					/* å·¦ãƒãƒƒãƒ—ã¸ã®ç§»å‹• */
 					selected_event = move_map;
 					now_stage = stage4_1;
 					mapcpy(now_map,maps[now_stage]);
@@ -251,17 +251,17 @@ event decide_event(arrow_pos exit_point){
 					start_pos.x = 54 - 2;
 					start_pos.y = 14 - 2;
 				}else if(exit_point.x == 20 && exit_point.y == 6){
-					/* ã‚Ì‰Æ */
+					/* ä¸Šã®å®¶ */
 					room_id = 3;
 					selected_event = talk_event;
-					/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+					/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 					start_pos.x= 20 - 1 - 2;
 					start_pos.y = 6 - 2;
 				}else if((exit_point.x == 36 || exit_point.x == 37 || exit_point.x == 38) && exit_point.y == 12){
-					/* ƒ{ƒX“’B */
+					/* ãƒœã‚¹åˆ°é” */
 					room_id = 4;
 					selected_event = battle_event;
-					/* ƒLƒƒƒ‰ƒNƒ^[ƒZƒbƒg */
+					/* ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚»ãƒƒãƒˆ */
 					front = &robo;
 					back = &dummy;
 					set_ch_stat(ST4_BOSS_NAME,&boss1,ST4_BOSS_HP,ST4_BOSS_HP,ST4_BOSS_MINATK,ST4_BOSS_MAXATK);
@@ -271,8 +271,8 @@ event decide_event(arrow_pos exit_point){
 					before_battle_st4();
 				}
 				break;
-			case stage4_3://‰Eƒ}ƒbƒv
-				/* ’†‰›ƒ}ƒbƒv‚Ö‚ÌˆÚ“® */
+			case stage4_3://å³ãƒãƒƒãƒ—
+				/* ä¸­å¤®ãƒãƒƒãƒ—ã¸ã®ç§»å‹• */
 				if(exit_point.x == 2 && (exit_point.y == 14 || exit_point.y == 15)){
 					selected_event = move_map;
 					now_stage = stage4_2;
@@ -281,11 +281,11 @@ event decide_event(arrow_pos exit_point){
 					start_pos.x = 54 - 2;
 					start_pos.y = 14 - 2;
 				}else if((exit_point.x == 14 || exit_point.x == 15) && exit_point.y == 11){
-					/* ¶‚Ì‰Æ */
+					/* å·¦ã®å®¶ */
 					room_id = 5;
-					if(!battle_event_st4_5_arrived){ //n‚ß‚Ä‚Ì–K–â‚Ì
+					if(!battle_event_st4_5_arrived){ //å§‹ã‚ã¦ã®è¨ªå•ã®æ™‚
 						selected_event = battle_event;
-						/* ƒLƒƒƒ‰ƒNƒ^[ƒZƒbƒg */
+						/* ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚»ãƒƒãƒˆ */
 						front = &naoki;
 						back = &arist;
 						set_ch_stat(ST41_WEAK_NAME,&boss1,ST1_BOSS_HP,ST1_BOSS_HP,ST1_BOSS_MINATK,ST1_BOSS_MAXATK);
@@ -294,16 +294,16 @@ event decide_event(arrow_pos exit_point){
 						enemies[1] = &boss2;
 						enemy_amount = 2;
 						battle_event_st4_5_arrived = 1;
-					}else{ //2‰ñ‚ßˆÈ~‚Ì
+					}else{ //2å›ã‚ä»¥é™ã®æ™‚
 						selected_event = talk_event;
 					}
 					start_pos.x = exit_point.x - 2;
 					start_pos.y = 12 - 2;
 				}else if(exit_point.x == 40 && exit_point.y == 6){
-					/* ã‚Ì‰Æ */
+					/* ä¸Šã®å®¶ */
 					room_id = 6;
 					selected_event = talk_event;
-					/* ƒ}ƒbƒv•œ‹A‚ÌÀ•W‚ğw’è */
+					/* ãƒãƒƒãƒ—å¾©å¸°æ™‚ã®åº§æ¨™ã‚’æŒ‡å®š */
 					start_pos.x=  40 - 1 - 2;
 					start_pos.y = 6 - 2;
 				}

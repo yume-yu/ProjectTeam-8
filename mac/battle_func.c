@@ -1,21 +1,21 @@
 /**
  * @file battle_func.c
- * @brief æˆ¦é—˜ã«é–¢é€£ã™ã‚‹é–¢æ•°ã‚’å®šç¾©ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«
+ * @brief è¬Œï½¦é«£å€¥â†“é«¢ï½¢é¨¾ï½£ç¸ºå¶ï½‹é«¢ï½¢è¬¨ï½°ç¹§è²ï½®å¤‚ï½¾ï½©ç¸ºå¶ï½‹ç¹è¼”ãƒç¹§ï½¤ç¹ï½«
  * @author yume_yu
  * @date 2018/07/14
  */
 #include "thebeautifulsky.h"
 
-//í“¬ƒ‚[ƒh‚Ì‚ÉƒRƒ}ƒ“ƒh•”•ª•\¦‚·‚éŠÖ”
+//æˆ¦é—˜ãƒ¢ãƒ¼ãƒ‰ã®æ™‚ã«ã‚³ãƒãƒ³ãƒ‰éƒ¨åˆ†è¡¨ç¤ºã™ã‚‹é–¢æ•°
 void print_bt_commands(){
-	print_line("‚±‚¤‚°‚«",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-	print_line("‚Æ‚­‚µ‚ã",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
-	print_line("‚©‚Î‚¤",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3);
-	print_line("‚Ç‚¤‚®",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4);
+	print_line("ã“ã†ã’ã",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+	print_line("ã¨ãã—ã‚…",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
+	print_line("ã‹ã°ã†",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3);
+	print_line("ã©ã†ã",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4);
 	fflush(stdout);
 }
 
-//“G‚ÌHPƒQ[ƒW‚ğ•`‰æ‚·‚éŠÖ”
+//æ•µã®HPã‚²ãƒ¼ã‚¸ã‚’æç”»ã™ã‚‹é–¢æ•°
 void print_health_bar(character *target[],int amount){
 	double health_par = 0;
 	for(int i = 0; i < amount; i++){
@@ -36,14 +36,14 @@ void print_health_bar(character *target[],int amount){
 				printf(" ");
 			}
 		}
-		//printf("%f_n%d_n%d",health_par,target[i]->hp,target[i]->max_hp);
+		//printf("%fï¼¼n%dï¼¼n%d",health_par,target[i]->hp,target[i]->max_hp);
 		fflush(stdout);
 	}
 }
 
-//í“¬ƒ‚[ƒh‚Ì‚ÉHP•”•ª‚ğ•`‰æ‚·‚éŠÖ”
+//æˆ¦é—˜ãƒ¢ãƒ¼ãƒ‰ã®æ™‚ã«HPéƒ¨åˆ†ã‚’æç”»ã™ã‚‹é–¢æ•°
 void print_bt_status(character *front,character *back){
-	//ƒXƒe[ƒ^ƒX•”•ª•\¦
+	//ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹éƒ¨åˆ†è¡¨ç¤º
 	char *(spaces)[] = {
 		"               ",
 		"               "
@@ -60,22 +60,22 @@ void print_bt_status(character *front,character *back){
 	fflush(stdout);
 }
 
-//í“¬ƒ‚[ƒh
+//æˆ¦é—˜ãƒ¢ãƒ¼ãƒ‰
 int battle(character *front,character *back,character *enemies[3], int enemy_amount){
-	mykbhit();																	//‰ßè“ü—ÍƒNƒbƒVƒ‡ƒ“
-	int finish_flag = 0;												//í“¬I—¹‚Ìƒtƒ‰ƒO
-	int protect_flag = 0;												//‚©‚Î‚¤s“®‚Ìƒtƒ‰ƒO
-	int use_nasu = 0;														//ƒiƒXg—pƒtƒ‰ƒO
-	int damage = 0;															//ŒvZŒã‚Ìƒ_ƒ[ƒW‚ğ‹L‰¯‚·‚é•Ï”
-	int target_label = 0;												//UŒ‚‘ÎÛ‚ğ”»’f‚·‚é‚½‚ß‚Ì•Ï”
-	int turn_count = 1;													//“Áês“®‚Ì‚½‚ßí“¬ŠJn‚©‚ç‚Ìƒ^[ƒ“‚ğ”‚¦‚é•Ï”
-	int sp_count = 0;														//“Áês“®‚Ìs“®•s”\ƒ^[ƒ“‚ğ”‚¦‚é•Ï”
-	int enemies_dead_check = 0;									//“G‚ª‘S–Å‚µ‚½‚©‚Ç‚¤‚©ƒ`ƒFƒbƒN‚·‚é‚Ég‚¤•Ï”
-	int player_can_act = 1;											//ƒvƒŒƒCƒ„[‚ªs“®‰Â”\‚©‚Ìƒtƒ‰ƒO
-	int used_flare = 0;													//ƒXƒe[ƒW5‚Å‚Ì–¡•û“Áês“®‚Ìg—pŒãƒtƒ‰ƒO
-	int enemy_amount_for_bar = enemy_amount;		//HPƒQ[ƒW•`‰æ‚Ì‚½‚ßA–{—ˆ‚Ì“G‚Ì”‚ğ‹L‰¯‚·‚é•Ï”
-	char battle_text[100] = "\0";
-	character *for_bar[enemy_amount];		//HPƒQ[ƒW•`‰æ‚Ì‚½‚ßA–{—ˆ‚Ì“G‚ÌƒAƒhƒŒƒX‚ğ‹L‰¯‚·‚é•Ï”
+	mykbhit();																	//éå‰°å…¥åŠ›ã‚¯ãƒƒã‚·ãƒ§ãƒ³
+	int finish_flag = 0;												//æˆ¦é—˜çµ‚äº†ã®ãƒ•ãƒ©ã‚°
+	int protect_flag = 0;												//ã‹ã°ã†è¡Œå‹•ã®ãƒ•ãƒ©ã‚°
+	int use_nasu = 0;														//ãƒŠã‚¹ä½¿ç”¨ãƒ•ãƒ©ã‚°
+	int damage = 0;															//è¨ˆç®—å¾Œã®ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’è¨˜æ†¶ã™ã‚‹å¤‰æ•°
+	int target_label = 0;												//æ”»æ’ƒå¯¾è±¡ã‚’åˆ¤æ–­ã™ã‚‹ãŸã‚ã®å¤‰æ•°
+	int turn_count = 1;													//ç‰¹æ®Šè¡Œå‹•ã®ãŸã‚æˆ¦é—˜é–‹å§‹ã‹ã‚‰ã®ã‚¿ãƒ¼ãƒ³ã‚’æ•°ãˆã‚‹å¤‰æ•°
+	int sp_count = 0;														//ç‰¹æ®Šè¡Œå‹•ã®è¡Œå‹•ä¸èƒ½ã‚¿ãƒ¼ãƒ³ã‚’æ•°ãˆã‚‹å¤‰æ•°
+	int enemies_dead_check = 0;									//æ•µãŒå…¨æ»…ã—ãŸã‹ã©ã†ã‹ãƒã‚§ãƒƒã‚¯ã™ã‚‹æ™‚ã«ä½¿ã†å¤‰æ•°
+	int player_can_act = 1;											//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒè¡Œå‹•å¯èƒ½ã‹ã®ãƒ•ãƒ©ã‚°
+	int used_flare = 0;													//ã‚¹ãƒ†ãƒ¼ã‚¸5ã§ã®å‘³æ–¹ç‰¹æ®Šè¡Œå‹•ã®ä½¿ç”¨å¾Œãƒ•ãƒ©ã‚°
+	int enemy_amount_for_bar = enemy_amount;		//HPã‚²ãƒ¼ã‚¸æç”»ã®ãŸã‚ã€æœ¬æ¥ã®æ•µã®æ•°ã‚’è¨˜æ†¶ã™ã‚‹å¤‰æ•°
+	char battle_text[100] = "Â¥0";
+	character *for_bar[enemy_amount];		//HPã‚²ãƒ¼ã‚¸æç”»ã®ãŸã‚ã€æœ¬æ¥ã®æ•µã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’è¨˜æ†¶ã™ã‚‹å¤‰æ•°
 	for(int i = 0;i < enemy_amount;i++){
 		for_bar[i] = enemies[i];
 	}
@@ -100,7 +100,7 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 		}
 	};
 
-	//“G‚ÌHP‚ğ‰Šú‰»
+	//æ•µã®HPã‚’åˆæœŸåŒ–
 	for(int i = 0; i < enemy_amount; i++){
 		change_hp(enemies[i],-1 * enemies[i]->max_hp);
 	}
@@ -114,31 +114,31 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 		mvcur(BATTLE_MODE_STATUS_FLAME_X + 2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT - 1);
 		printf("Turn %2d",turn_count);
 
-		/*ƒvƒŒƒCƒ„[‚Ìs“® ‚±‚±‚©‚ç*/
+		/*ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¡Œå‹• ã“ã“ã‹ã‚‰*/
 		if(player_can_act){
-			print_bt_commands();																			//ƒvƒŒƒCƒ„[‚ÌƒRƒ}ƒ“ƒh‚ğ•\¦‚·‚é
-			int command = select_from_list(battle_menu_arrow,4);			//ƒRƒ}ƒ“ƒh“ü—Í‚ğó‚¯•t‚¯‚é
-			sub_flame_clean(																					//ƒRƒ}ƒ“ƒh•”•ªƒtƒŒ[ƒ€ƒNƒŠ[ƒ“
+			print_bt_commands();																			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚³ãƒãƒ³ãƒ‰ã‚’è¡¨ç¤ºã™ã‚‹
+			int command = select_from_list(battle_menu_arrow,4);			//ã‚³ãƒãƒ³ãƒ‰å…¥åŠ›ã‚’å—ã‘ä»˜ã‘ã‚‹
+			sub_flame_clean(																					//ã‚³ãƒãƒ³ãƒ‰éƒ¨åˆ†ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¯ãƒªãƒ¼ãƒ³
 					BATTLE_MODE_STATUS_FLAME_SPLIT_X,
 					BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,
 					BATTLE_MODE_STATUS_FLAME_X + 1,
 					HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1
 					);
 			switch(command){
-				case 0:																																		//attack(UŒ‚)‚¾‚Á‚½
-					/*“G‚Ìˆê——•\¦ ‚±‚±‚©‚ç*/
+				case 0:																																		//attack(æ”»æ’ƒ)ã ã£ãŸæ™‚
+					/*æ•µã®ä¸€è¦§è¡¨ç¤º ã“ã“ã‹ã‚‰*/
 					for(int i = 0; i <= enemy_amount; i++){
 						mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1 + i);
 						if(i < enemy_amount){
 							printf("%s",enemies[i]->name);
 						}else{
-							printf("–ß‚é");
+							printf("æˆ»ã‚‹");
 						}
 					}
 					fflush(stdout);
-					/*“G‚Ìˆê——•\¦ ‚±‚±‚Ü‚Å*/
+					/*æ•µã®ä¸€è¦§è¡¨ç¤º ã“ã“ã¾ã§*/
 					target_label = select_from_list(battle_menu_arrow,enemy_amount + 1);
-					sub_flame_clean(																												//ƒRƒ}ƒ“ƒh•”•ªƒtƒŒ[ƒ€ƒNƒŠ[ƒ“
+					sub_flame_clean(																												//ã‚³ãƒãƒ³ãƒ‰éƒ¨åˆ†ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¯ãƒªãƒ¼ãƒ³
 							BATTLE_MODE_STATUS_FLAME_SPLIT_X,
 							BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,
 							BATTLE_MODE_STATUS_FLAME_X + 1,
@@ -157,16 +157,16 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 						use_nasu = 0;
 					}
 					mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-					printf("%s ‚É",enemies[target_label]->name);
+					printf("%s ã«",enemies[target_label]->name);
 					mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
-					printf("                %3d ƒ_ƒ[ƒW!¥",damage);
+					printf("                %3d ãƒ€ãƒ¡ãƒ¼ã‚¸!â–¼",damage);
 					change_hp(enemies[target_label],damage);
 					if(using_weapon->is_gun && !strcmp(front->name,FRONT2_NAME)){
 						damage = front->min_atk + rand() % (front->max_atk - front->min_atk - 1) + using_weapon->atk;
 						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 3);
-						printf("%s ‚É",enemies[target_label]->name);
+						printf("%s ã«",enemies[target_label]->name);
 						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 4);
-						printf("                %3d ƒ_ƒ[ƒW!¥",damage);
+						printf("                %3d ãƒ€ãƒ¡ãƒ¼ã‚¸!â–¼",damage);
 						change_hp(enemies[target_label],damage);
 					}
 					print_health_bar(for_bar,enemy_amount_for_bar);
@@ -174,9 +174,9 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 					if(enemies[target_label]->hp <= 0){
 						sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-						printf("%s ‚Í",enemies[target_label]->name);
+						printf("%s ã¯",enemies[target_label]->name);
 						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
-						printf("                      “|‚ê‚½!¥");
+						printf("                      å€’ã‚ŒãŸ!â–¼");
 						for(int i = target_label; i + 1 < enemy_amount;i++){
 							enemies[i] = enemies[i + 1];
 						}
@@ -187,17 +187,17 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 				case 1:
 					mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					if(strstr(front->name,"Robo") == NULL){
-						printf("–ß‚é");
+						printf("æˆ»ã‚‹");
 						fflush(stdout);
 						target_label = select_from_list(battle_menu_arrow,1);
 					}else{
 						if(!strcmp(front->name,FRONT3_NAME)){
-							printf("ƒJƒ‰ƒhƒ{ƒ‹ƒO");
+							printf("ã‚«ãƒ©ãƒ‰ãƒœãƒ«ã‚°");
 						}else if(!strcmp(front->name,FRONT4_NAME)){
-							printf("ƒtƒŒƒA");
+							printf("ãƒ•ãƒ¬ã‚¢");
 						}
 						mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
-						printf("–ß‚é");
+						printf("æˆ»ã‚‹");
 						fflush(stdout);
 						target_label = select_from_list(battle_menu_arrow,2);
 					}
@@ -207,32 +207,32 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 					}else if(target_label == 0){
 						if(!strcmp(front->name,FRONT3_NAME)){
 							if(turn_count < 5){
-								print_line("ƒJƒ‰ƒhƒ{ƒ‹ƒO‚Í5ƒ^[ƒ“–Ú‚Ü‚Åg‚¦‚Ü‚¹‚ñ¥ ",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								print_line("ã‚«ãƒ©ãƒ‰ãƒœãƒ«ã‚°ã¯5ã‚¿ãƒ¼ãƒ³ç›®ã¾ã§ä½¿ãˆã¾ã›ã‚“â–¼ ",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 								wait_anyinput();
 								sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 								continue;
 							}else{
 								mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-								printf("%s ‚ÍƒJƒ‰ƒhƒ{ƒ‹ƒO‚ğg‚Á‚½!¥",front->name);
+								printf("%s ã¯ã‚«ãƒ©ãƒ‰ãƒœãƒ«ã‚°ã‚’ä½¿ã£ãŸ!â–¼",front->name);
 								wait_anyinput();
 								mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
 								wait_anyinput();
-								/*“Gƒ_ƒ[ƒWˆ—‚±‚±‚©‚ç*/
+								/*æ•µãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†ã“ã“ã‹ã‚‰*/
 								for(int i = 0; i < enemy_amount; i++){
 									sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 									change_hp(enemies[i],FRONT3_SP_DAMAGE);
 									mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
-									printf("%s ‚É %3d ƒ_ƒ[ƒW!¥",enemies[target_label]->name,damage);
+									printf("%s ã« %3d ãƒ€ãƒ¡ãƒ¼ã‚¸!â–¼",enemies[target_label]->name,damage);
 									print_health_bar(for_bar,enemy_amount_for_bar);
 									wait_anyinput();
-									/*“Gƒ_ƒ[ƒWˆ—‚±‚±‚Ü‚Å*/
-									/*“G€–S”»’è‚±‚±‚©‚ç*/
+									/*æ•µãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†ã“ã“ã¾ã§*/
+									/*æ•µæ­»äº¡åˆ¤å®šã“ã“ã‹ã‚‰*/
 									if(enemies[i]->hp <= 0){
 										sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 										mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-										printf("%s ‚Í",enemies[target_label]->name);
+										printf("%s ã¯",enemies[target_label]->name);
 										mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
-										printf("                      “|‚ê‚½!¥");
+										printf("                      å€’ã‚ŒãŸ!â–¼");
 										for(int i = target_label; i + 1 < enemy_amount;i++){
 											enemies[i] = enemies[i + 1];
 										}
@@ -240,33 +240,33 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 										wait_anyinput();
 									}
 								}
-								/*“G€–S”»’è‚±‚±‚Ü‚Å*/
+								/*æ•µæ­»äº¡åˆ¤å®šã“ã“ã¾ã§*/
 							}
 						}else if(!strcmp(front->name,FRONT4_NAME)){
 							if(turn_count < 3){
-								print_line("ƒtƒŒƒA‚Í3ƒ^[ƒ“–Ú‚Ü‚Åg‚¦‚Ü‚¹‚ñ¥ ",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								print_line("ãƒ•ãƒ¬ã‚¢ã¯3ã‚¿ãƒ¼ãƒ³ç›®ã¾ã§ä½¿ãˆã¾ã›ã‚“â–¼ ",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 								wait_anyinput();
 								sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 								continue;
 							}else if(!used_flare){
 								mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-								printf("%s ‚ÍƒtƒŒƒA‚ğg‚Á‚½!¥",front->name);
+								printf("%s ã¯ãƒ•ãƒ¬ã‚¢ã‚’ä½¿ã£ãŸ!â–¼",front->name);
 								used_flare = 1;
 								wait_anyinput();
-								/*“Gƒ_ƒ[ƒWˆ—‚±‚±‚©‚ç*/
+								/*æ•µãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†ã“ã“ã‹ã‚‰*/
 								for(int i = 0; i < enemy_amount; i++){
 									sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 									mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-									printf("%s ‚É %4d ƒ_ƒ[ƒW!¥",enemies[i]->name,enemies[i]->hp / 2);
+									printf("%s ã« %4d ãƒ€ãƒ¡ãƒ¼ã‚¸!â–¼",enemies[i]->name,enemies[i]->hp / 2);
 									change_hp(enemies[i],enemies[i]->hp / 2);
 									print_health_bar(for_bar,enemy_amount_for_bar);
 									wait_anyinput();
-									/*“Gƒ_ƒ[ƒWˆ—‚±‚±‚Ü‚Å*/
-									/*“G€–S”»’è‚±‚±‚©‚ç*/
+									/*æ•µãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†ã“ã“ã¾ã§*/
+									/*æ•µæ­»äº¡åˆ¤å®šã“ã“ã‹ã‚‰*/
 									if(enemies[i]->hp <= 0){
 										sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 										mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-										printf("%s ‚Í“|‚ê‚½!¥",enemies[target_label]->name);
+										printf("%s ã¯å€’ã‚ŒãŸ!â–¼",enemies[target_label]->name);
 										for(int i = target_label; i + 1 < enemy_amount;i++){
 											enemies[i] = enemies[i + 1];
 										}
@@ -274,9 +274,9 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 										wait_anyinput();
 									}
 								}
-								/*“G€–S”»’è‚±‚±‚Ü‚Å*/
+								/*æ•µæ­»äº¡åˆ¤å®šã“ã“ã¾ã§*/
 							}else{
-								print_line("ƒtƒŒƒA‚Í1“x‚µ‚©g‚¦‚Ü‚¹‚ñ¥ ",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								print_line("ãƒ•ãƒ¬ã‚¢ã¯1åº¦ã—ã‹ä½¿ãˆã¾ã›ã‚“â–¼ ",BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 								wait_anyinput();
 								sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 								continue;
@@ -288,7 +288,7 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 				case 2:
 					protect_flag = 1;
 					mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-					printf("%s ‚Í‚©‚Î‚¤‘Ì¨‚É“ü‚Á‚½¥",front->name);
+					printf("%s ã¯ã‹ã°ã†ä½“å‹¢ã«å…¥ã£ãŸâ–¼",front->name);
 					wait_anyinput();
 					break;
 				case 3:
@@ -296,11 +296,11 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 						for(int i = 0; i <= potion_amount + have_nasu; i++){
 							mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1 + i);
 							if(i < potion_amount){
-								printf("ƒ|[ƒVƒ‡ƒ“");
+								printf("ãƒãƒ¼ã‚·ãƒ§ãƒ³");
 							}else if(i < potion_amount + have_nasu){
-								printf("¿×ÅÑ¥ÒÛİ¹ŞÅ");
+								printf("ï½¿ï¾—ï¾…ï¾‘ï½¥ï¾’ï¾›ï¾ï½¹ï¾ï¾…");
 							}else{
-								printf("–ß‚é");
+								printf("æˆ»ã‚‹");
 							}
 							fflush(stdout);
 						}
@@ -310,12 +310,12 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 							change_hp(front,-1 * front->max_hp);
 							change_hp(&arist,-1 * arist.max_hp);
 							print_bt_status(front,back);
-							print_line("ƒ|[ƒVƒ‡ƒ“‚ğg‚Á‚½!¥ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+							print_line("ãƒãƒ¼ã‚·ãƒ§ãƒ³ã‚’ä½¿ã£ãŸ!â–¼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 							potion_amount--;
 							wait_anyinput();
 						}else if(target_label < potion_amount + have_nasu){
 							sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-							print_line("—Í‚ª‚İ‚È‚¬‚é!¥ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+							print_line("åŠ›ãŒã¿ãªãã‚‹!â–¼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 							have_nasu = 0;
 							use_nasu = 1;
 							wait_anyinput();
@@ -327,35 +327,35 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 						for(int i = 0; i <= potion_amount + have_nasu; i++){
 							mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1 + i);
 							if(i < potion_amount){
-								printf("ƒ|[ƒVƒ‡ƒ“");
+								printf("ãƒãƒ¼ã‚·ãƒ§ãƒ³");
 							}else if(i < potion_amount + have_nasu){
-								printf("¿×ÅÑ¥ÒÛİ¹ŞÅ");
+								printf("ï½¿ï¾—ï¾…ï¾‘ï½¥ï¾’ï¾›ï¾ï½¹ï¾ï¾…");
 							}
 							fflush(stdout);
 						}
-						print_line("–ß‚é",2 * BATTLE_MODE_COMMAND_POS + 10,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + potion_amount + have_nasu);
+						print_line("æˆ»ã‚‹",2 * BATTLE_MODE_COMMAND_POS + 10,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + potion_amount + have_nasu);
 
 						target_label = select_from_2dlist(2,4,battle_item_menu_arrow);
 						switch(target_label){
-							case 0:	//ƒ|[ƒVƒ‡ƒ“
+							case 0:	//ãƒãƒ¼ã‚·ãƒ§ãƒ³
 							case 2:
 							case 4:
 								sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 								change_hp(front,-1 * front->max_hp);
 								change_hp(&arist,-1 * arist.max_hp);
 								print_bt_status(front,back);
-								print_line("ƒ|[ƒVƒ‡ƒ“‚ğg‚Á‚½!¥ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								print_line("ãƒãƒ¼ã‚·ãƒ§ãƒ³ã‚’ä½¿ã£ãŸ!â–¼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 								potion_amount--;
 								wait_anyinput();
 								break;
 							case 6:	//Nasu
 								sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-								print_line("—Í‚ª‚İ‚È‚¬‚é!¥ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+								print_line("åŠ›ãŒã¿ãªãã‚‹!â–¼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 								have_nasu = 0;
 								use_nasu = 1;
 								wait_anyinput();
 								break;
-							case 7:	//–ß‚é
+							case 7:	//æˆ»ã‚‹
 								sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 								continue;
 								break;
@@ -370,42 +370,42 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 					break;
 			}
 			sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-			/*ƒvƒŒƒCƒ„[‚Ìs“® ‚±‚±‚©‚ç*/
+			/*ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¡Œå‹• ã“ã“ã‹ã‚‰*/
 
 			print_health_bar(for_bar,enemy_amount_for_bar);
 
-			//Ÿ—˜”»’è
+			//å‹åˆ©åˆ¤å®š
 			enemies_dead_check = 0;
 			for(int i = 0; i <  enemy_amount_for_bar; i++){
 				enemies_dead_check += for_bar[i]->hp;
 			}
 			if(enemies_dead_check <= 0){
-				print_line("í“¬‚ÉŸ—˜‚µ‚½!¥",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+				print_line("æˆ¦é—˜ã«å‹åˆ©ã—ãŸ!â–¼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 				finish_flag = 1;
 				wait_anyinput();
 				//flame_flush();
 				return 1;
 				continue;
 			}
-			//”»’èI‚í‚è
+			//åˆ¤å®šçµ‚ã‚ã‚Š
 
-			//Œã‰q‚Ìs“®
+			//å¾Œè¡›ã®è¡Œå‹•
 			if(strcmp(back->name,"dummy")){
 				switch(rand() % 4){
 					case 0:
 						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-						printf("%s ‚Í‹¯‚¦‚Ä‚¢‚é...¥",back->name);
+						printf("%s ã¯æ€¯ãˆã¦ã„ã‚‹...â–¼",back->name);
 						wait_anyinput();
 						break;
 					case 1:
 						if(!strcmp(arist_using_weapon->name,"Bow")){
-							print_line("ƒAƒŠƒXƒg‚ÌƒŒƒCƒ“ƒ{[ƒAƒ[!¥",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+							print_line("ã‚¢ãƒªã‚¹ãƒˆã®ãƒ¬ã‚¤ãƒ³ãƒœãƒ¼ã‚¢ãƒ­ãƒ¼!â–¼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 							wait_anyinput();
 							damage = (BACK_ATTACK);
 							target_label = rand() % enemy_amount;
 							change_hp(enemies[target_label],damage);
 							mvcur(BATTLE_MODE_COMMAND_POS,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-							printf("%s ‚É %3d ƒ_ƒ[ƒW!¥ ",enemies[target_label]->name,damage);
+							printf("%s ã« %3d ãƒ€ãƒ¡ãƒ¼ã‚¸!â–¼ ",enemies[target_label]->name,damage);
 							print_health_bar(for_bar,enemy_amount_for_bar);
 							wait_anyinput();
 							break;
@@ -415,15 +415,15 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 						change_hp(back,-1 * arist.max_atk);
 						print_bt_status(front,back);
 						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-						printf("%s‚Íƒq[ƒ‹‚ğ¥‚¦‚½!¥ ",back->name);
+						printf("%sã¯ãƒ’ãƒ¼ãƒ«ã‚’å”±ãˆãŸ!â–¼ ",back->name);
 						wait_anyinput();
 						break;
 				}
 			}
 			sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-			//Œã‰q‚Ìs“®I‚í‚è
+			//å¾Œè¡›ã®è¡Œå‹•çµ‚ã‚ã‚Š
 		}else{
-			print_line("“®‚¯‚È‚¢...¥ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+			print_line("å‹•ã‘ãªã„...â–¼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 			wait_anyinput();
 			sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 			for(int i = 0; i < enemy_amount; i++){
@@ -440,47 +440,47 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 		}
 		print_health_bar(for_bar,enemy_amount_for_bar);
 
-		//Ÿ—˜”»’è
+		//å‹åˆ©åˆ¤å®š
 		enemies_dead_check = 0;
 		for(int i = 0; i <  enemy_amount_for_bar; i++){
 			enemies_dead_check += for_bar[i]->hp;
 		}
 		if(enemies_dead_check <= 0){
-			print_line("í“¬‚ÉŸ—˜‚µ‚½!¥",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+			print_line("æˆ¦é—˜ã«å‹åˆ©ã—ãŸ!â–¼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 			wait_anyinput();
 			finish_flag = 1;
 			return 1;
 			continue;
 		}
-		//”»’èI‚í‚è
+		//åˆ¤å®šçµ‚ã‚ã‚Š
 
-		//“G‚Ìs“®
+		//æ•µã®è¡Œå‹•
 		for(int i = 0; i < enemy_amount; i++){
 			if(enemies[i]->hp > 0){
 				if(!strcmp(enemies[i]->name,ST3_BOSS_NAME) && turn_count == 6){
-					print_line("ŒÃ‘ã‚Ì‹@ŠB‹l‚Ì“ÁêUŒ‚!¥ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+					print_line("å¤ä»£ã®æ©Ÿæ¢°å·¨äººã®ç‰¹æ®Šæ”»æ’ƒ!â–¼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					wait_anyinput();
-					print_line("ƒAƒ‹ƒeƒBƒƒbƒgƒoƒEƒ“ƒh!¥ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
+					print_line("ã‚¢ãƒ«ãƒ†ã‚£ãƒ¡ãƒƒãƒˆãƒã‚¦ãƒ³ãƒ‰!â–¼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
 					wait_anyinput();
 					sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					mvcur(BATTLE_MODE_COMMAND_POS - 2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-					printf("Ÿ‚Ìƒ^[ƒ“‚Ìs“®‚ğ••‚¶‚ç‚ê‚½...¥ ");
+					printf("æ¬¡ã®ã‚¿ãƒ¼ãƒ³ã®è¡Œå‹•ã‚’å°ã˜ã‚‰ã‚ŒãŸ...â–¼ ");
 					fflush(stdout);
 					wait_anyinput();
 					player_can_act = !player_can_act;
 				}else if(!strcmp(enemies[i]->name,ST4_BOSS_NAME) && rand() % 10 == 5){
 					change_hp(enemies[i],-500);
-					print_line("Boss ‚ÍƒPƒAƒ‹ƒ‰‚ğ¥‚¦‚½!¥ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+					print_line("Boss ã¯ã‚±ã‚¢ãƒ«ãƒ©ã‚’å”±ãˆãŸ!â–¼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					wait_anyinput();
 				}else if(!strcmp(enemies[i]->name,ST5_BOSS_NAME) && turn_count != 0 && turn_count % 4 == 0){
-					print_line("Stage5 Boss's action!¥ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+					print_line("Stage5 Boss's action!â–¼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					wait_anyinput();
-					print_line("The Gaia!¥ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
+					print_line("The Gaia!â–¼ ",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 2);
 					wait_anyinput();
 					sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 					char *(string)[] = {
-						"3ƒ^[ƒ“‚ÌŠÔ,",
-						"        s“®‚ğ••‚¶‚ç‚ê‚½...¥ "
+						"3ã‚¿ãƒ¼ãƒ³ã®é–“,",
+						"        è¡Œå‹•ã‚’å°ã˜ã‚‰ã‚ŒãŸ...â–¼ "
 					};
 					print_lines(string,BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,2);
 					fflush(stdout);
@@ -488,8 +488,8 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 					player_can_act = !player_can_act;
 				} else if(!strcmp(enemies[i]->name,ST5_BOSS_NAME) && rand() % 10 == 5 && enemies[i]->hp < enemies[i]->max_hp * 0.4){
 					char *(string)[] = {
-						"ƒtƒ@[ƒ‹‚Í ",
-						"       ƒeƒgƒ‰ƒOƒ‰ƒ}ƒgƒ“‚ğ¥‚¦‚½!¥ "
+						"ãƒ•ã‚¡ãƒ¼ãƒ«ã¯ ",
+						"       ãƒ†ãƒˆãƒ©ã‚°ãƒ©ãƒãƒˆãƒ³ã‚’å”±ãˆãŸ!â–¼ "
 					};
 					change_hp(enemies[i],-1500);
 					print_lines(string,BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,2);
@@ -498,18 +498,18 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 					damage = enemies[i]->min_atk + rand() % (enemies[i]->max_atk - enemies[i]->min_atk - 1);
 					if(protect_flag || !strcmp(back->name,"dummy")){
 						mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-						printf("%s ‚É %3d ‚Ìƒ_ƒ[ƒW!¥",front->name,damage);
+						printf("%s ã« %3d ã®ãƒ€ãƒ¡ãƒ¼ã‚¸!â–¼",front->name,damage);
 						change_hp(front,damage);
 					}else{
 						switch((int)(rand() % 2)){
 							case 0:
 								mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-								printf("%s ‚É %3d ‚Ìƒ_ƒ[ƒW!¥",back->name,damage);
+								printf("%s ã« %3d ã®ãƒ€ãƒ¡ãƒ¼ã‚¸!â–¼",back->name,damage);
 								change_hp(back,damage);
 								break;
 							default:
 								mvcur(BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-								printf("%s ‚É %3d ‚Ìƒ_ƒ[ƒW!¥",front->name,damage);
+								printf("%s ã« %3d ã®ãƒ€ãƒ¡ãƒ¼ã‚¸!â–¼",front->name,damage);
 								change_hp(front,damage);
 								break;
 						}
@@ -522,14 +522,14 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 			print_bt_status(front,back);
 			if(front->hp <= 0 || (back->hp <= 0 && strcmp(back->name,"dummy"))){
 				sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
-				print_line("Lose...¥",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
+				print_line("Lose...â–¼",BATTLE_MODE_COMMAND_POS - 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 				finish_flag = 1;
 				return 0;
 				wait_anyinput();
 				continue;
 			}
 		}
-		//“G‚Ìs“®I‚í‚è
+		//æ•µã®è¡Œå‹•çµ‚ã‚ã‚Š
 		sub_flame_clean(BATTLE_MODE_STATUS_FLAME_SPLIT_X,BATTLE_MODE_STATUS_FLAME_HEIGHT - 2,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1);
 		turn_count++;
 	}
