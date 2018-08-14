@@ -53,12 +53,12 @@ void explain_battle(){
 
 	extendstr fifth[] = {
 		{"行動の順番は必ず ",0,1},
-		{"前衛→後衛→エネミーです▼ ",9,0}
+		{"前衛→　後衛→　エネミーです▼ ",6,0}
 	};
 
 	extendstr sixth[] = {
-		{"エネミーのHPは上部に ",0,1},
-		{"パーティーのHPは右に表¥示されます▼ ",0,0}
+		{"エネミーのＨＰは上部に ",0,1},
+		{"パーティーのＨＰは右に表示されます▼ ",0,0}
 	};
 
 	print_explain_in(first,lengthof(first,extendstr));
