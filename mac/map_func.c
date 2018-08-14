@@ -5,7 +5,7 @@
  * @date 2018/07/12
  */
 
-#include "thebeautifulsky.h"
+#include "theBeautifulSky.h"
 
 /**
  *	マップをコピーする関数

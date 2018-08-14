@@ -5,7 +5,7 @@
  * @date 2018/07/12
  */
 
-#include "thebeautifulsky.h"
+#include "theBeautifulSky.h"
 
 //前衛装備の定義
 weapon all_weapons[7] = {

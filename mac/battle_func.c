@@ -4,7 +4,7 @@
  * @author yume_yu
  * @date 2018/07/14
  */
-#include "thebeautifulsky.h"
+#include "theBeautifulSky.h"
 
 //戦闘モードの時にコマンド部分表示する関数
 void print_bt_commands(){

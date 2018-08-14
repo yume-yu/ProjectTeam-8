@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include "thebeautifulsky.h"
+#include "theBeautifulSky.h"
 
 void subtitle(stage now_stage){
 	int length = 0;

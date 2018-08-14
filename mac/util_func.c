@@ -4,7 +4,7 @@
  * @author yume_yu
  * @date 2018/07/08
  */
-#include "thebeautifulsky.h"
+#include "theBeautifulSky.h"
 #ifdef WINDOWS
 
 /**

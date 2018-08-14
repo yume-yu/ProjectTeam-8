@@ -5,7 +5,7 @@
  * @date
  */
 
-#include "thebeautifulsky.h"
+#include "theBeautifulSky.h"
 
 /* リーレルがポーションを見つけた時の挙動  */
 void lirel_find_potion(){

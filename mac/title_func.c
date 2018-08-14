@@ -2,7 +2,7 @@
  * Written by yume_yu
  * printf()のみを使用したゲームを作るためのヘッダ
  */
-#include "thebeautifulsky.h"
+#include "theBeautifulSky.h"
 
 /**
  *  タイトルロゴの出方が微妙に違うのでヘッダで定義

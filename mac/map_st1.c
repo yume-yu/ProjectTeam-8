@@ -1,4 +1,4 @@
-#include "thebeautifulsky.h"
+#include "theBeautifulSky.h"
 
 /* ステージ2のマップと座標 */
 

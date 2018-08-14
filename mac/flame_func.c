@@ -4,7 +4,7 @@
  * @author yume_yu
  * @date 2018/07/09
  */
-#include "thebeautifulsky.h"
+#include "theBeautifulSky.h"
 
 /*
  * フレームの作成関数

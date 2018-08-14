@@ -5,7 +5,7 @@
  * @date		2018/08/12
  */
 
-#include "thebeautifulsky.h"
+#include "theBeautifulSky.h"
 
 
 char *(maps)[9][HEIGHT - 2];												//全ステージのマップ図

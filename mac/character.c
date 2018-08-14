@@ -5,7 +5,7 @@
  * @date 2018/07/12
  */
 
-#include "thebeautifulsky.h"
+#include "theBeautifulSky.h"
 
 //必要キャラクタ-の定義
 character naoki;

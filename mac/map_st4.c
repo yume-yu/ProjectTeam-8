@@ -1,4 +1,4 @@
-#include "thebeautifulsky.h"
+#include "theBeautifulSky.h"
 char *(map_st4_1)[WIDTH - 2] = {
 	"　　　　　　＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿",
 	"　　　　　／┴┬┴┬┴┬┴┬┴┬┴┬┴┬┴┬┴┬┴┬┴┬┴┬┴┬┴┬┴┬┴┬┴┬┴┬┴┬┴┬┴┬",

@@ -4,7 +4,7 @@
  * @author yume_yu
  * @date 2018/08/13
  */
-#include "thebeautifulsky.h"
+#include "theBeautifulSky.h"
 
 /* 枠内への文表示 */
 void print_explain_in(extendstr explain[],int size){

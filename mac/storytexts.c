@@ -5,7 +5,7 @@
  * @date
  */
 
-#include "thebeautifulsky.h"
+#include "theBeautifulSky.h"
 
 /**
  * 構造体 extendstr について
