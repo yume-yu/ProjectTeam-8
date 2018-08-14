@@ -33,9 +33,11 @@
 
 #elif defined MAC
 
-#include "mconio.h"
+#include <termios.h>
+#include <unistd.h>
+#include <fcntl.h>
 
-#define ENTERKEY '＼n'						//Enterキーの入力の統一表記
+#define ENTERKEY '\n'						//Enterキーの入力の統一表記
 #define MULTIBYTE_CHAR_SIZE 3		//マルチバイト文字の大きさの統一表記(文字コード?)
 
 #endif
