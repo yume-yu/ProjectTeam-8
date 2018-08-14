@@ -18,7 +18,7 @@ struct input_assort mykbhit(){
 	int ch;
 	int oldf;
 	int flag;
-	
+
 	tcgetattr(STDIN_FILENO, &oldt);
 	newt = oldt;
 	newt.c_lflag &= ~(ICANON | ECHO);
