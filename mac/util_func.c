@@ -1,8 +1,100 @@
 /**
+ * @file util_func.c
+ * @brief 汎用的な関数を定義するファイル
+ * @author yume_yu
+ * @date 2018/07/08
+ */
+#include "theBeautifulSky.h"
+#ifdef WINDOWS
+
+/**
+ * Windowsにはマイクロ秒でsleepするusleep(int)がないので
+ * time 処理を停止する時間[ms]
+ */
+void usleep(int time){
+	Sleep(time/1000);
+}
+
+/**
+ * 左上を(1,1)としてカーソルを指定位置へ移動させる関数
+ * x カーソルのx座標
+ * y カーソルのy座標
+ */
+void mvcur(int x, int y){
+	COORD coord;
+	coord.X = x;
+	coord.Y = y;
+
+	SetConsoleCursorPosition(
+			GetStdHandle(STD_OUTPUT_HANDLE),
+			coord
+			);
+}
+
+/*
+ * キーボードが押されているかとその入力キーをとる関数
+ * 戻り値
+ * input_assort temp	2つのフラグの構造体
+ */
+input_assort mykbhit(){
+	input_assort temp;
+	if(_kbhit()){
+		temp.input_char =  _getch();
+		temp.kbhit_flag = 1;
+	}else{
+		temp.input_char = 0;
+		temp.kbhit_flag = 0;
+	}
+	return temp;
+}
+
+/**
+ * 標準出力の初期化
+ */
+void init_term(){
+	//カーソル位置を(1,1)に移動
+	mvcur(1,1);
+}
+
+#elif defined MAC
+/**
+ * なんかわからんがunixでkbhit()を実装するおまじない
+ *
+ */
+input_assort mykbhit(){
+	struct termios oldt, newt;
+	input_assort reply;
+	int ch;
+	int oldf;
+	int flag;
+
+	tcgetattr(STDIN_FILENO, &oldt);
+	newt = oldt;
+	newt.c_lflag &= ~(ICANON | ECHO);
+	tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+	oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+	fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
+
+	ch = getchar();
+
+	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+	fcntl(STDIN_FILENO, F_SETFL, oldf);
+
+	if (ch != EOF) {
+			//ungetc(ch, stdin);
+			reply.input_char = ch;
+			reply.kbhit_flag = 1;
+		return reply;
+	}
+	//reply.input_char = '\0';
+	reply.kbhit_flag = 0;
+	return reply;
+}
+
+/**
  * 左上を頂点(1,1)として(100,100)までの座標を配列指定
  *
  */
-
 char coordinate[][100][100] = {
 	{"\033[0;0H","\033[1;0H","\033[2;0H","\033[3;0H","\033[4;0H","\033[5;0H","\033[6;0H","\033[7;0H","\033[8;0H","\033[9;0H","\033[10;0H","\033[11;0H","\033[12;0H","\033[13;0H","\033[14;0H","\033[15;0H","\033[16;0H","\033[17;0H","\033[18;0H","\033[19;0H","\033[20;0H","\033[21;0H","\033[22;0H","\033[23;0H","\033[24;0H","\033[25;0H","\033[26;0H","\033[27;0H","\033[28;0H","\033[29;0H","\033[30;0H","\033[31;0H","\033[32;0H","\033[33;0H","\033[34;0H","\033[35;0H","\033[36;0H","\033[37;0H","\033[38;0H","\033[39;0H","\033[40;0H","\033[41;0H","\033[42;0H","\033[43;0H","\033[44;0H","\033[45;0H","\033[46;0H","\033[47;0H","\033[48;0H","\033[49;0H","\033[50;0H","\033[51;0H","\033[52;0H","\033[53;0H","\033[54;0H","\033[55;0H","\033[56;0H","\033[57;0H","\033[58;0H","\033[59;0H","\033[60;0H","\033[61;0H","\033[62;0H","\033[63;0H","\033[64;0H","\033[65;0H","\033[66;0H","\033[67;0H","\033[68;0H","\033[69;0H","\033[70;0H","\033[71;0H","\033[72;0H","\033[73;0H","\033[74;0H","\033[75;0H","\033[76;0H","\033[77;0H","\033[78;0H","\033[79;0H","\033[80;0H","\033[81;0H","\033[82;0H","\033[83;0H","\033[84;0H","\033[85;0H","\033[86;0H","\033[87;0H","\033[88;0H","\033[89;0H","\033[90;0H","\033[91;0H","\033[92;0H","\033[93;0H","\033[94;0H","\033[95;0H","\033[96;0H","\033[97;0H","\033[98;0H","\033[99;0H"},
 	{"\033[0;1H","\033[1;1H","\033[2;1H","\033[3;1H","\033[4;1H","\033[5;1H","\033[6;1H","\033[7;1H","\033[8;1H","\033[9;1H","\033[10;1H","\033[11;1H","\033[12;1H","\033[13;1H","\033[14;1H","\033[15;1H","\033[16;1H","\033[17;1H","\033[18;1H","\033[19;1H","\033[20;1H","\033[21;1H","\033[22;1H","\033[23;1H","\033[24;1H","\033[25;1H","\033[26;1H","\033[27;1H","\033[28;1H","\033[29;1H","\033[30;1H","\033[31;1H","\033[32;1H","\033[33;1H","\033[34;1H","\033[35;1H","\033[36;1H","\033[37;1H","\033[38;1H","\033[39;1H","\033[40;1H","\033[41;1H","\033[42;1H","\033[43;1H","\033[44;1H","\033[45;1H","\033[46;1H","\033[47;1H","\033[48;1H","\033[49;1H","\033[50;1H","\033[51;1H","\033[52;1H","\033[53;1H","\033[54;1H","\033[55;1H","\033[56;1H","\033[57;1H","\033[58;1H","\033[59;1H","\033[60;1H","\033[61;1H","\033[62;1H","\033[63;1H","\033[64;1H","\033[65;1H","\033[66;1H","\033[67;1H","\033[68;1H","\033[69;1H","\033[70;1H","\033[71;1H","\033[72;1H","\033[73;1H","\033[74;1H","\033[75;1H","\033[76;1H","\033[77;1H","\033[78;1H","\033[79;1H","\033[80;1H","\033[81;1H","\033[82;1H","\033[83;1H","\033[84;1H","\033[85;1H","\033[86;1H","\033[87;1H","\033[88;1H","\033[89;1H","\033[90;1H","\033[91;1H","\033[92;1H","\033[93;1H","\033[94;1H","\033[95;1H","\033[96;1H","\033[97;1H","\033[98;1H","\033[99;1H"},
@@ -106,7 +198,6 @@ char coordinate[][100][100] = {
 	{"\033[0;99H","\033[1;99H","\033[2;99H","\033[3;99H","\033[4;99H","\033[5;99H","\033[6;99H","\033[7;99H","\033[8;99H","\033[9;99H","\033[10;99H","\033[11;99H","\033[12;99H","\033[13;99H","\033[14;99H","\033[15;99H","\033[16;99H","\033[17;99H","\033[18;99H","\033[19;99H","\033[20;99H","\033[21;99H","\033[22;99H","\033[23;99H","\033[24;99H","\033[25;99H","\033[26;99H","\033[27;99H","\033[28;99H","\033[29;99H","\033[30;99H","\033[31;99H","\033[32;99H","\033[33;99H","\033[34;99H","\033[35;99H","\033[36;99H","\033[37;99H","\033[38;99H","\033[39;99H","\033[40;99H","\033[41;99H","\033[42;99H","\033[43;99H","\033[44;99H","\033[45;99H","\033[46;99H","\033[47;99H","\033[48;99H","\033[49;99H","\033[50;99H","\033[51;99H","\033[52;99H","\033[53;99H","\033[54;99H","\033[55;99H","\033[56;99H","\033[57;99H","\033[58;99H","\033[59;99H","\033[60;99H","\033[61;99H","\033[62;99H","\033[63;99H","\033[64;99H","\033[65;99H","\033[66;99H","\033[67;99H","\033[68;99H","\033[69;99H","\033[70;99H","\033[71;99H","\033[72;99H","\033[73;99H","\033[74;99H","\033[75;99H","\033[76;99H","\033[77;99H","\033[78;99H","\033[79;99H","\033[80;99H","\033[81;99H","\033[82;99H","\033[83;99H","\033[84;99H","\033[85;99H","\033[86;99H","\033[87;99H","\033[88;99H","\033[89;99H","\033[90;99H","\033[91;99H","\033[92;99H","\033[93;99H","\033[94;99H","\033[95;99H","\033[96;99H","\033[97;99H","\033[98;99H","\033[99;99H"},
 };
 
-
 /**
  * 任意の箇所へカーソルを移動する関数
  * x 移動するカーソルのx座標
@@ -115,3 +206,291 @@ char coordinate[][100][100] = {
 void mvcur(int x,int y){
 	printf("%s",coordinate[x][y]);
 }
+
+/**
+ * 標準出力の初期化
+ */
+void init_term(){
+	//標準出力を流す
+	printf("\033[2J");
+	//カーソル位置を(1,1)に移動
+	mvcur(1,1);
+}
+#endif
+
+/**
+ *  なにかの入力の待機をする関数
+ */
+void wait_anyinput(){
+	mvcur(0,HEIGHT + 1);
+	fflush(stdout);
+	while(!mykbhit().kbhit_flag);
+	while(mykbhit().kbhit_flag);
+}
+
+/**
+ *  方向キー以外の入力の待機をする関数
+ */
+void wait_input_without_arrow(){
+	int flag = 1;
+	input_assort tmp;
+	mvcur(0,HEIGHT + 1);
+	fflush(stdout);
+	while(flag){
+		tmp = mykbhit();
+		switch(tmp.input_char){
+			case 'a':
+			case 's':
+			case 'w':
+			case 'd':
+				break;
+			default:
+				if(tmp.kbhit_flag){
+					flag = 0;
+				}
+				break;
+		}
+	}
+	while(mykbhit().kbhit_flag);
+}
+
+/**
+ * 指定箇所への1行の文字出力を行う関数
+ * string 出力する文字列
+ * x      出力するx座標
+ * y      出力するy座標
+ */
+void print_line(char string[], int x, int y){
+	mvcur(x,y);
+	printf("%s",string);
+	mvcur(0,HEIGHT + 1);
+}
+
+/*
+ * 指定箇所への複数行行の文字出力を行う関数
+ * string    出力する文字列配列
+ * x         出力を開始するx座標
+ * y         出力を開始するy座標
+ * num_lines 出力する行数
+ */
+void print_lines(char *string[], int x, int y, int num_lines){
+	for(int i = 0; i < num_lines; i++){
+		print_line(string[i],x,y+i);
+	}
+	mvcur(0,HEIGHT + 1);
+}
+
+/**
+ * 指定箇所への複数行のアニメーションつき文字出力を行う関数
+ * string    出力する文字列2次元配列
+ * x         出力を開始するx座標
+ * y         出力を開始するy座標
+ * num_lines 出力する行数
+ */
+void string_march(extendstr *(tmp)[],int x,int y,int lines){
+	char substring[100];
+	for(int i = 0; i < lines; i++){
+		for(int j = MULTIBYTE_CHAR_SIZE ; j < strlen(tmp[i]->string); j += MULTIBYTE_CHAR_SIZE ){
+			mvcur(x + tmp[i]->offset,y + i);
+			strncpy(substring,tmp[i]->string,j);
+#if defined WINDOWS
+			substring[j] = '¥0';
+#elif defined MAC
+			substring[j] = '\0';
+#endif
+			printf("%s",substring);
+			mvcur(0,HEIGHT + 1);
+			fflush(stdout);
+			input_assort now = mykbhit();
+			if(now.kbhit_flag && now.input_char == ENTERKEY){
+			}else{
+				usleep(30 * 1000);
+			}
+		}
+		if(!tmp[i]->not_need_return){
+			wait_input_without_arrow();
+			//wait_anyinput();
+		}
+	}
+}
+
+int eslengthof(extendstr sxstr[HEIGHT - 2]){
+	int counter = 0;
+	while(true){
+		if(!strcmp(sxstr[counter].string,"")){
+			break;
+		}
+		counter++;
+	}
+	return counter;
+}
+
+
+/**
+ *	表示文章を文章のアドレス配列に変換する関数
+ */
+void exstrcpy(extendstr *(to)[],extendstr from[],int lines){
+	for(int i = 0; i < lines; i++){
+		to[i] = &from[i];
+	}
+}
+
+/**
+ * リストを表示した際にカーソルの縦移動と決定した項目を管理する関数
+ * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
+ * length      リスト項目の数
+ * 戻り値 length/Enterが押されたときの項目のラベル(何個目のメニューだったか)
+ */
+int select_from_list(arrow_pos tmp_pos[10], int length){
+	int arrow_pos_label = 0;
+	input_assort tmp_input_list;
+	print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+	while(1){
+		while(!(tmp_input_list = mykbhit()).kbhit_flag);
+		switch(tmp_input_list.input_char){
+			case 'w':
+				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				if(arrow_pos_label <= 0){
+					arrow_pos_label = length - 1;
+				}else{
+					arrow_pos_label--;
+				}
+				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				continue;
+				break;
+			case 's':
+				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				if(arrow_pos_label >= length - 1){
+					arrow_pos_label = 0;
+				}else{
+					arrow_pos_label++;
+				}
+				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				continue;
+				break;
+			case ENTERKEY:
+				break;
+			default:
+				continue;
+				break;
+		}
+		break;
+	}
+	return arrow_pos_label;
+}
+
+/**
+ * リストを表示した際にカーソルの横移動と決定した項目を管理する関数
+ * tmp_pos[10] カーソルを表示する位置を定義したarrow_pos型の配列
+ * length      リスト項目の数
+ * 戻り値 length/Enterが押されたときの項目のラベル(何個目のメニューだったか)
+ */
+int select_from_hlist(arrow_pos tmp_pos[10], int length){
+	int arrow_pos_label = 0;
+	input_assort tmp_input_list;
+	print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+	while(1){
+		while(!(tmp_input_list = mykbhit()).kbhit_flag);
+		switch(tmp_input_list.input_char){
+			case 'a':
+				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				if(arrow_pos_label <= 0){
+					arrow_pos_label = length - 1;
+				}else{
+					arrow_pos_label--;
+				}
+				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				continue;
+				break;
+			case 'd':
+				print_line(" ",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				if(arrow_pos_label >= length - 1){
+					arrow_pos_label = 0;
+				}else{
+					arrow_pos_label++;
+				}
+				print_line(">",tmp_pos[arrow_pos_label].x,tmp_pos[arrow_pos_label].y);
+				continue;
+				break;
+			case ENTERKEY:
+				break;
+			default:
+				continue;
+				break;
+		}
+		break;
+	}
+	return arrow_pos_label;
+}
+
+/*
+ * リストを表示した際にカーソルの二次元移動と決定した項目を管理する関数
+ * tmp_pos[10][10]	カーソルを表示する位置を定義したarrow_pos型の配列
+ * length			リスト項目の数
+ * 戻り値
+ * int length		Enterが押されたときの項目のラベル(何個目のメニューだったか)
+ */
+int select_from_2dlist(int width, int height,arrow_pos tmp_pos[width][height]){
+	arrow_pos arrow_pos_label = {0,0};
+	input_assort tmp_input_list;
+	print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+	while(1){
+		while(!(tmp_input_list = mykbhit()).kbhit_flag);
+
+		print_line(" ",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+		switch(tmp_input_list.input_char){
+			case 'w':
+				do{
+					if(arrow_pos_label.y <= 0){
+						arrow_pos_label.y = height - 1;
+					}else{
+						arrow_pos_label.y--;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case 's':
+				do{
+					if(arrow_pos_label.y >= height - 1){
+						arrow_pos_label.y= 0;
+					}else{
+						arrow_pos_label.y++;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case 'a':
+				do{
+					if(arrow_pos_label.x <= 0){
+						arrow_pos_label.x = width - 1;
+					}else{
+						arrow_pos_label.x--;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case 'd':
+				do{
+					if(arrow_pos_label.x >= width - 1){
+						arrow_pos_label.x= 0;
+					}else{
+						arrow_pos_label.x++;
+					}
+				}while(tmp_pos[arrow_pos_label.x][arrow_pos_label.y].not_active);
+				print_line(">",tmp_pos[arrow_pos_label.x][arrow_pos_label.y].x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y].y);
+				continue;
+				break;
+			case ENTERKEY:
+				break;
+			default:
+				continue;
+				break;
+		}
+		break;
+	}
+	return arrow_pos_label.x + width * arrow_pos_label.y;
+}
+
