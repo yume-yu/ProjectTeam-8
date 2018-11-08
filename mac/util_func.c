@@ -207,7 +207,35 @@ void string_march(extendstr *(tmp)[],int x,int y,int lines){
 	}
 }
 
+/**
+ *	エスケープシーケンスによるスタイル指定をリセットする関数
+ */
+void reset_style(){
+	printf("\e[0m");
+}
 
+/**
+ *	エスケープシーケンスで以降の文字を太字にする関数
+ */
+void to_bold(){
+	printf("\e[1m");
+}
+
+/**
+ *	エスケープシーケンスで以降の文字色を変更する関数
+ *	0 < color < 244
+ */
+void change_text_color(int color){
+	printf("\e[38;5;%dm",color);
+}
+
+/**
+ *	エスケープシーケンスで以降の背景色を変更する関数
+ *	0 < color < 244
+ */
+void change_back_color(int color){
+	printf("\e[48;5;%dm",color);
+}
 
 /**
  *	拡張文字列extendstrの文字列長を返す関数
