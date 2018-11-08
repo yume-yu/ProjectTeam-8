@@ -44,12 +44,16 @@ char *(gameover)[] = {
 void stars(int x[],int y[],int amount){
 	//for(int i = 0; i < 10; i++){
 	for(int j = 0;j < amount; j++){
+		printf("\e[38;5;184m");		//文字の色指定
 		print_line("+",x[j],y[j]);
+		printf("\e[0m");					//スタイル指定リセット
 	}
 	fflush(stdout);
 	usleep(1 * 100000);
 	for(int j = 0;j < amount; j++){
+		printf("\e[38;5;11m");		//文字の色指定
 		print_line("*",x[j],y[j]);
+		printf("\e[0m");					//スタイル指定リセット
 	}
 	fflush(stdout);
 	usleep(1 * 100000);
@@ -59,6 +63,7 @@ void stars(int x[],int y[],int amount){
  *	タイトル画面を表示する関数
  */
 int maintitle(){
+	printf("\e[1m");
 	/**
 	 * ここからロゴのスクロール開始
 	 * 全部見えてないスクロール→ 全部見えた状態のスクロール
