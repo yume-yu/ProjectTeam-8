@@ -43,16 +43,15 @@ char *(gameover)[] = {
  */
 void print_maintitlelines_backcolor(int y){
 		if(y < 17){
-			printf("\e[48;5;17m");
+			change_back_color(17);
 		}else if(y < 19){
-			printf("\e[48;5;18m");
+			change_back_color(18);
 		}else if(y < 21){
-			printf("\e[48;5;19m");
+			change_back_color(19);
 		}else {
-			printf("\e[48;5;20m");
+			change_back_color(20);
 		}
 }
-
 
 /**
  *	タイトル画面の星のアニメーションが書かれた関数
@@ -60,18 +59,18 @@ void print_maintitlelines_backcolor(int y){
 void stars(int x[],int y[],int amount){
 	//for(int i = 0; i < 10; i++){
 	for(int j = 0;j < amount; j++){
-		printf("\e[38;5;184m");		//文字の色指定
+		change_text_color(184);		//文字の色指定
 		print_maintitlelines_backcolor(y[j]);
 		print_line("+",x[j],y[j]);
-		printf("\e[0m");					//スタイル指定リセット
+		reset_style();						//スタイル指定リセット
 	}
 	fflush(stdout);
 	usleep(1 * 100000);
 	for(int j = 0;j < amount; j++){
-		printf("\e[38;5;11m");		//文字の色指定
+		change_text_color(11);		//文字の色指定
 		print_maintitlelines_backcolor(y[j]);
 		print_line("*",x[j],y[j]);
-		printf("\e[0m");					//スタイル指定リセット
+		reset_style();						//スタイル指定リセット
 	}
 	fflush(stdout);
 	usleep(1 * 100000);
@@ -88,12 +87,12 @@ int maintitle(){
 			print_line(" ",printing_space_x,printing_line_y);
 		}
 	}
-	printf("\e[1m");
+	to_bold();
 	/**
 	 * ここからロゴのスクロール開始
 	 * 全部見えてないスクロール→ 全部見えた状態のスクロール
 	 */
-			printf("\e[48;5;17m");
+	change_back_color(17);	//ロゴの後ろと色を合わせる
 	for(int i = 0; i < 9; i++){
 		for(int j = 0; j < i; j++){
 			print_line(title[8 - j],15,i - j + 1);
