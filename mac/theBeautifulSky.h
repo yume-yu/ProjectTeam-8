@@ -146,7 +146,7 @@
 //タイトル画面の星の数
 #define STAR_AMOUNT 											50
 #define TITLE_MENU_BASE_X									(WIDTH - 24)/2
-#define TITLE_MENU_BASE_Y									HEIGHT - 5
+#define TITLE_MENU_BASE_Y									HEIGHT - 6
 
 /**
  *	@def
