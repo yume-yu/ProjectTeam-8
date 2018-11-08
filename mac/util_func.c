@@ -207,6 +207,11 @@ void string_march(extendstr *(tmp)[],int x,int y,int lines){
 	}
 }
 
+
+
+/**
+ *	拡張文字列extendstrの文字列長を返す関数
+ */
 int eslengthof(extendstr sxstr[HEIGHT - 2]){
 	int counter = 0;
 	while(true){
