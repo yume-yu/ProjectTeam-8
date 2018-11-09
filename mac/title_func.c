@@ -140,7 +140,7 @@ int maintitle(){
 	for(int i = 0; i< STAR_AMOUNT;i++){
 		//まず乱数を振る
 		star_x[i] = rand() % (WIDTH - 2) + 2;
-		star_y[i] = rand() % (HEIGHT - 2) + 2;
+		star_y[i] = rand() % (HEIGHT - 9) + 2;
 		//もし座標がタイトルロゴのある範囲とかぶっていたら
 		if(star_y[i] >= 5 && star_y[i] < 15){
 			if(star_x[i] >= 15 && star_x[i] <= 46){
