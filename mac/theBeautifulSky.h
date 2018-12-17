@@ -146,7 +146,7 @@
 //タイトル画面の星の数
 #define STAR_AMOUNT 											50
 #define TITLE_MENU_BASE_X									(WIDTH - 24)/2
-#define TITLE_MENU_BASE_Y									HEIGHT - 5
+#define TITLE_MENU_BASE_Y									HEIGHT - 6
 
 /**
  *	@def
@@ -448,7 +448,11 @@ void init_term();																																//ターミナルの初期化�
 void print_line(char string[], int x, int y);																		//指定した座標を行頭にに1行出力する関数
 void print_lines(char *string[], int x, int y, int num_lines);									//指定した座標を行頭に複数行出力する関数
 void string_march(extendstr *(tmp)[],int x,int y,int lines);										//指定した座標を行頭に複数行アニメーション出力する関数
-int eslengthof(extendstr sxstr[]);
+void reset_style();																															//エスケープシーケンスでの文字色,スタイル指定をリセットする関数
+void to_bold();																																	//エスケープシーケンスで以降の文字を太字にする関数
+void change_text_color(int color);																							//エスケープシーケンスで文字色を変更する関数
+void change_back_color(int color);																							//エスケープシーケンスでh背景色を変更する関数
+int eslengthof(extendstr sxstr[]);																							//拡張文字列変数extend_strのlengthを返す関数
 void exstrcpy(extendstr *(to)[],extendstr from[],int lines);										//アニメーション表示用構造体配列をアドレスの配列に変換する関数
 int select_from_list(arrow_pos tmp_pos[10], int length);												//縦方向のリストから選択させる関数
 int select_from_hlist(arrow_pos tmp_pos[10], int length);												//横方向のリストから選択させる関数

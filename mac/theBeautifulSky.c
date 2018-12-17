@@ -108,6 +108,7 @@ int main(){
 				}
 			}else{
 				print_lines(now_map,2,2,HEIGHT - 2);
+				reset_style();
 				fflush(stdout);
 				switch(decide_event(move_on_map(WIDTH - 2, HEIGHT - 2, now_map_coor,start_pos))){
 					case battle_event:

@@ -39,17 +39,38 @@ char *(gameover)[] = {
 };
 
 /**
+ *	Y座標に沿った背景色を吐く関数
+ */
+void print_maintitlelines_backcolor(int y){
+		if(y < 17){
+			change_back_color(17);
+		}else if(y < 19){
+			change_back_color(18);
+		}else if(y < 21){
+			change_back_color(19);
+		}else {
+			change_back_color(20);
+		}
+}
+
+/**
  *	タイトル画面の星のアニメーションが書かれた関数
  */
 void stars(int x[],int y[],int amount){
 	//for(int i = 0; i < 10; i++){
 	for(int j = 0;j < amount; j++){
+		change_text_color(184);		//文字の色指定
+		print_maintitlelines_backcolor(y[j]);
 		print_line("+",x[j],y[j]);
+		reset_style();						//スタイル指定リセット
 	}
 	fflush(stdout);
 	usleep(1 * 100000);
 	for(int j = 0;j < amount; j++){
+		change_text_color(11);		//文字の色指定
+		print_maintitlelines_backcolor(y[j]);
 		print_line("*",x[j],y[j]);
+		reset_style();						//スタイル指定リセット
 	}
 	fflush(stdout);
 	usleep(1 * 100000);
@@ -59,10 +80,19 @@ void stars(int x[],int y[],int amount){
  *	タイトル画面を表示する関数
  */
 int maintitle(){
+	//タイトル画面の背景色をつける
+	for(int printing_line_y = 2; printing_line_y < HEIGHT;printing_line_y++){
+		print_maintitlelines_backcolor(printing_line_y);
+		for(int printing_space_x = 2;printing_space_x < WIDTH;printing_space_x++){
+			print_line(" ",printing_space_x,printing_line_y);
+		}
+	}
+	to_bold();
 	/**
 	 * ここからロゴのスクロール開始
 	 * 全部見えてないスクロール→ 全部見えた状態のスクロール
 	 */
+	change_back_color(17);	//ロゴの後ろと色を合わせる
 	for(int i = 0; i < 9; i++){
 		for(int j = 0; j < i; j++){
 			print_line(title[8 - j],15,i - j + 1);
@@ -92,6 +122,7 @@ int maintitle(){
 
 	print_lines(title_space,15,4,9);
 	print_lines(title,15,5,9);
+	print_maintitlelines_backcolor(HEIGHT - 4);
 	print_line("Press Enter",25,HEIGHT - 4);
 	fflush(stdout);
 	mykbhit();
@@ -109,7 +140,7 @@ int maintitle(){
 	for(int i = 0; i< STAR_AMOUNT;i++){
 		//まず乱数を振る
 		star_x[i] = rand() % (WIDTH - 2) + 2;
-		star_y[i] = rand() % (HEIGHT - 2) + 2;
+		star_y[i] = rand() % (HEIGHT - 9) + 2;
 		//もし座標がタイトルロゴのある範囲とかぶっていたら
 		if(star_y[i] >= 5 && star_y[i] < 15){
 			if(star_x[i] >= 15 && star_x[i] <= 46){
