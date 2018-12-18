@@ -46,10 +46,10 @@ void item_list_on_map(){
 		{MAP_WIN_X - MAP_WIN_WIDTH + 2,MAP_WIN_Y + 4,0,0},
 		{MAP_WIN_X - MAP_WIN_WIDTH + 2,MAP_WIN_Y + 5,0,0}
 	};
-	extendstr use_potion_message[] = {
+	extendstr use_potion_message[HEIGHT - 2] = {
 		{"ポーションを使った！▼ ",0,0}
 	};
-	extendstr use_nasu_message[] = {
+	extendstr use_nasu_message[HEIGHT - 2] = {
 		{"ここで食べるのはもったいない▼ ",0,0},
 		{"戦闘中の補給によさそうだ▼ ",0,0}
 	};
@@ -67,16 +67,16 @@ void item_list_on_map(){
 	int selected_item = select_from_list(item_pos,potion_amount + have_nasu +1);
 	if(selected_item < potion_amount){
 		make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
-		exstrcpy(now_text,use_potion_message,sizeof(use_potion_message)/sizeof(extendstr));
-		string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,sizeof(use_potion_message)/sizeof(extendstr));
+		exstrcpy(now_text,use_potion_message,eslengthof(use_potion_message));
+		string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(use_potion_message));
 		change_hp(&naoki,-1 * naoki.max_hp);
 		change_hp(&arist,-1 * arist.max_hp);
 		change_hp(&lirel,-1 * lirel.max_hp);
 		potion_amount--;
 	}else if(have_nasu && selected_item == potion_amount + have_nasu -1){
 		make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
-		exstrcpy(now_text,use_nasu_message,sizeof(use_nasu_message)/sizeof(extendstr));
-		string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,sizeof(use_nasu_message)/sizeof(extendstr));
+		exstrcpy(now_text,use_nasu_message,eslengthof(use_nasu_message));
+		string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(use_nasu_message));
 	}
 	print_lines(now_map,2,2,HEIGHT - 2);
 }
@@ -108,7 +108,7 @@ int onmap_manu(){
 	while(!close_menu_flag){
 		make_flame(MAP_WIN_WIDTH,MAP_WIN_HEIGHT,MAP_WIN_X,MAP_WIN_Y);
 		print_lines(menu_items,MAP_WIN_X + 3,MAP_WIN_Y + 1,4);
-
+		fflush(stdout);
 		switch(select_from_list(menu_pos,4)){
 			case status:
 				view_status();
@@ -121,10 +121,10 @@ int onmap_manu(){
 				break;
 			case close:
 				close_menu_flag = 1;
-				continue;
 				break;
 		}
 	}
+	flame_clean(WIDTH - 2,HEIGHT - 2,2,2);
 	sub_flame_clean(MAP_WIN_WIDTH,MAP_WIN_HEIGHT,MAP_WIN_X,MAP_WIN_Y);
 	return 0;
 }
