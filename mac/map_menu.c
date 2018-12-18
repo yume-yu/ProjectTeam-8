@@ -106,7 +106,7 @@ int onmap_manu(){
 		{MAP_WIN_X + 2,MAP_WIN_Y + 4,0,0}
 	};
 	while(!close_menu_flag){
-		make_flame(MAP_WIN_WIDTH,MAP_WIN_HEIGHT,MAP_WIN_X,MAP_WIN_Y);
+		make_flame(MAP_WIN_WIDTH,MAP_WIN_HEIGHT,MAP_WIN_X-1,MAP_WIN_Y);
 		print_lines(menu_items,MAP_WIN_X + 3,MAP_WIN_Y + 1,4);
 		fflush(stdout);
 		switch(select_from_list(menu_pos,4)){
