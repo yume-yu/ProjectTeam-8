@@ -91,8 +91,6 @@ arrow_pos move_on_map(int width, int height,arrow_pos *(tmp_pos)[WIDTH -2 ][HEIG
 				}
 				print_line("●",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
 				break;
-			case ENTERKEY:
-				break;
 			case ' ':
 				start_pos =*tmp_pos[arrow_pos_label.x][arrow_pos_label.y];
 				start_pos.x -= 2;
@@ -101,8 +99,10 @@ arrow_pos move_on_map(int width, int height,arrow_pos *(tmp_pos)[WIDTH -2 ][HEIG
 				arrow_pos_label.y = height - 1;
 				return *tmp_pos[arrow_pos_label.x][arrow_pos_label.y];
 				break;
+			case ENTERKEY:
 			default:
 				//print_line("●",tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->x,tmp_pos[arrow_pos_label.x][arrow_pos_label.y]->y);
+				mvcur(1,HEIGHT + 1);
 				continue;
 				//break;
 		}
