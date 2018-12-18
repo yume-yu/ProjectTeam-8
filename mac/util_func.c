@@ -182,7 +182,8 @@ void print_lines(char *string[], int x, int y, int num_lines){
  */
 void string_march(extendstr *(tmp)[],int x,int y,int lines){
 	char substring[100];
-	for(int i = 0; i < lines; i++){
+	int text_length = eslengthof(*tmp);
+	for(int i = 0; i < text_length; i++){
 		for(int j = MULTIBYTE_CHAR_SIZE ; j < strlen(tmp[i]->string); j += MULTIBYTE_CHAR_SIZE ){
 			mvcur(x + tmp[i]->offset,y + i);
 			strncpy(substring,tmp[i]->string,j);
@@ -256,8 +257,9 @@ int eslengthof(extendstr sxstr[HEIGHT - 2]){
  *	表示文章を文章のアドレス配列に変換する関数
  */
 void exstrcpy(extendstr *(to)[],extendstr from[],int lines){
-	for(int i = 0; i < lines; i++){
-		to[i] = &from[i];
+	int counter;
+	for(counter = 0; counter < lines; counter++){
+		to[counter] = &from[counter];
 	}
 }
 
