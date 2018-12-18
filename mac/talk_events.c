@@ -10,11 +10,11 @@
 /* リーレルがポーションを見つけた時の挙動  */
 void lirel_find_potion(){
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
-	extendstr event_text[] = {
+	extendstr event_text[HEIGHT - 2] = {
 		{"リーレル：「む、これは」▼  ",0,0},
 		{"ポーションを見つけた▼  ",0,0}
 	};
-	extendstr error_text[] = {
+	extendstr error_text[HEIGHT - 2] = {
 		{"ポーションはこれ以上持てないので諦めた▼  ",0,0},
 	};
 	exstrcpy(now_text,event_text,2);
@@ -29,11 +29,11 @@ void lirel_find_potion(){
 /* ナオキがポーションを見つけた時の挙動  */
 void naoki_find_potion(){
 	//make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
-	extendstr event_text[] = {
+	extendstr event_text[HEIGHT - 2] = {
 		{"ナオキ：「いいもの、発見！」▼  ",0,0},
 		{"ポーションを見つけた▼  ",0,0}
 	};
-	extendstr error_text[] = {
+	extendstr error_text[HEIGHT - 2] = {
 		{"ポーションはこれ以上持てない…▼  ",0,0},
 	};
 	exstrcpy(now_text,event_text,2);
@@ -73,7 +73,7 @@ void noentry_st1(){
 void talk_event_st1_1(){
 	flame_flush();
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
-	extendstr error_text[] = {
+	extendstr error_text[HEIGHT - 2] = {
 		{"もぬけの殻だ▼  ",0,0},
 	};
 	exstrcpy(now_text,error_text,1);
@@ -122,24 +122,18 @@ void talk_event_st2_0(){
 		string_march(now_text,2,2,eslengthof(talk_st2_0_2));
 		talk_event_st2_0_arrived = true;
 	}else{
-		extendstr error_text[] = {
-			{"ここにはなにもない▼  ",0,0},
-		};
-		exstrcpy(now_text,error_text,1);
+		exstrcpy(now_text,talk_st2_null,eslengthof(talk_st2_null));
 		make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
-		string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(error_text));
+		string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(talk_st2_null));
 	}
 }
 
 bool talk_event_st2_1_arrived = false;
 void talk_event_st2_1(){
 	flame_flush();
-	extendstr error_text[] = {
-		{"ここにはなにもない▼  ",0,0},
-	};
-	exstrcpy(now_text,error_text,1);
+	exstrcpy(now_text,talk_st2_null,eslengthof(talk_st2_null));
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
-	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(error_text));
+	string_march(now_text,BATTLE_MODE_STATUS_FLAME_X + 1,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(talk_st2_null));
 }
 
 /* ステージ2 ボス戦前 */

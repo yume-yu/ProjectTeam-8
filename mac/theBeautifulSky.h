@@ -384,6 +384,7 @@ extern extendstr lirel_stop[HEIGHT - 2];
 extern extendstr beforebattle_stage1[HEIGHT - 2];
 extern extendstr afterbattle_stage1[HEIGHT - 2];
 extern extendstr cenario_stage2[HEIGHT - 2];
+extern extendstr talk_st2_null[HEIGHT - 2];
 extern extendstr talk_st2_0_1[HEIGHT - 2];
 extern extendstr talk_st2_0_2[HEIGHT - 2];
 extern extendstr beforebattle_stage2[HEIGHT - 2];
