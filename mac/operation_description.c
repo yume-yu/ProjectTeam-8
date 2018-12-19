@@ -88,7 +88,7 @@ void explain_command(){
 
 	extendstr fourth[HEIGHT - 2] = {
 		{"かばう　コマンドを選ぶと後衛をかばうことができます ",0,1},
-		{"使用するときには前衛のHPに気を付けましょう▼ ",0,0},
+		{"使用するときには前衛のＨＰに気を付けましょう▼ ",0,0},
 	};
 
 	extendstr fifth[HEIGHT - 2] = {
