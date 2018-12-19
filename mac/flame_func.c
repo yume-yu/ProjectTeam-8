@@ -101,15 +101,68 @@ void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x
 }
 
 /**
- * フレーム内をアニメーションでスペース埋めにする関数
+ * フレーム内をカーテンアニメーションでスペース埋めにする関数
  */
 void flame_flush(){
 	for(int i = 2; i < HEIGHT; i++){
+		if(i < HEIGHT / 4){
+				printf("\e[48;5;160m");
+		}else if (i < HEIGHT / 2){
+				printf("\e[48;5;124m");
+		}else if (i < 3 * HEIGHT / 4){
+				printf("\e[48;5;88m");
+		}else{
+				printf("\e[48;5;52m");
+		}
 		for(int j = 2; j < WIDTH; j++){
 			print_line(" ",j,i);
 		}
 		fflush(stdout);
-		usleep(2 * 10000);
+		usleep(5 * 10000);
+	}
+	printf("\e[0m");
+	fflush(stdout);
+	usleep(2 * 100000);
+	flame_clean();
+}
+
+/**
+ * フレーム内をカーテンアニメーションでスペース埋めにする関数(往復)
+ */
+void curtain_animation(){
+	for(int i = 2; i < HEIGHT; i++){
+		if(i < HEIGHT / 4){
+				printf("\e[48;5;160m");
+		}else if (i < HEIGHT / 2){
+				printf("\e[48;5;124m");
+		}else if (i < 3 * HEIGHT / 4){
+				printf("\e[48;5;88m");
+		}else{
+				printf("\e[48;5;52m");
+		}
+		if(i != HEIGHT - 1){
+			for(int j = 2; j < WIDTH; j++){
+				print_line(" ",j,i);
+			}
+		}else{
+			printf("\e[0m");
+			printf("\e[38;5;184m");
+			for(int j = 2; j < WIDTH; j++){
+				print_line(";",j,i);
+			}
+		}
+		fflush(stdout);
+		usleep(5 * 10000);
+	}
+	printf("\e[0m");
+	fflush(stdout);
+	usleep(2 * 100000);
+	for(int i = HEIGHT -1; i > 1; i--){
+		for(int j = 2; j < WIDTH; j++){
+			print_line(" ",j,i);
+		}
+		fflush(stdout);
+		usleep(5 * 10000);
 	}
 }
 

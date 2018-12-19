@@ -464,6 +464,7 @@ int select_from_2dlist(int width, int height,arrow_pos tmp_pos[width][height]);	
 void make_flame(int width, int height, int offset_x, int offset_y);								//指定位置を左上に高さと幅を指定したフレームを作成する関数
 void make_vsflame(int width, int height, int offset_x, int offset_y, int split_x);//指定位置を左上に高さと幅と分割位置を指定した横2分割のフレームを作成する関数
 void flame_flush();																																//メインフレーム内をアニメーション付きでスペース埋めする関数
+void curtain_animation();																																//メインフレーム内をカーテンアニメーション付きでスペース埋めする関数
 void flame_clean();																																//メインフレーム内をアニメーションなしでスペース埋めする関数
 void sub_flame_clean(int width, int height, int x, int y);												//指定範囲内をアニメーションなしでスペース埋めする関数
 int check_window(int width, int height, int x, int y, char *string);							//確認文とy/nの確認フレームを出す関数
