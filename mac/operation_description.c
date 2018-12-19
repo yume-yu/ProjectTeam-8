@@ -134,7 +134,7 @@ int demo_battle(character *front,character *back,character *enemies[3], int enem
 	for(int i = 0; i < enemy_amount; i++){
 		change_hp(enemies[i],-1 * enemies[i]->max_hp);
 	}
-	flame_flush();
+	curtain_animation();
 	make_vsflame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_SPLIT_X);
 
 	print_bt_status(front,back);																													//味方HPの表示
