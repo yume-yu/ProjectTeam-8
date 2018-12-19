@@ -32,31 +32,31 @@ void print_explain_out(extendstr explain[],int size){
 
 /* 戦闘の説明 */
 void explain_battle(){
-	extendstr first[] = {
+	extendstr first[HEIGHT - 2] = {
 		{"チュートリアル戦闘を行います▼ ",0,0}
 	};
 
-	extendstr second[] = {
+	extendstr second[HEIGHT - 2] = {
 		{"戦闘は前衛と後衛の２人 ",0,1},
 		{"対エネミーで行います▼ ",12,0}
 	};
 
-	extendstr third[] = {
+	extendstr third[HEIGHT - 2] = {
 		{"プレイヤーが操作するのは ",0,1},
 		{"前衛のみです▼ ",20,0}
 	};
 
-	extendstr fourth[] = {
+	extendstr fourth[HEIGHT - 2] = {
 		{"後衛の行動は ",0,1},
 		{"ランダムに決定されます▼ ",10,0}
 	};
 
-	extendstr fifth[] = {
+	extendstr fifth[HEIGHT - 2] = {
 		{"行動の順番は必ず ",0,1},
 		{"前衛→　後衛→　エネミーです▼ ",6,0}
 	};
 
-	extendstr sixth[] = {
+	extendstr sixth[HEIGHT - 2] = {
 		{"エネミーのＨＰは上部に ",0,1},
 		{"パーティーのＨＰは右に表示されます▼ ",0,0}
 	};
@@ -71,32 +71,32 @@ void explain_battle(){
 
 /* 戦闘コマンドの説明 */
 void explain_command(){
-	extendstr first[] = {
+	extendstr first[HEIGHT - 2] = {
 		{"最後に戦闘時のコマンドについて説明します▼ ",0,0}
 	};
 
-	extendstr second[] = {
+	extendstr second[HEIGHT - 2] = {
 		{"こうげき　コマンドを選ぶと攻撃ができます ",0,1},
 		{"攻撃の前には攻撃する相手を選択できます▼ ",0,0},
 	};
 
-	extendstr third[] = {
+	extendstr third[HEIGHT - 2] = {
 		{"とくしゅ　コマンドを選ぶと特殊な攻撃ができます ",0,1},
 		{"特殊攻撃を持っていないキャラクターもいるので ",0,1},
 		{"注意してください▼ ",30,0},
 	};
 
-	extendstr fourth[] = {
+	extendstr fourth[HEIGHT - 2] = {
 		{"かばう　コマンドを選ぶと後衛をかばうことができます ",0,1},
-		{"使用するときには前衛のHPに気を付けましょう▼ ",0,0},
+		{"使用するときには前衛のＨＰに気を付けましょう▼ ",0,0},
 	};
 
-	extendstr fifth[] = {
+	extendstr fifth[HEIGHT - 2] = {
 		{"どうぐ　コマンドを選ぶとポーションを使用できます ",0,1},
 		{"ポーションの効果はパーティーの全回復です▼ ",0,0},
 	};
 
-	extendstr sixth[] = {
+	extendstr sixth[HEIGHT - 2] = {
 		{"では実際に戦ってみましょう▼ ",0,0},
 	};
 
@@ -381,7 +381,7 @@ int demo_battle(character *front,character *back,character *enemies[3], int enem
 int operation_description(){
 	now_stage = ope_exp;
 	flame_clean();
-	extendstr first[] = {
+	extendstr first[HEIGHT - 2] = {
 		{"このゲームでの操作は以下のキーで行います。 ",0,1},
 		{"　 ",0,1},
 		{"Enter:決定　文字送り ",1,1},
@@ -399,12 +399,12 @@ int operation_description(){
 		{(WIDTH - 16)/2 + 1,16,0,0},
 	};
 
-	extendstr second[] = {
+	extendstr second[HEIGHT - 2] = {
 		{"マップ上でのキャラクターの位置は●で表されます ",0,1},
 		{"次に進む場合はキャラクターを出口へ移動させてください▼  ",0,0},
 	};
 
-	extendstr after[] = {
+	extendstr after[HEIGHT - 2] = {
 		{"操作説明／チュートリアルは以上です。 ",0,1},
 		{"ゲームを始めますか？ ",7,1},
 		{" ",0,1},

@@ -28,7 +28,7 @@ event decide_event(arrow_pos exit_point){
 					start_pos.x = exit_point.x - 2;
 					start_pos.y = (exit_point.y + 1 ) - 2;
 					before_battle_st1();
-				}else if((exit_point.x == 4 || exit_point.x == 5) && exit_point.y == 15){
+				}else if((exit_point.x == 5 || exit_point.x == 6 || exit_point.x == 7 || exit_point.x == 8) && exit_point.y == 15){
 					/* 一番左の部屋到達 */
 					selected_event = talk_event;
 					room_id = 0;
