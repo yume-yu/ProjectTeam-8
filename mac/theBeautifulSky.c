@@ -24,6 +24,8 @@ void subtitle(stage now_stage){
 		case stage5:
 			exstrcpy(nowsubtitle,subtitle5,2);
 			break;
+		default:
+			break;
 	}
 
 	for(int i = 0;i < 100; i++){
@@ -77,16 +79,17 @@ int main(){
 				MAIN_FLAME_Y
 				);									/* メインフレーム描画 ここまで */
 		if(maintitle()){      	//タイトル画面表示
-			flame_flush();					//アニメーション付きフレームクリーン
+			curtain_animation();					//アニメーション付きフレームクリーン
 			if(operation_description()){
+				curtain_animation();
 				continue;
 			}
 		}
-		flame_flush();					//アニメーション付きフレームクリーン
+		curtain_animation();					//アニメーション付きフレームクリーン
 		//シナリオ表示
 		subtitle(now_stage);
 		story(now_stage);
-		flame_flush();
+		curtain_animation();
 
 		now_stage = stage1;
 		update_map(now_stage);
@@ -171,6 +174,8 @@ int main(){
 										continue;
 									}
 									break;
+								default:
+									break;
 							}
 						}else{
 							gameover_lose();
@@ -182,6 +187,10 @@ int main(){
 						story(now_stage);				//シナリオ表示
 						break;
 					case talk_event:
+						printf("\e[2m");
+						print_lines(now_map,2,2,HEIGHT - 2);
+						usleep(5 * 10000);
+						printf("\e[0m");
 						switch(now_stage){
 							case stage1:
 								switch(room_id){
@@ -252,6 +261,8 @@ int main(){
 										break;
 								}
 								break;
+							default:
+								break;
 						}
 						break;
 					case move_map:
@@ -268,7 +279,7 @@ int main(){
 						printf("                 hare!");
 						break;
 				}
-				flame_flush();
+				//curtain_animation();
 			}
 		}
 		/* ゲーム終了フラグの初期化 */

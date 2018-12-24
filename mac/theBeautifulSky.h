@@ -325,7 +325,7 @@ extern int potion_amount;									//所持しているポーションの数
 extern int have_nasu;											//所持しているナスの数
 
 //ステージ管理/マップ管理
-extern char *(maps)[9][HEIGHT - 2];												//全ステージのマップ図
+extern char *(maps)[10][HEIGHT - 2];												//全ステージのマップ図
 extern arrow_pos *(map_coors)[10][WIDTH - 2][HEIGHT - 2];	//全ステージのマップ座標
 extern stage now_stage;																		//現在のステージ
 extern char *(now_map)[WIDTH - 2];												//現在のマップ図

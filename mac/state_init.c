@@ -8,7 +8,7 @@
 #include "theBeautifulSky.h"
 
 
-char *(maps)[9][HEIGHT - 2];												//全ステージのマップ図
+char *(maps)[10][HEIGHT - 2];												//全ステージのマップ図
 arrow_pos *(map_coors)[10][WIDTH - 2][HEIGHT - 2];	//全ステージのマップ座標
 stage now_stage;																		//現在のステージ
 char *(now_map)[WIDTH - 2];												//現在のマップ図
