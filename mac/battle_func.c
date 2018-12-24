@@ -104,7 +104,8 @@ int battle(character *front,character *back,character *enemies[3], int enemy_amo
 	for(int i = 0; i < enemy_amount; i++){
 		change_hp(enemies[i],-1 * enemies[i]->max_hp);
 	}
-	flame_flush();
+	//flame_flush();
+	animete_make_flame_speedfix(WIDTH,HEIGHT,MAIN_FLAME_X,MAIN_FLAME_Y);
 	make_vsflame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_SPLIT_X);
 
 	print_bt_status(front,back);

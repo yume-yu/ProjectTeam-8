@@ -134,7 +134,8 @@ int demo_battle(character *front,character *back,character *enemies[3], int enem
 	for(int i = 0; i < enemy_amount; i++){
 		change_hp(enemies[i],-1 * enemies[i]->max_hp);
 	}
-	curtain_animation();
+	//curtain_animation();
+	animete_make_flame_speedfix(WIDTH,HEIGHT,MAIN_FLAME_X,MAIN_FLAME_Y);
 	make_vsflame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_SPLIT_X);
 
 	print_bt_status(front,back);																													//味方HPの表示
@@ -384,14 +385,14 @@ int operation_description(){
 	extendstr first[HEIGHT - 2] = {
 		{"このゲームでの操作は以下のキーで行います。 ",0,1},
 		{"　 ",0,1},
-		{"Enter:決定　文字送り ",1,1},
+		{"\e[38;5;77mEnter\e[0m: 決定　文字送り ",1,1},
 		{"（文字送りは他のキーでも可 ",3,1},
 		{" Enterの長押しor 連打は想定外の選択の可能性あり） ",8,1},
 		{"　 ",0,1},
-		{"AWSD: マップ上の移動　カーソル移動 ",1,1},
+		{"\e[38;5;77mAWSD\e[0m : マップ上の移動　カーソル移動 ",1,1},
 		{"Ａ＝←　Ｗ＝↑　Ｓ＝↓　Ｄ＝→  ",5,1},
 		{"　 ",0,1},
-		{"Space:マップ上でメニューを開く ",1,1},
+		{"\e[38;5;77mSpace\e[0m :マップ上でメニューを開く ",1,1},
 	};
 
 	arrow_pos yesno[] = {
@@ -416,7 +417,7 @@ int operation_description(){
 		{(WIDTH - 36)/2 + 6,11,0,0},
 		{(WIDTH - 36)/2 + 6,12,0,0},
 	};
-	print_line("How to play game",(WIDTH - 16)/2,2);															//タイトルテキストを出す
+	print_line("\e[1m\e[4mHow to play game\e[0m",(WIDTH - 16)/2,2);															//タイトルテキストを出す
 	exstrcpy(now_text,first,lengthof(first,extendstr));
 	string_march(now_text,2,4,lengthof(first,extendstr));
 	print_line("次に進む場合は「はい」を選んでください",(WIDTH - 38)/2,15);				//確認の文章を表示
