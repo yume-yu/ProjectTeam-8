@@ -71,7 +71,6 @@ void noentry_st1(){
 
 /* ステージ1 真ん中の部屋 */
 void talk_event_st1_1(){
-	flame_flush();
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
 	extendstr error_text[HEIGHT - 2] = {
 		{"もぬけの殻だ▼  ",0,0},
@@ -87,7 +86,7 @@ void talk_event_st1_0(){
 	if(talk_event_st1_0_arrived){
 		talk_event_st1_1();
 	}else{
-		flame_flush();
+		//flame_flush();
 		lirel_find_potion();
 		talk_event_st1_0_arrived = true;
 	}
@@ -95,7 +94,10 @@ void talk_event_st1_0(){
 
 /* ステージ1 ボス戦前 */
 void before_battle_st1(){
-	flame_flush();
+	printf("\e[2m");
+	print_lines(now_map,2,2,HEIGHT - 2);
+	usleep(5 * 10000);
+	printf("\e[0m");
 	make_flame(BATTLE_MODE_STATUS_FLAME_WIDTH,BATTLE_MODE_STATUS_FLAME_HEIGHT,BATTLE_MODE_STATUS_FLAME_X,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT);
 	exstrcpy(now_text,beforebattle_stage1, eslengthof(beforebattle_stage1));
 	string_march(now_text,BATTLE_MODE_COMMAND_POS - 2,HEIGHT - BATTLE_MODE_STATUS_FLAME_HEIGHT + 1,eslengthof(beforebattle_stage1));
@@ -113,8 +115,8 @@ void after_battle_st1(){
 /* ステージ2 右の部屋 */
 bool talk_event_st2_0_arrived = false;
 void talk_event_st2_0(){
-	flame_flush();
 	if(!talk_event_st2_0_arrived){
+		curtain_animation();
 		exstrcpy(now_text,talk_st2_0_1,eslengthof(talk_st2_0_1));
 		string_march(now_text,2,2,eslengthof(talk_st2_0_1));
 		flame_clean();
